@@ -9,8 +9,6 @@ import db from "./db";
 import Keploy from "typescript-sdk";
 import middleware from "typescript-sdk/dist/integrations/express/middleware"
 
-
-console.log(process.env.KEPLOY_MODE)
 async function main() {
   const app = express();
   
@@ -19,7 +17,7 @@ async function main() {
   
   let keploy = new Keploy({
     name: "ts-url-shortner",
-    host: "localhost",
+    host: "0.0.0.0",
     port: port,
     delay: 5,
     timeout: 60,
@@ -27,17 +25,19 @@ async function main() {
   }, {
     licenseKey: "",
     url: "http://localhost:8081/api",
-  })
+  });
   // parse application/json
   app.use(bodyParser.json());
   // @ts-ignore
-  app.use(middleware(() =>  keploy.create().then( x => x)));
+  // app.use(middleware(() =>  keploy.create().then( x => x)));
   // keploy.create();
+  app.use(middleware(keploy));
 
    app.listen(port, "0.0.0.0", () => {
      console.log(`Application listening at http://localhost:${port}`);
      db();
-     routes(app, keploy);
+     routes(app);
+     keploy.create()
    });
 }
 

@@ -11,11 +11,11 @@ import {
 import validateResourse from "../middleware/validateResourse";
 import shortUrlSchema from "../schema/createShortUrl.schema";
 
-function routes(app: Express, keploy: Keploy) {
+function routes(app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => {
     res.set('Type', 'foo-bar');
-    console.log(res.getHeaders());
-    return res.send("App is healthy");
+    console.log("in route handler", res.getHeaders());
+    return res.json({"field": "App is healthy", "opacity": Math.random()});
   });
 
   app.post("/url", validateResourse(shortUrlSchema), createShortUrl);
@@ -27,6 +27,7 @@ function routes(app: Express, keploy: Keploy) {
 
     res.set('Name', 'Michael');
     res.set('country', 'United States');
+    // res.statusCode =201;
     res.json({pokemon:pokemon,level:level})
   })
 
