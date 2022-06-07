@@ -1,7 +1,4 @@
 import { Express, Request, Response } from "express";
-// import middleware from "typescript-sdk/dist/integerations/express";
-
-import Keploy from "typescript-sdk/dist/src/keploy";
 import {
   createShortUrl,
   handleRedirect,
@@ -14,6 +11,7 @@ import shortUrlSchema from "../schema/createShortUrl.schema";
 function routes(app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => {
     res.set('Type', 'foo-bar');
+    res.set('country-1', 'United States');
     console.log("in route handler", res.getHeaders());
     return res.json({"field": "App is healthy", "opacity": Math.random()});
   });
@@ -27,13 +25,11 @@ function routes(app: Express) {
 
     res.set('Name', 'Michael');
     res.set('country', 'United States');
+    res.set('country-1', 'United States');
     // res.statusCode =201;
     res.json({pokemon:pokemon,level:level})
   })
 
-  // app.get("/api/url/:shortId", getShortUrl);
-
- 
 }
 
 export default routes;
