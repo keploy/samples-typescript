@@ -1,0 +1,25 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Launch Package",
+            "type": "node",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${fileDirname}",
+            "env": { 
+                "KEPLOY_MODE": "test",
+                "KEPLOY_APP_NAME": "typescript-sdk",
+                "KEPLOY_APP_HOST": "localhost",
+                "KEPLOY_APP_PORT": "8080",
+                "KEPLOY_APP_DELAY": "5",
+                "KEPLOY_APP_TIMEOUT": "100",
+                "KEPLOY_SERVER_URL": "http://localhost:8081/api"
+            }
+        }
+    ]
+}
