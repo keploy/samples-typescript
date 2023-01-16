@@ -1,0 +1,47 @@
+version: api.keploy.io/v1beta2
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 0
+        proto_minor: 0
+        url: /getData
+        header:
+            accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+            accept-encoding: gzip, deflate, br
+            accept-language: en-GB,en
+            cache-control: max-age=0
+            connection: keep-alive
+            cookie: connect.sid=s%3AdxWsE0jhYYsXQwFQKZJhtK_5Jli7MPB1.Wjbj0YQ3J7yJE1Zx21NQAWPtrz1f8i73j9FAnlvbrSg
+            host: localhost:8080
+            if-none-match: W/"118-pbdwwFo9SKNhD3Lx5iHJyngpq00"
+            sec-fetch-dest: document
+            sec-fetch-mode: navigate
+            sec-fetch-site: none
+            sec-fetch-user: ?1
+            sec-gpc: "1"
+            upgrade-insecure-requests: "1"
+            user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36
+        body: '{}'
+        body_type: utf-8
+    resp:
+        status_code: 304
+        header:
+            access-control-allow-origin: '*'
+            etag: W/"118-pbdwwFo9SKNhD3Lx5iHJyngpq00"
+            x-powered-by: Express
+        body: '{"data":{"id":2,"email":"janet.weaver@reqres.in","first_name":"Janet","last_name":"Weaver","avatar":"https://reqres.in/img/faces/2-image.jpg"},"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}}'
+        body_type: utf-8
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+    objects:
+        - type: error
+          data: H4sIAAAAAAAA/wEAAP//AAAAAAAAAAA=
+    mocks:
+        - test-1-0
+    assertions:
+        noise: []
+    created: 1673854996636

@@ -1,0 +1,43 @@
+version: api.keploy.io/v1beta2
+kind: Http
+name: test-2
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 0
+        proto_minor: 0
+        url: /postData
+        header:
+            accept: '*/*'
+            accept-encoding: gzip, deflate, br
+            connection: keep-alive
+            content-length: "36"
+            content-type: application/json
+            host: localhost:8080
+            postman-token: 4991af35-e64b-448e-9551-1f6d9aae4517
+            user-agent: PostmanRuntime/7.30.0
+        body: '{"url":"https://youtube.com"}'
+        body_type: ""
+    resp:
+        status_code: 200
+        header:
+            access-control-allow-origin: '*'
+            content-length: "50"
+            content-type: text/html; charset=utf-8
+            etag: W/"32-IiMtXeFe3s+6faiVmUEpxgZG1x4"
+            x-powered-by: Express
+        body: '{"id":"42","createdAt":"2023-01-16T07:43:20.714Z"}'
+        body_type: ""
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+    objects:
+        - type: error
+          data: ""
+    mocks:
+        - test-2-0
+    assertions:
+        noise:
+            - body.createdAt
+    created: 1673855000704

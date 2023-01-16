@@ -1,5 +1,7 @@
-require("typescript-sdk/dist/integrations/express/register"); // Require the express hook
-require("typescript-sdk/dist/integrations/node-fetch/require") // Require the node-fetch hook
+// Require hooks for keploy integration. This should be before require statements of packages
+require("typescript-sdk/dist/integrations/express/register"); // express require hooks for keploy integratation 
+require("typescript-sdk/dist/integrations/node-fetch/require") // node-fetch require hook for keploy integration
+
 var express = require('express');
 const fetch = require("node-fetch")
 
@@ -26,6 +28,6 @@ app.post('/postData', function (re, rs) {
     .then(text => rs.send(text));
 });
 
-var server = app.listen(3000,() =>
-console.log(`Example app listening on port 3000!`));
+var server = app.listen(8080,() =>
+console.log(`Example app listening on port 8080!`));
 module.exports = server;
