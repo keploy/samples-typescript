@@ -1,6 +1,6 @@
-version: api.keploy.io/v1beta1
+version: api.keploy.io/v1beta2
 kind: Http
-name: test-1-0
+name: mock-2-0
 spec:
     metadata:
         name: node-fetch
@@ -19,17 +19,17 @@ spec:
         status_code: 200
         header:
             access-control-allow-origin: '*'
-            age: "347"
+            age: "7039"
             cache-control: max-age=14400
             cf-cache-status: HIT
-            cf-ray: 78a53821db3e84ad-BOM
+            cf-ray: 797d7278d997794d-AMD
             connection: close
             content-encoding: gzip
             content-type: application/json; charset=utf-8
-            date: Mon, 16 Jan 2023 07:43:16 GMT
+            date: Sat, 11 Feb 2023 13:31:50 GMT
             etag: W/"118-pbdwwFo9SKNhD3Lx5iHJyngpq00"
             nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
-            report-to: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=1yDXhUY8a31%2Fu%2B3CqwiBdotskrjstxynlIkcINZ%2B%2BGU8bjsxxyNt3NmljRprG3ND%2B7rqoG7TwgdBsXGvgoB1PKCNJds2zt8B1eTLGKjM6YQSiedBBe5tvgsxIg%3D%3D"}],"group":"cf-nel","max_age":604800}'
+            report-to: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=%2FExoo3b3HxvSr4ypu51nOiwXKHEk2P3GiQ5qhYRs2D5%2BbouiHMRK4MkXTfjAMZ%2FnpQmm75PP8TTx%2FETuUtNW42LLhP8TjBb5d%2FVPiJsxuf0Ew08LSe5b1guoCQ%3D%3D"}],"group":"cf-nel","max_age":604800}'
             server: cloudflare
             transfer-encoding: chunked
             vary: Accept-Encoding

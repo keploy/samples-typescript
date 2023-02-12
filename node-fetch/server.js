@@ -28,6 +28,7 @@ app.post('/postData', function (re, rs) {
     .then(text => rs.send(text));
 });
 
-var server = app.listen(8080,() =>
-console.log(`Example app listening on port 8080!`));
+var server = app.listen(process.env.KEPLOY_APP_PORT,() =>
+    console.log(`Example app listening on port ${process.env.KEPLOY_APP_PORT}!`)
+);
 module.exports = server;
