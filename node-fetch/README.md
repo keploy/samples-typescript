@@ -32,7 +32,7 @@ To genereate testcases we just need to make some API calls. You can use [Postman
 
 ```bash
 curl --request POST \
-  --url http://localhost:3000/postData \
+  --url http://localhost:8080/postData \
   --header 'content-type: application/json' \
   --data '{
     "name": "Joey",
@@ -50,10 +50,10 @@ this will return :
 ###2. Get the data
 ```bash
 curl --request GET \
-  --url http://localhost:3000/getData
+  --url http://localhost:8080/getData
 ```
 
-or by querying through the browser `http://localhost:3000/getData`
+or by querying through the browser `http://localhost:8080/getData`
 
 
 Now both these API calls were captured as a testcase and should be visible in "keploy-tests" folder in project directory.
