@@ -4,7 +4,7 @@ A sample node-fetch app containing GET and POST request integrated with keploy's
 ## Installation
 ### Setup node-fetch app
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd node-fetch
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/node-fetch
 yarn
 ```
 ### Start keploy server
