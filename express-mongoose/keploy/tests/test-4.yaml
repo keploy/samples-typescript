@@ -1,0 +1,40 @@
+version: api.keploy.io/v1beta2
+kind: Http
+name: test-4
+spec:
+    metadata: {}
+    req:
+        method: PATCH
+        proto_major: 0
+        proto_minor: 0
+        url: /updateData
+        header:
+            accept: '*/*'
+            content-length: "34"
+            content-type: application/json
+            host: localhost:8080
+            user-agent: curl/7.81.0
+        body: '{"name":"Joey","job":"Accountant"}'
+        body_type: utf-8
+    resp:
+        status_code: 200
+        header:
+            access-control-allow-origin: '*'
+            content-length: "70"
+            content-type: text/html; charset=utf-8
+            etag: W/"46-OHrf6v5lKO1Fwe6/pGUBGdbTx5U"
+            x-powered-by: Express
+        body: '{"_id":"641db02bdd0cbd63299af3f1","name":"Joey","job":"Actor","__v":0}'
+        body_type: utf-8
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+    objects:
+        - type: error
+          data: H4sIAAAAAAAA/wEAAP//AAAAAAAAAAA=
+    assertions:
+        noise:
+            - header.etag
+            - header.content-length
+            - body.job
+    created: 1679667270352

@@ -1,0 +1,13 @@
+version: api.keploy.io/v1beta2
+kind: Generic
+name: mock-3-0
+spec:
+    metadata:
+        filter: '{"name":"Mitchell"}'
+        name: find
+        type: NO_SQL
+    objects:
+        - type: object
+          data: H4sIAAAAAAAA/8orzckBBAAA//9P/MslBAAAAA==
+        - type: object
+          data: H4sIAAAAAAAA/wTAMQqAIBQG4Lv8s4OpCL47BO0Roj4lwwxCWqK7960vfGUQrJk4Sq2YZYpstXIuFF0MBHo4MwhzHWnPrUHguCIIS6h95BsC3j8g+W1/AAAA//+alsw6TgAAAA==
