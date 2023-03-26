@@ -35,7 +35,7 @@ app.post('/postData', function (re, rs) {
 app.patch('/updateData', function (re, rs) {
     console.log("PATCH request at /updateData route");
     console.log(re.body);
-    user.findOneAndUpdate({name: re.body.name}, re.body)
+    user.updateOne({name: re.body.name}, re.body)
     .then(data => JSON.stringify(data))
     .then(text => rs.send(text));
 });
@@ -44,7 +44,7 @@ app.patch('/updateData', function (re, rs) {
 app.delete('/deleteData', function (re, rs) {
     console.log("DELETE request at /deleteData route");
     console.log(re.body);
-    user.findOneAndDelete({name: re.body.name})
+    user.deleteOne({name: re.body.name})
     .then(data => JSON.stringify(data))
     .then(text => rs.send(text));
 });
