@@ -22,9 +22,9 @@ spec:
             access-control-allow-origin: '*'
             content-length: "78"
             content-type: text/html; charset=utf-8
-            etag: W/"4e-Jndo65TmnDlLNO4lUWnJ/vYgQ7M"
+            etag: W/"4e-ek52aYTNXeCeG+qirNtOpaeEGGg"
             x-powered-by: Express
-        body: '[{"_id":"641db032dd0cbd63299af3f4","name":"Mitchell","job":"Painter","__v":0}]'
+        body: '[{"_id":"6420b3d68ae041106265f5e6","name":"Mitchell","job":"Painter","__v":0}]'
         body_type: utf-8
         status_message: ""
         proto_major: 0
@@ -36,4 +36,4 @@ spec:
         - mock-3-0
     assertions:
         noise: []
-    created: 1679667258073
+    created: 1679864830158

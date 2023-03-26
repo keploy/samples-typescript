@@ -20,11 +20,11 @@ spec:
         status_code: 200
         header:
             access-control-allow-origin: '*'
-            content-length: "70"
+            content-length: "92"
             content-type: text/html; charset=utf-8
-            etag: W/"46-OHrf6v5lKO1Fwe6/pGUBGdbTx5U"
+            etag: W/"5c-XE4LqSKK8lMBgnDPfq7vp2yCSG8"
             x-powered-by: Express
-        body: '{"_id":"641db02bdd0cbd63299af3f1","name":"Joey","job":"Actor","__v":0}'
+        body: '{"acknowledged":true,"modifiedCount":1,"upsertedId":null,"upsertedCount":0,"matchedCount":1}'
         body_type: utf-8
         status_message: ""
         proto_major: 0
@@ -32,9 +32,8 @@ spec:
     objects:
         - type: error
           data: H4sIAAAAAAAA/wEAAP//AAAAAAAAAAA=
+    mocks:
+        - mock-4-0
     assertions:
-        noise:
-            - header.etag
-            - header.content-length
-            - body.job
-    created: 1679667270352
+        noise: []
+    created: 1679864850698

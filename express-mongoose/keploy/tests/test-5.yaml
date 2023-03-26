@@ -20,11 +20,11 @@ spec:
         status_code: 200
         header:
             access-control-allow-origin: '*'
-            content-length: "76"
+            content-length: "38"
             content-type: text/html; charset=utf-8
-            etag: W/"4c-txBAMMqsW48+uvp9tHh8GOXQYRg"
+            etag: W/"26-fgR5yLHQ1Hpp6zDESHaY9wJreYE"
             x-powered-by: Express
-        body: '{"_id":"641db032dd0cbd63299af3f4","name":"Mitchell","job":"Painter","__v":0}'
+        body: '{"acknowledged":true,"deletedCount":1}'
         body_type: utf-8
         status_message: ""
         proto_major: 0
@@ -32,12 +32,8 @@ spec:
     objects:
         - type: error
           data: H4sIAAAAAAAA/wEAAP//AAAAAAAAAAA=
+    mocks:
+        - mock-5-0
     assertions:
-        noise:
-            - header.content-length
-            - header.etag
-            - body.name
-            - body.job
-            - body.__v
-            - body._id
-    created: 1679667287773
+        noise: []
+    created: 1679864899169

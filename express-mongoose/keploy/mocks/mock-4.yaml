@@ -1,0 +1,14 @@
+version: api.keploy.io/v1beta2
+kind: Generic
+name: mock-4-0
+spec:
+    metadata:
+        filter: '{"name":"Joey"}'
+        name: updateOne
+        type: NO_SQL
+        update: '{"$set":{"job":"Accountant","name":"Joey"}}'
+    objects:
+        - type: string
+          data: H4sIAAAAAAAA/1IqzUtJTcvMS01RAgQAAP//1MECtwsAAAA=
+        - type: object
+          data: H4sIAAAAAAAA/6pWSkzOzssvz0lNSU9NUbIqKSpN1VHKzU/JTMtMTXHOL80rUbIy1FEqLShOLSpJTfFMUbLKK83JQYhA1RjoKOUmliRnIDTVAgIAAP///zrTjFwAAAA=

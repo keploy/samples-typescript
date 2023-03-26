@@ -3,11 +3,11 @@ kind: Generic
 name: mock-2-0
 spec:
     metadata:
-        document: '{"name":"Mitchell","job":"Painter","_id":"641db032dd0cbd63299af3f4","__v":0}'
+        document: '{"name":"Joey","job":"Actor","_id":"6420b3de8ae041106265f5e9","__v":0}'
         name: insertOne
         type: NO_SQL
     objects:
         - type: string
           data: H4sIAAAAAAAA/1IqzUtJTcvMS01RAgQAAP//1MECtwsAAAA=
         - type: object
-          data: H4sIAAAAAAAA/6pWSkzOzssvz0lNSU9NUbIqKSpN1VHKzCtOLSpJTfFMUbJSMjMxTEkyMDZKSTFITkoxMzaytExMM04zUaoFBAAA//9qtfcVPQAAAA==
+          data: H4sIAAAAAAAA/6pWSkzOzssvz0lNSU9NUbIqKSpN1VHKzCtOLSpJTfFMUbJSMjMxMkgyTkm1SEw1MDE0NDAzMjNNM021VKoFBAAA//810L91PQAAAA==
