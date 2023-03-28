@@ -1,6 +1,7 @@
 const { describe, it, before } = require('mocha');
 const assert = require('assert');
 const { NewContext } = require('typescript-sdk/dist/mock/mock');
+require('typescript-sdk/dist/integrations/node-fetch/require');
 const fetch = require('node-fetch');
 
 describe('Mocking external API calls with typescript-sdk and node-fetch', () => {
