@@ -16,8 +16,12 @@ sudo mv /tmp/keploy /usr/local/bin && keploy
 ``` 
 For other operating system, follow [this guide](https://github.com/keploy/keploy#quick-installation)
 
-
-
+### Setup MongoDB
+If you already have mongoDB installed or running in a container, skip this step.
+You need to have docker installed for the following command or you can install mongoDB locally [here](https://www.mongodb.com/docs/manual/installation/)
+```shell
+docker-compose up --build -d
+```
 ### Run the application
 ```shell
 source .env && node server.js
