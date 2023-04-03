@@ -28,7 +28,7 @@ source .env && node server.js
 
 To genereate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
 
-###1. Post the data
+### 1. Post the data
 
 ```bash
 curl --request POST \
@@ -47,7 +47,7 @@ this will return :
 }
 ```
 
-###2. Get the data
+### 2. Get the data
 ```bash
 curl --request GET \
   --url http://localhost:8080/getData
