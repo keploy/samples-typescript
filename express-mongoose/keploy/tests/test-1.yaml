@@ -1,0 +1,41 @@
+version: api.keploy.io/v1beta2
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 0
+        proto_minor: 0
+        url: /postData
+        header:
+            accept: '*/*'
+            content-length: "35"
+            content-type: application/json
+            host: localhost:8080
+            user-agent: curl/7.81.0
+        body: '{"name":"Mitchell","job":"Painter"}'
+        body_type: utf-8
+    resp:
+        status_code: 200
+        header:
+            access-control-allow-origin: '*'
+            content-length: "76"
+            content-type: text/html; charset=utf-8
+            etag: W/"4c-/3jP0V4J4ec7bNJSem5LdwJUTT0"
+            x-powered-by: Express
+        body: '{"name":"Mitchell","job":"Painter","_id":"6420b3d68ae041106265f5e6","__v":0}'
+        body_type: utf-8
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+    objects:
+        - type: error
+          data: H4sIAAAAAAAA/wEAAP//AAAAAAAAAAA=
+    mocks:
+        - mock-1-0
+    assertions:
+        noise:
+            - header.etag
+            - body._id
+    created: 1679864790839

@@ -1,0 +1,13 @@
+{
+  "name": "express-mongoose",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.10.3",
+    "typescript-sdk": "github:keploy/typescript-sdk"
+  }
+}
