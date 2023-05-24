@@ -19,8 +19,14 @@ For other operating system, follow [this guide](https://github.com/keploy/keploy
 
 
 ### Run the application
+For MacOS and Ubuntu 
 ```shell
 source .env && node server.js
+
+```
+For Windows 
+```shell
+setenv.bat && node server.js
 
 ```
 
