@@ -1,13 +1,20 @@
 {
-  "name": "express-mongoose",
+  "name": "NodeMongo",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
-  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
   "license": "ISC",
   "dependencies": {
+    "@lakhansamani/data-fetcher": "^1.0.2",
     "express": "^4.18.2",
-    "mongoose": "^6.10.3",
-    "typescript-sdk": "github:keploy/typescript-sdk"
+    "mongoose": "^7.5.0",
+    "nodemon": "^3.0.1",
+    "validator": "^13.11.0"
   }
 }

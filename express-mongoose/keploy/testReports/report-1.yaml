@@ -1,0 +1,245 @@
+version: api.keploy.io/v1beta1
+name: report-1
+status: FAILED
+success: 0
+failure: 2
+total: 2
+tests:
+    - kind: Http
+      name: report-1
+      status: FAILED
+      started: 1695441364
+      completed: 1695441364
+      test_case_path: /files/keploy
+      mock_path: ""
+      test_case_id: test-1
+      req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://172.20.0.3:8000/students
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Content-Length: "78"
+            Content-Type: application/json
+            Host: localhost:8000
+            Postman-Token: d52bd446-a349-480b-9c8e-4309dc768678
+            User-Agent: PostmanRuntime/7.32.1
+        body: |-
+            {
+                "name":"Animesh P",
+                "email":"ab@xyz.com",
+                "phone":"0123456700"
+            }
+        body_type: ""
+      resp:
+        status_code: 201
+        header:
+            Connection: keep-alive
+            Content-Length: "32"
+            Content-Type: text/html; charset=utf-8
+            Date: Sat, 23 Sep 2023 03:55:19 GMT
+            Etag: W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: Student registration successful!
+        body_type: ""
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+      noise:
+        - header.Date
+      result:
+        status_code:
+            normal: true
+            expected: 201
+            actual: 201
+        headers_result:
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+              actual:
+                key: Etag
+                value:
+                    - W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+            - normal: false
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value: []
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
+            - normal: false
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value: []
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "32"
+              actual:
+                key: Content-Length
+                value:
+                    - "32"
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - text/html; charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - text/html; charset=utf-8
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Sat, 23 Sep 2023 03:55:19 GMT
+              actual:
+                key: Date
+                value:
+                    - Sat, 23 Sep 2023 03:56:04 GMT
+        body_result:
+            - normal: true
+              type: PLAIN
+              expected: Student registration successful!
+              actual: Student registration successful!
+        dep_result: []
+    - kind: Http
+      name: report-1
+      status: FAILED
+      started: 1695441364
+      completed: 1695441364
+      test_case_path: /files/keploy
+      mock_path: ""
+      test_case_id: test-2
+      req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://172.20.0.3:8000/students
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Content-Length: "75"
+            Content-Type: application/json
+            Host: localhost:8000
+            Postman-Token: e2fec64a-ef7e-49d5-aebf-d6166896491a
+            User-Agent: PostmanRuntime/7.32.1
+        body: |-
+            {
+                "name":"Animesh",
+                "email":"ab@xz.com",
+                "phone":"0123456799"
+            }
+        body_type: ""
+      resp:
+        status_code: 201
+        header:
+            Connection: keep-alive
+            Content-Length: "32"
+            Content-Type: text/html; charset=utf-8
+            Date: Sat, 23 Sep 2023 03:55:31 GMT
+            Etag: W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: Student registration successful!
+        body_type: ""
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+      noise:
+        - header.Date
+      result:
+        status_code:
+            normal: true
+            expected: 201
+            actual: 201
+        headers_result:
+            - normal: false
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value: []
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "32"
+              actual:
+                key: Content-Length
+                value:
+                    - "32"
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - text/html; charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - text/html; charset=utf-8
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Sat, 23 Sep 2023 03:55:31 GMT
+              actual:
+                key: Date
+                value:
+                    - Sat, 23 Sep 2023 03:56:04 GMT
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+              actual:
+                key: Etag
+                value:
+                    - W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+            - normal: false
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value: []
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
+        body_result:
+            - normal: true
+              type: PLAIN
+              expected: Student registration successful!
+              actual: Student registration successful!
+        dep_result: []
