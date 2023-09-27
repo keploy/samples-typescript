@@ -1,0 +1,21 @@
+{
+  "name": "supabun",
+  "module": "supabun.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run supabun.ts"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.36.0",
+    "cors": "^2.8.5",
+    "elysia": "^0.7.12",
+    "mongoose": "^7.5.2",
+    "supabase": "^1.99.5"
+  }
+}

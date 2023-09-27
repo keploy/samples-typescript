@@ -1,24 +1,22 @@
-<h1 align="center"> Keploy Typescript SDK Samples </h1>
+<h1 align="center"> Keploy TypeScript/JavaScript Samples </h1>
 <p align="center">
 
   <a href="CODE_OF_CONDUCT.md" alt="Contributions welcome">
-    <img src="https://img.shields.io/badge/Contributions-Welcome-brightgreen?logo=github" /></a>
+    <img src="https://img.shields.io/badge/Contributions-Welcome-brightgreen?logo=github" />
+  </a>
+  </p>
     
-  <a href="https://join.slack.com/t/keploy/shared_invite/zt-12rfbvc01-o54cOG0X1G6eVJTuI_orSA" alt="Slack">
-    <img src=".github/slack.svg" /></a>
-    
-  <a href="https://opensource.org/licenses/Apache-2.0" alt="License">
-    <img src=".github/License-Apache_2.0-blue.svg" /></a>
 
-This repo contains the sample for [Keploy's](https://keploy.io) Go SDK. Please feel free to contribute if you'd like submit a sample for another use-case or library.
+This repo contains the sample for [Keploy's](https://keploy.io) JS Application. Please feel free to contribute if you'd like submit a sample for another use-case or library.
 
-**Note** :- Issue Creation is disabled on this Repository, please visit [here](https://github.com/keploy/keploy/issues/new/choose) to submit Issue.
+>**Note** :- Issue Creation is disabled on this Repository, please visit [here](https://github.com/keploy/keploy/issues/new/choose) to submit Issue.
 
 
-## Sample Apps with Keploy Typescript SDK
+## Sample Apps with Keploy
 
-1. [Node-Fetch](https://github.com/keploy/samples-typescript/tree/main/node-fetch)
+1. [Bun-Mongo](https://github.com/keploy/samples-typescript/tree/main/supabun)
 
+2. [Node-Mongo](https://github.com/keploy/samples-typescript/tree/main/node-mongo)
 ## Community Support ❤️
 
 We'd love to collaborate with you to make Keploy great. To get started:
