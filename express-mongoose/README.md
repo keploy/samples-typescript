@@ -13,7 +13,7 @@ npm install
 
 # Using Keploy :
 
-There are two ways to use Keploy:- 
+There are two ways to use Keploy:-
 
 1. [Natively on Linux/WSL](#natively-on-ubuntuwsl)
 2. [Using Docker](#running-sample-app-using-docker)
@@ -30,7 +30,7 @@ curl --silent --location "https://github.com/keploy/keploy/releases/latest/downl
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
-<details> 
+<details>
 <Summary> 2. ARM Architecture </Summary>
 
 
@@ -61,18 +61,18 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 docker-compose up -d
 ```
 
-> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `db/connection.js`, from `mongodb://mongoDb:27017/keploy` to `mongodb://127.0.0.1:27017/keploy`.**
+> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `db/connection.js`, from `mongodb://mongoDb:27017/Students` to `mongodb://127.0.0.1:27017/keploy`.**
 
 ### Capture the testcases
 
 ```bash
-sudo -E env PATH=$PATH Keploy record -c 'npm run src/app.js'
+sudo -E env PATH=$PATH keploy record -c 'node src/app.js'
 ```
 
 #### Let's generate the testcases.
 Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
-```bash 
+```bash
 curl --request POST \
 --url http://localhost:8000/students \
    --header 'content-type: application/json' \
@@ -148,7 +148,7 @@ keploy record -c "docker run -p 8000:8000 --name nodeMongoApp --network keploy-n
 #### Let's generate the testcases.
 Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
-```bash 
+```bash
 curl --request POST \
 --url http://localhost:8000/students \
    --header 'content-type: application/json' \
