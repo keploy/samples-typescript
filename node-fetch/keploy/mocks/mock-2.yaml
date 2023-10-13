@@ -1,0 +1,43 @@
+version: api.keploy.io/v1beta2
+kind: Http
+name: mock-2-0
+spec:
+    metadata:
+        name: node-fetch
+        options: undefined
+        type: HTTP_CLIENT
+        url: https://reqres.in/api/users/2
+    req:
+        method: ""
+        proto_major: 0
+        proto_minor: 0
+        url: https://reqres.in/api/users/2
+        header: {}
+        body: ""
+        body_type: utf-8
+    resp:
+        status_code: 200
+        header:
+            access-control-allow-origin: '*'
+            age: "7039"
+            cache-control: max-age=14400
+            cf-cache-status: HIT
+            cf-ray: 797d7278d997794d-AMD
+            connection: close
+            content-encoding: gzip
+            content-type: application/json; charset=utf-8
+            date: Sat, 11 Feb 2023 13:31:50 GMT
+            etag: W/"118-pbdwwFo9SKNhD3Lx5iHJyngpq00"
+            nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+            report-to: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=%2FExoo3b3HxvSr4ypu51nOiwXKHEk2P3GiQ5qhYRs2D5%2BbouiHMRK4MkXTfjAMZ%2FnpQmm75PP8TTx%2FETuUtNW42LLhP8TjBb5d%2FVPiJsxuf0Ew08LSe5b1guoCQ%3D%3D"}],"group":"cf-nel","max_age":604800}'
+            server: cloudflare
+            transfer-encoding: chunked
+            vary: Accept-Encoding
+            via: 1.1 vegur
+            x-powered-by: Express
+        body: '{"data":{"id":2,"email":"janet.weaver@reqres.in","first_name":"Janet","last_name":"Weaver","avatar":"https://reqres.in/img/faces/2-image.jpg"},"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}}'
+        body_type: utf-8
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+    objects: []
