@@ -1,5 +1,15 @@
 version: '3.9'
 services:
+  node-app:
+    build:
+      context: .
+    container_name: nodeMongoApp
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+    networks:
+      - keploy-network  
   mongo:
     image: mongo
     container_name: mongoDb
