@@ -5,7 +5,7 @@ const {
     TestRunStatus,
     StopUserApplication,
     StartUserApplication,
-} = require('./typescript-sdk/keployV2/keployCli');
+} = require('@keploy/typescript-sdk/dist/keployV2/keployCli');
 // require('./src/app')
 const { expect } = require('@jest/globals');
 describe('Keploy Server Tests', () => {
@@ -22,6 +22,7 @@ describe('Keploy Server Tests', () => {
             console.log("starting user application");
             for (let testset of testSets) {
                 let result = true;
+                console.log(testset,"testsset")
                 StartUserApplication("npm start")
                 const testRunId = await RunTestSet(testset);
                 let testRunStatus;
