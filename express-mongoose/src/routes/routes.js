@@ -83,7 +83,6 @@ router.post('/post', async (req, res) => {
         })
             .then((response) => {
                 data = response.data
-                console.log(response.data);
             })
             .catch((error) => {
                 console.error(error);
