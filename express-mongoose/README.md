@@ -129,20 +129,11 @@ We need create an alias for Keploy:
 alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
 ```
 
-## Let's start the MongoDB Instance
-```bash
-docker-compose up -d
-```
-
 ## Capture the testcases
-1. We first need to build dockerimage of our application:-
+ 
+We will run the keploy in record mode with docker-compose to start our application:-
 ```bash
-docker build -t node-app:1.0 .
-```
-
-2. Now we will run the keploy in record mode:-
-```bash
-keploy record -c "docker run -p 8000:8000 --name nodeMongoApp --network keploy-network node-app:1.0"
+keploy record -c "docker compose up" --containerName "nodeMongoApp"
 ```
 
 #### Let's generate the testcases.
@@ -173,7 +164,7 @@ We will get the following output in our terminal
 ## Running the testcases
 
 ```bash
-keploy test -c "docker run -p 8000:8000 --name nodeMongoApp --network keploy-network node-app:1.0" --delay 10
+keploy test -c "docker compose up --node-app" --containerName "nodeMongoApp" --delay 10
 ```
 
 Our testcases will fail as the Keep-Alive connection won't be available when we are using testmode, this happen because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode.
