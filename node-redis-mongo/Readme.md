@@ -91,6 +91,39 @@ Body :
 }
 ```
 
+```
+Use GET HTTP verb
+
+URL : http://localhost:3000/todos
+```
+```
+Use GET HTTP verb
+
+URL : http://localhost:3000/todos/:id
+```
+
+```bash
+Use PUT HTTP verb
+
+# update todos using  _id
+URL : http://localhost:3000/todos/:id
+
+Body : 
+{
+    "title": "Todo's Title", 
+    "description": "Todo's Description"
+}
+```
+
+```bash
+Use DELETE HTTP verb
+
+# delete todos using  _id
+URL : http://localhost:3000/todos/:id
+```
+
 ![Record run](./img/record.png)
 
-*Voila!! Created your first set of test cases 🌟*
+![Record run](./img/record2.png)
+
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
