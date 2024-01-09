@@ -77,49 +77,42 @@ keploy record -c 'node server.js'
 #### Let's generate the testcases.
 Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
-- For Postman reuqest 
+- For cURL reuqest 
 
 ```
-Use POST HTTP verb
+POST Todos request:
 
-URL : http://localhost:3000/todos
-
-Body : 
-{
-    "title": "Todo's Title", 
-    "description": "Todo's Description"
-}
-```
+curl --location --request POST 'http://localhost:3000/todos' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title" : "Todo title",
+    "description" : "Todo Description"
+}'
 
 ```
-Use GET HTTP verb
 
-URL : http://localhost:3000/todos
+```
+GET Todos request:
+
+curl http://localhost:3000/todos
 ```
 ```
-Use GET HTTP verb
+GET Todos By Id request:
 
-URL : http://localhost:3000/todos/:id
-```
-
-```bash
-Use PUT HTTP verb
-
-# update todos using  _id
-URL : http://localhost:3000/todos/:id
-
-Body : 
-{
-    "title": "Todo's Title", 
-    "description": "Todo's Description"
-}
+curl http://localhost:3000/todos/{id}
 ```
 
 ```bash
-Use DELETE HTTP verb
+UPDATE Todo by id :
 
-# delete todos using  _id
-URL : http://localhost:3000/todos/:id
+curl -X PUT -H "Content-Type: application/json" -d '{"title": "Todo Title", "description": "Todo Description"}' http://localhost:3000/todos/{id}
+
+```
+
+```bash
+DELETE Todo by id :
+
+curl -X DELETE http://localhost:3000/todos/{id}
 ```
 
 ![Record run](./img/record.png)
