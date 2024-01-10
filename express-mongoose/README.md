@@ -123,6 +123,8 @@ Now, let's run the keploy in test mode again:-
 
 Keploy can be used on Linux, Windows and MacOS through Docker.
 
+Note:To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must be ```4.25.2``` or above.
+
 ## Create Keploy Alias
 We need create an alias for Keploy:
 ```bash
