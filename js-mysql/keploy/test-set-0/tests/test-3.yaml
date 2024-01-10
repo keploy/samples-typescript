@@ -1,0 +1,49 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-3
+spec:
+    metadata: {}
+    req:
+        method: PUT
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/items/1
+        header:
+            Accept: '*/*'
+            Content-Length: "57"
+            Content-Type: application/json
+            Host: localhost:3000
+            User-Agent: curl/8.2.1
+        body: '{"name":"UpdatedItem","description":"UpdatedDescription"}'
+        body_type: ""
+        timestamp: 2024-01-10T10:45:02.719142696+05:30
+        host: ""
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "26"
+            Content-Type: text/html; charset=utf-8
+            Date: Wed, 10 Jan 2024 05:15:02 GMT
+            Etag: W/"1a-5qIcUrGG1wjgWopMh4WbViRF6Tc"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: Item updated successfully.
+        body_type: ""
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-01-10T10:45:04.733262075+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1704863704
+curl: |-
+    curl --request PUT \
+      --url http://localhost:3000/items/1 \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:3000' \
+      --header 'User-Agent: curl/8.2.1' \
+      --header 'Accept: */*' \
+      --data '{"name":"UpdatedItem","description":"UpdatedDescription"}'
