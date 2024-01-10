@@ -121,7 +121,7 @@ Now, let's run the keploy in test mode again:-
 
 # Running sample app using docker
 
-Keploy can be used on Linux & Windows through Docker, and on MacOS by the help of [Colima](https://docs.keploy.io/docs/server/macos/installation/#using-colima).
+Keploy can be used on Linux, Windows and MacOS through Docker.
 
 ## Create Keploy Alias
 We need create an alias for Keploy:
