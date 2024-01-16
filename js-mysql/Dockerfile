@@ -1,20 +1,17 @@
-# Use the official Node.js 16 image as a parent image
-FROM node:16
+# Use the official Node.js 14 image as a parent image
+FROM node:18.13.0
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json (if available) into the container
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Bundle your app's source code inside the Docker image
+# Copy the current directory contents into the container at /usr/src/app
 COPY . .
 
-# Your app binds to port 3000, so you'll use the EXPOSE instruction to have it mapped by the docker daemon
+# Install any needed packages specified in package.json
+RUN npm install
+
+# Make port 3000 available to the world outside this container
 EXPOSE 3000
 
-# Define the command to run your app
-CMD [ "node", "app.js" ]
+# Run the app when the container launches
+CMD ["node", "server.js"]
