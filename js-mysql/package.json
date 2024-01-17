@@ -13,6 +13,7 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
+    "keploy-deduplicate-tests": "github:keploy/keploy-deduplicate-tests",
     "mysql2": "^3.7.0"
   }
 }

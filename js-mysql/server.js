@@ -1,3 +1,4 @@
+require('keploy-deduplicate-tests/dist/integrations/express/register')
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
@@ -5,12 +6,16 @@ const mysql = require('mysql2');
 const app = express();
 app.use(bodyParser.json());
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'user',
-    password: 'password',
-    database: 'mydb'
-});
+// Environment variables for database configuration
+const dbConfig = {
+    host: process.env.DATABASE_HOST || 'localhost',  // Default to 'localhost' if the env variable is not set
+    user: process.env.DATABASE_USER || 'user',      // Default to 'user' if the env variable is not set
+    password: process.env.DATABASE_PASSWORD || 'password', // Default to 'password' if the env variable is not set
+    database: process.env.DATABASE_NAME || 'mysql_db' // Default to 'mysql_db' if the env variable is not set
+};
+
+const connection = mysql.createConnection(dbConfig);
+
 const initializeDatabase = () => {
     connection.query(`
         CREATE TABLE IF NOT EXISTS items (
@@ -24,7 +29,9 @@ const initializeDatabase = () => {
         console.log('Table created or already exists');
     });
 };
-initializeDatabase()
+
+initializeDatabase();
+
 app.get('/items', (req, res) => {
     connection.query('SELECT * FROM items', (err, results) => {
         if (err) throw err;
@@ -57,7 +64,7 @@ app.delete('/items/:id', (req, res) => {
     });
 });
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
