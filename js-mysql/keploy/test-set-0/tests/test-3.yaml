@@ -4,46 +4,46 @@ name: test-3
 spec:
     metadata: {}
     req:
-        method: PUT
+        method: POST
         proto_major: 1
         proto_minor: 1
-        url: http://localhost:3000/items/1
+        url: http://localhost:3000/items
         header:
             Accept: '*/*'
-            Content-Length: "57"
+            Content-Length: "48"
             Content-Type: application/json
             Host: localhost:3000
             User-Agent: curl/8.2.1
-        body: '{"name":"UpdatedItem","description":"UpdatedDescription"}'
+        body: '{"name": "homelander", "description": "villain"}'
         body_type: ""
-        timestamp: 2024-01-10T10:45:02.719142696+05:30
+        timestamp: 2024-01-18T00:41:48.742587805+05:30
         host: ""
     resp:
-        status_code: 200
+        status_code: 201
         header:
             Connection: keep-alive
-            Content-Length: "26"
+            Content-Length: "21"
             Content-Type: text/html; charset=utf-8
-            Date: Wed, 10 Jan 2024 05:15:02 GMT
-            Etag: W/"1a-5qIcUrGG1wjgWopMh4WbViRF6Tc"
+            Date: Wed, 17 Jan 2024 19:11:48 GMT
+            Etag: W/"15-7XKh/8ne+TboC3krsitO7Bx7ors"
             Keep-Alive: timeout=5
             X-Powered-By: Express
-        body: Item updated successfully.
+        body: 'Item added with ID: 6'
         body_type: ""
         status_message: ""
         proto_major: 0
         proto_minor: 0
-        timestamp: 2024-01-10T10:45:04.733262075+05:30
+        timestamp: 2024-01-18T00:41:50.755583837+05:30
     objects: []
     assertions:
         noise:
             header.Date: []
-    created: 1704863704
+    created: 1705518710
 curl: |-
-    curl --request PUT \
-      --url http://localhost:3000/items/1 \
-      --header 'Content-Type: application/json' \
+    curl --request POST \
+      --url http://localhost:3000/items \
       --header 'Host: localhost:3000' \
       --header 'User-Agent: curl/8.2.1' \
       --header 'Accept: */*' \
-      --data '{"name":"UpdatedItem","description":"UpdatedDescription"}'
+      --header 'Content-Type: application/json' \
+      --data '{"name": "homelander", "description": "villain"}'

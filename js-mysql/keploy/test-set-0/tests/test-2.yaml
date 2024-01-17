@@ -4,45 +4,46 @@ name: test-2
 spec:
     metadata: {}
     req:
-        method: GET
+        method: POST
         proto_major: 1
         proto_minor: 1
         url: http://localhost:3000/items
         header:
             Accept: '*/*'
+            Content-Length: "43"
+            Content-Type: application/json
             Host: localhost:3000
             User-Agent: curl/8.2.1
-        body: ""
+        body: '{"name": "<name>", "description": "batman"}'
         body_type: ""
-        timestamp: 2024-01-10T10:44:52.830167776+05:30
+        timestamp: 2024-01-18T00:41:06.772946411+05:30
         host: ""
     resp:
-        status_code: 200
+        status_code: 201
         header:
             Connection: keep-alive
-            Content-Length: "187"
-            Content-Type: application/json; charset=utf-8
-            Date: Wed, 10 Jan 2024 05:14:52 GMT
-            Etag: W/"bb-mIFi3PmJLRJbUU+xJVT8SDs9634"
+            Content-Length: "21"
+            Content-Type: text/html; charset=utf-8
+            Date: Wed, 17 Jan 2024 19:11:06 GMT
+            Etag: W/"15-JYFVyu+mK4l334YAMEV8QOmXZyw"
             Keep-Alive: timeout=5
             X-Powered-By: Express
-        body: '[{"id":1,"name":"Item1","description":"Description1","created_at":"2024-01-09T23:43:55.000Z"},{"id":2,"name":"Item1","description":"Description1","created_at":"2024-01-09T23:44:41.000Z"}]'
+        body: 'Item added with ID: 5'
         body_type: ""
         status_message: ""
         proto_major: 0
         proto_minor: 0
-        timestamp: 2024-01-10T10:44:54.836272766+05:30
+        timestamp: 2024-01-18T00:41:08.787061982+05:30
     objects: []
     assertions:
         noise:
-            body.created_at: []
-            body.description: []
-            body.name: []
             header.Date: []
-    created: 1704863694
-curl: |
-    curl --request GET \
+    created: 1705518668
+curl: |-
+    curl --request POST \
       --url http://localhost:3000/items \
       --header 'Host: localhost:3000' \
       --header 'User-Agent: curl/8.2.1' \
       --header 'Accept: */*' \
+      --header 'Content-Type: application/json' \
+      --data '{"name": "<name>", "description": "batman"}'

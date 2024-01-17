@@ -10,13 +10,13 @@ spec:
         url: http://localhost:3000/items
         header:
             Accept: '*/*'
-            Content-Length: "45"
+            Content-Length: "50"
             Content-Type: application/json
             Host: localhost:3000
             User-Agent: curl/8.2.1
-        body: '{"name":"Item1","description":"Description1"}'
+        body: '{"name": "<name>", "description": "<description>"}'
         body_type: ""
-        timestamp: 2024-01-10T10:44:41.323262307+05:30
+        timestamp: 2024-01-18T00:40:35.093724659+05:30
         host: ""
     resp:
         status_code: 201
@@ -24,21 +24,21 @@ spec:
             Connection: keep-alive
             Content-Length: "21"
             Content-Type: text/html; charset=utf-8
-            Date: Wed, 10 Jan 2024 05:14:41 GMT
-            Etag: W/"15-C5IeyXgQaytvF7bNZ6kmG1WBkqQ"
+            Date: Wed, 17 Jan 2024 19:10:35 GMT
+            Etag: W/"15-FHtnxmoztd++Wdag/HsbORl/bnc"
             Keep-Alive: timeout=5
             X-Powered-By: Express
-        body: 'Item added with ID: 2'
+        body: 'Item added with ID: 4'
         body_type: ""
         status_message: ""
         proto_major: 0
         proto_minor: 0
-        timestamp: 2024-01-10T10:44:43.351869495+05:30
+        timestamp: 2024-01-18T00:40:37.136001703+05:30
     objects: []
     assertions:
         noise:
             header.Date: []
-    created: 1704863683
+    created: 1705518637
 curl: |-
     curl --request POST \
       --url http://localhost:3000/items \
@@ -46,4 +46,4 @@ curl: |-
       --header 'User-Agent: curl/8.2.1' \
       --header 'Accept: */*' \
       --header 'Content-Type: application/json' \
-      --data '{"name":"Item1","description":"Description1"}'
+      --data '{"name": "<name>", "description": "<description>"}'

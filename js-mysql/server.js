@@ -1,4 +1,3 @@
-require('keploy-deduplicate-tests/dist/integrations/express/register')
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
@@ -11,7 +10,7 @@ const dbConfig = {
     host: process.env.DATABASE_HOST || 'localhost',  // Default to 'localhost' if the env variable is not set
     user: process.env.DATABASE_USER || 'user',      // Default to 'user' if the env variable is not set
     password: process.env.DATABASE_PASSWORD || 'password', // Default to 'password' if the env variable is not set
-    database: process.env.DATABASE_NAME || 'mysql_db' // Default to 'mysql_db' if the env variable is not set
+    database: process.env.DATABASE_NAME || 'mydb' // Default to 'mysql_db' if the env variable is not set
 };
 
 const connection = mysql.createConnection(dbConfig);
