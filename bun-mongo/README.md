@@ -105,7 +105,9 @@ We will get the following output in our terminal
 
 # Running sample app using docker
 
-Keploy can be used on Linux & Windows through Docker, and on MacOS by the help of [Colima](https://docs.keploy.io/docs/server/macos/installation/#using-colima).
+Keploy can be used on Linux, Windows and MacOS through Docker.
+
+Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must be ```4.25.2``` or above.
 
 ## Create Keploy Alias
 We need create an alias for Keploy:
