@@ -6,15 +6,17 @@
     "start": "bun run supabun.ts"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "bun-types": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@elysiajs/cors": "^0.8.0",
     "@supabase/supabase-js": "^2.36.0",
     "cors": "^2.8.5",
-    "elysia": "^0.7.12",
+    "elysia": "^0.8.17",
     "mongoose": "^7.5.2",
     "supabase": "^1.99.5"
   }
