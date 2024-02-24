@@ -1,0 +1,47 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:4200/save
+        header:
+            Accept: '*/*'
+            Host: localhost:4200
+            User-Agent: curl/8.2.1
+        body: ""
+        body_type: ""
+        timestamp: 2024-02-22T12:13:21.616392376+05:30
+        host: ""
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Credentials: "true"
+            Access-Control-Allow-Headers: '*'
+            Access-Control-Allow-Methods: POST
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Exposed-Headers: '*'
+            Content-Length: "16"
+            Content-Type: application/json;charset=utf-8
+            Date: Thu, 22 Feb 2024 06:43:21 GMT
+            Vary: '*'
+        body: '{"success":true}'
+        body_type: ""
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-02-22T12:13:23.662937734+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1708584203
+curl: |
+    curl --request POST \
+      --url http://localhost:4200/save \
+      --header 'Host: localhost:4200' \
+      --header 'User-Agent: curl/8.2.1' \
+      --header 'Accept: */*' \

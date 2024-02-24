@@ -4,7 +4,17 @@ services:
     image: mongo
     container_name: mongoDb-bun
     ports:
-      - 27017:27017
+      - "27017:27017"
+    networks:
+      - keploy-network
+
+  app:
+    build: .
+    container_name: bun-app
+    ports:
+      - "4200:4200"
+    depends_on:
+      - mongo
     networks:
       - keploy-network
 

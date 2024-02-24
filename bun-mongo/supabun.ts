@@ -40,11 +40,9 @@ app.delete('/delete', async() => {
     return (controller.Delete());
 });
 
-mongoose.connect('mongodb://localhost:27017/keploy', { 
+mongoose.connect('mongodb://mongo:27017/keploy', { 
     serverSelectionTimeoutMS: 5000
-}).then(() => {
-    app.listen(4200, () => console.log(`Elysia is running on port 4200...`));
-}).catch(err => console.error('Failed to connect to MongoDB', err));
+})
 
 app.listen("4200")
 
