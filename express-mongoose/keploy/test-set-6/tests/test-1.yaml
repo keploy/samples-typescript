@@ -1,0 +1,43 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:443/get
+        header:
+            Accept: '*/*'
+            Host: localhost:443
+            User-Agent: curl/7.85.0
+        body: ""
+        timestamp: 2024-03-05T17:30:26.366738338+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "996"
+            Content-Type: application/json; charset=utf-8
+            Date: Tue, 05 Mar 2024 12:00:28 GMT
+            Etag: W/"3e4-2RLXvr5wTg9YQ6aH95CkYoFNuO8"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: 'Welcome to the 8000 / API'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-03-05T17:30:30.625096642+05:30
+    objects: []
+    assertions:
+        noise:
+            body.total: []
+            header.Date: []
+    created: 1709640030
+curl: |
+    curl --request GET \
+      --url http://localhost:8000/get \
+      --header 'Accept: */*' \
+      --header 'Host: localhost:8000' \
+      --header 'User-Agent: curl/7.85.0' \

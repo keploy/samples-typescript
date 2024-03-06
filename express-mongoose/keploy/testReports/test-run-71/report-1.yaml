@@ -1,0 +1,119 @@
+version: api.keploy.io/v1beta1
+name: report-1
+status: PASSED
+success: 1
+failure: 0
+total: 1
+tests:
+    - kind: Http
+      name: report-1
+      status: PASSED
+      started: 1709661931
+      completed: 1709661932
+      test_case_path: /Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/test-set-10
+      mock_path: /Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/test-set-10/mocks.yaml
+      test_case_id: test-1
+      req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8000/get
+        header:
+            Accept: '*/*'
+            Host: localhost:8000
+            User-Agent: curl/7.81.0
+        body: ""
+        timestamp: 2024-03-05T23:29:11.522239559+05:30
+      resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "27"
+            Content-Type: application/json; charset=utf-8
+            Date: Tue, 05 Mar 2024 17:59:11 GMT
+            Etag: W/"1b-rkUKiQsN47rSJNAG+uPSlsjLv+I"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '"Welcome to the 8000 / API"'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-03-05T23:29:13.593276045+05:30
+      noise:
+        header.Date: []
+      result:
+        status_code:
+            normal: true
+            expected: 200
+            actual: 200
+        headers_result:
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Tue, 05 Mar 2024 17:59:11 GMT
+              actual:
+                key: Date
+                value:
+                    - Tue, 05 Mar 2024 18:05:32 GMT
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"1b-rkUKiQsN47rSJNAG+uPSlsjLv+I"
+              actual:
+                key: Etag
+                value:
+                    - W/"1b-rkUKiQsN47rSJNAG+uPSlsjLv+I"
+            - normal: true
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
+            - normal: true
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value:
+                    - keep-alive
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "27"
+              actual:
+                key: Content-Length
+                value:
+                    - "27"
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+        body_result:
+            - normal: true
+              expected: '"Welcome to the 8000 / API"'
+              actual: '"Welcome to the 8000 / API"'
+              type: JSON
+        dep_result: []
+test_set: test-set-10

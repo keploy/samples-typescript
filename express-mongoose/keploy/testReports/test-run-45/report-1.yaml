@@ -1,0 +1,120 @@
+version: api.keploy.io/v1beta1
+name: report-1
+status: FAILED
+success: 0
+failure: 1
+total: 1
+tests:
+    - kind: Http
+      name: report-1
+      status: FAILED
+      started: 1708953559
+      completed: 1708953560
+      test_case_path: /Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/test-set-3
+      mock_path: /Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/test-set-3/mocks.yaml
+      test_case_id: test-1
+      req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8000/get
+        header:
+            Accept: '*/*'
+            Host: localhost:8000
+            User-Agent: curl/7.81.0
+        body: ""
+        timestamp: 2024-02-26T18:23:27.003889307+05:30
+      resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "996"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 26 Feb 2024 12:53:29 GMT
+            Etag: W/"3e4-2RLXvr5wTg9YQ6aH95CkYoFNuO8"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"page":1,"per_page":6,"total":12,"total_pages":2,"data":[{"id":1,"email":"george.bluth@reqres.in","first_name":"George","last_name":"Bluth","avatar":"https://reqres.in/img/faces/1-image.jpg"},{"id":2,"email":"janet.weaver@reqres.in","first_name":"Janet","last_name":"Weaver","avatar":"https://reqres.in/img/faces/2-image.jpg"},{"id":3,"email":"emma.wong@reqres.in","first_name":"Emma","last_name":"Wong","avatar":"https://reqres.in/img/faces/3-image.jpg"},{"id":4,"email":"eve.holt@reqres.in","first_name":"Eve","last_name":"Holt","avatar":"https://reqres.in/img/faces/4-image.jpg"},{"id":5,"email":"charles.morris@reqres.in","first_name":"Charles","last_name":"Morris","avatar":"https://reqres.in/img/faces/5-image.jpg"},{"id":6,"email":"tracey.ramos@reqres.in","first_name":"Tracey","last_name":"Ramos","avatar":"https://reqres.in/img/faces/6-image.jpg"}],"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-02-26T18:23:31.207874675+05:30
+      noise:
+        body.total: []
+        header.Date: []
+      result:
+        status_code:
+            normal: false
+            expected: 200
+            actual: 400
+        headers_result:
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
+            - normal: true
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value:
+                    - keep-alive
+            - normal: false
+              expected:
+                key: Content-Length
+                value:
+                    - "996"
+              actual:
+                key: Content-Length
+                value:
+                    - "76"
+            - normal: false
+              expected:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - text/html; charset=utf-8
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Mon, 26 Feb 2024 12:53:29 GMT
+              actual:
+                key: Date
+                value:
+                    - Mon, 26 Feb 2024 13:19:19 GMT
+            - normal: false
+              expected:
+                key: Etag
+                value:
+                    - W/"3e4-2RLXvr5wTg9YQ6aH95CkYoFNuO8"
+              actual:
+                key: Etag
+                value:
+                    - W/"4c-iSrOFldQN8hf6Pz2pLuhF4wlhX8"
+            - normal: true
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+        body_result:
+            - normal: false
+              expected: '{"page":1,"per_page":6,"total":12,"total_pages":2,"data":[{"id":1,"email":"george.bluth@reqres.in","first_name":"George","last_name":"Bluth","avatar":"https://reqres.in/img/faces/1-image.jpg"},{"id":2,"email":"janet.weaver@reqres.in","first_name":"Janet","last_name":"Weaver","avatar":"https://reqres.in/img/faces/2-image.jpg"},{"id":3,"email":"emma.wong@reqres.in","first_name":"Emma","last_name":"Wong","avatar":"https://reqres.in/img/faces/3-image.jpg"},{"id":4,"email":"eve.holt@reqres.in","first_name":"Eve","last_name":"Holt","avatar":"https://reqres.in/img/faces/4-image.jpg"},{"id":5,"email":"charles.morris@reqres.in","first_name":"Charles","last_name":"Morris","avatar":"https://reqres.in/img/faces/5-image.jpg"},{"id":6,"email":"tracey.ramos@reqres.in","first_name":"Tracey","last_name":"Ramos","avatar":"https://reqres.in/img/faces/6-image.jpg"}],"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}}'
+              actual: 'Failed to fetch req details as Error: unable to verify the first certificate'
+              type: PLAIN
+        dep_result: []
+test_set: test-set-3

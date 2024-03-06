@@ -1,0 +1,113 @@
+version: api.keploy.io/v1beta1
+name: report-1
+status: FAILED
+success: 0
+failure: 1
+total: 1
+tests:
+    - kind: Http
+      name: report-1
+      status: FAILED
+      started: 1709660728
+      completed: 1709660728
+      test_case_path: /Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/test-set-6
+      mock_path: /Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/test-set-6/mocks.yaml
+      test_case_id: test-1
+      req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:443/get
+        header:
+            Accept: '*/*'
+            Host: localhost:443
+            User-Agent: curl/7.85.0
+        body: ""
+        timestamp: 2024-03-05T17:30:26.366738338+05:30
+      resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "996"
+            Content-Type: application/json; charset=utf-8
+            Date: Tue, 05 Mar 2024 12:00:28 GMT
+            Etag: W/"3e4-2RLXvr5wTg9YQ6aH95CkYoFNuO8"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: Welcome to the 8000 / API
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-03-05T17:30:30.625096642+05:30
+      noise:
+        body.total: []
+        header.Date: []
+      result:
+        status_code:
+            normal: false
+            expected: 200
+            actual: 0
+        headers_result:
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Tue, 05 Mar 2024 12:00:28 GMT
+              actual:
+                key: Date
+                value: []
+            - normal: false
+              expected:
+                key: Etag
+                value:
+                    - W/"3e4-2RLXvr5wTg9YQ6aH95CkYoFNuO8"
+              actual:
+                key: Etag
+                value: []
+            - normal: false
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value: []
+            - normal: false
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value: []
+            - normal: false
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value: []
+            - normal: false
+              expected:
+                key: Content-Length
+                value:
+                    - "996"
+              actual:
+                key: Content-Length
+                value: []
+            - normal: false
+              expected:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+              actual:
+                key: Content-Type
+                value: []
+        body_result:
+            - normal: false
+              expected: Welcome to the 8000 / API
+              actual: 'Get "http://localhost:443/get": EOF'
+              type: PLAIN
+        dep_result: []
+test_set: test-set-6

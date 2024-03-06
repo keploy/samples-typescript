@@ -1,0 +1,119 @@
+version: api.keploy.io/v1beta1
+name: report-2
+status: FAILED
+success: 0
+failure: 1
+total: 1
+tests:
+    - kind: Http
+      name: report-2
+      status: FAILED
+      started: 1708945689
+      completed: 1708945689
+      test_case_path: /Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/test-set-1
+      mock_path: /Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/test-set-1/mocks.yaml
+      test_case_id: test-1
+      req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8000/students
+        header:
+            Accept: '*/*'
+            Content-Length: "88"
+            Content-Type: application/json
+            Host: localhost:8000
+            User-Agent: curl/7.88.1
+        body: |-
+            {
+                "name":"John Doe",
+                "email":"jodddhn@xyz.com",
+                "phone":"012043456798"
+                }
+        timestamp: 2023-11-04T12:58:54.540356069Z
+      resp:
+        status_code: 201
+        header:
+            Connection: keep-alive
+            Content-Length: "32"
+            Content-Type: text/html; charset=utf-8
+            Date: Sat, 04 Nov 2023 12:58:54 GMT
+            Etag: W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: Student registration successful!
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2023-11-04T12:58:56.728631477Z
+      noise:
+        header.Date: []
+      result:
+        status_code:
+            normal: false
+            expected: 201
+            actual: 0
+        headers_result:
+            - normal: false
+              expected:
+                key: Content-Length
+                value:
+                    - "32"
+              actual:
+                key: Content-Length
+                value: []
+            - normal: false
+              expected:
+                key: Content-Type
+                value:
+                    - text/html; charset=utf-8
+              actual:
+                key: Content-Type
+                value: []
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Sat, 04 Nov 2023 12:58:54 GMT
+              actual:
+                key: Date
+                value: []
+            - normal: false
+              expected:
+                key: Etag
+                value:
+                    - W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+              actual:
+                key: Etag
+                value: []
+            - normal: false
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value: []
+            - normal: false
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value: []
+            - normal: false
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value: []
+        body_result:
+            - normal: false
+              expected: Student registration successful!
+              actual: 'Post "http://localhost:8000/students": dial tcp 127.0.0.1:8000: connect: connection refused'
+              type: PLAIN
+        dep_result: []
+test_set: test-set-1

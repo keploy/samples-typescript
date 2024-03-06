@@ -94,9 +94,14 @@ router.post('/post', async (req, res) => {
     }
 })
 
+router.get("/", async (req, res) => {
+    res.status(200).json("Welcome to the 8000 / API");
+})
+
 router.get('/get', async (req, res) => {
     try {
-        const axiosResponse = await axios.get('https://reqres.in/api/users')
+        // const axiosResponse = await axios.get('https://reqres.in/api/users')
+        const axiosResponse = await axios.get('https://ritikjain.in')
         res.status(200).json(axiosResponse.data);
     }
     catch (err) {

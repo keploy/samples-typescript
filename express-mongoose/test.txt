@@ -1,0 +1,373 @@
+
+       ▓██▓▄
+    ▓▓▓▓██▓█▓▄
+     ████████▓▒
+          ▀▓▓███▄      ▄▄   ▄               ▌
+         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+       ▓▌                           ▐█▌                   █▌
+        ▓
+  
+version: 2.0.0-alpha75
+
+🐰 Keploy: 2024-03-05T23:39:38+05:30 	[34mINFO[0m	cmd/test.go:268	Keploy config not found, continuing without configuration
+🐰 Keploy: 2024-03-05T23:39:38+05:30 	[33mWARN[0m	cmd/test.go:285	Delay is set to 5 seconds, incase your app takes more time to start use --delay to set custom delay
+go.keploy.io/server/cmd.(*Test).GetCmd.func1
+	/home/runner/work/keploy/keploy/cmd/test.go:285
+github.com/spf13/cobra.(*Command).execute
+	/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.7.0/command.go:940
+github.com/spf13/cobra.(*Command).ExecuteC
+	/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.7.0/command.go:1068
+github.com/spf13/cobra.(*Command).Execute
+	/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.7.0/command.go:992
+go.keploy.io/server/cmd.(*Root).execute
+	/home/runner/work/keploy/keploy/cmd/root.go:293
+go.keploy.io/server/cmd.Execute
+	/home/runner/work/keploy/keploy/cmd/root.go:201
+main.main
+	/home/runner/work/keploy/keploy/main.go:55
+runtime.main
+	/opt/hostedtoolcache/go/1.21.7/x64/src/runtime/proc.go:267
+🐰 Keploy: 2024-03-05T23:39:38+05:30 	[34mINFO[0m	cmd/test.go:289	Example usage: sudo -E env PATH=$PATH keploy test -c "/path/to/user/app" --delay 6
+🐰 Keploy: 2024-03-05T23:39:38+05:30 	[35mDEBUG[0m	cmd/test.go:352	the configuration for mocking mongo connection	{"password": "default123"}
+🐰 Keploy: 2024-03-05T23:39:38+05:30 	[34mINFO[0m	cmd/test.go:399		{"keploy test and mock path": "/Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy"}
+🐰 Keploy: 2024-03-05T23:39:38+05:30 	[34mINFO[0m	cmd/test.go:407		{"keploy testReport path": "/Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/testReports/test-run-75"}
+🐰 Keploy: 2024-03-05T23:39:38+05:30 	[35mDEBUG[0m	cmd/test.go:431	the ports are	{"ports": [27017]}
+🐰 Keploy: 2024-03-05T23:39:38+05:30 	[35mDEBUG[0m	cmd/test.go:433	the configuration for mocking mongo connection	{"password": "default123"}
+🐰 Keploy: 2024-03-05T23:39:40+05:30 	[34mINFO[0m	hooks/loader.go:961	keploy initialized and probes added to the kernel.
+🐰 Keploy: 2024-03-05T23:39:40+05:30 	[35mDEBUG[0m	hooks/loader.go:972		{"Keploy Inode number": 4026531836}
+🐰 Keploy: 2024-03-05T23:39:40+05:30 	[35mDEBUG[0m	hooks/loader.go:473	Sending keploy pid to kernel	{"pid": 41212}
+🐰 Keploy: 2024-03-05T23:39:40+05:30 	[35mDEBUG[0m	hooks/loader.go:975	Keploy Pid sent successfully...
+🐰 Keploy: 2024-03-05T23:39:40+05:30 	[35mDEBUG[0m	proxy/proxy.go:251		{"isJavaServe": false}
+🐰 Keploy: 2024-03-05T23:39:40+05:30 	[35mDEBUG[0m	proxy/proxy.go:256	checking java path from default java home
+🐰 Keploy: 2024-03-05T23:39:40+05:30 	[35mDEBUG[0m	proxy/proxy.go:271		{"java_home": "/usr/lib/jvm/java-17-openjdk-arm64", "caCertsPath": "/usr/lib/jvm/java-17-openjdk-arm64/lib/security/cacerts", "caPath": "/usr/local/share/ca-certificates/ca.crt"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[34mINFO[0m	proxy/proxy.go:274	Java detected and CA already exists	{"path": "/usr/lib/jvm/java-17-openjdk-arm64/lib/security/cacerts"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:251		{"isJavaServe": false}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:256	checking java path from default java home
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:271		{"java_home": "/usr/lib/jvm/java-17-openjdk-arm64", "caCertsPath": "/usr/lib/jvm/java-17-openjdk-arm64/lib/security/cacerts", "caPath": "/etc/ssl/certs/ca.crt"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[34mINFO[0m	proxy/proxy.go:274	Java detected and CA already exists	{"path": "/usr/lib/jvm/java-17-openjdk-arm64/lib/security/cacerts"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:449	Running Tcp Dns Server for handling Dns queries over TCP
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:458	Running Udp Dns Server in Test mode...
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[34mINFO[0m	proxy/proxy.go:459	Keploy has hijacked the DNS resolution mechanism, your application may misbehave in keploy test mode if you have provided wrong domain name in your application code.
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:569		{"ProxyAddress4": "192.168.5.15"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[34mINFO[0m	proxy/proxy.go:625	starting TCP DNS server at addr :26789
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:471	Proxy IPv4:Port 3232236815:16789
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:472	Proxy IPV6:Port Addr [0 0 0 1]:16789
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[34mINFO[0m	proxy/proxy.go:473	Proxy started at port:16789
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/loader.go:383	sending dns server port	{"port": 26789}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[34mINFO[0m	proxy/proxy.go:647	starting UDP DNS server at addr :26789
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:572		{"ProxyAddress6": "::1"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/loader.go:371	PassthroughPort(0):[27017]
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/loader.go:371	PassthroughPort(1):[-1]
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/loader.go:371	PassthroughPort(2):[-1]
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/loader.go:371	PassthroughPort(3):[-1]
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:581	Proxy server is listening on :[::]:16789
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:582	Proxy will accept both ipv4 and ipv6 connections	{"Ipv4": "192.168.5.15", "Ipv6": "::1"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/loader.go:371	PassthroughPort(4):[-1]
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/loader.go:371	PassthroughPort(5):[-1]
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/loader.go:371	PassthroughPort(6):[-1]
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/loader.go:371	PassthroughPort(7):[-1]
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/loader.go:371	PassthroughPort(8):[-1]
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/loader.go:371	PassthroughPort(9):[-1]
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	test/test.go:385	the testcases for test-set-10 are: [0x40041afe00]
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	test/test.go:409	the config mocks for test-set-10 are: []
+the testcase mocks are: []
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	test/util.go:475	filtered mocks after filtering accornding to the testcase timestamps	{"testcase": "fake-tc", "mocks": []}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	test/util.go:477	number of filtered mocks	{"testcase": "fake-tc", "number of filtered mocks": 0}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	test/test.go:416	the oss config mocks for test-set-10 are: []
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	test/test.go:422	the oss tcs mocks for test-set-10 are: [0x4001216180]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	test/test.go:425		{"app pid": 0}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[34mINFO[0m	test/test.go:430	running user application for	{"test-set": "test-set-10"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/launch.go:244	Running user application on Linux	{"pid of keploy": 41212}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	hooks/launch.go:531		{"executing cmd": "/usr/bin/sudo -E -u ritikjain env PATH=/home/ritikjain.linux/.nvm/versions/node/v21.1.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/sbin:/sbin:/usr/local/llvm/bin:/usr/local/llvm/bin:/usr/bin/python3 sh -c npm start"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	util/util.go:93	the path to the generated keploy directory	{"path": "/Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/testReports/test-run-75"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:666		{"Source socket info": "192.168.5.15:52899"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:670	Got some Dns queries
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:672		{"Record Type": 1, "Received Query": "lima-ubuntu-lts."}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:694	failed to resolve dns query hence sending proxy ip4	{"proxy Ip": "192.168.5.15"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:666		{"Source socket info": "192.168.5.15:52899"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:666		{"Source socket info": "192.168.5.15:59646"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:666		{"Source socket info": "192.168.5.15:59646"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:707	Answers[when resolution failed for query:1]:
+[lima-ubuntu-lts.	3600	IN	A	192.168.5.15]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:670	Got some Dns queries
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:672		{"Record Type": 28, "Received Query": "lima-ubuntu-lts."}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:703	failed to resolve dns query hence sending proxy ip6	{"proxy Ip": "::1"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:707	Answers[when resolution failed for query:28]:
+[lima-ubuntu-lts.	3600	IN	AAAA	::1]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:670	Got some Dns queries
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:670	Got some Dns queries
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:714	Answers[after caching it]:
+[lima-ubuntu-lts.	3600	IN	A	192.168.5.15]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:714	Answers[after caching it]:
+[lima-ubuntu-lts.	3600	IN	AAAA	::1]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:672		{"Record Type": 28, "Received Query": "lima-ubuntu-lts."}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:672		{"Record Type": 1, "Received Query": "lima-ubuntu-lts."}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:717	Answers[before appending to msg]:
+[lima-ubuntu-lts.	3600	IN	A	192.168.5.15]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:717	Answers[before appending to msg]:
+[lima-ubuntu-lts.	3600	IN	A	192.168.5.15]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:717	Answers[before appending to msg]:
+[lima-ubuntu-lts.	3600	IN	AAAA	::1]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:717	Answers[before appending to msg]:
+[lima-ubuntu-lts.	3600	IN	AAAA	::1]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:719	Answers[After appending to msg]:
+[lima-ubuntu-lts.	3600	IN	A	192.168.5.15]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:719	Answers[After appending to msg]:
+[lima-ubuntu-lts.	3600	IN	A	192.168.5.15]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:719	Answers[After appending to msg]:
+[lima-ubuntu-lts.	3600	IN	AAAA	::1]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:722	dns msg sending back:
+;; opcode: QUERY, status: NOERROR, id: 39274
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;lima-ubuntu-lts.	IN	 A
+
+;; ANSWER SECTION:
+lima-ubuntu-lts.	3600	IN	A	192.168.5.15
+
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:723	dns msg RCODE sending back:
+0
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:724	Writing dns info back to the client...
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:722	dns msg sending back:
+;; opcode: QUERY, status: NOERROR, id: 54433
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;lima-ubuntu-lts.	IN	 AAAA
+
+;; ANSWER SECTION:
+lima-ubuntu-lts.	3600	IN	AAAA	::1
+
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:723	dns msg RCODE sending back:
+0
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:719	Answers[After appending to msg]:
+[lima-ubuntu-lts.	3600	IN	AAAA	::1]
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:722	dns msg sending back:
+;; opcode: QUERY, status: NOERROR, id: 29856
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;lima-ubuntu-lts.	IN	 A
+
+;; ANSWER SECTION:
+lima-ubuntu-lts.	3600	IN	A	192.168.5.15
+
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:724	Writing dns info back to the client...
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:722	dns msg sending back:
+;; opcode: QUERY, status: NOERROR, id: 40555
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;lima-ubuntu-lts.	IN	 AAAA
+
+;; ANSWER SECTION:
+lima-ubuntu-lts.	3600	IN	AAAA	::1
+
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:723	dns msg RCODE sending back:
+0
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:724	Writing dns info back to the client...
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:723	dns msg RCODE sending back:
+0
+
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	proxy/proxy.go:724	Writing dns info back to the client...
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[34mINFO[0m	test/test.go:489		{"no of test cases": 1, "test-set": "test-set-10"}
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	test/test.go:490	the delay is 5s
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	test/test.go:491	the buildDelay is -1914857h49m7.419103232s
+🐰 Keploy: 2024-03-05T23:39:41+05:30 	[35mDEBUG[0m	test/test.go:494	the number of testcases for the test set	{"count": 1, "test-set": "test-set-10"}
+
+> NodeMongo@1.0.0 start
+> node src/app.js
+
+(node:42092) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+printing the env variable from the main ts file ritikjain
+Listening on port 8000
+Connected to MongoDB
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	test/test.go:689	the userip of the user docker container	{"": ""}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	test/util.go:475	filtered mocks after filtering accornding to the testcase timestamps	{"testcase": "test-1", "mocks": [{"Version":"api.keploy.io/v1beta1","Name":"mock-0","Kind":"Http","Spec":{"Metadata":{"name":"Http","operation":"GET","type":"HTTP_CLIENT"},"Req":{"method":"GET","proto_major":1,"proto_minor":1,"url":"/","url_params":null,"header":{"Accept":"application/json, text/plain, */*","Accept-Encoding":"gzip, compress, deflate, br","Connection":"keep-alive","User-Agent":"axios/1.6.7"},"body":"","binary":"","form":null,"timestamp":"0001-01-01T00:00:00Z"},"Res":{"status_code":200,"header":{"Connection":"keep-alive","Content-Length":"27","Content-Type":"application/json; charset=utf-8","Date":"Tue, 05 Mar 2024 17:59:11 GMT","Etag":"W/\"1b-rkUKiQsN47rSJNAG+uPSlsjLv+I\"","Keep-Alive":"timeout=5","X-Powered-By":"Express"},"body":"\"Welcome to the 8000 / API\"","status_message":"","proto_major":0,"proto_minor":0,"binary":"","timestamp":"0001-01-01T00:00:00Z"},"Created":1709661551,"ReqTimestampMock":"2024-03-05T23:29:11.564083973+05:30","ResTimestampMock":"2024-03-05T23:29:11.571139866+05:30"},"TestModeInfo":{"isFiltered":true}}]}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	test/util.go:477	number of filtered mocks	{"testcase": "test-1", "number of filtered mocks": 1}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	test/util.go:475	filtered mocks after filtering accornding to the testcase timestamps	{"testcase": "test-1", "mocks": []}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	test/util.go:477	number of filtered mocks	{"testcase": "test-1", "number of filtered mocks": 0}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	test/test.go:503	Before simulating the request	{"Test case": {"version":"api.keploy.io/v1beta1","kind":"Http","name":"test-1","created":1709661553,"updated":0,"captured":0,"http_req":{"method":"GET","proto_major":1,"proto_minor":1,"url":"http://localhost:8000/get","url_params":null,"header":{"Accept":"*/*","Host":"localhost:8000","User-Agent":"curl/7.81.0"},"body":"","binary":"","form":null,"timestamp":"2024-03-05T23:29:11.522239559+05:30"},"http_resp":{"status_code":200,"header":{"Connection":"keep-alive","Content-Length":"27","Content-Type":"application/json; charset=utf-8","Date":"Tue, 05 Mar 2024 17:59:11 GMT","Etag":"W/\"1b-rkUKiQsN47rSJNAG+uPSlsjLv+I\"","Keep-Alive":"timeout=5","X-Powered-By":"Express"},"body":"\"Welcome to the 8000 / API\"","status_message":"OK","proto_major":0,"proto_minor":0,"binary":"","timestamp":"2024-03-05T23:29:13.593276045+05:30"},"all_keys":null,"grpcResp":{"headers":{"pseudo_headers":null,"ordinary_headers":null},"body":{"compression_flag":0,"message_length":0,"decoded_data":""},"trailers":{"pseudo_headers":null,"ordinary_headers":null}},"grpcReq":{"headers":{"pseudo_headers":null,"ordinary_headers":null},"body":{"compression_flag":0,"message_length":0,"decoded_data":""}},"anchors":null,"noise":{"header.Date":[]},"mocks":null,"type":"","curl":"curl --request GET \\\n  --url http://localhost:8000/get \\\n  --header 'User-Agent: curl/7.81.0' \\\n  --header 'Accept: */*' \\\n  --header 'Host: localhost:8000' \\\n"}}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	test/test.go:514	the url of the testcase: http://localhost:8000/get
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[34mINFO[0m	pkg/util.go:69	starting test for of	{"test case": "test-1", "test set": "test-set-10"}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	pkg/util.go:80	Sending request to user app:&{GET http://localhost:8000/get HTTP/1.1 1 1 map[Accept:[*/*] Host:[localhost:8000] Keploy-Test-Id:[test-1] User-Agent:[curl/7.81.0]] {} 0x304600 0 [] false localhost:8000 map[] map[] <nil> map[]   <nil> <nil> <nil> {{}}}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	pkg/util.go:106	simulating request with connection:keep-alive (maxIdleConn=1)
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	hooks/ringBufReader.go:128	Request EntryTimestamp :2024-03-05 23:39:46.664958873 +0530 IST
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	connection/tracker.go:302	Got a data event from eBPF, Direction:IngressTraffic || current Event Size:128 || ConnectionID:{42092 29 12616763140744}
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:666		{"Source socket info": "192.168.5.15:36194"}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:670	Got some Dns queries
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:672		{"Record Type": 28, "Received Query": "ritikjain.in."}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:666		{"Source socket info": "192.168.5.15:36194"}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:670	Got some Dns queries
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:672		{"Record Type": 1, "Received Query": "ritikjain.in."}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:703	failed to resolve dns query hence sending proxy ip6	{"proxy Ip": "::1"}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:707	Answers[when resolution failed for query:28]:
+[ritikjain.in.	3600	IN	AAAA	::1]
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:694	failed to resolve dns query hence sending proxy ip4	{"proxy Ip": "192.168.5.15"}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:707	Answers[when resolution failed for query:1]:
+[ritikjain.in.	3600	IN	A	192.168.5.15]
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:714	Answers[after caching it]:
+[ritikjain.in.	3600	IN	A	192.168.5.15]
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:714	Answers[after caching it]:
+[ritikjain.in.	3600	IN	AAAA	::1]
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:717	Answers[before appending to msg]:
+[ritikjain.in.	3600	IN	AAAA	::1]
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:719	Answers[After appending to msg]:
+[ritikjain.in.	3600	IN	AAAA	::1]
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:717	Answers[before appending to msg]:
+[ritikjain.in.	3600	IN	A	192.168.5.15]
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:719	Answers[After appending to msg]:
+[ritikjain.in.	3600	IN	A	192.168.5.15]
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:722	dns msg sending back:
+;; opcode: QUERY, status: NOERROR, id: 2502
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;ritikjain.in.	IN	 A
+
+;; ANSWER SECTION:
+ritikjain.in.	3600	IN	A	192.168.5.15
+
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:723	dns msg RCODE sending back:
+0
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:724	Writing dns info back to the client...
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:722	dns msg sending back:
+;; opcode: QUERY, status: NOERROR, id: 20163
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;ritikjain.in.	IN	 AAAA
+
+;; ANSWER SECTION:
+ritikjain.in.	3600	IN	AAAA	::1
+
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:723	dns msg RCODE sending back:
+0
+
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:724	Writing dns info back to the client...
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:817		{"PID in proxy:": 41212}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:818		{"Filtering in Proxy": false}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:823	Inside handleConnection of proxyServer	{"source port": 59610, "Time": 1709662186}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:840		{"DestIp6": [0,0,0,1], "DestPort": 443, "KernelPid": 42092}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	hooks/loader.go:433	successfully removed entry from redirect proxy map	{"(Key)/SourcePort": 59610}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:907	received buffer	{"size": 176, "buffer": "R0VUIC8gSFRUUC8xLjENCkFjY2VwdDogYXBwbGljYXRpb24vanNvbiwgdGV4dC9wbGFpbiwgKi8qDQpVc2VyLUFnZW50OiBheGlvcy8xLjYuNw0KQWNjZXB0LUVuY29kaW5nOiBnemlwLCBjb21wcmVzcywgZGVmbGF0ZSwgYnINCkhvc3Q6IHJpdGlramFpbi5pbg0KQ29ubmVjdGlvbjoga2VlcC1hbGl2ZQ0KDQo=", "connectionID": 0}
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:908	the clientConnId: 0
+🐰 Keploy: 2024-03-05T23:39:46+05:30 	[35mDEBUG[0m	proxy/proxy.go:927		{"Client IP Address": "[::1]:59610", "Client ConnectionID": 0, "Destination IP Address": "[::1]:443", "Destination ConnectionID": 1, "isTLS": true}
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	httpparser/httpparser.go:268	this request has complete headers in the first chunk itself.
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	httpparser/httpparser.go:463	This is the complete request:
+GET / HTTP/1.1
+Accept: application/json, text/plain, */*
+User-Agent: axios/1.6.7
+Accept-Encoding: gzip, compress, deflate, br
+Host: ritikjain.in
+Connection: keep-alive
+
+
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	httpparser/httpparser.go:578	Mock Response sending back to client:
+HTTP/1.1 200 OK
+Content-Length: 27
+Content-Type: application/json; charset=utf-8
+Date: Tue, 05 Mar 2024 17:59:11 GMT
+Etag: W/"1b-rkUKiQsN47rSJNAG+uPSlsjLv+I"
+Keep-Alive: timeout=5
+X-Powered-By: Express
+Connection: keep-alive
+
+"Welcome to the 8000 / API"
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	test/test.go:516	After simulating the request	{"test case id": "test-1"}
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	test/test.go:517	After GetResp of the request	{"test case id": "test-1"}
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	connection/tracker.go:302	Got a data event from eBPF, Direction:EgressTraffic || current Event Size:235 || ConnectionID:{42092 29 12616763140744}
+
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	connection/tracker.go:302	Got a data event from eBPF, Direction:EgressTraffic || current Event Size:27 || ConnectionID:{42092 29 12616763140744}
+
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	test/test.go:878	cleanExp	{"": "\"Welcome to the 8000 / API\""}
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	test/test.go:879	cleanAct	{"": "\"Welcome to the 8000 / API\""}
+Testrun passed for testcase with id: [32m[1m"[0m[32mtest-1[0m[32m[1m"[0m
+
+--------------------------------------------------------------------
+
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[34mINFO[0m	test/test.go:529	result	{"testcase id": "test-1", "testset id": "test-set-10", "passed": "true"}
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[34mINFO[0m	test/test.go:611	test report for test-set-10: 	{"name: ": "report-1", "path: ": "/Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/report-1"}
+
+ <=========================================> 
+  TESTRUN SUMMARY. For testrun with id: [32m[1m"[0m[32mtest-set-10[0m[32m[1m"[0m
+	Total tests: [34m[1m1[0m
+	Total test passed: [34m[1m1[0m
+	Total test failed: [34m[1m0[0m
+ <=========================================> 
+
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	test/test.go:635	the result before	{"": "PASSED", "testreport name": "report-1"}
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	test/test.go:636	the result after	{"": "PASSED", "testreport name": "report-1"}
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[34mINFO[0m	hooks/loader.go:533	keploy has initiated the shutdown of the user application.
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	hooks/loader.go:536	the process state for the user process	{"state": "<nil>", "processState": "<nil>"}
+
+ <=========================================> 
+  COMPLETE TESTRUN SUMMARY. 
+	Total tests: [34m[1m1[0m
+	Total test passed: [34m[1m1[0m
+	Total test failed: [34m[1m0[0m
+
+	Test Suite Name		Total Test	Passed		Failed	
+
+	[32m[1m"[0m[32mtest-set-10[0m[32m[1m"[0m		[34m[1m1[0m		[34m[1m1[0m		[34m[1m0[0m
+<=========================================> 
+
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[34mINFO[0m	test/test.go:315	test run completed	{"passed overall": true}
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[34mINFO[0m	hooks/loader.go:595	Exiting keploy program gracefully.
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[34mINFO[0m	test/test.go:437	keploy terminated user application
+🐰 Keploy: 2024-03-05T23:39:47+05:30 	[35mDEBUG[0m	hooks/loader.go:581	File kdocker-compose.yaml doesn't exist
+🐰 Keploy: 2024-03-05T23:39:48+05:30 	[35mDEBUG[0m	httpparser/httpparser.go:588	failed to read the request buffer from the client	{"error": "EOF"}
+🐰 Keploy: 2024-03-05T23:39:48+05:30 	[35mDEBUG[0m	httpparser/httpparser.go:589	This was the last response from the server:
+HTTP/1.1 200 OK
+Content-Length: 27
+Content-Type: application/json; charset=utf-8
+Date: Tue, 05 Mar 2024 17:59:11 GMT
+Etag: W/"1b-rkUKiQsN47rSJNAG+uPSlsjLv+I"
+Keep-Alive: timeout=5
+X-Powered-By: Express
+Connection: keep-alive
+
+"Welcome to the 8000 / API"
+🐰 Keploy: 2024-03-05T23:39:48+05:30 	[35mDEBUG[0m	proxy/proxy.go:973	time taken by proxy to execute the flow	{"Duration(ms)": 1487}
+🐰 Keploy: 2024-03-05T23:39:48+05:30 	[34mINFO[0m	hooks/loader.go:645	eBPF resources released successfully...
+🐰 Keploy: 2024-03-05T23:39:48+05:30 	[34mINFO[0m	proxy/proxy.go:1070	Udp Dns server stopped
+🐰 Keploy: 2024-03-05T23:39:48+05:30 	[34mINFO[0m	proxy/proxy.go:1079	Tcp Dns server stopped
+🐰 Keploy: 2024-03-05T23:39:48+05:30 	[34mINFO[0m	proxy/proxy.go:1082	proxy stopped...

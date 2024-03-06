@@ -1,0 +1,112 @@
+version: api.keploy.io/v1beta1
+name: report-1
+status: FAILED
+success: 0
+failure: 1
+total: 1
+tests:
+    - kind: Http
+      name: report-1
+      status: FAILED
+      started: 1709662046
+      completed: 1709662051
+      test_case_path: /Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/test-set-10
+      mock_path: /Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/test-set-10/mocks.yaml
+      test_case_id: test-1
+      req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8000/get
+        header:
+            Accept: '*/*'
+            Host: localhost:8000
+            User-Agent: curl/7.81.0
+        body: ""
+        timestamp: 2024-03-05T23:29:11.522239559+05:30
+      resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "27"
+            Content-Type: application/json; charset=utf-8
+            Date: Tue, 05 Mar 2024 17:59:11 GMT
+            Etag: W/"1b-rkUKiQsN47rSJNAG+uPSlsjLv+I"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '"Welcome to the 8000 / API"'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-03-05T23:29:13.593276045+05:30
+      noise:
+        header.Date: []
+      result:
+        status_code:
+            normal: false
+            expected: 200
+            actual: 0
+        headers_result:
+            - normal: false
+              expected:
+                key: Etag
+                value:
+                    - W/"1b-rkUKiQsN47rSJNAG+uPSlsjLv+I"
+              actual:
+                key: Etag
+                value: []
+            - normal: false
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value: []
+            - normal: false
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value: []
+            - normal: false
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value: []
+            - normal: false
+              expected:
+                key: Content-Length
+                value:
+                    - "27"
+              actual:
+                key: Content-Length
+                value: []
+            - normal: false
+              expected:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+              actual:
+                key: Content-Type
+                value: []
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Tue, 05 Mar 2024 17:59:11 GMT
+              actual:
+                key: Date
+                value: []
+        body_result:
+            - normal: false
+              expected: '"Welcome to the 8000 / API"'
+              actual: 'Get "http://localhost:8000/get": context deadline exceeded (Client.Timeout exceeded while awaiting headers)'
+              type: PLAIN
+        dep_result: []
+test_set: test-set-10

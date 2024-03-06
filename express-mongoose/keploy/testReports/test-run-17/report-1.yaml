@@ -1,0 +1,119 @@
+version: api.keploy.io/v1beta1
+name: report-1
+status: PASSED
+success: 1
+failure: 0
+total: 1
+tests:
+    - kind: Http
+      name: report-1
+      status: PASSED
+      started: 1708942648
+      completed: 1708942648
+      test_case_path: /Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/test-set-0
+      mock_path: /Users/ritikjain/Desktop/keploy-workspace/samples-typescript/express-mongoose/keploy/test-set-0/mocks.yaml
+      test_case_id: test-1
+      req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8000/students
+        header:
+            Accept: '*/*'
+            Host: localhost:8000
+            User-Agent: curl/7.88.1
+        body: ""
+        timestamp: 2023-11-04T12:55:19.00702043Z
+      resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "523"
+            Content-Type: application/json; charset=utf-8
+            Date: Sat, 04 Nov 2023 12:55:19 GMT
+            Etag: W/"20b-wEHDTOeND1Hgnd4o9ajDsn/Qwlg"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '[{"_id":"65449f16e7cbcd56ac7ef571","name":"John Doe","email":"john@xyz.com","phone":123456798,"__v":0},{"_id":"654528488029ad5fe4d8b14c","name":"John Doe","email":"john@xyzw.com","phone":30123456798,"__v":0},{"_id":"6546361d19db8f749f391d79","name":"John Doe","email":"jodhn@xyz.com","phone":1263456798,"__v":0},{"_id":"654636c8af93e55ea077a39d","name":"John Doe","email":"joddhn@xyz.com","phone":1203456798,"__v":0},{"_id":"654636f209fb119d87e76781","name":"John Doe","email":"joddhwn@xyz.com","phone":1203456799,"__v":0}]'
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2023-11-04T12:55:21.48575217Z
+      noise:
+        header.Date: []
+      result:
+        status_code:
+            normal: true
+            expected: 200
+            actual: 200
+        headers_result:
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Sat, 04 Nov 2023 12:55:19 GMT
+              actual:
+                key: Date
+                value:
+                    - Mon, 26 Feb 2024 10:17:28 GMT
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"20b-wEHDTOeND1Hgnd4o9ajDsn/Qwlg"
+              actual:
+                key: Etag
+                value:
+                    - W/"20b-wEHDTOeND1Hgnd4o9ajDsn/Qwlg"
+            - normal: true
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
+            - normal: true
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value:
+                    - keep-alive
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "523"
+              actual:
+                key: Content-Length
+                value:
+                    - "523"
+        body_result:
+            - normal: true
+              expected: '[{"_id":"65449f16e7cbcd56ac7ef571","name":"John Doe","email":"john@xyz.com","phone":123456798,"__v":0},{"_id":"654528488029ad5fe4d8b14c","name":"John Doe","email":"john@xyzw.com","phone":30123456798,"__v":0},{"_id":"6546361d19db8f749f391d79","name":"John Doe","email":"jodhn@xyz.com","phone":1263456798,"__v":0},{"_id":"654636c8af93e55ea077a39d","name":"John Doe","email":"joddhn@xyz.com","phone":1203456798,"__v":0},{"_id":"654636f209fb119d87e76781","name":"John Doe","email":"joddhwn@xyz.com","phone":1203456799,"__v":0}]'
+              actual: '[{"_id":"65449f16e7cbcd56ac7ef571","name":"John Doe","email":"john@xyz.com","phone":123456798,"__v":0},{"_id":"654528488029ad5fe4d8b14c","name":"John Doe","email":"john@xyzw.com","phone":30123456798,"__v":0},{"_id":"6546361d19db8f749f391d79","name":"John Doe","email":"jodhn@xyz.com","phone":1263456798,"__v":0},{"_id":"654636c8af93e55ea077a39d","name":"John Doe","email":"joddhn@xyz.com","phone":1203456798,"__v":0},{"_id":"654636f209fb119d87e76781","name":"John Doe","email":"joddhwn@xyz.com","phone":1203456799,"__v":0}]'
+              type: JSON
+        dep_result: []
+test_set: test-set-0
