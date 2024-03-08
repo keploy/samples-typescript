@@ -1,0 +1,209 @@
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-0
+spec:
+    metadata:
+        operation: '{ OpQuery flags: [], fullCollectionName: admin.$cmd, numberToSkip: 0, numberToReturn: -1, query: {"ismaster": {"$numberInt":"1"},"helloOk": true,"client": {"driver": {"name": "nodejs|Mongoose","version": "5.9.1|7.6.8"},"platform": "Bun v1.0.28, LE","os": {"name": "linux","architecture": "x64","version": "6.5.0-17-generic","type": "Linux"}},"compression": ["none"]}, returnFieldsSelector:  }'
+        type: config
+    requests:
+        - header:
+            length: 298
+            requestId: 1
+            responseTo: 0
+            Opcode: 2004
+          message:
+            flags: 0
+            collection_name: admin.$cmd
+            number_to_skip: 0
+            number_to_return: -1
+            query: '{"ismaster":{"$numberInt":"1"},"helloOk":true,"client":{"driver":{"name":"nodejs|Mongoose","version":"5.9.1|7.6.8"},"platform":"Bun v1.0.28, LE","os":{"name":"linux","architecture":"x64","version":"6.5.0-17-generic","type":"Linux"}},"compression":["none"]}'
+            return_fields_selector: ""
+    responses:
+        - header:
+            length: 329
+            requestId: 51
+            responseTo: 1
+            Opcode: 1
+          message:
+            response_flags: 8
+            cursor_id: 0
+            starting_from: 0
+            number_returned: 1
+            documents:
+                - '{"helloOk":true,"ismaster":true,"topologyVersion":{"processId":{"$oid":"65d6d489b22b36a5e2946508"},"counter":{"$numberLong":"0"}},"maxBsonObjectSize":{"$numberInt":"16777216"},"maxMessageSizeBytes":{"$numberInt":"48000000"},"maxWriteBatchSize":{"$numberInt":"100000"},"localTime":{"$date":{"$numberLong":"1708579039895"}},"logicalSessionTimeoutMinutes":{"$numberInt":"30"},"connectionId":{"$numberInt":"4"},"minWireVersion":{"$numberInt":"0"},"maxWireVersion":{"$numberInt":"21"},"readOnly":false,"ok":{"$numberDouble":"1.0"}}'
+          read_delay: 458050
+    created: 1708579039
+    reqTimestampMock: 2024-02-22T10:47:19.895175911+05:30
+    resTimestampMock: 2024-02-22T10:47:19.895820144+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-1
+spec:
+    metadata:
+        operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"create":"animals","lsid":{"id":{"$binary":{"base64":"nSKg7N03T4az5IMvYWrk6Q==","subType":"04"}}},"$db":"keploy"} }], checksum: 0 }'
+    requests:
+        - header:
+            length: 98
+            requestId: 3
+            responseTo: 0
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"create":"animals","lsid":{"id":{"$binary":{"base64":"nSKg7N03T4az5IMvYWrk6Q==","subType":"04"}}},"$db":"keploy"} }'
+            checksum: 0
+          read_delay: 3181886
+    responses:
+        - header:
+            length: 38
+            requestId: 53
+            responseTo: 3
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"ok":{"$numberDouble":"1.0"}} }'
+            checksum: 0
+          read_delay: 315652
+    created: 1708579039
+    reqTimestampMock: 2024-02-22T10:47:19.914812387+05:30
+    resTimestampMock: 2024-02-22T10:47:19.915212189+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-2
+spec:
+    metadata:
+        operation: '{ OpMsg flags: 65536, sections: [{ SectionSingle msg: {"hello":{"$numberInt":"1"},"maxAwaitTimeMS":{"$numberInt":"10000"},"topologyVersion":{"processId":{"$oid":"65d6d489b22b36a5e2946508"},"counter":{"$numberLong":"0"}},"$db":"admin"} }], checksum: 0 }'
+        type: config
+    requests:
+        - header:
+            length: 134
+            requestId: 4
+            responseTo: 0
+            Opcode: 2013
+          message:
+            flagBits: 65536
+            sections:
+                - '{ SectionSingle msg: {"hello":{"$numberInt":"1"},"maxAwaitTimeMS":{"$numberInt":"10000"},"topologyVersion":{"processId":{"$oid":"65d6d489b22b36a5e2946508"},"counter":{"$numberLong":"0"}},"$db":"admin"} }'
+            checksum: 0
+          read_delay: 510104878
+    responses:
+        - header:
+            length: 313
+            requestId: 55
+            responseTo: 4
+            Opcode: 2013
+          message:
+            flagBits: 2
+            sections:
+                - '{ SectionSingle msg: {"isWritablePrimary":true,"topologyVersion":{"processId":{"$oid":"65d6d489b22b36a5e2946508"},"counter":{"$numberLong":"0"}},"maxBsonObjectSize":{"$numberInt":"16777216"},"maxMessageSizeBytes":{"$numberInt":"48000000"},"maxWriteBatchSize":{"$numberInt":"100000"},"localTime":{"$date":{"$numberLong":"1708579050414"}},"logicalSessionTimeoutMinutes":{"$numberInt":"30"},"connectionId":{"$numberInt":"4"},"minWireVersion":{"$numberInt":"0"},"maxWireVersion":{"$numberInt":"21"},"readOnly":false,"ok":{"$numberDouble":"1.0"}} }'
+            checksum: 0
+          read_delay: 10008765891
+    created: 1708579050
+    reqTimestampMock: 2024-02-22T10:47:20.405909373+05:30
+    resTimestampMock: 2024-02-22T10:47:30.414790666+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-3
+spec:
+    metadata:
+        operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"ismaster":{"$numberInt":"1"},"$db":"admin"} }], checksum: 0 }'
+        type: config
+    requests:
+        - header:
+            length: 55
+            requestId: 6
+            responseTo: 0
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"ismaster":{"$numberInt":"1"},"$db":"admin"} }'
+            checksum: 0
+          read_delay: 10011684829
+    responses:
+        - header:
+            length: 304
+            requestId: 56
+            responseTo: 6
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"ismaster":true,"topologyVersion":{"processId":{"$oid":"65d6d489b22b36a5e2946508"},"counter":{"$numberLong":"0"}},"maxBsonObjectSize":{"$numberInt":"16777216"},"maxMessageSizeBytes":{"$numberInt":"48000000"},"maxWriteBatchSize":{"$numberInt":"100000"},"localTime":{"$date":{"$numberLong":"1708579060421"}},"logicalSessionTimeoutMinutes":{"$numberInt":"30"},"connectionId":{"$numberInt":"6"},"minWireVersion":{"$numberInt":"0"},"maxWireVersion":{"$numberInt":"21"},"readOnly":false,"ok":{"$numberDouble":"1.0"}} }'
+            checksum: 0
+          read_delay: 229401
+    created: 1708579060
+    reqTimestampMock: 2024-02-22T10:47:40.421369398+05:30
+    resTimestampMock: 2024-02-22T10:47:40.421703142+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-4
+spec:
+    metadata:
+        operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"insert":"animals","documents":[{"name":"Cow","sound":"Moo","_id":{"$oid":"65d6d904d0c2cfd257c98f53"},"__v":{"$numberInt":"0"}}],"ordered":true,"lsid":{"id":{"$binary":{"base64":"nSKg7N03T4az5IMvYWrk6Q==","subType":"04"}}},"$db":"keploy"} }], checksum: 0 }'
+    requests:
+        - header:
+            length: 187
+            requestId: 8
+            responseTo: 0
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"insert":"animals","documents":[{"name":"Cow","sound":"Moo","_id":{"$oid":"65d6d904d0c2cfd257c98f53"},"__v":{"$numberInt":"0"}}],"ordered":true,"lsid":{"id":{"$binary":{"base64":"nSKg7N03T4az5IMvYWrk6Q==","subType":"04"}}},"$db":"keploy"} }'
+            checksum: 0
+          read_delay: 36867077549
+    responses:
+        - header:
+            length: 45
+            requestId: 60
+            responseTo: 8
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"n":{"$numberInt":"1"},"ok":{"$numberDouble":"1.0"}} }'
+            checksum: 0
+          read_delay: 508719
+    created: 1708579076
+    reqTimestampMock: 2024-02-22T10:47:56.782305901+05:30
+    resTimestampMock: 2024-02-22T10:47:56.782941721+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-5
+spec:
+    metadata:
+        operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"insert":"animals","documents":[{"name":"Cow","sound":"Moo","_id":{"$oid":"65d6d91cd0c2cfd257c98f55"},"__v":{"$numberInt":"0"}}],"ordered":true,"lsid":{"id":{"$binary":{"base64":"nSKg7N03T4az5IMvYWrk6Q==","subType":"04"}}},"$db":"keploy"} }], checksum: 0 }'
+    requests:
+        - header:
+            length: 187
+            requestId: 12
+            responseTo: 0
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"insert":"animals","documents":[{"name":"Cow","sound":"Moo","_id":{"$oid":"65d6d91cd0c2cfd257c98f55"},"__v":{"$numberInt":"0"}}],"ordered":true,"lsid":{"id":{"$binary":{"base64":"nSKg7N03T4az5IMvYWrk6Q==","subType":"04"}}},"$db":"keploy"} }'
+            checksum: 0
+          read_delay: 24180570971
+    responses:
+        - header:
+            length: 45
+            requestId: 67
+            responseTo: 12
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"n":{"$numberInt":"1"},"ok":{"$numberDouble":"1.0"}} }'
+            checksum: 0
+          read_delay: 317984
+    created: 1708579100
+    reqTimestampMock: 2024-02-22T10:48:20.963500392+05:30
+    resTimestampMock: 2024-02-22T10:48:20.963937748+05:30

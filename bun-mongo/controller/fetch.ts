@@ -7,11 +7,11 @@ export default class MongoIntegration {
             sound: 'Moo',
         });
         await cow.save();
-        return {"succes":true};
+        return {"success":true};
     }
     async Fetch() {
         const animal = await Animal.findOne({"name":"Cow"});
-        return {"succes":animal};
+        return {"success":animal};
     }
     async Put() {
         const query = { name: 'name' };
@@ -21,10 +21,10 @@ export default class MongoIntegration {
           },
         };
         let animal = await Animal.updateMany(query,update);
-        return {"succes":animal};
+        return {"success":animal};
     }
     async Delete() {
         const animal = await Animal.deleteMany({"name":'Cow'});
-        return {"succes":animal};
+        return {"success":animal};
     }
 }

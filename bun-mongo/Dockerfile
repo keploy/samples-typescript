@@ -21,5 +21,5 @@ RUN bun install
 # Bundle app source
 COPY . .
 
-EXPOSE 420
+EXPOSE 4200
 CMD [ "bun", "start" ]
