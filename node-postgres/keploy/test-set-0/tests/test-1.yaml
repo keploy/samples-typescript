@@ -1,0 +1,43 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/api/users
+        header:
+            Accept: '*/*'
+            Content-Length: "46"
+            Content-Type: application/json
+            Host: localhost:3000
+            User-Agent: curl/8.2.1
+        body: '{"name":"John Doe","email":"john@example.com"}'
+        timestamp: 2024-03-27T15:37:06.009119094+05:30
+    resp:
+        status_code: 500
+        header:
+            Connection: keep-alive
+            Date: Wed, 27 Mar 2024 10:07:06 GMT
+            Keep-Alive: timeout=5
+            Vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url
+        body: ""
+        status_message: Internal Server Error
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-03-27T15:37:08.490325739+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1711534028
+curl: |-
+    curl --request POST \
+      --url http://localhost:3000/api/users \
+      --header 'Host: localhost:3000' \
+      --header 'User-Agent: curl/8.2.1' \
+      --header 'Accept: */*' \
+      --header 'Content-Type: application/json' \
+      --data '{"name":"John Doe","email":"john@example.com"}'
