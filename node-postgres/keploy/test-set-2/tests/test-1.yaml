@@ -1,0 +1,45 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/api/users
+        header:
+            Accept: '*/*'
+            Content-Length: "49"
+            Content-Type: application/json
+            Host: localhost:3000
+            User-Agent: curl/8.2.1
+        body: '{"name":"John Doe","email":"johndoe@example.com"}'
+        timestamp: 2024-03-27T15:47:08.826929032+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Type: application/json
+            Date: Wed, 27 Mar 2024 10:17:09 GMT
+            Keep-Alive: timeout=5
+            Vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url
+        body: '{"users":[{"id":4,"name":"John Doe","email":"johndoe@example.com","createdAt":"2024-03-27T10:17:09.238Z"}]}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-03-27T15:47:11.352612995+05:30
+    objects: []
+    assertions:
+        noise:
+            body.users.createdAt: []
+            header.Date: []
+    created: 1711534631
+curl: |-
+    curl --request POST \
+      --url http://localhost:3000/api/users \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:3000' \
+      --header 'User-Agent: curl/8.2.1' \
+      --header 'Accept: */*' \
+      --data '{"name":"John Doe","email":"johndoe@example.com"}'
