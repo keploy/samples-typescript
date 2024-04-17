@@ -1,4 +1,4 @@
-// This is an application to create online courses also with that you can update,delete and view your courses
+// This is an application to create online courses also with that you can update,delete and view your courses .
 
 const express = require("express");
 const mongoose = require("mongoose");
