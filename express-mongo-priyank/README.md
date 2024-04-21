@@ -17,3 +17,8 @@ pm.test("Response time is less than 500ms", function () {
 ```
 
 ![images](/images/postman.png)
+
+## Jest
+
+![images](/images/jest.png)
+![images](/images/jestcoverage.png)
