@@ -16,9 +16,9 @@ pm.test("Response time is less than 500ms", function () {
 
 ```
 
-![images](/images/postman.png)
+![images](https://raw.githubusercontent.com/priyankarpal/samples-typescript/ppal/express-mongo-priyank/images/postman.png)
 
 ## Jest
 
-![images](/images/jest.png)
-![images](/images/jestcoverage.png)
+![images](https://raw.githubusercontent.com/priyankarpal/samples-typescript/ppal/express-mongo-priyank/images/jest.png)
+![images](https://raw.githubusercontent.com/priyankarpal/samples-typescript/ppal/express-mongo-priyank/images/jestcoverage.png)
