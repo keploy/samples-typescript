@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1709034246732,
+      "tag": "0000_common_supreme_intelligence",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1709102574651,
+      "tag": "0001_nostalgic_sway",
+      "breakpoints": true
+    }
+  ]
+}
