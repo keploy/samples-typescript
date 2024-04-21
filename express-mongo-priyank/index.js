@@ -13,15 +13,18 @@ app.use(express.urlencoded({ extended: false })); // to create data using form m
 app.use("/api/products", productRoute);
 
 // mongo connection
-mongoose
-  .connect(process.env.MONGODB_URI, {})
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.error("Error connecting to MongoDB:", err.message);
-  });
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log("MongoDB connected successfully");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+  }
+};
+connectDB();
 
 app.listen(process.env.PORT, () => {
   console.log("server is running");
 });
+// Export the app instance and connectDB function for testing
+module.exports = { app, connectDB };
