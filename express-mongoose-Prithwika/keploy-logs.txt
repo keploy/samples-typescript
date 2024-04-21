@@ -1,0 +1,12 @@
+🐰 Keploy: 2024-04-21T14:21:26+05:30 	[34mINFO[0m	config file not found; proceeding with flags only
+🐰 Keploy: 2024-04-21T14:21:26+05:30 	[31mERROR[0m	missing required -c flag or appCmd in config file
+🐰 Keploy: 2024-04-21T14:21:26+05:30 	[34mINFO[0m	Example usage: 
+  Record:
+	keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --containerName "<containerName>" --delay 1 --buildDelay 1m
+
+  Test:
+	keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 1 --buildDelay 1m
+
+  Config:
+	keploy config --generate -p "/path/to/localdir"
+
