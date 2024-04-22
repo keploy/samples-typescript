@@ -5,7 +5,7 @@ A simple User management application to test using Keploy build with NextJS and 
 ## Setup application
 Clone the repository and move to express-mongo folder
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typescript/node-postgres
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/nextjs-postgres
 
 # Install the dependencies
 npm install
