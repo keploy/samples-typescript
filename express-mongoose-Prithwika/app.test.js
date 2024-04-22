@@ -1,13 +1,14 @@
 const {
   createToken,
-  checkUser,
-  showNotes,
   signIn,
   logIn,
   logout,
+  checkUser,
 } = require("./authentication");
 const jwt = require("jsonwebtoken");
 const User = require("./models/users");
+
+jest.mock("./models/users");
 
 describe("createToken", () => {
   it("should create a token with correct payload and expiry time", () => {
@@ -15,22 +16,76 @@ describe("createToken", () => {
     const token = createToken(userId);
     const decoded = jwt.verify(token, "MONKE");
     expect(decoded.id).toBe(userId);
-    // You might want to test expiry time as well
   });
 });
 
-// Write similar test cases for other functions
+describe("signIn", () => {
+  it("should redirect to '/' after successful sign-in", async () => {
+    const req = { body: { username: "testUser", password: "testPassword" } };
+    const res = { cookie: jest.fn(), redirect: jest.fn() };
+
+    User.create.mockResolvedValueOnce({ _id: "someUserId" });
+
+    await signIn(req, res);
+
+    expect(res.cookie).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith("/");
+  });
+
+  it("should redirect to '/signup' on error", async () => {
+    const req = { body: { username: "testUser", password: "testPassword" } };
+    const res = { redirect: jest.fn() };
+
+    User.create.mockRejectedValueOnce(new Error("Test error"));
+
+    await signIn(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith("/signup");
+  });
+});
+
+describe("logIn", () => {
+  it("should redirect to '/' after successful login", async () => {
+    const req = { body: { username: "testUser", password: "testPassword" } };
+    const res = { cookie: jest.fn(), redirect: jest.fn() };
+
+    User.login.mockResolvedValueOnce({ _id: "someUserId" });
+
+    await logIn(req, res);
+
+    expect(res.cookie).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith("/");
+  });
+
+  it("should respond with status 500 on error", async () => {
+    const req = { body: { username: "testUser", password: "testPassword" } };
+    const res = { sendStatus: jest.fn() };
+
+    User.login.mockRejectedValueOnce(new Error("Test error"));
+
+    await logIn(req, res);
+
+    expect(res.sendStatus).toHaveBeenCalledWith(500);
+  });
+});
+
+describe("logout", () => {
+  it("should clear the JWT cookie and redirect to '/login'", () => {
+    const req = {};
+    const res = { clearCookie: jest.fn(), redirect: jest.fn() };
+
+    logout(req, res);
+
+    expect(res.clearCookie).toHaveBeenCalledWith("jwt");
+    expect(res.redirect).toHaveBeenCalledWith("/login");
+  });
+});
+
 describe("checkUser", () => {
   it("should set res.locals.user to null when there's no token", () => {
-    const req = { cookies: {} }; // Mock request object with no token
-    const res = {
-      locals: {},
-      redirect: (url) => {
-        console.log(url);
-      },
-    }; // Mock response object
-
-    const next = jest.fn(); // Mock next function
+    const req = { cookies: {} };
+    const res = { locals: {}, redirect: jest.fn() };
+    const next = jest.fn();
 
     checkUser(req, res, next);
 
@@ -39,24 +94,18 @@ describe("checkUser", () => {
   });
 
   it("should set res.locals.user to the user object when the token is valid", async () => {
-    // Mock user and token data
     const userId = "someUserId";
     const user = { _id: userId, username: "testuser" };
-    const token = jwt.sign({ id: userId }, "MONKE", { expiresIn: 3600 }); // 1 hour expiry
+    const token = jwt.sign({ id: userId }, "MONKE", { expiresIn: 3600 });
 
-    // Mock request object with token
     const req = { cookies: { jwt: token } };
-    const res = { locals: {} }; // Mock response object
+    const res = { locals: {} };
+    const next = jest.fn();
 
-    const next = jest.fn(); // Mock next function
+    User.findById.mockResolvedValueOnce(user);
 
-    // Mock User.findById function
-    User.findById = jest.fn().mockResolvedValue(user);
-
-    // Call the middleware function
     await checkUser(req, res, next);
 
-    // Check if res.locals.user is set to the user object
     expect(res.locals.user).toEqual(user);
     expect(next).toHaveBeenCalledTimes(1);
   });

@@ -3,10 +3,10 @@ const jwt = require("jsonwebtoken");
 const User = require("./models/users");
 const Note = require("./models/model");
 
-module.exports.createToken = (id) => {
+const createToken = (id) => {
   return jwt.sign({ id }, "MONKE", { expiresIn: 24 * 60 * 60 });
 };
-
+module.exports.createToken = createToken;
 module.exports.checkUser = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
