@@ -1,0 +1,55 @@
+1. Signup
+
+curl --location 'http://localhost:8080/api/auth/signup' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username":"gouro",
+    "email":"gouru0@keploy.io",
+    "password":"1234"
+}'
+
+2. Create a Admin User
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "username": "admin",
+  "email": "admin@keploy.io",
+  "password": "admin",
+  "roles": ["admin"]
+}' http://localhost:8080/api/auth/signup
+
+2. Signin
+
+curl --location 'http://localhost:8080/api/auth/signin' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username":"sono",
+    "email":"sono@keploy.io",
+    "password":"1234"
+}'
+
+As admin to perform rest operations:
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "username": "admin",
+  "email": "admin@keploy.io",
+  "password": "admin",
+  "roles": ["admin"]
+}' http://localhost:8080/api/auth/signin
+
+
+3. Get all User
+
+curl --location 'http://localhost:8080/api/users' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNDkzODc3LCJleHAiOjE3MTM1ODAyNzd9.wmKk1Gpd-bMp_xQO1TYms_HE5RBYy05xkMV1YonhixE'
+
+4. Mod access (blocked)
+
+curl --location 'http://localhost:8080/api/test/admin' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzEzNTAxNjIwLCJleHAiOjE3MTM1ODgwMjB9.rnPnlBj2Q2MSS87tvrfU8aZYK0LTH9DemmKTZMyvQDo'
+
+#5. Update Role
+#curl -X PUT -H "Content-Type: application/json" -d '{"role": ["moderator"]}' http://localhost:8080/api/user/39/updateRole  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNDk2NzczLCJleHAiOjE3MTM1ODMxNzN9.3kxAn1oqRplymdJFCY-Jadfj5CcJo7XpaT8cLpKJA7I"
+
+6. Delete User
+curl --location --request DELETE 'http://localhost:8080/api/user/39/' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzYsImlhdCI6MTcxMzUwNjUzMSwiZXhwIjoxNzEzNTkyOTMxfQ.scaBSD1Ia1SXVueDlAzgvcqfwb5OSocFHY775pbC40s'
