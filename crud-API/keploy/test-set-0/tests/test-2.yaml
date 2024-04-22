@@ -1,0 +1,75 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-2
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/favicon.ico
+        header:
+            Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+            Accept-Encoding: gzip, deflate, br
+            Accept-Language: en-GB,en
+            Connection: keep-alive
+            Host: localhost:3000
+            Referer: http://localhost:3000/
+            Sec-Ch-Ua: '"Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"'
+            Sec-Ch-Ua-Mobile: ?0
+            Sec-Ch-Ua-Platform: '"Linux"'
+            Sec-Fetch-Dest: image
+            Sec-Fetch-Mode: no-cors
+            Sec-Fetch-Site: same-origin
+            Sec-Gpc: "1"
+            User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+        body: ""
+        timestamp: 2024-04-22T14:59:23.430424673+05:30
+    resp:
+        status_code: 404
+        header:
+            Connection: keep-alive
+            Content-Length: "150"
+            Content-Security-Policy: default-src 'none'
+            Content-Type: text/html; charset=utf-8
+            Date: Mon, 22 Apr 2024 09:29:23 GMT
+            Keep-Alive: timeout=5
+            X-Content-Type-Options: nosniff
+            X-Powered-By: Express
+        body: |
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+            <meta charset="utf-8">
+            <title>Error</title>
+            </head>
+            <body>
+            <pre>Cannot GET /favicon.ico</pre>
+            </body>
+            </html>
+        status_message: Not Found
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T14:59:25.525889318+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1713778165
+curl: |
+    curl --request GET \
+      --url http://localhost:3000/favicon.ico \
+      --header 'Sec-Ch-Ua-Mobile: ?0' \
+      --header 'Accept-Language: en-GB,en' \
+      --header 'Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8' \
+      --header 'Host: localhost:3000' \
+      --header 'Sec-Fetch-Mode: no-cors' \
+      --header 'Referer: http://localhost:3000/' \
+      --header 'Connection: keep-alive' \
+      --header 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36' \
+      --header 'Sec-Fetch-Site: same-origin' \
+      --header 'Sec-Gpc: 1' \
+      --header 'Sec-Ch-Ua: "Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"' \
+      --header 'Sec-Ch-Ua-Platform: "Linux"' \
+      --header 'Sec-Fetch-Dest: image' \
+      --header 'Accept-Encoding: gzip, deflate, br' \

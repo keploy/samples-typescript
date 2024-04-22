@@ -1,0 +1,63 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-10
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: "67"
+            Content-Type: application/json
+            Host: localhost:3000
+            Postman-Token: 79fd202b-caa6-416b-9faa-4e89aeec7b3a
+            User-Agent: PostmanRuntime/7.37.3
+        body: |-
+            {
+                "name": "Test Product",
+                "quantity": 2,
+                "price": 100
+            }
+        timestamp: 2024-04-22T15:00:29.899395417+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "34"
+            Content-Type: text/html; charset=utf-8
+            Date: Mon, 22 Apr 2024 09:30:29 GMT
+            Etag: W/"22-1zTtRKCtWDH+a9AlmEC9xS1mvKM"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: Hello from Node API Server Updated
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T15:00:31.989490271+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1713778231
+curl: |-
+    curl --request GET \
+      --url http://localhost:3000/ \
+      --header 'Connection: keep-alive' \
+      --header 'Host: localhost:3000' \
+      --header 'Accept: */*' \
+      --header 'Content-Type: application/json' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'User-Agent: PostmanRuntime/7.37.3' \
+      --header 'Cache-Control: no-cache' \
+      --header 'Postman-Token: 79fd202b-caa6-416b-9faa-4e89aeec7b3a' \
+      --data '{
+        "name": "Test Product",
+        "quantity": 2,
+        "price": 100
+    }'

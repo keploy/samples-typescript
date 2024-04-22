@@ -1,0 +1,65 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-11
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/api/products
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: "67"
+            Content-Type: application/json
+            Host: localhost:3000
+            Postman-Token: 10ed02fa-802f-45c3-a0f6-8353be4da42d
+            User-Agent: PostmanRuntime/7.37.3
+        body: |-
+            {
+                "name": "Test Product",
+                "quantity": 2,
+                "price": 100
+            }
+        timestamp: 2024-04-22T15:00:35.453857581+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "7329"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Apr 2024 09:30:35 GMT
+            Etag: W/"1ca1-ODkxbG3pHosBIR1heXqV6q+UtlY"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '[{"_id":"661fdd741595e378925b087d","name":"lava","quantity":10,"price":35000,"createdAt":"2024-04-17T14:32:20.686Z","updatedAt":"2024-04-17T14:32:20.686Z","__v":0},{"_id":"661fdd741595e378925b087b","name":"nokia","quantity":4,"price":15000,"createdAt":"2024-04-17T14:32:20.686Z","updatedAt":"2024-04-17T14:32:20.686Z","__v":0},{"_id":"661fdd741595e378925b087a","name":"samsung","quantity":0,"price":20000,"createdAt":"2024-04-17T14:32:20.686Z","updatedAt":"2024-04-17T14:32:20.686Z","__v":0},{"_id":"662399b3e24d0c5ecc531e0d","name":"Test Product","quantity":2,"price":100,"createdAt":"2024-04-20T10:32:19.942Z","updatedAt":"2024-04-22T09:30:09.009Z","__v":0},{"_id":"6623ba1b455ad5b5d34079dc","name":"Product 2","quantity":0,"price":1009,"createdAt":"2024-04-20T12:50:35.034Z","updatedAt":"2024-04-20T12:50:35.034Z","__v":0},{"_id":"6623bbf0edef0786d3ec35d5","name":"Product 2","quantity":0,"price":1009,"createdAt":"2024-04-20T12:58:24.915Z","updatedAt":"2024-04-20T12:58:24.915Z","__v":0},{"_id":"662500e1a880473c8a7bb7d1","name":"airpods","quantity":2,"price":200,"createdAt":"2024-04-21T12:04:49.880Z","updatedAt":"2024-04-21T12:04:49.880Z","__v":0},{"_id":"66250305907878b409eaa145","name":"airpods","quantity":2,"price":200,"createdAt":"2024-04-21T12:13:57.557Z","updatedAt":"2024-04-21T12:13:57.557Z","__v":0},{"_id":"662505ffca334147faeb06ec","name":"airpods","quantity":2,"price":200,"createdAt":"2024-04-21T12:26:39.874Z","updatedAt":"2024-04-21T12:26:39.874Z","__v":0},{"_id":"6625069c1cc35909de30561e","name":"airpods","quantity":2,"price":200,"createdAt":"2024-04-21T12:29:16.088Z","updatedAt":"2024-04-21T12:29:16.088Z","__v":0},{"_id":"6625082b81920adcb56f2888","name":"airpods","quantity":2,"price":200,"createdAt":"2024-04-21T12:35:55.491Z","updatedAt":"2024-04-21T12:35:55.491Z","__v":0},{"_id":"662508d2a390586bbda4b23b","name":"airpods","quantity":2,"price":200,"createdAt":"2024-04-21T12:38:42.653Z","updatedAt":"2024-04-21T12:38:42.653Z","__v":0},{"_id":"66252004d297ba96df87ba4a","name":"airpods","quantity":2,"price":200,"createdAt":"2024-04-21T14:17:40.646Z","updatedAt":"2024-04-21T14:17:40.646Z","__v":0},{"_id":"662520484834a7145d9d7280","name":"airpods","quantity":2,"price":200,"createdAt":"2024-04-21T14:18:48.746Z","updatedAt":"2024-04-21T14:18:48.746Z","__v":0},{"_id":"66252bfe54f9c3a93308009c","name":"pixel","quantity":2,"price":12000,"createdAt":"2024-04-21T15:08:46.343Z","updatedAt":"2024-04-21T15:08:46.343Z","__v":0},{"_id":"66252c3a687a9110256d3da3","name":"pixel","quantity":2,"price":12000,"createdAt":"2024-04-21T15:09:46.621Z","updatedAt":"2024-04-21T15:09:46.621Z","__v":0},{"_id":"66252c6c893563ea4ccffdf4","name":"pixel","quantity":2,"price":12000,"createdAt":"2024-04-21T15:10:36.909Z","updatedAt":"2024-04-21T15:10:36.909Z","__v":0},{"_id":"66252cf31bc2c77155ae6a96","name":"pixel","quantity":2,"price":12000,"createdAt":"2024-04-21T15:12:51.547Z","updatedAt":"2024-04-21T15:12:51.547Z","__v":0},{"_id":"6625def577a0efa1296a62ce","name":"pixel","quantity":2,"price":12000,"createdAt":"2024-04-22T03:52:21.963Z","updatedAt":"2024-04-22T03:52:21.963Z","__v":0},{"_id":"6625e021be134551c9c31a8e","name":"pixel","quantity":2,"price":12000,"createdAt":"2024-04-22T03:57:21.415Z","updatedAt":"2024-04-22T03:57:21.415Z","__v":0},{"_id":"6625e1186cb543c1b6639307","name":"airpods","quantity":2,"price":200,"createdAt":"2024-04-22T04:01:28.716Z","updatedAt":"2024-04-22T04:01:28.716Z","__v":0},{"_id":"6625e1d3362fdbb13470ba9c","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T04:04:35.735Z","updatedAt":"2024-04-22T04:04:35.735Z","__v":0},{"_id":"6625e417fd30fd22db6a2eaa","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T04:14:15.251Z","updatedAt":"2024-04-22T04:14:15.251Z","__v":0},{"_id":"6625f36493bf82ab2269f225","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T05:19:32.240Z","updatedAt":"2024-04-22T05:19:32.240Z","__v":0},{"_id":"6625f8a2326f120e83b65895","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T05:41:54.767Z","updatedAt":"2024-04-22T05:41:54.767Z","__v":0},{"_id":"6625f91f3bcdffd56cf9828d","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T05:43:59.881Z","updatedAt":"2024-04-22T05:43:59.881Z","__v":0},{"_id":"6625fc4f42c5d88bad133a30","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T05:57:35.073Z","updatedAt":"2024-04-22T05:57:35.073Z","__v":0},{"_id":"6625fcae4b36d7cc5dca6f34","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T05:59:10.836Z","updatedAt":"2024-04-22T05:59:10.836Z","__v":0},{"_id":"6625fdddf83927fe791fe086","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T06:04:13.911Z","updatedAt":"2024-04-22T06:04:13.911Z","__v":0},{"_id":"6626005ecfe7f50324f99090","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T06:14:54.050Z","updatedAt":"2024-04-22T06:14:54.050Z","__v":0},{"_id":"66260196eb33e2a4d0fe50b9","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T06:20:06.062Z","updatedAt":"2024-04-22T06:20:06.062Z","__v":0},{"_id":"66260198eb33e2a4d0fe50bd","name":"Test Product","quantity":10,"price":100,"createdAt":"2024-04-22T06:20:08.532Z","updatedAt":"2024-04-22T06:20:08.532Z","__v":0},{"_id":"6626021c28c53fef3c88f404","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T06:22:20.251Z","updatedAt":"2024-04-22T06:22:20.251Z","__v":0},{"_id":"6626021e28c53fef3c88f408","name":"ZenZ","quantity":10,"price":100,"createdAt":"2024-04-22T06:22:22.584Z","updatedAt":"2024-04-22T06:22:22.584Z","__v":0},{"_id":"662602b4b45399f8b263b88f","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T06:24:52.392Z","updatedAt":"2024-04-22T06:24:52.392Z","__v":0},{"_id":"662602b6b45399f8b263b893","name":"ZenZ","quantity":10,"price":100,"createdAt":"2024-04-22T06:24:54.823Z","updatedAt":"2024-04-22T06:24:54.823Z","__v":0},{"_id":"662603930881bc61c2379246","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T06:28:35.752Z","updatedAt":"2024-04-22T06:28:35.752Z","__v":0},{"_id":"662603950881bc61c237924a","name":"ZenZ","quantity":10,"price":100,"createdAt":"2024-04-22T06:28:37.865Z","updatedAt":"2024-04-22T06:28:37.865Z","__v":0},{"_id":"662608e29b28fff877ed025b","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T06:51:14.564Z","updatedAt":"2024-04-22T06:51:14.564Z","__v":0},{"_id":"6626091fc01e297411b2ae06","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T06:52:15.852Z","updatedAt":"2024-04-22T06:52:15.852Z","__v":0},{"_id":"66260959757754416e5f06e5","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T06:53:13.962Z","updatedAt":"2024-04-22T06:53:13.962Z","__v":0},{"_id":"66260af1647fe14fc468adc6","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T07:00:01.452Z","updatedAt":"2024-04-22T07:00:01.452Z","__v":0},{"_id":"66260ba15ae01c6b8d2a7df9","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T07:02:57.021Z","updatedAt":"2024-04-22T07:02:57.021Z","__v":0},{"_id":"66260be44f097745908e69b3","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T07:04:04.015Z","updatedAt":"2024-04-22T07:04:04.015Z","__v":0},{"_id":"66260c1fcdc0d259cf64a8ab","name":"iPad","quantity":4,"price":20000,"createdAt":"2024-04-22T07:05:03.989Z","updatedAt":"2024-04-22T07:05:03.989Z","__v":0}]'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T15:00:37.913334937+05:30
+    objects: []
+    assertions:
+        noise:
+            body.createdAt: []
+            body.updatedAt: []
+            header.Date: []
+    created: 1713778237
+curl: |-
+    curl --request GET \
+      --url http://localhost:3000/api/products \
+      --header 'Connection: keep-alive' \
+      --header 'User-Agent: PostmanRuntime/7.37.3' \
+      --header 'Accept: */*' \
+      --header 'Cache-Control: no-cache' \
+      --header 'Host: localhost:3000' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'Postman-Token: 10ed02fa-802f-45c3-a0f6-8353be4da42d' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "name": "Test Product",
+        "quantity": 2,
+        "price": 100
+    }'
