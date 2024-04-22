@@ -11,7 +11,7 @@ module.exports = function(app) {
   });
 
   app.get("/api/test/all", controller.allAccess);
-  app.get("/api/users", [authJwt.verifyToken, authJwt.isAdmin], controller.getAllUsers);
+  app.get("/api/users", controller.getAllUsers);
   app.get(
     "/api/test/user",
     [authJwt.verifyToken],
