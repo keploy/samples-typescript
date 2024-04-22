@@ -1,6 +1,6 @@
-# Express-Mongo
+# Node-JWT
 
-A simple sample CRUD application to test using Keploy build with Express and MongoDB.
+A simple sample CRUD application to test using Keploy build with Node, JWT and Postgres.
 
 ## Setup application
 Clone the repository and move to express-mongo folder
