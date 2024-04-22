@@ -18,8 +18,11 @@ This repo contains the sample for [Keploy's](https://keploy.io) JS Application. 
 
 ## Sample Apps with Keploy
 
-1. [Bun-Mongo](https://github.com/keploy/samples-typescript/tree/main/supabun)
+1. [Bun-Mongo](https://github.com/keploy/samples-typescript/tree/main/bun-mongo)
 2. [Express-Mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose)
+3. [JS-MySQL](https://github.com/keploy/samples-typescript/tree/main/js-mysql)
+4. [NextJS-Postgres](https://github.com/keploy/samples-typescript/tree/main/nextjs-postgres)
+5. [Node-JWT](https://github.com/keploy/samples-typescript/tree/main/node-jwt)
 
 ## Community Support ❤️
 
