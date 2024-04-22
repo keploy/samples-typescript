@@ -1,14 +1,12 @@
-// This is an application to create online courses also with that you can update,delete and view your courses .
-
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const bodyParser=require('body-parser')
-const cors=require('cors')
+const bodyParser = require('body-parser')
+const cors = require('cors')
 const app = express();
 
 
-dotenv.config(); 
+dotenv.config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
@@ -16,10 +14,21 @@ app.use(cors())
 
 
 // MongoDB connection
-mongoose.connect(process.env.mongodb_url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+
+
+const mongoConnection=async ()=>{
+  try {
+    await mongoose.connect(process.env.mongodb_url);
+
+    console.log("connected database");
+  }
+  catch (err) {
+    throw err;
+  }
+}
+
+mongoConnection()
+
 
 // schema of our db
 const Course = mongoose.model("Course", {
@@ -33,8 +42,6 @@ const Course = mongoose.model("Course", {
 
 // Create a course 
 app.post("/courses", async (req, res) => {
-
-
 
   try {
     const course = new Course(req.body);
@@ -102,7 +109,6 @@ app.delete("/courses/:id", async (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
+
+module.exports={app,mongoConnection,Course};
