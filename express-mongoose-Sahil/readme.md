@@ -79,10 +79,13 @@ keploy -E env PATH=$PATH keploy test -c 'npm start' --delay 10
 ```
 
 ### Api endpoints 
-GET http://localhost:3000/courses - to get all courses.
-POST http://localhost:3000/courses - to post courses .
-DELETE http://localhost:3000/courses/:id - to delete a specific course.
-PUT http://localhost:3000/courses/:id  - to update any course.
+- GET http://localhost:3000/courses - to get all courses.
+
+- POST http://localhost:3000/courses - to post courses .
+
+- DELETE http://localhost:3000/courses/:id - to delete a specific course.
+
+- PUT http://localhost:3000/courses/:id  - to update any course.
 
 jest test coverage report : 
 ![Screenshot 2024-04-22 025850](https://github.com/s2ahil/samples-typescript/assets/101473078/f60570d0-b998-4b4a-912d-80d4c73604e3)
