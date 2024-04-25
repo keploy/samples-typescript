@@ -4,7 +4,7 @@ const Product = require("../models/product.models");
 
 beforeAll(connectDB);
 
-afterEach(() => Product.deleteMany({}));
+// afterEach(() => Product.deleteMany({}));
 
 describe("Product API", () => {
   // get a prpoduct
