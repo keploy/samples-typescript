@@ -62,7 +62,7 @@ sudo -E env PATH=$PATH keploy record -c 'npm start'
 
 ```bash
 keploy -E env PATH=$PATH keploy test -c "npm start" --delay 10
-
+```
 
 jest test coverage report : 
 ![Screenshot 2024-04-22 025850](https://github.com/s2ahil/samples-typescript/assets/101473078/f60570d0-b998-4b4a-912d-80d4c73604e3)
