@@ -1,0 +1,389 @@
+version: api.keploy.io/v1beta1
+name: test-set-0-report
+status: PASSED
+success: 3
+failure: 0
+total: 3
+tests:
+  - kind: Http
+    name: test-set-0
+    status: PASSED
+    started: 1713986573
+    completed: 1713986573
+    test_case_path: /home/Rohit/CRUD_Hotel_App/hotel-backend/keploy/test-set-0
+    mock_path: /home/Rohit/CRUD_Hotel_App/hotel-backend/keploy/test-set-0/mocks.yaml
+    test_case_id: test-1
+    req:
+      method: GET
+      proto_major: 1
+      proto_minor: 1
+      url: http://localhost:3000/bookings/view
+      header:
+        Accept: "*/*"
+        Accept-Encoding: gzip, deflate, br
+        Cache-Control: no-cache
+        Connection: keep-alive
+        Host: localhost:3000
+        Postman-Token: 98cdaa3e-e104-4309-8fc7-85aa21ac23f6
+        User-Agent: PostmanRuntime/7.32.1
+      body: ""
+      timestamp: 2024-04-25T00:50:10.779721396+05:30
+    resp:
+      status_code: 200
+      header:
+        Access-Control-Allow-Origin: "*"
+        Connection: keep-alive
+        Content-Length: "418"
+        Content-Type: application/json; charset=utf-8
+        Date: Wed, 24 Apr 2024 19:20:10 GMT
+        Etag: W/"1a2-fatZA8OmHHYWads6m7rYhW/DVps"
+        Keep-Alive: timeout=5
+        X-Powered-By: Express
+      body: '{"bookings":[{"_id":"662950b1968a392c01c27a2c","userEmail":"use222r@example.com","roomNumber":"1","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0},{"_id":"6629527fe0ef2d8d98e0edf0","userEmail":"use222r@example.com","roomNumber":"2","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0}]}'
+      status_message: OK
+      proto_major: 0
+      proto_minor: 0
+      timestamp: 2024-04-25T00:50:12.86725272+05:30
+    noise:
+      body.bookings.endTime: []
+      body.bookings.startTime: []
+      header.Date: []
+    result:
+      status_code:
+        normal: true
+        expected: 200
+        actual: 200
+      headers_result:
+        - normal: true
+          expected:
+            key: Date
+            value:
+              - Wed, 24 Apr 2024 19:20:10 GMT
+          actual:
+            key: Date
+            value:
+              - Wed, 24 Apr 2024 19:22:53 GMT
+        - normal: true
+          expected:
+            key: Etag
+            value:
+              - W/"1a2-fatZA8OmHHYWads6m7rYhW/DVps"
+          actual:
+            key: Etag
+            value:
+              - W/"1a2-fatZA8OmHHYWads6m7rYhW/DVps"
+        - normal: true
+          expected:
+            key: Keep-Alive
+            value:
+              - timeout=5
+          actual:
+            key: Keep-Alive
+            value:
+              - timeout=5
+        - normal: true
+          expected:
+            key: X-Powered-By
+            value:
+              - Express
+          actual:
+            key: X-Powered-By
+            value:
+              - Express
+        - normal: true
+          expected:
+            key: Access-Control-Allow-Origin
+            value:
+              - "*"
+          actual:
+            key: Access-Control-Allow-Origin
+            value:
+              - "*"
+        - normal: true
+          expected:
+            key: Connection
+            value:
+              - keep-alive
+          actual:
+            key: Connection
+            value:
+              - keep-alive
+        - normal: true
+          expected:
+            key: Content-Length
+            value:
+              - "418"
+          actual:
+            key: Content-Length
+            value:
+              - "418"
+        - normal: true
+          expected:
+            key: Content-Type
+            value:
+              - application/json; charset=utf-8
+          actual:
+            key: Content-Type
+            value:
+              - application/json; charset=utf-8
+      body_result:
+        - normal: true
+          type: JSON
+          expected: '{"bookings":[{"_id":"662950b1968a392c01c27a2c","userEmail":"use222r@example.com","roomNumber":"1","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0},{"_id":"6629527fe0ef2d8d98e0edf0","userEmail":"use222r@example.com","roomNumber":"2","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0}]}'
+          actual: '{"bookings":[{"_id":"662950b1968a392c01c27a2c","userEmail":"use222r@example.com","roomNumber":"1","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0},{"_id":"6629527fe0ef2d8d98e0edf0","userEmail":"use222r@example.com","roomNumber":"2","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0}]}'
+      dep_result: []
+  - kind: Http
+    name: test-set-0
+    status: PASSED
+    started: 1713986573
+    completed: 1713986573
+    test_case_path: /home/Rohit/CRUD_Hotel_App/hotel-backend/keploy/test-set-0
+    mock_path: /home/Rohit/CRUD_Hotel_App/hotel-backend/keploy/test-set-0/mocks.yaml
+    test_case_id: test-2
+    req:
+      method: GET
+      proto_major: 1
+      proto_minor: 1
+      url: http://localhost:3000/bookings/view
+      header:
+        Accept: "*/*"
+        Accept-Encoding: gzip, deflate, br
+        Cache-Control: no-cache
+        Connection: keep-alive
+        Host: localhost:3000
+        Postman-Token: 2633b4e9-25bb-4cf2-9210-ba9a76242cda
+        User-Agent: PostmanRuntime/7.32.1
+      body: ""
+      timestamp: 2024-04-25T00:50:19.183766969+05:30
+    resp:
+      status_code: 200
+      header:
+        Access-Control-Allow-Origin: "*"
+        Connection: keep-alive
+        Content-Length: "418"
+        Content-Type: application/json; charset=utf-8
+        Date: Wed, 24 Apr 2024 19:20:19 GMT
+        Etag: W/"1a2-fatZA8OmHHYWads6m7rYhW/DVps"
+        Keep-Alive: timeout=5
+        X-Powered-By: Express
+      body: '{"bookings":[{"_id":"662950b1968a392c01c27a2c","userEmail":"use222r@example.com","roomNumber":"1","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0},{"_id":"6629527fe0ef2d8d98e0edf0","userEmail":"use222r@example.com","roomNumber":"2","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0}]}'
+      status_message: OK
+      proto_major: 0
+      proto_minor: 0
+      timestamp: 2024-04-25T00:50:21.217515739+05:30
+    noise:
+      body.bookings.endTime: []
+      body.bookings.startTime: []
+      header.Date: []
+    result:
+      status_code:
+        normal: true
+        expected: 200
+        actual: 200
+      headers_result:
+        - normal: true
+          expected:
+            key: Content-Length
+            value:
+              - "418"
+          actual:
+            key: Content-Length
+            value:
+              - "418"
+        - normal: true
+          expected:
+            key: Content-Type
+            value:
+              - application/json; charset=utf-8
+          actual:
+            key: Content-Type
+            value:
+              - application/json; charset=utf-8
+        - normal: true
+          expected:
+            key: Date
+            value:
+              - Wed, 24 Apr 2024 19:20:19 GMT
+          actual:
+            key: Date
+            value:
+              - Wed, 24 Apr 2024 19:22:53 GMT
+        - normal: true
+          expected:
+            key: Etag
+            value:
+              - W/"1a2-fatZA8OmHHYWads6m7rYhW/DVps"
+          actual:
+            key: Etag
+            value:
+              - W/"1a2-fatZA8OmHHYWads6m7rYhW/DVps"
+        - normal: true
+          expected:
+            key: Keep-Alive
+            value:
+              - timeout=5
+          actual:
+            key: Keep-Alive
+            value:
+              - timeout=5
+        - normal: true
+          expected:
+            key: X-Powered-By
+            value:
+              - Express
+          actual:
+            key: X-Powered-By
+            value:
+              - Express
+        - normal: true
+          expected:
+            key: Access-Control-Allow-Origin
+            value:
+              - "*"
+          actual:
+            key: Access-Control-Allow-Origin
+            value:
+              - "*"
+        - normal: true
+          expected:
+            key: Connection
+            value:
+              - keep-alive
+          actual:
+            key: Connection
+            value:
+              - keep-alive
+      body_result:
+        - normal: true
+          type: JSON
+          expected: '{"bookings":[{"_id":"662950b1968a392c01c27a2c","userEmail":"use222r@example.com","roomNumber":"1","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0},{"_id":"6629527fe0ef2d8d98e0edf0","userEmail":"use222r@example.com","roomNumber":"2","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0}]}'
+          actual: '{"bookings":[{"_id":"662950b1968a392c01c27a2c","userEmail":"use222r@example.com","roomNumber":"1","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0},{"_id":"6629527fe0ef2d8d98e0edf0","userEmail":"use222r@example.com","roomNumber":"2","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0}]}'
+      dep_result: []
+  - kind: Http
+    name: test-set-0
+    status: PASSED
+    started: 1713986573
+    completed: 1713986573
+    test_case_path: /home/Rohit/CRUD_Hotel_App/hotel-backend/keploy/test-set-0
+    mock_path: /home/Rohit/CRUD_Hotel_App/hotel-backend/keploy/test-set-0/mocks.yaml
+    test_case_id: test-3
+    req:
+      method: GET
+      proto_major: 1
+      proto_minor: 1
+      url: http://localhost:3000/bookings/view
+      header:
+        Accept: "*/*"
+        Accept-Encoding: gzip, deflate, br
+        Cache-Control: no-cache
+        Connection: keep-alive
+        Host: localhost:3000
+        Postman-Token: fdaa983a-5739-4a23-a89b-f0021e0d6f6a
+        User-Agent: PostmanRuntime/7.32.1
+      body: ""
+      timestamp: 2024-04-25T00:50:22.258677066+05:30
+    resp:
+      status_code: 200
+      header:
+        Access-Control-Allow-Origin: "*"
+        Connection: keep-alive
+        Content-Length: "418"
+        Content-Type: application/json; charset=utf-8
+        Date: Wed, 24 Apr 2024 19:20:22 GMT
+        Etag: W/"1a2-fatZA8OmHHYWads6m7rYhW/DVps"
+        Keep-Alive: timeout=5
+        X-Powered-By: Express
+      body: '{"bookings":[{"_id":"662950b1968a392c01c27a2c","userEmail":"use222r@example.com","roomNumber":"1","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0},{"_id":"6629527fe0ef2d8d98e0edf0","userEmail":"use222r@example.com","roomNumber":"2","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0}]}'
+      status_message: OK
+      proto_major: 0
+      proto_minor: 0
+      timestamp: 2024-04-25T00:50:24.337340057+05:30
+    noise:
+      body.bookings.endTime: []
+      body.bookings.startTime: []
+      header.Date: []
+    result:
+      status_code:
+        normal: true
+        expected: 200
+        actual: 200
+      headers_result:
+        - normal: true
+          expected:
+            key: Etag
+            value:
+              - W/"1a2-fatZA8OmHHYWads6m7rYhW/DVps"
+          actual:
+            key: Etag
+            value:
+              - W/"1a2-fatZA8OmHHYWads6m7rYhW/DVps"
+        - normal: true
+          expected:
+            key: Keep-Alive
+            value:
+              - timeout=5
+          actual:
+            key: Keep-Alive
+            value:
+              - timeout=5
+        - normal: true
+          expected:
+            key: X-Powered-By
+            value:
+              - Express
+          actual:
+            key: X-Powered-By
+            value:
+              - Express
+        - normal: true
+          expected:
+            key: Access-Control-Allow-Origin
+            value:
+              - "*"
+          actual:
+            key: Access-Control-Allow-Origin
+            value:
+              - "*"
+        - normal: true
+          expected:
+            key: Connection
+            value:
+              - keep-alive
+          actual:
+            key: Connection
+            value:
+              - keep-alive
+        - normal: true
+          expected:
+            key: Content-Length
+            value:
+              - "418"
+          actual:
+            key: Content-Length
+            value:
+              - "418"
+        - normal: true
+          expected:
+            key: Content-Type
+            value:
+              - application/json; charset=utf-8
+          actual:
+            key: Content-Type
+            value:
+              - application/json; charset=utf-8
+        - normal: true
+          expected:
+            key: Date
+            value:
+              - Wed, 24 Apr 2024 19:20:22 GMT
+          actual:
+            key: Date
+            value:
+              - Wed, 24 Apr 2024 19:22:53 GMT
+      body_result:
+        - normal: true
+          type: JSON
+          expected: '{"bookings":[{"_id":"662950b1968a392c01c27a2c","userEmail":"use222r@example.com","roomNumber":"1","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0},{"_id":"6629527fe0ef2d8d98e0edf0","userEmail":"use222r@example.com","roomNumber":"2","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0}]}'
+          actual: '{"bookings":[{"_id":"662950b1968a392c01c27a2c","userEmail":"use222r@example.com","roomNumber":"1","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0},{"_id":"6629527fe0ef2d8d98e0edf0","userEmail":"use222r@example.com","roomNumber":"2","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0}]}'
+      dep_result: []
+test_set: test-set-0
