@@ -9,6 +9,12 @@ This is an application to create online courses also with that you can update,de
 - MongoDB
 - Mongoose
 
+
+## Quick Note If you face any difficulty refer to the given link 
+```bash
+Docs Link : https://keploy.io/blog/community/getting-started-with-keploy
+```
+
 ## Get Started! 🎬
 
 **1. Clone the repository and move to express-mongoose-Sahil :**
@@ -28,6 +34,20 @@ Run the following command to start the application:
 node server.js
 ```
 
+### Docker installation and running the mongodb compass
+
+**1. Install docker in your windows and follow this tutorial to connect with mongodb compass :**
+``` bash
+https://www.youtube.com/watch?v=NEPZqSvKx40&list=PLff_PESolMjuDXQdjiqYRW_GnDQjU32QX
+```
+
+**2. after installing docker and running those commands in video use this command as well to create a network:**
+```bash
+docker network create keploy-network
+```
+
+> **url should look something like this depending on your connection you can adjust, also update your .env file with mongodb_url:`mongodb://127.0.0.1:27023/courses`.*
+
 
 ## keploy installation
 
@@ -45,15 +65,9 @@ curl --silent --location "https://github.com/keploy/keploy/releases/latest/downl
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
-### Let's start the MongoDB Instance
 
 
-```zsh
-docker-compose up -d
-```
-> **url should look something like this depending on your connection you can adjust `mongodb://127.0.0.1:27017/keploy`.*
-
-### Capture the testcases
+### Capture the testcases in keploy
 
 ```bash
 sudo -E env PATH=$PATH keploy record -c 'npm start'
@@ -61,8 +75,14 @@ sudo -E env PATH=$PATH keploy record -c 'npm start'
 ## Running the testcases
 
 ```bash
-keploy -E env PATH=$PATH keploy test -c "npm start" --delay 10
+keploy -E env PATH=$PATH keploy test -c 'npm start' --delay 10
 ```
+
+### Api endpoints 
+GET http://localhost:3000/courses - to get all courses.
+POST http://localhost:3000/courses - to post courses .
+DELETE http://localhost:3000/courses/:id - to delete a specific course.
+PUT http://localhost:3000/courses/:id  - to update any course.
 
 jest test coverage report : 
 ![Screenshot 2024-04-22 025850](https://github.com/s2ahil/samples-typescript/assets/101473078/f60570d0-b998-4b4a-912d-80d4c73604e3)
