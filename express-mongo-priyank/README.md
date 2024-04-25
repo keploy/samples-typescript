@@ -1,3 +1,33 @@
+This is a simple expressjs & mongodb sample app. simple rest api.
+
+## Tech Stack
+
+- Express.js
+- MongoDB
+
+## Getting Started
+
+## Installation
+
+1. Fork & Clone the repository <br>
+
+```bash
+git clone https://github.com/<your-github-username>/express-mongo-priyank
+```
+
+2. Install dependencies <br>
+
+```bash
+cd express-mongo-priyank
+npm i
+```
+
+3. Start the server <br>
+
+```bash
+npm start
+```
+
 ### Postman test cases
 
 ```
