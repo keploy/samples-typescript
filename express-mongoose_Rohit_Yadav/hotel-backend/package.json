@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node index.js"
+     "test": "jest --coverage"
   },
   "author": "",
   "license": "ISC",
