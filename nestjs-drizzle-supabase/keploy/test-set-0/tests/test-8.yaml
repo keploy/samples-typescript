@@ -1,0 +1,50 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-8
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/products
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Host: localhost:3000
+            Postman-Token: c5900ba0-ecce-4bf0-af55-c4483bb88d9c
+            User-Agent: PostmanRuntime/7.32.1
+        body: ""
+        timestamp: 2024-04-21T10:10:56.573555119+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "369"
+            Content-Type: applications/json; charset=utf-8
+            Date: Sun, 21 Apr 2024 04:40:56 GMT
+            Etag: W/"171-LpUuE01Ro4TQvIzP0iCI1gU5y9M"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '[{"id":"a4b4f3f1-efc9-49b2-83aa-b42b80a71537","name":"alpha","description":"beta","cost":20},{"id":"ab8775a7-4806-462e-b554-f8275093efb1","name":"alpha1","description":"beta","cost":20},{"id":"5c8a6052-d38f-43a1-9770-9329790579a7","name":"alpha2","description":"beta","cost":20},{"id":"8444f5c5-1d1a-4d33-903f-4167317a4614","name":"alph2","description":null,"cost":20}]'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-21T10:10:58.682465881+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1713674458
+curl: |
+    curl --request GET \
+      --url http://localhost:3000/products \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'Connection: keep-alive' \
+      --header 'User-Agent: PostmanRuntime/7.32.1' \
+      --header 'Accept: */*' \
+      --header 'Cache-Control: no-cache' \
+      --header 'Postman-Token: c5900ba0-ecce-4bf0-af55-c4483bb88d9c' \
+      --header 'Host: localhost:3000' \
