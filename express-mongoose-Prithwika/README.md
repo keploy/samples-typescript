@@ -18,6 +18,10 @@ The QuickWrites is a simple web application built with Express.js for managing n
 
 `npm start`
 
+## Running test cases in Keploy:
+
+`keploy test -c "CMD_TO_RUN_APP" --delay 10`
+
 ## Usage
 
 - Sign up for a new account to get started.
