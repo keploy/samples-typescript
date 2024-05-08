@@ -80,7 +80,7 @@ Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://post
 
 1. Generate the testcases
 ```bash
-curl --request POST localhost:420/save
+curl --request POST localhost:4200/save
 ```
 
 we will get the output:
@@ -90,7 +90,7 @@ we will get the output:
 ```
 2. Fetch the data
 ```bash
-curl --request GET localhost:420/fetch
+curl --request GET localhost:4200/fetch
 ```
 
 this will provide us with the output:-

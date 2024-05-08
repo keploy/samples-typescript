@@ -10,17 +10,18 @@ spec:
         url: http://localhost:8080/api/auth/signup
         header:
             Accept: '*/*'
-            Content-Length: "78"
+            Content-Length: "105"
             Content-Type: application/json
             Host: localhost:8080
             User-Agent: curl/7.88.1
         body: |-
             {
-                "username":"user",
-                "email":"user@keploy.io",
-                "password":"1234"
+                "username":"user1",
+                "email":"user1@keploy.io",
+                "password":"12345",
+                "roles": ["admin"]
             }
-        timestamp: 2024-04-22T11:16:55.42092643+05:30
+        timestamp: 2024-04-22T15:21:50.700390505+05:30
     resp:
         status_code: 200
         header:
@@ -29,7 +30,7 @@ spec:
             Connection: keep-alive
             Content-Length: "47"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Apr 2024 05:46:55 GMT
+            Date: Mon, 22 Apr 2024 09:51:50 GMT
             Etag: W/"2f-ycIOj/6kXGxPaEoiW5+ikfXgO5w"
             Keep-Alive: timeout=5
             Vary: Origin
@@ -38,12 +39,12 @@ spec:
         status_message: OK
         proto_major: 0
         proto_minor: 0
-        timestamp: 2024-04-22T11:16:57.553667832+05:30
+        timestamp: 2024-04-22T15:21:52.835802575+05:30
     objects: []
     assertions:
         noise:
             header.Date: []
-    created: 1713764817
+    created: 1713779512
 curl: |-
     curl --request POST \
       --url http://localhost:8080/api/auth/signup \
@@ -52,7 +53,8 @@ curl: |-
       --header 'Content-Type: application/json' \
       --header 'Host: localhost:8080' \
       --data '{
-        "username":"user",
-        "email":"user@keploy.io",
-        "password":"1234"
+        "username":"user1",
+        "email":"user1@keploy.io",
+        "password":"12345",
+        "roles": ["admin"]
     }'

@@ -1,15 +1,15 @@
 version: api.keploy.io/v1beta1
 name: test-set-0-report
 status: PASSED
-success: 5
+success: 4
 failure: 0
-total: 5
+total: 4
 tests:
     - kind: Http
       name: test-set-0
       status: PASSED
-      started: 1713765839
-      completed: 1713765839
+      started: 1713797888
+      completed: 1713797888
       test_case_path: /home/sonichigi.linux/samples-typescript/node-jwt/keploy/test-set-0
       mock_path: /home/sonichigi.linux/samples-typescript/node-jwt/keploy/test-set-0/mocks.yaml
       test_case_id: test-1
@@ -20,17 +20,18 @@ tests:
         url: http://localhost:8080/api/auth/signup
         header:
             Accept: '*/*'
-            Content-Length: "78"
+            Content-Length: "105"
             Content-Type: application/json
             Host: localhost:8080
             User-Agent: curl/7.88.1
         body: |-
             {
-                "username":"user",
-                "email":"user@keploy.io",
-                "password":"1234"
+                "username":"user1",
+                "email":"user1@keploy.io",
+                "password":"12345",
+                "roles": ["admin"]
             }
-        timestamp: 2024-04-22T11:16:55.42092643+05:30
+        timestamp: 2024-04-22T15:21:50.700390505+05:30
       resp:
         status_code: 200
         header:
@@ -39,7 +40,7 @@ tests:
             Connection: keep-alive
             Content-Length: "47"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Apr 2024 05:46:55 GMT
+            Date: Mon, 22 Apr 2024 09:51:50 GMT
             Etag: W/"2f-ycIOj/6kXGxPaEoiW5+ikfXgO5w"
             Keep-Alive: timeout=5
             Vary: Origin
@@ -48,7 +49,7 @@ tests:
         status_message: OK
         proto_major: 0
         proto_minor: 0
-        timestamp: 2024-04-22T11:16:57.553667832+05:30
+        timestamp: 2024-04-22T15:21:52.835802575+05:30
       noise:
         header.Date: []
       result:
@@ -68,6 +69,15 @@ tests:
                     - keep-alive
             - normal: true
               expected:
+                key: Content-Length
+                value:
+                    - "47"
+              actual:
+                key: Content-Length
+                value:
+                    - "47"
+            - normal: true
+              expected:
                 key: Keep-Alive
                 value:
                     - timeout=5
@@ -86,42 +96,6 @@ tests:
                     - Origin
             - normal: true
               expected:
-                key: Access-Control-Allow-Origin
-                value:
-                    - http://localhost:8081
-              actual:
-                key: Access-Control-Allow-Origin
-                value:
-                    - http://localhost:8081
-            - normal: true
-              expected:
-                key: Content-Length
-                value:
-                    - "47"
-              actual:
-                key: Content-Length
-                value:
-                    - "47"
-            - normal: true
-              expected:
-                key: Content-Type
-                value:
-                    - application/json; charset=utf-8
-              actual:
-                key: Content-Type
-                value:
-                    - application/json; charset=utf-8
-            - normal: true
-              expected:
-                key: Etag
-                value:
-                    - W/"2f-ycIOj/6kXGxPaEoiW5+ikfXgO5w"
-              actual:
-                key: Etag
-                value:
-                    - W/"2f-ycIOj/6kXGxPaEoiW5+ikfXgO5w"
-            - normal: true
-              expected:
                 key: X-Powered-By
                 value:
                     - Express
@@ -129,15 +103,6 @@ tests:
                 key: X-Powered-By
                 value:
                     - Express
-            - normal: true
-              expected:
-                key: Date
-                value:
-                    - Mon, 22 Apr 2024 05:46:55 GMT
-              actual:
-                key: Date
-                value:
-                    - Mon, 22 Apr 2024 06:03:59 GMT
             - normal: true
               expected:
                 key: Access-Control-Allow-Headers
@@ -153,6 +118,42 @@ tests:
                     - ' Origin'
                     - ' Content-Type'
                     - ' Accept'
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Origin
+                value:
+                    - http://localhost:8081
+              actual:
+                key: Access-Control-Allow-Origin
+                value:
+                    - http://localhost:8081
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Mon, 22 Apr 2024 09:51:50 GMT
+              actual:
+                key: Date
+                value:
+                    - Mon, 22 Apr 2024 14:58:08 GMT
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"2f-ycIOj/6kXGxPaEoiW5+ikfXgO5w"
+              actual:
+                key: Etag
+                value:
+                    - W/"2f-ycIOj/6kXGxPaEoiW5+ikfXgO5w"
         body_result:
             - normal: true
               type: JSON
@@ -162,8 +163,8 @@ tests:
     - kind: Http
       name: test-set-0
       status: PASSED
-      started: 1713765839
-      completed: 1713765839
+      started: 1713797888
+      completed: 1713797889
       test_case_path: /home/sonichigi.linux/samples-typescript/node-jwt/keploy/test-set-0
       mock_path: /home/sonichigi.linux/samples-typescript/node-jwt/keploy/test-set-0/mocks.yaml
       test_case_id: test-2
@@ -171,193 +172,38 @@ tests:
         method: POST
         proto_major: 1
         proto_minor: 1
-        url: http://localhost:8080/api/auth/signup
-        header:
-            Accept: '*/*'
-            Content-Length: "102"
-            Content-Type: application/json
-            Host: localhost:8080
-            User-Agent: curl/7.88.1
-        body: |-
-            {
-                "username":"admin",
-                "email":"admin@keploy.io",
-                "password":"1234",
-                "role":["admin"]
-            }
-        timestamp: 2024-04-22T11:17:31.99541439+05:30
-      resp:
-        status_code: 200
-        header:
-            Access-Control-Allow-Headers: x-access-token, Origin, Content-Type, Accept
-            Access-Control-Allow-Origin: http://localhost:8081
-            Connection: keep-alive
-            Content-Length: "47"
-            Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Apr 2024 05:47:32 GMT
-            Etag: W/"2f-ycIOj/6kXGxPaEoiW5+ikfXgO5w"
-            Keep-Alive: timeout=5
-            Vary: Origin
-            X-Powered-By: Express
-        body: '{"message":"User was registered successfully!"}'
-        status_message: OK
-        proto_major: 0
-        proto_minor: 0
-        timestamp: 2024-04-22T11:17:34.120142617+05:30
-      noise:
-        header.Date: []
-      result:
-        status_code:
-            normal: true
-            expected: 200
-            actual: 200
-        headers_result:
-            - normal: true
-              expected:
-                key: Connection
-                value:
-                    - keep-alive
-              actual:
-                key: Connection
-                value:
-                    - keep-alive
-            - normal: true
-              expected:
-                key: X-Powered-By
-                value:
-                    - Express
-              actual:
-                key: X-Powered-By
-                value:
-                    - Express
-            - normal: true
-              expected:
-                key: Access-Control-Allow-Headers
-                value:
-                    - x-access-token
-                    - ' Origin'
-                    - ' Content-Type'
-                    - ' Accept'
-              actual:
-                key: Access-Control-Allow-Headers
-                value:
-                    - x-access-token
-                    - ' Origin'
-                    - ' Content-Type'
-                    - ' Accept'
-            - normal: true
-              expected:
-                key: Vary
-                value:
-                    - Origin
-              actual:
-                key: Vary
-                value:
-                    - Origin
-            - normal: true
-              expected:
-                key: Access-Control-Allow-Origin
-                value:
-                    - http://localhost:8081
-              actual:
-                key: Access-Control-Allow-Origin
-                value:
-                    - http://localhost:8081
-            - normal: true
-              expected:
-                key: Etag
-                value:
-                    - W/"2f-ycIOj/6kXGxPaEoiW5+ikfXgO5w"
-              actual:
-                key: Etag
-                value:
-                    - W/"2f-ycIOj/6kXGxPaEoiW5+ikfXgO5w"
-            - normal: true
-              expected:
-                key: Keep-Alive
-                value:
-                    - timeout=5
-              actual:
-                key: Keep-Alive
-                value:
-                    - timeout=5
-            - normal: true
-              expected:
-                key: Content-Type
-                value:
-                    - application/json; charset=utf-8
-              actual:
-                key: Content-Type
-                value:
-                    - application/json; charset=utf-8
-            - normal: true
-              expected:
-                key: Content-Length
-                value:
-                    - "47"
-              actual:
-                key: Content-Length
-                value:
-                    - "47"
-            - normal: true
-              expected:
-                key: Date
-                value:
-                    - Mon, 22 Apr 2024 05:47:32 GMT
-              actual:
-                key: Date
-                value:
-                    - Mon, 22 Apr 2024 06:03:59 GMT
-        body_result:
-            - normal: true
-              type: JSON
-              expected: '{"message":"User was registered successfully!"}'
-              actual: '{"message":"User was registered successfully!"}'
-        dep_result: []
-    - kind: Http
-      name: test-set-0
-      status: PASSED
-      started: 1713765839
-      completed: 1713765839
-      test_case_path: /home/sonichigi.linux/samples-typescript/node-jwt/keploy/test-set-0
-      mock_path: /home/sonichigi.linux/samples-typescript/node-jwt/keploy/test-set-0/mocks.yaml
-      test_case_id: test-3
-      req:
-        method: POST
-        proto_major: 1
-        proto_minor: 1
         url: http://localhost:8080/api/auth/signin
         header:
             Accept: '*/*'
-            Content-Length: "78"
+            Content-Length: "81"
             Content-Type: application/json
             Host: localhost:8080
             User-Agent: curl/7.88.1
         body: |-
             {
-                "username":"user",
-                "email":"user@keploy.io",
-                "password":"1234"
+                "username":"user1",
+                "email":"user1@keploy.io",
+                "password":"12345"
             }
-        timestamp: 2024-04-22T11:17:45.564177087+05:30
+        timestamp: 2024-04-22T15:21:50.831971212+05:30
       resp:
         status_code: 200
         header:
             Access-Control-Allow-Headers: x-access-token, Origin, Content-Type, Accept
             Access-Control-Allow-Origin: http://localhost:8081
             Connection: keep-alive
-            Content-Length: "227"
+            Content-Length: "230"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Apr 2024 05:47:45 GMT
-            Etag: W/"e3-X0xLe5hwxhp4UfVe1XsevW0WAYA"
+            Date: Mon, 22 Apr 2024 09:51:50 GMT
+            Etag: W/"e6-lKnaHcsd9KfB0+JYer91XobhKDU"
             Keep-Alive: timeout=5
             Vary: Origin
             X-Powered-By: Express
-        body: '{"id":1,"username":"user","email":"user@keploy.io","roles":["ROLE_USER"],"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNzY0ODY1LCJleHAiOjE3MTM3NjUwNDV9.5LSU1A1jxIbIQFS6Tq26ENNWZBinFt2cJQZ7swpipbc"}'
+        body: '{"id":1,"username":"user1","email":"user1@keploy.io","roles":["ROLE_ADMIN"],"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNzc5NTEwLCJleHAiOjE3MTM3Nzk2OTB9.VE5imtTM4r_6qvSiErd5eqmUb61cephaO3CyUbKlTA4"}'
         status_message: OK
         proto_major: 0
         proto_minor: 0
-        timestamp: 2024-04-22T11:17:47.638362456+05:30
+        timestamp: 2024-04-22T15:21:52.936799934+05:30
       noise:
         body.accessToken: []
         header.Date: []
@@ -370,22 +216,13 @@ tests:
         headers_result:
             - normal: true
               expected:
-                key: Date
+                key: Keep-Alive
                 value:
-                    - Mon, 22 Apr 2024 05:47:45 GMT
+                    - timeout=5
               actual:
-                key: Date
+                key: Keep-Alive
                 value:
-                    - Mon, 22 Apr 2024 06:03:59 GMT
-            - normal: true
-              expected:
-                key: Etag
-                value:
-                    - W/"e3-X0xLe5hwxhp4UfVe1XsevW0WAYA"
-              actual:
-                key: Etag
-                value:
-                    - W/"e3-M20HTw4cN+im1dz0DcbCMn+SPf0"
+                    - timeout=5
             - normal: true
               expected:
                 key: Access-Control-Allow-Origin
@@ -406,13 +243,40 @@ tests:
                     - application/json; charset=utf-8
             - normal: true
               expected:
-                key: Keep-Alive
+                key: Connection
                 value:
-                    - timeout=5
+                    - keep-alive
               actual:
-                key: Keep-Alive
+                key: Connection
                 value:
-                    - timeout=5
+                    - keep-alive
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"e6-lKnaHcsd9KfB0+JYer91XobhKDU"
+              actual:
+                key: Etag
+                value:
+                    - W/"e6-3tlvz7ZRF2NGIzKC0XdVuq4/CIg"
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Mon, 22 Apr 2024 09:51:50 GMT
+              actual:
+                key: Date
+                value:
+                    - Mon, 22 Apr 2024 14:58:09 GMT
+            - normal: true
+              expected:
+                key: Vary
+                value:
+                    - Origin
+              actual:
+                key: Vary
+                value:
+                    - Origin
             - normal: true
               expected:
                 key: Access-Control-Allow-Headers
@@ -430,31 +294,13 @@ tests:
                     - ' Accept'
             - normal: true
               expected:
-                key: Connection
-                value:
-                    - keep-alive
-              actual:
-                key: Connection
-                value:
-                    - keep-alive
-            - normal: true
-              expected:
-                key: Vary
-                value:
-                    - Origin
-              actual:
-                key: Vary
-                value:
-                    - Origin
-            - normal: true
-              expected:
                 key: Content-Length
                 value:
-                    - "227"
+                    - "230"
               actual:
                 key: Content-Length
                 value:
-                    - "227"
+                    - "230"
             - normal: true
               expected:
                 key: X-Powered-By
@@ -467,14 +313,161 @@ tests:
         body_result:
             - normal: true
               type: JSON
-              expected: '{"id":1,"username":"user","email":"user@keploy.io","roles":["ROLE_USER"],"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNzY0ODY1LCJleHAiOjE3MTM3NjUwNDV9.5LSU1A1jxIbIQFS6Tq26ENNWZBinFt2cJQZ7swpipbc"}'
-              actual: '{"id":1,"username":"user","email":"user@keploy.io","roles":["ROLE_USER"],"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNzY1ODM5LCJleHAiOjE3MTM3NjYwMTl9.kX8UkEYui18TOMySzPIA4cGPLTv6FktgpaRiXvVn5Dk"}'
+              expected: '{"id":1,"username":"user1","email":"user1@keploy.io","roles":["ROLE_ADMIN"],"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNzc5NTEwLCJleHAiOjE3MTM3Nzk2OTB9.VE5imtTM4r_6qvSiErd5eqmUb61cephaO3CyUbKlTA4"}'
+              actual: '{"id":1,"username":"user1","email":"user1@keploy.io","roles":["ROLE_ADMIN"],"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNzk3ODg5LCJleHAiOjE3MTM3OTgwNjl9.zLenMiwyJiy8uD7I5IlEE4JzwaajAnDMUGMERA2CbW8"}'
         dep_result: []
     - kind: Http
       name: test-set-0
       status: PASSED
-      started: 1713765839
-      completed: 1713765839
+      started: 1713797889
+      completed: 1713797889
+      test_case_path: /home/sonichigi.linux/samples-typescript/node-jwt/keploy/test-set-0
+      mock_path: /home/sonichigi.linux/samples-typescript/node-jwt/keploy/test-set-0/mocks.yaml
+      test_case_id: test-3
+      req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8080/api/users
+        header:
+            Accept: '*/*'
+            Host: localhost:8080
+            User-Agent: curl/7.88.1
+        body: ""
+        timestamp: 2024-04-22T15:21:50.904047713+05:30
+      resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Headers: Origin, Content-Type, Accept
+            Access-Control-Allow-Origin: http://localhost:8081
+            Connection: keep-alive
+            Content-Length: "207"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Apr 2024 09:51:50 GMT
+            Etag: W/"cf-WtdIAesIXySvSNsQNrfJxI93hEs"
+            Keep-Alive: timeout=5
+            Vary: Origin
+            X-Powered-By: Express
+        body: '[{"id":1,"username":"user1","email":"user1@keploy.io","password":"$2a$08$xuRlNgeandjpsgGAEkwBaeut8PAXlv.zZYlwM5ZRxtvMdxhL8B7ES","createdAt":"2024-04-22T09:51:50.788Z","updatedAt":"2024-04-22T09:51:50.788Z"}]'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T15:21:52.936884013+05:30
+      noise:
+        body.createdAt: []
+        body.updatedAt: []
+        header.Date: []
+      result:
+        status_code:
+            normal: true
+            expected: 200
+            actual: 200
+        headers_result:
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Origin
+                value:
+                    - http://localhost:8081
+              actual:
+                key: Access-Control-Allow-Origin
+                value:
+                    - http://localhost:8081
+            - normal: true
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+            - normal: true
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value:
+                    - keep-alive
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "207"
+              actual:
+                key: Content-Length
+                value:
+                    - "207"
+            - normal: true
+              expected:
+                key: Vary
+                value:
+                    - Origin
+              actual:
+                key: Vary
+                value:
+                    - Origin
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Headers
+                value:
+                    - Origin
+                    - ' Content-Type'
+                    - ' Accept'
+              actual:
+                key: Access-Control-Allow-Headers
+                value:
+                    - Origin
+                    - ' Content-Type'
+                    - ' Accept'
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Mon, 22 Apr 2024 09:51:50 GMT
+              actual:
+                key: Date
+                value:
+                    - Mon, 22 Apr 2024 14:58:09 GMT
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"cf-WtdIAesIXySvSNsQNrfJxI93hEs"
+              actual:
+                key: Etag
+                value:
+                    - W/"cf-WtdIAesIXySvSNsQNrfJxI93hEs"
+        body_result:
+            - normal: true
+              type: JSON
+              expected: '[{"id":1,"username":"user1","email":"user1@keploy.io","password":"$2a$08$xuRlNgeandjpsgGAEkwBaeut8PAXlv.zZYlwM5ZRxtvMdxhL8B7ES","createdAt":"2024-04-22T09:51:50.788Z","updatedAt":"2024-04-22T09:51:50.788Z"}]'
+              actual: '[{"id":1,"username":"user1","email":"user1@keploy.io","password":"$2a$08$xuRlNgeandjpsgGAEkwBaeut8PAXlv.zZYlwM5ZRxtvMdxhL8B7ES","createdAt":"2024-04-22T09:51:50.788Z","updatedAt":"2024-04-22T09:51:50.788Z"}]'
+        dep_result: []
+    - kind: Http
+      name: test-set-0
+      status: PASSED
+      started: 1713797889
+      completed: 1713797889
       test_case_path: /home/sonichigi.linux/samples-typescript/node-jwt/keploy/test-set-0
       mock_path: /home/sonichigi.linux/samples-typescript/node-jwt/keploy/test-set-0/mocks.yaml
       test_case_id: test-5
@@ -482,208 +475,13 @@ tests:
         method: GET
         proto_major: 1
         proto_minor: 1
-        url: http://localhost:8080/api/user
-        header:
-            Accept: '*/*'
-            Accept-Encoding: gzip, deflate, br
-            Cache-Control: no-cache
-            Connection: keep-alive
-            Host: localhost:8080
-            Postman-Token: f5e3c7fd-d7e0-4d9d-847a-68a9ce33bfb0
-            User-Agent: PostmanRuntime/7.32.1
-            X-Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNzY0ODY1LCJleHAiOjE3MTM3NjUwNDV9.5LSU1A1jxIbIQFS6Tq26ENNWZBinFt2cJQZ7swpipbc
-        body: ""
-        timestamp: 2024-04-22T11:20:31.094719147+05:30
-      resp:
-        status_code: 404
-        header:
-            Access-Control-Allow-Headers: Origin, Content-Type, Accept
-            Access-Control-Allow-Origin: http://localhost:8081
-            Connection: keep-alive
-            Content-Length: "147"
-            Content-Security-Policy: default-src 'none'
-            Content-Type: text/html; charset=utf-8
-            Date: Mon, 22 Apr 2024 05:50:31 GMT
-            Keep-Alive: timeout=5
-            Vary: Origin
-            X-Content-Type-Options: nosniff
-            X-Powered-By: Express
-        body: |
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-            <meta charset="utf-8">
-            <title>Error</title>
-            </head>
-            <body>
-            <pre>Cannot GET /api/user</pre>
-            </body>
-            </html>
-        status_message: Not Found
-        proto_major: 0
-        proto_minor: 0
-        timestamp: 2024-04-22T11:20:33.120092411+05:30
-      noise:
-        header.Date: []
-      result:
-        status_code:
-            normal: true
-            expected: 404
-            actual: 404
-        headers_result:
-            - normal: true
-              expected:
-                key: Connection
-                value:
-                    - keep-alive
-              actual:
-                key: Connection
-                value:
-                    - keep-alive
-            - normal: true
-              expected:
-                key: Content-Security-Policy
-                value:
-                    - default-src 'none'
-              actual:
-                key: Content-Security-Policy
-                value:
-                    - default-src 'none'
-            - normal: true
-              expected:
-                key: X-Powered-By
-                value:
-                    - Express
-              actual:
-                key: X-Powered-By
-                value:
-                    - Express
-            - normal: true
-              expected:
-                key: Keep-Alive
-                value:
-                    - timeout=5
-              actual:
-                key: Keep-Alive
-                value:
-                    - timeout=5
-            - normal: true
-              expected:
-                key: Vary
-                value:
-                    - Origin
-              actual:
-                key: Vary
-                value:
-                    - Origin
-            - normal: true
-              expected:
-                key: X-Content-Type-Options
-                value:
-                    - nosniff
-              actual:
-                key: X-Content-Type-Options
-                value:
-                    - nosniff
-            - normal: true
-              expected:
-                key: Access-Control-Allow-Headers
-                value:
-                    - Origin
-                    - ' Content-Type'
-                    - ' Accept'
-              actual:
-                key: Access-Control-Allow-Headers
-                value:
-                    - Origin
-                    - ' Content-Type'
-                    - ' Accept'
-            - normal: true
-              expected:
-                key: Date
-                value:
-                    - Mon, 22 Apr 2024 05:50:31 GMT
-              actual:
-                key: Date
-                value:
-                    - Mon, 22 Apr 2024 06:03:59 GMT
-            - normal: true
-              expected:
-                key: Access-Control-Allow-Origin
-                value:
-                    - http://localhost:8081
-              actual:
-                key: Access-Control-Allow-Origin
-                value:
-                    - http://localhost:8081
-            - normal: true
-              expected:
-                key: Content-Type
-                value:
-                    - text/html; charset=utf-8
-              actual:
-                key: Content-Type
-                value:
-                    - text/html; charset=utf-8
-            - normal: true
-              expected:
-                key: Content-Length
-                value:
-                    - "147"
-              actual:
-                key: Content-Length
-                value:
-                    - "147"
-        body_result:
-            - normal: true
-              type: PLAIN
-              expected: |
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                <meta charset="utf-8">
-                <title>Error</title>
-                </head>
-                <body>
-                <pre>Cannot GET /api/user</pre>
-                </body>
-                </html>
-              actual: |
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                <meta charset="utf-8">
-                <title>Error</title>
-                </head>
-                <body>
-                <pre>Cannot GET /api/user</pre>
-                </body>
-                </html>
-        dep_result: []
-    - kind: Http
-      name: test-set-0
-      status: PASSED
-      started: 1713765839
-      completed: 1713765839
-      test_case_path: /home/sonichigi.linux/samples-typescript/node-jwt/keploy/test-set-0
-      mock_path: /home/sonichigi.linux/samples-typescript/node-jwt/keploy/test-set-0/mocks.yaml
-      test_case_id: test-8
-      req:
-        method: GET
-        proto_major: 1
-        proto_minor: 1
         url: http://localhost:8080/api/test/all
         header:
             Accept: '*/*'
-            Accept-Encoding: gzip, deflate, br
-            Cache-Control: no-cache
-            Connection: keep-alive
             Host: localhost:8080
-            Postman-Token: 4e03d4a1-fbcf-4575-af6d-dce7d5413844
-            User-Agent: PostmanRuntime/7.32.1
-            X-Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNzY0ODY1LCJleHAiOjE3MTM3NjUwNDV9.5LSU1A1jxIbIQFS6Tq26ENNWZBinFt2cJQZ7swpipbc
+            User-Agent: curl/7.88.1
         body: ""
-        timestamp: 2024-04-22T11:21:15.097125604+05:30
+        timestamp: 2024-04-22T15:22:56.460240978+05:30
       resp:
         status_code: 200
         header:
@@ -692,7 +490,7 @@ tests:
             Connection: keep-alive
             Content-Length: "15"
             Content-Type: text/html; charset=utf-8
-            Date: Mon, 22 Apr 2024 05:51:15 GMT
+            Date: Mon, 22 Apr 2024 09:52:56 GMT
             Etag: W/"f-0eME85zdMC7hdiIboG8MHxHEIr0"
             Keep-Alive: timeout=5
             Vary: Origin
@@ -701,7 +499,7 @@ tests:
         status_message: OK
         proto_major: 0
         proto_minor: 0
-        timestamp: 2024-04-22T11:21:17.180555215+05:30
+        timestamp: 2024-04-22T15:22:58.508900167+05:30
       noise:
         header.Date: []
       result:
@@ -712,6 +510,24 @@ tests:
         headers_result:
             - normal: true
               expected:
+                key: Access-Control-Allow-Origin
+                value:
+                    - http://localhost:8081
+              actual:
+                key: Access-Control-Allow-Origin
+                value:
+                    - http://localhost:8081
+            - normal: true
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value:
+                    - keep-alive
+            - normal: true
+              expected:
                 key: Vary
                 value:
                     - Origin
@@ -739,35 +555,13 @@ tests:
                     - timeout=5
             - normal: true
               expected:
-                key: Date
+                key: Content-Length
                 value:
-                    - Mon, 22 Apr 2024 05:51:15 GMT
+                    - "15"
               actual:
-                key: Date
+                key: Content-Length
                 value:
-                    - Mon, 22 Apr 2024 06:03:59 GMT
-            - normal: true
-              expected:
-                key: Access-Control-Allow-Headers
-                value:
-                    - Origin
-                    - ' Content-Type'
-                    - ' Accept'
-              actual:
-                key: Access-Control-Allow-Headers
-                value:
-                    - Origin
-                    - ' Content-Type'
-                    - ' Accept'
-            - normal: true
-              expected:
-                key: Access-Control-Allow-Origin
-                value:
-                    - http://localhost:8081
-              actual:
-                key: Access-Control-Allow-Origin
-                value:
-                    - http://localhost:8081
+                    - "15"
             - normal: true
               expected:
                 key: Etag
@@ -788,22 +582,26 @@ tests:
                     - Express
             - normal: true
               expected:
-                key: Connection
+                key: Access-Control-Allow-Headers
                 value:
-                    - keep-alive
+                    - Origin
+                    - ' Content-Type'
+                    - ' Accept'
               actual:
-                key: Connection
+                key: Access-Control-Allow-Headers
                 value:
-                    - keep-alive
+                    - Origin
+                    - ' Content-Type'
+                    - ' Accept'
             - normal: true
               expected:
-                key: Content-Length
+                key: Date
                 value:
-                    - "15"
+                    - Mon, 22 Apr 2024 09:52:56 GMT
               actual:
-                key: Content-Length
+                key: Date
                 value:
-                    - "15"
+                    - Mon, 22 Apr 2024 14:58:09 GMT
         body_result:
             - normal: true
               type: PLAIN

@@ -1,0 +1,44 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-4
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:4200/fetch
+        header:
+            Accept: '*/*'
+            Host: localhost:4200
+            User-Agent: curl/7.88.1
+        body: ""
+        timestamp: 2024-04-29T15:33:46.334041489+05:30
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Credentials: "true"
+            Access-Control-Allow-Headers: '*'
+            Access-Control-Allow-Methods: GET
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Exposed-Headers: '*'
+            Content-Length: "81"
+            Content-Type: application/json;charset=utf-8
+            Date: Mon, 29 Apr 2024 10:03:46 GMT
+            Vary: '*'
+        body: '{"success":{"_id":"662f706a8b68501443ac1f7c","name":"Cow","sound":"Moo","__v":0}}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-29T15:33:48.404055062+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1714385028
+curl: |
+    curl --request GET \
+      --url http://localhost:4200/fetch \
+      --header 'Host: localhost:4200' \
+      --header 'User-Agent: curl/7.88.1' \
+      --header 'Accept: */*' \

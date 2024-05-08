@@ -1,3 +1,3 @@
 module.exports = {
-    secret: "secret-key"
+    secret: "bear-secret-key"
   };

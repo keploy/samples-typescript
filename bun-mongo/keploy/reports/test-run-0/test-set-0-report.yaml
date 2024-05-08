@@ -1,0 +1,532 @@
+version: api.keploy.io/v1beta1
+name: test-set-0-report
+status: PASSED
+success: 4
+failure: 0
+total: 4
+tests:
+    - kind: Http
+      name: test-set-0
+      status: PASSED
+      started: 1714385100
+      completed: 1714385100
+      test_case_path: /home/sonichigi.linux/samples-typescript/bun-mongo/keploy/test-set-0
+      mock_path: /home/sonichigi.linux/samples-typescript/bun-mongo/keploy/test-set-0/mocks.yaml
+      test_case_id: test-1
+      req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:4200/save
+        header:
+            Accept: '*/*'
+            Host: localhost:4200
+            User-Agent: curl/7.88.1
+        body: ""
+        timestamp: 2024-04-29T15:33:21.999066005+05:30
+      resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Credentials: "true"
+            Access-Control-Allow-Headers: '*'
+            Access-Control-Allow-Methods: POST
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Exposed-Headers: '*'
+            Content-Length: "16"
+            Content-Type: application/json;charset=utf-8
+            Date: Mon, 29 Apr 2024 10:03:21 GMT
+            Vary: '*'
+        body: '{"success":true}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-29T15:33:24.073334129+05:30
+      noise:
+        header.Date: []
+      result:
+        status_code:
+            normal: true
+            expected: 200
+            actual: 200
+        headers_result:
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Methods
+                value:
+                    - POST
+              actual:
+                key: Access-Control-Allow-Methods
+                value:
+                    - POST
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "16"
+              actual:
+                key: Content-Length
+                value:
+                    - "16"
+            - normal: true
+              expected:
+                key: Vary
+                value:
+                    - '*'
+              actual:
+                key: Vary
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Credentials
+                value:
+                    - "true"
+              actual:
+                key: Access-Control-Allow-Credentials
+                value:
+                    - "true"
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Headers
+                value:
+                    - '*'
+              actual:
+                key: Access-Control-Allow-Headers
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Origin
+                value:
+                    - '*'
+              actual:
+                key: Access-Control-Allow-Origin
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Access-Control-Exposed-Headers
+                value:
+                    - '*'
+              actual:
+                key: Access-Control-Exposed-Headers
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Mon, 29 Apr 2024 10:03:21 GMT
+              actual:
+                key: Date
+                value:
+                    - Mon, 29 Apr 2024 10:05:00 GMT
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json;charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - application/json;charset=utf-8
+        body_result:
+            - normal: true
+              type: JSON
+              expected: '{"success":true}'
+              actual: '{"success":true}'
+        dep_result: []
+    - kind: Http
+      name: test-set-0
+      status: PASSED
+      started: 1714385100
+      completed: 1714385100
+      test_case_path: /home/sonichigi.linux/samples-typescript/bun-mongo/keploy/test-set-0
+      mock_path: /home/sonichigi.linux/samples-typescript/bun-mongo/keploy/test-set-0/mocks.yaml
+      test_case_id: test-2
+      req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:4200/fetch
+        header:
+            Accept: '*/*'
+            Host: localhost:4200
+            User-Agent: curl/7.88.1
+        body: ""
+        timestamp: 2024-04-29T15:33:36.620156225+05:30
+      resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Credentials: "true"
+            Access-Control-Allow-Headers: '*'
+            Access-Control-Allow-Methods: GET
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Exposed-Headers: '*'
+            Content-Length: "81"
+            Content-Type: application/json;charset=utf-8
+            Date: Mon, 29 Apr 2024 10:03:36 GMT
+            Vary: '*'
+        body: '{"success":{"_id":"662f706a8b68501443ac1f7c","name":"Cow","sound":"Moo","__v":0}}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-29T15:33:38.719319764+05:30
+      noise:
+        header.Date: []
+      result:
+        status_code:
+            normal: true
+            expected: 200
+            actual: 200
+        headers_result:
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Methods
+                value:
+                    - GET
+              actual:
+                key: Access-Control-Allow-Methods
+                value:
+                    - GET
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Origin
+                value:
+                    - '*'
+              actual:
+                key: Access-Control-Allow-Origin
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Headers
+                value:
+                    - '*'
+              actual:
+                key: Access-Control-Allow-Headers
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Access-Control-Exposed-Headers
+                value:
+                    - '*'
+              actual:
+                key: Access-Control-Exposed-Headers
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json;charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - application/json;charset=utf-8
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "81"
+              actual:
+                key: Content-Length
+                value:
+                    - "81"
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Mon, 29 Apr 2024 10:03:36 GMT
+              actual:
+                key: Date
+                value:
+                    - Mon, 29 Apr 2024 10:05:00 GMT
+            - normal: true
+              expected:
+                key: Vary
+                value:
+                    - '*'
+              actual:
+                key: Vary
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Credentials
+                value:
+                    - "true"
+              actual:
+                key: Access-Control-Allow-Credentials
+                value:
+                    - "true"
+        body_result:
+            - normal: true
+              type: JSON
+              expected: '{"success":{"_id":"662f706a8b68501443ac1f7c","name":"Cow","sound":"Moo","__v":0}}'
+              actual: '{"success":{"_id":"662f706a8b68501443ac1f7c","name":"Cow","sound":"Moo","__v":0}}'
+        dep_result: []
+    - kind: Http
+      name: test-set-0
+      status: PASSED
+      started: 1714385100
+      completed: 1714385100
+      test_case_path: /home/sonichigi.linux/samples-typescript/bun-mongo/keploy/test-set-0
+      mock_path: /home/sonichigi.linux/samples-typescript/bun-mongo/keploy/test-set-0/mocks.yaml
+      test_case_id: test-3
+      req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:4200/save
+        header:
+            Accept: '*/*'
+            Host: localhost:4200
+            User-Agent: curl/7.88.1
+        body: ""
+        timestamp: 2024-04-29T15:33:44.37911632+05:30
+      resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Credentials: "true"
+            Access-Control-Allow-Headers: '*'
+            Access-Control-Allow-Methods: POST
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Exposed-Headers: '*'
+            Content-Length: "16"
+            Content-Type: application/json;charset=utf-8
+            Date: Mon, 29 Apr 2024 10:03:44 GMT
+            Vary: '*'
+        body: '{"success":true}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-29T15:33:46.391138529+05:30
+      noise:
+        header.Date: []
+      result:
+        status_code:
+            normal: true
+            expected: 200
+            actual: 200
+        headers_result:
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Headers
+                value:
+                    - '*'
+              actual:
+                key: Access-Control-Allow-Headers
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Mon, 29 Apr 2024 10:03:44 GMT
+              actual:
+                key: Date
+                value:
+                    - Mon, 29 Apr 2024 10:05:00 GMT
+            - normal: true
+              expected:
+                key: Access-Control-Exposed-Headers
+                value:
+                    - '*'
+              actual:
+                key: Access-Control-Exposed-Headers
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "16"
+              actual:
+                key: Content-Length
+                value:
+                    - "16"
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json;charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - application/json;charset=utf-8
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Credentials
+                value:
+                    - "true"
+              actual:
+                key: Access-Control-Allow-Credentials
+                value:
+                    - "true"
+            - normal: true
+              expected:
+                key: Vary
+                value:
+                    - '*'
+              actual:
+                key: Vary
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Methods
+                value:
+                    - POST
+              actual:
+                key: Access-Control-Allow-Methods
+                value:
+                    - POST
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Origin
+                value:
+                    - '*'
+              actual:
+                key: Access-Control-Allow-Origin
+                value:
+                    - '*'
+        body_result:
+            - normal: true
+              type: JSON
+              expected: '{"success":true}'
+              actual: '{"success":true}'
+        dep_result: []
+    - kind: Http
+      name: test-set-0
+      status: PASSED
+      started: 1714385100
+      completed: 1714385100
+      test_case_path: /home/sonichigi.linux/samples-typescript/bun-mongo/keploy/test-set-0
+      mock_path: /home/sonichigi.linux/samples-typescript/bun-mongo/keploy/test-set-0/mocks.yaml
+      test_case_id: test-4
+      req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:4200/fetch
+        header:
+            Accept: '*/*'
+            Host: localhost:4200
+            User-Agent: curl/7.88.1
+        body: ""
+        timestamp: 2024-04-29T15:33:46.334041489+05:30
+      resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Credentials: "true"
+            Access-Control-Allow-Headers: '*'
+            Access-Control-Allow-Methods: GET
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Exposed-Headers: '*'
+            Content-Length: "81"
+            Content-Type: application/json;charset=utf-8
+            Date: Mon, 29 Apr 2024 10:03:46 GMT
+            Vary: '*'
+        body: '{"success":{"_id":"662f706a8b68501443ac1f7c","name":"Cow","sound":"Moo","__v":0}}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-29T15:33:48.404055062+05:30
+      noise:
+        header.Date: []
+      result:
+        status_code:
+            normal: true
+            expected: 200
+            actual: 200
+        headers_result:
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Methods
+                value:
+                    - GET
+              actual:
+                key: Access-Control-Allow-Methods
+                value:
+                    - GET
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Origin
+                value:
+                    - '*'
+              actual:
+                key: Access-Control-Allow-Origin
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Access-Control-Exposed-Headers
+                value:
+                    - '*'
+              actual:
+                key: Access-Control-Exposed-Headers
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Mon, 29 Apr 2024 10:03:46 GMT
+              actual:
+                key: Date
+                value:
+                    - Mon, 29 Apr 2024 10:05:00 GMT
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Headers
+                value:
+                    - '*'
+              actual:
+                key: Access-Control-Allow-Headers
+                value:
+                    - '*'
+            - normal: true
+              expected:
+                key: Access-Control-Allow-Credentials
+                value:
+                    - "true"
+              actual:
+                key: Access-Control-Allow-Credentials
+                value:
+                    - "true"
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "81"
+              actual:
+                key: Content-Length
+                value:
+                    - "81"
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json;charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - application/json;charset=utf-8
+            - normal: true
+              expected:
+                key: Vary
+                value:
+                    - '*'
+              actual:
+                key: Vary
+                value:
+                    - '*'
+        body_result:
+            - normal: true
+              type: JSON
+              expected: '{"success":{"_id":"662f706a8b68501443ac1f7c","name":"Cow","sound":"Moo","__v":0}}'
+              actual: '{"success":{"_id":"662f706a8b68501443ac1f7c","name":"Cow","sound":"Moo","__v":0}}'
+        dep_result: []
+test_set: test-set-0

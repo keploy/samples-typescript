@@ -7,41 +7,38 @@ spec:
         method: POST
         proto_major: 1
         proto_minor: 1
-        url: http://localhost:4200/fetch
+        url: http://localhost:4200/save
         header:
             Accept: '*/*'
             Host: localhost:4200
-            User-Agent: curl/8.2.1
+            User-Agent: curl/7.88.1
         body: ""
-        body_type: ""
-        timestamp: 2024-02-22T10:48:25.014514069+05:30
-        host: ""
+        timestamp: 2024-04-29T15:33:44.37911632+05:30
     resp:
-        status_code: 404
+        status_code: 200
         header:
             Access-Control-Allow-Credentials: "true"
             Access-Control-Allow-Headers: '*'
             Access-Control-Allow-Methods: POST
             Access-Control-Allow-Origin: '*'
             Access-Control-Exposed-Headers: '*'
-            Content-Length: "9"
-            Content-Type: text/plain;charset=utf-8
-            Date: Thu, 22 Feb 2024 05:18:24 GMT
+            Content-Length: "16"
+            Content-Type: application/json;charset=utf-8
+            Date: Mon, 29 Apr 2024 10:03:44 GMT
             Vary: '*'
-        body: NOT_FOUND
-        body_type: ""
-        status_message: ""
+        body: '{"success":true}'
+        status_message: OK
         proto_major: 0
         proto_minor: 0
-        timestamp: 2024-02-22T10:48:27.031736254+05:30
+        timestamp: 2024-04-29T15:33:46.391138529+05:30
     objects: []
     assertions:
         noise:
             header.Date: []
-    created: 1708579107
+    created: 1714385026
 curl: |
     curl --request POST \
-      --url http://localhost:4200/fetch \
-      --header 'User-Agent: curl/8.2.1' \
+      --url http://localhost:4200/save \
       --header 'Accept: */*' \
       --header 'Host: localhost:4200' \
+      --header 'User-Agent: curl/7.88.1' \

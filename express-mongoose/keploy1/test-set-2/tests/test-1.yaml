@@ -1,0 +1,55 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8000/students
+        header:
+            Accept: '*/*'
+            Content-Length: "83"
+            Content-Type: application/json
+            Host: localhost:8000
+            User-Agent: curl/7.88.1
+        body: |-
+            {
+                "name":"John Do",
+                "email":"john@xyiz.com",
+                "phone":"0123456799"
+                }
+        timestamp: 2024-04-22T20:41:29.090867232+05:30
+    resp:
+        status_code: 400
+        header:
+            Connection: keep-alive
+            Content-Length: "111"
+            Content-Type: text/html; charset=utf-8
+            Date: Mon, 22 Apr 2024 15:11:39 GMT
+            Etag: W/"6f-Pj23t5hbh0becmBPP2osd1sJyOo"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: 'Failed to register Student as MongooseError: Operation `students.insertOne()` buffering timed out after 10000ms'
+        status_message: Bad Request
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T20:41:41.210175606+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1713798701
+curl: |-
+    curl --request POST \
+      --url http://localhost:8000/students \
+      --header 'User-Agent: curl/7.88.1' \
+      --header 'Accept: */*' \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:8000' \
+      --data '{
+        "name":"John Do",
+        "email":"john@xyiz.com",
+        "phone":"0123456799"
+        }'

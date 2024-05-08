@@ -4,57 +4,44 @@ name: test-3
 spec:
     metadata: {}
     req:
-        method: POST
+        method: GET
         proto_major: 1
         proto_minor: 1
-        url: http://localhost:8080/api/auth/signin
+        url: http://localhost:8080/api/users
         header:
             Accept: '*/*'
-            Content-Length: "78"
-            Content-Type: application/json
             Host: localhost:8080
             User-Agent: curl/7.88.1
-        body: |-
-            {
-                "username":"user",
-                "email":"user@keploy.io",
-                "password":"1234"
-            }
-        timestamp: 2024-04-22T11:17:45.564177087+05:30
+        body: ""
+        timestamp: 2024-04-22T15:21:50.904047713+05:30
     resp:
         status_code: 200
         header:
-            Access-Control-Allow-Headers: x-access-token, Origin, Content-Type, Accept
+            Access-Control-Allow-Headers: Origin, Content-Type, Accept
             Access-Control-Allow-Origin: http://localhost:8081
             Connection: keep-alive
-            Content-Length: "227"
+            Content-Length: "207"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Apr 2024 05:47:45 GMT
-            Etag: W/"e3-X0xLe5hwxhp4UfVe1XsevW0WAYA"
+            Date: Mon, 22 Apr 2024 09:51:50 GMT
+            Etag: W/"cf-WtdIAesIXySvSNsQNrfJxI93hEs"
             Keep-Alive: timeout=5
             Vary: Origin
             X-Powered-By: Express
-        body: '{"id":1,"username":"user","email":"user@keploy.io","roles":["ROLE_USER"],"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNzY0ODY1LCJleHAiOjE3MTM3NjUwNDV9.5LSU1A1jxIbIQFS6Tq26ENNWZBinFt2cJQZ7swpipbc"}'
+        body: '[{"id":1,"username":"user1","email":"user1@keploy.io","password":"$2a$08$xuRlNgeandjpsgGAEkwBaeut8PAXlv.zZYlwM5ZRxtvMdxhL8B7ES","createdAt":"2024-04-22T09:51:50.788Z","updatedAt":"2024-04-22T09:51:50.788Z"}]'
         status_message: OK
         proto_major: 0
         proto_minor: 0
-        timestamp: 2024-04-22T11:17:47.638362456+05:30
+        timestamp: 2024-04-22T15:21:52.936884013+05:30
     objects: []
     assertions:
         noise:
+            body.createdAt: []
+            body.updatedAt: []
             header.Date: []
-            header.Etag: []
-            body.accessToken: []
-    created: 1713764867
-curl: |-
-    curl --request POST \
-      --url http://localhost:8080/api/auth/signin \
-      --header 'Content-Type: application/json' \
-      --header 'Host: localhost:8080' \
+    created: 1713779512
+curl: |
+    curl --request GET \
+      --url http://localhost:8080/api/users \
       --header 'User-Agent: curl/7.88.1' \
       --header 'Accept: */*' \
-      --data '{
-        "username":"user",
-        "email":"user@keploy.io",
-        "password":"1234"
-    }'
+      --header 'Host: localhost:8080' \

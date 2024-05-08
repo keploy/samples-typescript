@@ -1,44 +1,55 @@
-version: api.keploy.io/v1beta2
+version: api.keploy.io/v1beta1
 kind: Http
 name: test-1
 spec:
     metadata: {}
     req:
-        method: GET
+        method: POST
         proto_major: 1
         proto_minor: 1
         url: http://localhost:8000/students
         header:
             Accept: '*/*'
+            Content-Length: "83"
+            Content-Type: application/json
             Host: localhost:8000
             User-Agent: curl/7.88.1
-        body: ""
-        body_type: ""
-        timestamp: 2023-11-04T12:55:19.00702043Z
+        body: |-
+            {
+                "name":"John Do",
+                "email":"john@xyiz.com",
+                "phone":"0123456799"
+                }
+        timestamp: 2024-04-22T20:42:20.113395509+05:30
     resp:
-        status_code: 200
+        status_code: 201
         header:
             Connection: keep-alive
-            Content-Length: "523"
-            Content-Type: application/json; charset=utf-8
-            Date: Sat, 04 Nov 2023 12:55:19 GMT
-            Etag: W/"20b-wEHDTOeND1Hgnd4o9ajDsn/Qwlg"
+            Content-Length: "32"
+            Content-Type: text/html; charset=utf-8
+            Date: Mon, 22 Apr 2024 15:12:20 GMT
+            Etag: W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
             Keep-Alive: timeout=5
             X-Powered-By: Express
-        body: '[{"_id":"65449f16e7cbcd56ac7ef571","name":"John Doe","email":"john@xyz.com","phone":123456798,"__v":0},{"_id":"654528488029ad5fe4d8b14c","name":"John Doe","email":"john@xyzw.com","phone":30123456798,"__v":0},{"_id":"6546361d19db8f749f391d79","name":"John Doe","email":"jodhn@xyz.com","phone":1263456798,"__v":0},{"_id":"654636c8af93e55ea077a39d","name":"John Doe","email":"joddhn@xyz.com","phone":1203456798,"__v":0},{"_id":"654636f209fb119d87e76781","name":"John Doe","email":"joddhwn@xyz.com","phone":1203456799,"__v":0}]'
-        body_type: ""
-        status_message: ""
+        body: Student registration successful!
+        status_message: Created
         proto_major: 0
         proto_minor: 0
-        timestamp: 2023-11-04T12:55:21.48575217Z
+        timestamp: 2024-04-22T20:42:22.156834053+05:30
     objects: []
     assertions:
         noise:
-            - header.Date
-    created: 1699102521
-curl: |
-    curl --request GET \
+            header.Date: []
+    created: 1713798742
+curl: |-
+    curl --request POST \
       --url http://localhost:8000/students \
+      --header 'Content-Type: application/json' \
       --header 'Host: localhost:8000' \
       --header 'User-Agent: curl/7.88.1' \
       --header 'Accept: */*' \
+      --data '{
+        "name":"John Do",
+        "email":"john@xyiz.com",
+        "phone":"0123456799"
+        }'
