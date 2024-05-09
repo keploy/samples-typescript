@@ -1,0 +1,60 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-5
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/login
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Connection: keep-alive
+            Content-Length: "58"
+            Content-Type: application/json
+            Host: localhost:3000
+            Postman-Token: 93da437e-c3f1-4edb-b406-85fe01954d5a
+            User-Agent: PostmanRuntime/7.37.3
+        body: |-
+            {
+                "username":"prithwika",
+                "password":"prithwika"
+            }
+        timestamp: 2024-04-21T12:16:05.173132377+05:30
+    resp:
+        status_code: 302
+        header:
+            Connection: keep-alive
+            Content-Length: "28"
+            Content-Type: text/plain; charset=utf-8
+            Date: Sun, 21 Apr 2024 06:46:07 GMT
+            Keep-Alive: timeout=5
+            Location: /login
+            Vary: Accept
+            X-Powered-By: Express
+        body: Found. Redirecting to /login
+        status_message: Found
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-21T12:16:07.529391587+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1713681967
+curl: |-
+    curl --request POST \
+      --url http://localhost:3000/login \
+      --header 'Connection: keep-alive' \
+      --header 'Content-Type: application/json' \
+      --header 'User-Agent: PostmanRuntime/7.37.3' \
+      --header 'Accept: */*' \
+      --header 'Postman-Token: 93da437e-c3f1-4edb-b406-85fe01954d5a' \
+      --header 'Host: localhost:3000' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --data '{
+        "username":"prithwika",
+        "password":"prithwika"
+    }'

@@ -1,0 +1,55 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-2
+spec:
+    metadata: {}
+    req:
+        method: PUT
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/courses/6626a9cd3840cb305c0a6d52
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: "14"
+            Content-Type: application/x-www-form-urlencoded
+            Host: localhost:3000
+            Postman-Token: ead5dd7a-6d19-42f0-b88e-3b37eb2ae36c
+            User-Agent: PostmanRuntime/7.32.1
+        body: title=react%20
+        timestamp: 2024-04-22T23:56:49.991390808+05:30
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Connection: keep-alive
+            Content-Length: "41"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Apr 2024 18:26:50 GMT
+            Etag: W/"29-sN6aMr1owvt16IDQqfD5Zlo5A3Y"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"message":"Course updated successfully"}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T23:56:52.02674888+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1713810412
+curl: |-
+    curl --request PUT \
+      --url http://localhost:3000/courses/6626a9cd3840cb305c0a6d52 \
+      --header 'Accept: */*' \
+      --header 'Content-Type: application/x-www-form-urlencoded' \
+      --header 'Host: localhost:3000' \
+      --header 'Cache-Control: no-cache' \
+      --header 'Postman-Token: ead5dd7a-6d19-42f0-b88e-3b37eb2ae36c' \
+      --header 'User-Agent: PostmanRuntime/7.32.1' \
+      --header 'Connection: keep-alive' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --data 'title=react%20'

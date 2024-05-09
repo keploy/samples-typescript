@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <style>
+      body {
+        background: url("../pengu.jpg");
+        /* background-color: #fef9f8; */
+      }
+      .heading {
+        color: #0d0d0d;
+        background-color: #fef9f8;
+        font-size: 100px;
+        font-family: "Courier New", Courier, monospace;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .hed {
+        height: 5px;
+        background-color: #ef9273;
+      }
+      .content {
+        padding: 30px;
+        margin: 3px;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 20px;
+      }
+      .content:hover {
+        background-color: #ef9273;
+      }
+      a {
+        text-decoration: none;
+        font-family: "Courier New", Courier, monospace;
+        color: #0d0d0d;
+      }
+      .but {
+        padding: 20px;
+        margin-top: 10px;
+        font-family: "Courier New", Courier, monospace;
+        background-color: rgba(239, 146, 115, 0.5);
+        border-radius: 20%;
+        margin-left: 50%;
+        font-size: 20px;
+      }
+      .but:hover {
+        background-color: #ef9273;
+      }
+      .log {
+        margin-left: 90%;
+        margin-top: 0px;
+        font-size: 15px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="heading">NOTES</h1>
+    <h2>Welcome <%= user.username %> 👀</h2>
+    <a href="/logout"><button class="but log">logout</button></a>
+    <hr class="hed" />
+    <% if(result.length>0){ %> <% result.forEach(note => { %>
+    <a href="/note/<%= note._id%>">
+      <div class="content">
+        <h2><%= note.title %></h2>
+        <p><%= note.body %></p>
+      </div>
+      <hr />
+      <% }) %>
+    </a>
+
+    <% }else{ %>
+    <h4>NOTHING TO SHOW:)</h4>
+    <% } %>
+
+    <a href="/note"><button type="button" class="but">Add</button></a>
+  </body>
+</html>

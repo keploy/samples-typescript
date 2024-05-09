@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+                background-color: #fef9f8;
+            }
+            .heading {
+                color: #0d0d0d;
+                background-color: #fef9f8;
+                font-size: 50px;
+                font-family: "Courier New", Courier, monospace;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .hed {
+                height: 5px;
+                background-color: #ef9273;
+            }
+            .content {
+                margin-left: 40%;
+                margin-top:10%;
+                font-family: "Courier New", Courier, monospace;
+                font-size:20px;
+            }
+            a {
+                text-decoration: none;
+                font-family: "Courier New", Courier, monospace;
+                color:#0d0d0d;
+            }
+            .but {
+                padding: 20px;
+                margin-top: 10px;
+                font-family: "Courier New", Courier, monospace;
+                background-color: rgba(239, 146, 115, 0.5);
+                border-radius: 20%;
+                margin-left:50%;
+                font-size:20px;
+            }
+            .but:hover {
+                background-color: #ef9273;
+            }
+            .inp {
+                padding: 3px;
+                margin-left: 40%;
+                font-size:20px;
+                font-family:'Courier New', Courier, monospace;
+            }
+            .log{
+                margin-left : 1%;
+                margin-top: 0px;
+                font-size:15px;
+                padding:10px;
+            }
+            
+            
+    </style>
+</head>
+<body>
+    <h1 class="heading"> Log In </h1>
+    
+    <form action="/login" method="post" >
+        <label for="username" name="username" class="inp">Username</label> <br>
+        <textarea name="username" id="username" cols="30" rows="1" class="inp"></textarea> <br>
+        <label for="password" class="inp">password</label> <br>
+        <input type="password" name="password" class="inp">
+        <input type="submit" value="Log in" class="but log" >
+    </form>
+    <h2 class="content">New user ?</h2>
+    <a href="/signup"><button class="but sign">Sign up</button></a>
+</body>
+</html>

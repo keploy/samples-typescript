@@ -1,0 +1,53 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/bookings/view
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Host: localhost:3000
+            Postman-Token: 98cdaa3e-e104-4309-8fc7-85aa21ac23f6
+            User-Agent: PostmanRuntime/7.32.1
+        body: ""
+        timestamp: 2024-04-25T00:50:10.779721396+05:30
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Connection: keep-alive
+            Content-Length: "418"
+            Content-Type: application/json; charset=utf-8
+            Date: Wed, 24 Apr 2024 19:20:10 GMT
+            Etag: W/"1a2-fatZA8OmHHYWads6m7rYhW/DVps"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"bookings":[{"_id":"662950b1968a392c01c27a2c","userEmail":"use222r@example.com","roomNumber":"1","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0},{"_id":"6629527fe0ef2d8d98e0edf0","userEmail":"use222r@example.com","roomNumber":"2","startTime":"2024-03-07T11:00:00.000Z","roomType":"A","endTime":"2024-03-07T12:00:00.000Z","totalPrice":100,"__v":0}]}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-25T00:50:12.86725272+05:30
+    objects: []
+    assertions:
+        noise:
+            body.bookings.endTime: []
+            body.bookings.startTime: []
+            header.Date: []
+    created: 1713986412
+curl: |
+    curl --request GET \
+      --url http://localhost:3000/bookings/view \
+      --header 'Postman-Token: 98cdaa3e-e104-4309-8fc7-85aa21ac23f6' \
+      --header 'Host: localhost:3000' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'Connection: keep-alive' \
+      --header 'User-Agent: PostmanRuntime/7.32.1' \
+      --header 'Accept: */*' \
+      --header 'Cache-Control: no-cache' \
