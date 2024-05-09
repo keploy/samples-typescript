@@ -57,16 +57,6 @@ On Windows, WSL is required to run Keploy Binary.
 wsl --install
 ```
 
-Once installed download and Install "Keploy Binary" :
-
-```bash
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
-
-
-
 ### Capture the testcases in keploy
 
 ```bash
