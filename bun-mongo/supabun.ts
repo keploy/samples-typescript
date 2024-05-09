@@ -8,8 +8,6 @@ const app = new Elysia()
 
 app.use(cors())
 
-
-
 app.get('/hello', async() => {
     const controller = new HelloController();
     console.log("GET request at /hello route");
@@ -40,7 +38,7 @@ app.delete('/delete', async() => {
     return (controller.Delete());
 });
 
-mongoose.connect('mongodb://mongo:27017/keploy', { 
+mongoose.connect('mongodb://localhost:27017/keploy', { 
     serverSelectionTimeoutMS: 5000
 })
 
