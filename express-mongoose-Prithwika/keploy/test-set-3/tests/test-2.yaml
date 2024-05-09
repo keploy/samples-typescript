@@ -1,0 +1,60 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-2
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/signup
+        header:
+            Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+            Accept-Encoding: gzip, deflate, br
+            Accept-Language: en-US,en;q=0.5
+            Connection: keep-alive
+            Cookie: ajs_anonymous_id=8d2a4646-6f8b-42b9-96f0-3ea0d1fc56e1
+            Host: localhost:3000
+            Sec-Fetch-Dest: document
+            Sec-Fetch-Mode: navigate
+            Sec-Fetch-Site: none
+            Sec-Fetch-User: ?1
+            Upgrade-Insecure-Requests: "1"
+            User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0
+        body: ""
+        timestamp: 2024-04-22T21:28:17.752454233+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "2324"
+            Content-Type: text/html; charset=utf-8
+            Date: Mon, 22 Apr 2024 15:58:17 GMT
+            Etag: W/"914-1BuUNzsEDMurEl4L+Rv+iGldS/w"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"UTF-8\" />\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n    <title>Document</title>\r\n    <style>\r\n      body {\r\n        background-image: url(\"../cp.jpg\");\r\n        /* background: url(../pengu.jpg); */\r\n        /* background-color: #fef9f8; */\r\n      }\r\n      .heading {\r\n        color: #0d0d0d;\r\n        background-color: #fef9f8;\r\n        font-size: 50px;\r\n        font-family: \"Courier New\", Courier, monospace;\r\n        text-align: center;\r\n        margin-bottom: 20px;\r\n      }\r\n      .hed {\r\n        height: 5px;\r\n        background-color: #ef9273;\r\n      }\r\n      .content {\r\n        margin-left: 40%;\r\n        margin-top: 10%;\r\n        font-family: \"Courier New\", Courier, monospace;\r\n        font-size: 20px;\r\n      }\r\n      a {\r\n        text-decoration: none;\r\n        font-family: \"Courier New\", Courier, monospace;\r\n        color: #0d0d0d;\r\n      }\r\n      .but {\r\n        padding: 20px;\r\n        margin-top: 10px;\r\n        font-family: \"Courier New\", Courier, monospace;\r\n        background-color: rgba(239, 146, 115, 0.5);\r\n        border-radius: 20%;\r\n        margin-left: 50%;\r\n        font-size: 20px;\r\n      }\r\n      .but:hover {\r\n        background-color: #ef9273;\r\n      }\r\n      .inp {\r\n        padding: 3px;\r\n        margin-left: 40%;\r\n        font-size: 20px;\r\n        font-family: \"Courier New\", Courier, monospace;\r\n      }\r\n      .log {\r\n        margin-left: 1%;\r\n        margin-top: 0px;\r\n        font-size: 15px;\r\n        padding: 10px;\r\n      }\r\n    </style>\r\n  </head>\r\n  <body>\r\n    <h1 class=\"heading\">Sign up</h1>\r\n\r\n    <form action=\"/signup\" method=\"post\">\r\n      <label for=\"username\" name=\"username\" class=\"inp\">Username</label> <br />\r\n      <textarea\r\n        name=\"username\"\r\n        id=\"username\"\r\n        cols=\"30\"\r\n        rows=\"1\"\r\n        class=\"inp\"\r\n      ></textarea>\r\n      <br />\r\n      <label for=\"password\" class=\"inp\">password</label> <br />\r\n      <input type=\"password\" name=\"password\" class=\"inp\" />\r\n      <input type=\"submit\" value=\"Sign in\" class=\"but log\" />\r\n    </form>\r\n    <h2 class=\"content\">Already a user ?</h2>\r\n    <a href=\"/login\"><button class=\"but sign\">Log In</button></a>\r\n  </body>\r\n</html>\r\n"
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T21:28:17.933755685+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1713801497
+curl: |
+    curl --request GET \
+      --url http://localhost:3000/signup \
+      --header 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0' \
+      --header 'Host: localhost:3000' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8' \
+      --header 'Sec-Fetch-Dest: document' \
+      --header 'Upgrade-Insecure-Requests: 1' \
+      --header 'Sec-Fetch-User: ?1' \
+      --header 'Accept-Language: en-US,en;q=0.5' \
+      --header 'Sec-Fetch-Site: none' \
+      --header 'Connection: keep-alive' \
+      --header 'Cookie: ajs_anonymous_id=8d2a4646-6f8b-42b9-96f0-3ea0d1fc56e1' \
+      --header 'Sec-Fetch-Mode: navigate' \
