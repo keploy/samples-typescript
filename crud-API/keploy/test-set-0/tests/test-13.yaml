@@ -1,0 +1,74 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-13
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/api/products/661fdd741595e378925b087d
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: "63"
+            Content-Type: application/json
+            Host: localhost:3000
+            Postman-Token: b75533b0-0f7b-4347-a59d-86452bcd00cc
+            User-Agent: PostmanRuntime/7.37.3
+        body: |-
+            {
+                "name": "galaxy",
+                "quantity": 2,
+                "price": 10000
+            }
+        timestamp: 2024-04-22T15:01:44.765819303+05:30
+    resp:
+        status_code: 404
+        header:
+            Connection: keep-alive
+            Content-Length: "177"
+            Content-Security-Policy: default-src 'none'
+            Content-Type: text/html; charset=utf-8
+            Date: Mon, 22 Apr 2024 09:31:44 GMT
+            Keep-Alive: timeout=5
+            X-Content-Type-Options: nosniff
+            X-Powered-By: Express
+        body: |
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+            <meta charset="utf-8">
+            <title>Error</title>
+            </head>
+            <body>
+            <pre>Cannot POST /api/products/661fdd741595e378925b087d</pre>
+            </body>
+            </html>
+        status_message: Not Found
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T15:01:46.768479793+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1713778306
+curl: |-
+    curl --request POST \
+      --url http://localhost:3000/api/products/661fdd741595e378925b087d \
+      --header 'Host: localhost:3000' \
+      --header 'Accept: */*' \
+      --header 'Postman-Token: b75533b0-0f7b-4347-a59d-86452bcd00cc' \
+      --header 'Content-Type: application/json' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'User-Agent: PostmanRuntime/7.37.3' \
+      --header 'Connection: keep-alive' \
+      --header 'Cache-Control: no-cache' \
+      --data '{
+        "name": "galaxy",
+        "quantity": 2,
+        "price": 10000
+    }'

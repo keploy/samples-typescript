@@ -1,0 +1,63 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-16
+spec:
+    metadata: {}
+    req:
+        method: PUT
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/api/products/66262e8aad57c68d6ff4bef8
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: "41"
+            Content-Type: application/json
+            Host: localhost:3000
+            Postman-Token: 81f743e7-e3d8-4c57-9649-b6578f1adc92
+            User-Agent: PostmanRuntime/7.37.3
+        body: |-
+            {
+                "quantity": 4,
+                "price": 20000
+            }
+        timestamp: 2024-04-22T15:04:07.522914227+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "163"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Apr 2024 09:34:08 GMT
+            Etag: W/"a3-C3J85mK/t06Am5T1aPNePWa410M"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"_id":"66262e8aad57c68d6ff4bef8","name":"galaxy","quantity":4,"price":20000,"createdAt":"2024-04-22T09:31:54.643Z","updatedAt":"2024-04-22T09:34:07.523Z","__v":0}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T15:04:10.400690466+05:30
+    objects: []
+    assertions:
+        noise:
+            body.createdAt: []
+            body.updatedAt: []
+            header.Date: []
+    created: 1713778450
+curl: |-
+    curl --request PUT \
+      --url http://localhost:3000/api/products/66262e8aad57c68d6ff4bef8 \
+      --header 'Content-Type: application/json' \
+      --header 'Accept: */*' \
+      --header 'Host: localhost:3000' \
+      --header 'Connection: keep-alive' \
+      --header 'Postman-Token: 81f743e7-e3d8-4c57-9649-b6578f1adc92' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'Cache-Control: no-cache' \
+      --header 'User-Agent: PostmanRuntime/7.37.3' \
+      --data '{
+        "quantity": 4,
+        "price": 20000
+    }'
