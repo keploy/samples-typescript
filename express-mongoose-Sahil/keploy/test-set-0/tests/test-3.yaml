@@ -1,0 +1,51 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-3
+spec:
+    metadata: {}
+    req:
+        method: DELETE
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/courses/6626a9cd3840cb305c0a6d52
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Host: localhost:3000
+            Postman-Token: 0de5a855-92e5-4284-81ca-ac9a7ce7b0f3
+            User-Agent: PostmanRuntime/7.32.1
+        body: ""
+        timestamp: 2024-04-22T23:57:24.389201857+05:30
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Connection: keep-alive
+            Content-Length: "41"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Apr 2024 18:27:24 GMT
+            Etag: W/"29-OZ1xFZ+tffeDcmAYW7YO2epN7X0"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"message":"Course deleted successfully"}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T23:57:26.423498845+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1713810446
+curl: |
+    curl --request DELETE \
+      --url http://localhost:3000/courses/6626a9cd3840cb305c0a6d52 \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'Connection: keep-alive' \
+      --header 'User-Agent: PostmanRuntime/7.32.1' \
+      --header 'Accept: */*' \
+      --header 'Cache-Control: no-cache' \
+      --header 'Postman-Token: 0de5a855-92e5-4284-81ca-ac9a7ce7b0f3' \
+      --header 'Host: localhost:3000' \
