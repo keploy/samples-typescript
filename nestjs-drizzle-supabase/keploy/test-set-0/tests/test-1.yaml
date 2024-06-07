@@ -1,0 +1,44 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/products
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Contain-Type: application/json
+            Content-Length: "64"
+            Content-Type: application/json
+            Host: localhost:3000
+            Postman-Token: 17e00b6a-c1a9-43a1-a1d2-cc58e67145e3
+            User-Agent: PostmanRuntime/7.32.1
+        body: "{\r\n    \r\n    \"name\":\"alph\",\r\n    \"desc\":\"fgh\",\r\n    \"cost\":20\r\n}"
+        timestamp: 2024-04-21T10:01:12.066027817+05:30
+    resp:
+        status_code: 201
+        header:
+            Connection: keep-alive
+            Content-Length: "2"
+            Content-Type: applications/json; charset=utf-8
+            Date: Sun, 21 Apr 2024 04:31:12 GMT
+            Etag: W/"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '[]'
+        status_message: Created
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-21T10:01:14.74533977+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1713673874
+curl: "curl --request POST \\\n  --url http://localhost:3000/products \\\n  --header 'Cache-Control: no-cache' \\\n  --header 'Postman-Token: 17e00b6a-c1a9-43a1-a1d2-cc58e67145e3' \\\n  --header 'User-Agent: PostmanRuntime/7.32.1' \\\n  --header 'Contain-Type: application/json' \\\n  --header 'Connection: keep-alive' \\\n  --header 'Host: localhost:3000' \\\n  --header 'Content-Type: application/json' \\\n  --header 'Accept: */*' \\\n  --header 'Accept-Encoding: gzip, deflate, br' \\\n  --data '{\r\n    \r\n    \"name\":\"alph\",\r\n    \"desc\":\"fgh\",\r\n    \"cost\":20\r\n}'"
