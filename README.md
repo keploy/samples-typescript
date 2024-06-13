@@ -1,4 +1,4 @@
-<h1 align="center"> Keploy TypeScript/JavaScript Samples </h1>
+<h1 align="center"> Keploy TypeScript/JavaScript Samples Apps</h1>
 <p align="center">
 
   <a href="CODE_OF_CONDUCT.md" alt="Contributions welcome">
@@ -19,10 +19,15 @@ This repo contains the sample for [Keploy's](https://keploy.io) JS Application. 
 ## Sample Apps with Keploy
 
 1. [Bun-Mongo](https://github.com/keploy/samples-typescript/tree/main/bun-mongo)
-2. [Express-Mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose)
-3. [JS-MySQL](https://github.com/keploy/samples-typescript/tree/main/js-mysql)
-4. [NextJS-Postgres](https://github.com/keploy/samples-typescript/tree/main/nextjs-postgres)
-5. [Node-JWT](https://github.com/keploy/samples-typescript/tree/main/node-jwt)
+2. [Crud-Node-Mongo](https://github.com/keploy/samples-typescript/tree/main/crud-node-mongo)
+3. [Express-Mongodb](https://github.com/keploy/samples-typescript/tree/main/express-mongodb)
+4. [Express-Mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose)
+5. [JS-MySQL](https://github.com/keploy/samples-typescript/tree/main/js-mysql)
+6. [NextJs-Drizzle-Supabase](https://github.com/keploy/samples-typescript/tree/main/nestjs-drizzle-supabase)
+7. [NextJS-Postgres](https://github.com/keploy/samples-typescript/tree/main/nextjs-postgres)
+8. [Node-JWT](https://github.com/keploy/samples-typescript/tree/main/node-jwt)
+9. [Node-Mongoose](https://github.com/keploy/samples-typescript/tree/main/node-mongoose)
+10. [Rest-Express-Mongo](https://github.com/keploy/samples-typescript/tree/main/rest-express-mongo)
 
 ## Community Support ❤️
 
