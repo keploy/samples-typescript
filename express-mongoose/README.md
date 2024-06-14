@@ -184,3 +184,40 @@ Now, let's run the keploy in test mode again:-
 ![Testrun](./img/testrun-node-pass.png)
 
 *Voila!! Our testcases has passed 🌟*
+
+## Create Unit Testcase with Keploy
+
+### Prequiste
+AI model API_KEY to use:
+
+- OpenAI's GPT-4o.
+- Alternative LLMs via [litellm](https://github.com/BerriAI/litellm?tab=readme-ov-file#quick-start-proxy---cli).
+
+### Setup 
+
+Get API key from [OpenAI](https://platform.openai.com/) or API Key from other LLM
+
+```bash
+export API_KEY=<LLM_MODEL_API_KEY>
+```
+
+### Generate Unit tests
+
+Let's check the current code coverage of out application : - 
+
+```bash
+npm test
+```
+We got around 31.5% of code coverage.
+
+![Npm Test](./img/node-utg.png?raw=true)
+
+Now, let's run keploy to create testcases.
+
+```bash
+keploy gen --sourceFilePath="/home/sonichigi.linux/samples-typescript/express-mongoose/src/routes/routes.js" --testFilePath="/home/sonichigi.linux/samples-typescript/express-mongoose/test/routes.test.js" --testCommand="npm test" --coverageReportPath="/home/sonichigi.linux/samples-typescript/express-mongoose/coverage/cobertura-coverage.xml"
+```
+
+With the above command, Keploy will generate new testcases in the our `routes.test.js` and will increase code coverage upto 58%.
+
+![Keploy Mux UTG](./img/node-utg-codecov.png?raw=true)
