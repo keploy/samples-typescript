@@ -2,6 +2,13 @@
 
 A simple sample CRUD application to test using Keploy build with Express and MongoDB.
 
+## Install Keploy
+Install keploy via one-click:-
+
+```bash
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```
+
 ## Setup application
 Clone the repository and move to express-mongo folder
 ```bash
@@ -9,51 +16,6 @@ git clone https://github.com/keploy/samples-typescript && cd samples-typescript/
 
 # Install the dependencies
 npm install
-```
-
-# Using Keploy :
-
-There are two ways to use Keploy:-
-
-1. [Natively on Linux/WSL](#natively-on-ubuntuwsl)
-2. [Using Docker](#running-sample-app-using-docker)
-
-## Natively on Ubuntu/WSL
-
-Keploy can be installed on Linux directly and on Windows with the help of WSL. Based on your system architecture, install the keploy latest binary release from here:-
-
-#### Linux
-1. AMD Architecture
-```zsh
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
-
-<details>
-<Summary> 2. ARM Architecture </Summary>
-
-
-```zsh
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
-</details>
-
-#### Windows Subsystem for Linux (WSL)
-
-On Windows, WSL is required to run Keploy Binary. You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 to use the commands below.
-
-```bash
-wsl --install
-```
-Once installed download and Install "Keploy Binary" :
-
-```bash
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
 ### Let's start the MongoDB Instance
