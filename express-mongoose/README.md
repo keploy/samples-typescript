@@ -12,7 +12,7 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ## Setup application
 Clone the repository and move to express-mongo folder
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typescript/express-mongo
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/express-mongoose
 
 # Install the dependencies
 npm install
