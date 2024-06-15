@@ -1,0 +1,45 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-3
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8000/students
+        header:
+            Accept: '*/*'
+            Host: localhost:8000
+            User-Agent: curl/7.88.1
+        body: ""
+        timestamp: 2024-06-14T22:13:12.397605704+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "212"
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 14 Jun 2024 16:43:12 GMT
+            Etag: W/"d4-TJOY2FyP5Q2ZXDxuor8Dm56Uq10"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '[{"_id":"666c72f0fc39727230b13cd7","name":"John Do","email":"john@xyiz.com","phone":123456799,"__v":0},{"_id":"666c7320fc39727230b13cd9","name":"Alice Green","email":"green@alice.com","phone":3939201584,"__v":0}]'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-06-14T22:13:14.445176132+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+            header.Keep-Alive: []
+            header.connection: []
+            header.Etag: []
+    created: 1718383394
+curl: |
+    curl --request GET \
+      --url http://localhost:8000/students \
+      --header 'User-Agent: curl/7.88.1' \
+      --header 'Accept: */*' \
+      --header 'Host: localhost:8000' \

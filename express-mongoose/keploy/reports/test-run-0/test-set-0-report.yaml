@@ -1,0 +1,359 @@
+version: api.keploy.io/v1beta1
+name: test-set-0-report
+status: PASSED
+success: 3
+failure: 0
+total: 3
+tests:
+    - kind: Http
+      name: test-set-0
+      status: PASSED
+      started: 1718383485
+      completed: 1718383485
+      test_case_path: /home/sonichigi.linux/samples-typescript/express-mongoose/keploy/test-set-0
+      mock_path: /home/sonichigi.linux/samples-typescript/express-mongoose/keploy/test-set-0/mocks
+      test_case_id: test-1
+      req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8000/students
+        header:
+            Accept: '*/*'
+            Content-Length: "83"
+            Content-Type: application/json
+            Host: localhost:8000
+            User-Agent: curl/7.88.1
+        body: |-
+            {
+                "name":"John Do",
+                "email":"john@xyiz.com",
+                "phone":"0123456799"
+                }
+        timestamp: 2024-06-14T22:12:24.871021436+05:30
+      resp:
+        status_code: 201
+        header:
+            Connection: keep-alive
+            Content-Length: "32"
+            Content-Type: text/html; charset=utf-8
+            Date: Fri, 14 Jun 2024 16:44:45 GMT
+            Etag: W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: Student registration successful!
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+      noise:
+        header.connection: []
+        header.date: []
+        header.etag: []
+        header.keep-alive: []
+      result:
+        status_code:
+            normal: true
+            expected: 201
+            actual: 201
+        headers_result:
+            - normal: true
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value:
+                    - keep-alive
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "32"
+              actual:
+                key: Content-Length
+                value:
+                    - "32"
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - text/html; charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - text/html; charset=utf-8
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Fri, 14 Jun 2024 16:42:24 GMT
+              actual:
+                key: Date
+                value:
+                    - Fri, 14 Jun 2024 16:44:45 GMT
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+              actual:
+                key: Etag
+                value:
+                    - W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+            - normal: true
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
+        body_result:
+            - normal: true
+              type: PLAIN
+              expected: Student registration successful!
+              actual: Student registration successful!
+        dep_result: []
+    - kind: Http
+      name: test-set-0
+      status: PASSED
+      started: 1718383485
+      completed: 1718383485
+      test_case_path: /home/sonichigi.linux/samples-typescript/express-mongoose/keploy/test-set-0
+      mock_path: /home/sonichigi.linux/samples-typescript/express-mongoose/keploy/test-set-0/mocks
+      test_case_id: test-2
+      req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8000/students
+        header:
+            Accept: '*/*'
+            Content-Length: "69"
+            Content-Type: application/json
+            Host: localhost:8000
+            User-Agent: curl/7.88.1
+        body: '{"name":"Alice Green","email":"green@alice.com","phone":"3939201584"}'
+        timestamp: 2024-06-14T22:13:12.377074288+05:30
+      resp:
+        status_code: 201
+        header:
+            Connection: keep-alive
+            Content-Length: "32"
+            Content-Type: text/html; charset=utf-8
+            Date: Fri, 14 Jun 2024 16:44:45 GMT
+            Etag: W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: Student registration successful!
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+      noise:
+        header.connection: []
+        header.date: []
+        header.etag: []
+        header.keep-alive: []
+      result:
+        status_code:
+            normal: true
+            expected: 201
+            actual: 201
+        headers_result:
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "32"
+              actual:
+                key: Content-Length
+                value:
+                    - "32"
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - text/html; charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - text/html; charset=utf-8
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Fri, 14 Jun 2024 16:43:12 GMT
+              actual:
+                key: Date
+                value:
+                    - Fri, 14 Jun 2024 16:44:45 GMT
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+              actual:
+                key: Etag
+                value:
+                    - W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+            - normal: true
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
+            - normal: true
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value:
+                    - keep-alive
+        body_result:
+            - normal: true
+              type: PLAIN
+              expected: Student registration successful!
+              actual: Student registration successful!
+        dep_result: []
+    - kind: Http
+      name: test-set-0
+      status: PASSED
+      started: 1718383485
+      completed: 1718383485
+      test_case_path: /home/sonichigi.linux/samples-typescript/express-mongoose/keploy/test-set-0
+      mock_path: /home/sonichigi.linux/samples-typescript/express-mongoose/keploy/test-set-0/mocks
+      test_case_id: test-3
+      req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8000/students
+        header:
+            Accept: '*/*'
+            Host: localhost:8000
+            User-Agent: curl/7.88.1
+        body: ""
+        timestamp: 2024-06-14T22:13:12.397605704+05:30
+      resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "212"
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 14 Jun 2024 16:44:45 GMT
+            Etag: W/"d4-TJOY2FyP5Q2ZXDxuor8Dm56Uq10"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '[{"_id":"666c72f0fc39727230b13cd7","name":"John Do","email":"john@xyiz.com","phone":123456799,"__v":0},{"_id":"666c7320fc39727230b13cd9","name":"Alice Green","email":"green@alice.com","phone":3939201584,"__v":0}]'
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+      noise:
+        header.connection: []
+        header.date: []
+        header.etag: []
+        header.keep-alive: []
+      result:
+        status_code:
+            normal: true
+            expected: 200
+            actual: 200
+        headers_result:
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Fri, 14 Jun 2024 16:43:12 GMT
+              actual:
+                key: Date
+                value:
+                    - Fri, 14 Jun 2024 16:44:45 GMT
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"d4-TJOY2FyP5Q2ZXDxuor8Dm56Uq10"
+              actual:
+                key: Etag
+                value:
+                    - W/"d4-TJOY2FyP5Q2ZXDxuor8Dm56Uq10"
+            - normal: true
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
+            - normal: true
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value:
+                    - keep-alive
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "212"
+              actual:
+                key: Content-Length
+                value:
+                    - "212"
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+        body_result:
+            - normal: true
+              type: JSON
+              expected: '[{"_id":"666c72f0fc39727230b13cd7","name":"John Do","email":"john@xyiz.com","phone":123456799,"__v":0},{"_id":"666c7320fc39727230b13cd9","name":"Alice Green","email":"green@alice.com","phone":3939201584,"__v":0}]'
+              actual: '[{"_id":"666c72f0fc39727230b13cd7","name":"John Do","email":"john@xyiz.com","phone":123456799,"__v":0},{"_id":"666c7320fc39727230b13cd9","name":"Alice Green","email":"green@alice.com","phone":3939201584,"__v":0}]'
+        dep_result: []
+test_set: test-set-0
