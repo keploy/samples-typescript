@@ -1,0 +1,65 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-14
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/api/products/
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: "63"
+            Content-Type: application/json
+            Host: localhost:3000
+            Postman-Token: de6f79c3-8882-475a-86cb-718b35200815
+            User-Agent: PostmanRuntime/7.37.3
+        body: |-
+            {
+                "name": "galaxy",
+                "quantity": 2,
+                "price": 10000
+            }
+        timestamp: 2024-04-22T15:01:54.639517619+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "163"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Apr 2024 09:31:54 GMT
+            Etag: W/"a3-8F+W4z3iY4HswkLUN3/ODuiK5Kk"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"name":"galaxy","quantity":2,"price":10000,"_id":"66262e8aad57c68d6ff4bef8","createdAt":"2024-04-22T09:31:54.643Z","updatedAt":"2024-04-22T09:31:54.643Z","__v":0}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T15:01:56.907193307+05:30
+    objects: []
+    assertions:
+        noise:
+            body.createdAt: []
+            body.updatedAt: []
+            header.Date: []
+    created: 1713778316
+curl: |-
+    curl --request POST \
+      --url http://localhost:3000/api/products/ \
+      --header 'Postman-Token: de6f79c3-8882-475a-86cb-718b35200815' \
+      --header 'Host: localhost:3000' \
+      --header 'Cache-Control: no-cache' \
+      --header 'Content-Type: application/json' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'User-Agent: PostmanRuntime/7.37.3' \
+      --header 'Accept: */*' \
+      --header 'Connection: keep-alive' \
+      --data '{
+        "name": "galaxy",
+        "quantity": 2,
+        "price": 10000
+    }'

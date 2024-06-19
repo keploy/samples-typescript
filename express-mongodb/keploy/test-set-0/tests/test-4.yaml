@@ -1,0 +1,68 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-4
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/api/products/661fdd741595e378925b087d
+        header:
+            Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+            Accept-Encoding: gzip, deflate, br
+            Accept-Language: en-GB,en
+            Connection: keep-alive
+            Host: localhost:3000
+            Sec-Ch-Ua: '"Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"'
+            Sec-Ch-Ua-Mobile: ?0
+            Sec-Ch-Ua-Platform: '"Linux"'
+            Sec-Fetch-Dest: document
+            Sec-Fetch-Mode: navigate
+            Sec-Fetch-Site: none
+            Sec-Fetch-User: ?1
+            Sec-Gpc: "1"
+            Upgrade-Insecure-Requests: "1"
+            User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+        body: ""
+        timestamp: 2024-04-22T14:59:39.124579841+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "162"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Apr 2024 09:29:39 GMT
+            Etag: W/"a2-8UUSTPys0DjBtW6R1mVsZaoGEgA"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"_id":"661fdd741595e378925b087d","name":"lava","quantity":10,"price":35000,"createdAt":"2024-04-17T14:32:20.686Z","updatedAt":"2024-04-17T14:32:20.686Z","__v":0}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T14:59:41.89304041+05:30
+    objects: []
+    assertions:
+        noise:
+            body.createdAt: []
+            body.updatedAt: []
+            header.Date: []
+    created: 1713778181
+curl: |
+    curl --request GET \
+      --url http://localhost:3000/api/products/661fdd741595e378925b087d \
+      --header 'Sec-Gpc: 1' \
+      --header 'Sec-Ch-Ua: "Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"' \
+      --header 'Connection: keep-alive' \
+      --header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8' \
+      --header 'Host: localhost:3000' \
+      --header 'Sec-Ch-Ua-Mobile: ?0' \
+      --header 'Sec-Fetch-Dest: document' \
+      --header 'Sec-Fetch-Site: none' \
+      --header 'Upgrade-Insecure-Requests: 1' \
+      --header 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36' \
+      --header 'Sec-Ch-Ua-Platform: "Linux"' \
+      --header 'Sec-Fetch-User: ?1' \
+      --header 'Sec-Fetch-Mode: navigate' \
+      --header 'Accept-Language: en-GB,en' \
+      --header 'Accept-Encoding: gzip, deflate, br' \

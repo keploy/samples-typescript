@@ -1,0 +1,21 @@
+{
+  "name": "02-course-app-easy",
+  "version": "1.0.0",
+  "description": "### Description   This is an application to create online courses also with that you can update,delete and view your courses",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "dotenv": "^16.4.5",
+    "jest": "^29.7.0",
+    "mongoose": "^7.3.4",
+    "supertest": "^6.3.4"
+  }
+}
