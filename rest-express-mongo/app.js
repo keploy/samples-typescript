@@ -11,7 +11,7 @@ app.use(cookieParser());
 
 //link for database connection
 const db =
-  "mongo://localhost:27017";
+  "mongodb+srv://sarthaknegi908:sarthaksarthak@myapi.mmy6cgt.mongodb.net/MyAPI?retryWrites=true&w=majority&appName=MyAPI";
 
 //connecting to the database
 mongoose
