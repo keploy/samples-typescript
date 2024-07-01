@@ -1,0 +1,42 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-2
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/todos
+        header:
+            Accept: '*/*'
+            Host: localhost:3000
+            User-Agent: curl/7.81.0
+        body: ""
+        timestamp: 2024-07-01T11:19:20.219772898+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "98"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 01 Jul 2024 05:49:20 GMT
+            Etag: W/"62-aeXtN54d6OOyhHSVHObwFf0vOr8"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '[{"_id":"6682434f5313b8b7f8024d3a","title":"Todo title","description":"Todo Description","__v":0}]'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-07-01T11:19:22.286916235+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1719812962
+curl: |
+    curl --request GET \
+      --url http://localhost:3000/todos \
+      --header 'User-Agent: curl/7.81.0' \
+      --header 'Accept: */*' \
+      --header 'Host: localhost:3000' \

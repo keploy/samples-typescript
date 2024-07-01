@@ -1,0 +1,338 @@
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-0
+spec:
+    metadata:
+        operation: '{ OpQuery flags: [], fullCollectionName: admin.$cmd, numberToSkip: 0, numberToReturn: -1, query: {"ismaster": {"$numberInt":"1"},"helloOk": true,"client": {"driver": {"name": "nodejs|Mongoose","version": "6.2.0|8.0.3"},"platform": "Node.js v20.11.0, LE","os": {"name": "linux","architecture": "x64","version": "6.5.0-41-generic","type": "Linux"}},"compression": ["none"]}, returnFieldsSelector:  }'
+        type: config
+    requests:
+        - header:
+            length: 303
+            requestId: 1
+            responseTo: 0
+            Opcode: 2004
+          message:
+            flags: 0
+            collection_name: admin.$cmd
+            number_to_skip: 0
+            number_to_return: -1
+            query: '{"ismaster":{"$numberInt":"1"},"helloOk":true,"client":{"driver":{"name":"nodejs|Mongoose","version":"6.2.0|8.0.3"},"platform":"Node.js v20.11.0, LE","os":{"name":"linux","architecture":"x64","version":"6.5.0-41-generic","type":"Linux"}},"compression":["none"]}'
+            return_fields_selector: ""
+    responses:
+        - header:
+            length: 329
+            requestId: 3
+            responseTo: 1
+            Opcode: 1
+          message:
+            response_flags: 8
+            cursor_id: 0
+            starting_from: 0
+            number_returned: 1
+            documents:
+                - '{"helloOk":true,"ismaster":true,"topologyVersion":{"processId":{"$oid":"6682430e6cef07935a368b51"},"counter":{"$numberLong":"0"}},"maxBsonObjectSize":{"$numberInt":"16777216"},"maxMessageSizeBytes":{"$numberInt":"48000000"},"maxWriteBatchSize":{"$numberInt":"100000"},"localTime":{"$date":{"$numberLong":"1719812888383"}},"logicalSessionTimeoutMinutes":{"$numberInt":"30"},"connectionId":{"$numberInt":"1"},"minWireVersion":{"$numberInt":"0"},"maxWireVersion":{"$numberInt":"21"},"readOnly":false,"ok":{"$numberDouble":"1.0"}}'
+          read_delay: 504430
+    created: 1719812888
+    reqTimestampMock: 2024-07-01T11:18:08.383282601+05:30
+    resTimestampMock: 2024-07-01T11:18:08.383892145+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-1
+spec:
+    metadata:
+        type: config
+    redisrequests:
+        - origin: client
+          message:
+            - type: string
+              data: "*1\r\n$4\r\ninfo\r\n"
+    redisresponses:
+        - origin: server
+          message:
+            - type: string
+              data: "$5240\r\n# Server\r\nredis_version:7.2.5\r\nredis_git_sha1:00000000\r\nredis_git_dirty:0\r\nredis_build_id:c2b7a5cd72a5634f\r\nredis_mode:standalone\r\nos:Linux 6.5.0-41-generic x86_64\r\narch_bits:64\r\nmonotonic_clock:POSIX clock_gettime\r\nmultiplexing_api:epoll\r\natomicvar_api:c11-builtin\r\ngcc_version:12.2.0\r\nprocess_id:1\r\nprocess_supervised:no\r\nrun_id:196a07636a304187f90557ae320704d80971f5a8\r\ntcp_port:6379\r\nserver_time_usec:1719812888380645\r\nuptime_in_seconds:10\r\nuptime_in_days:0\r\nhz:10\r\nconfigured_hz:10\r\nlru_clock:8536856\r\nexecutable:/data/redis-server\r\nconfig_file:\r\nio_threads_active:0\r\nlistener0:name=tcp,bind=*,bind=-::*,port=6379\r\n\r\n# Clients\r\nconnected_clients:1\r\ncluster_connections:0\r\nmaxclients:10000\r\nclient_recent_max_input_buffer:0\r\nclient_recent_max_output_buffer:0\r\nblocked_clients:0\r\ntracking_clients:0\r\nclients_in_timeout_table:0\r\ntotal_blocking_keys:0\r\ntotal_blocking_keys_on_nokey:0\r\n\r\n# Memory\r\nused_memory:906568\r\nused_memory_human:885.32K\r\nused_memory_rss:9699328\r\nused_memory_rss_human:9.25M\r\nused_memory_peak:906568\r\nused_memory_peak_human:885.32K\r\nused_memory_peak_perc:102.59%\r\nused_memory_overhead:865992\r\nused_memory_startup:865808\r\nused_memory_dataset:40576\r\nused_memory_dataset_perc:99.55%\r\nallocator_allocated:1171616\r\nallocator_active:1290240\r\nallocator_resident:4874240\r\ntotal_system_memory:8057303040\r\ntotal_system_memory_human:7.50G\r\nused_memory_lua:31744\r\nused_memory_vm_eval:31744\r\nused_memory_lua_human:31.00K\r\nused_memory_scripts_eval:0\r\nnumber_of_cached_scripts:0\r\nnumber_of_functions:0\r\nnumber_of_libraries:0\r\nused_memory_vm_functions:32768\r\nused_memory_vm_total:64512\r\nused_memory_vm_total_human:63.00K\r\nused_memory_functions:184\r\nused_memory_scripts:184\r\nused_memory_scripts_human:184B\r\nmaxmemory:0\r\nmaxmemory_human:0B\r\nmaxmemory_policy:noeviction\r\nallocator_frag_ratio:1.10\r\nallocator_frag_bytes:118624\r\nallocator_rss_ratio:3.78\r\nallocator_rss_bytes:3584000\r\nrss_overhead_ratio:1.99\r\nrss_overhead_bytes:4825088\r\nmem_fragmentation_ratio:11.20\r\nmem_fragmentation_bytes:8833376\r\nmem_not_counted_for_evict:0\r\nmem_replication_backlog:0\r\nmem_total_replication_buffers:0\r\nmem_clients_slaves:0\r\nmem_clients_normal:0\r\nmem_cluster_links:0\r\nmem_aof_buffer:0\r\nmem_allocator:jemalloc-5.3.0\r\nactive_defrag_running:0\r\nlazyfree_pending_objects:0\r\nlazyfreed_objects:0\r\n\r\n# Persistence\r\nloading:0\r\nasync_loading:0\r\ncurrent_cow_peak:0\r\ncurrent_cow_size:0\r\ncurrent_cow_size_age:0\r\ncurrent_fork_perc:0.00\r\ncurrent_save_keys_processed:0\r\ncurrent_save_keys_total:0\r\nrdb_changes_since_last_save:0\r\nrdb_bgsave_in_progress:0\r\nrdb_last_save_time:1719812878\r\nrdb_last_bgsave_status:ok\r\nrdb_last_bgsave_time_sec:-1\r\nrdb_current_bgsave_time_sec:-1\r\nrdb_saves:0\r\nrdb_last_cow_size:0\r\nrdb_last_load_keys_expired:0\r\nrdb_last_load_keys_loaded:0\r\naof_enabled:0\r\naof_rewrite_in_progress:0\r\naof_rewrite_scheduled:0\r\naof_last_rewrite_time_sec:-1\r\naof_current_rewrite_time_sec:-1\r\naof_last_bgrewrite_status:ok\r\naof_rewrites:0\r\naof_rewrites_consecutive_failures:0\r\naof_last_write_status:ok\r\naof_last_cow_size:0\r\nmodule_fork_in_progress:0\r\nmodule_fork_last_cow_size:0\r\n\r\n# Stats\r\ntotal_connections_received:1\r\ntotal_commands_processed:0\r\ninstantaneous_ops_per_sec:0\r\ntotal_net_input_bytes:14\r\ntotal_net_output_bytes:0\r\ntotal_net_repl_input_bytes:0\r\ntotal_net_repl_output_bytes:0\r\ninstantaneous_input_kbps:0.00\r\ninstantaneous_output_kbps:0.00\r\ninstantaneous_input_repl_kbps:0.00\r\ninstantaneous_output_repl_kbps:0.00\r\nrejected_connections:0\r\nsync_full:0\r\nsync_partial_ok:0\r\nsync_partial_err:0\r\nexpired_keys:0\r\nexpired_stale_perc:0.00\r\nexpired_time_cap_reached_count:0\r\nexpire_cycle_cpu_milliseconds:0\r\nevicted_keys:0\r\nevicted_clients:0\r\ntotal_eviction_exceeded_time:0\r\ncurrent_eviction_exceeded_time:0\r\nkeyspace_hits:0\r\nkeyspace_misses:0\r\npubsub_channels:0\r\npubsub_patterns:0\r\npubsubshard_channels:0\r\nlatest_fork_usec:0\r\ntotal_forks:0\r\nmigrate_cached_sockets:0\r\nslave_expires_tracked_keys:0\r\nactive_defrag_hits:0\r\nactive_defrag_misses:0\r\nactive_defrag_key_hits:0\r\nactive_defrag_key_misses:0\r\ntotal_active_defrag_time:0\r\ncurrent_active_defrag_time:0\r\ntracking_total_keys:0\r\ntracking_total_items:0\r\ntracking_total_prefixes:0\r\nunexpected_error_replies:0\r\ntotal_error_replies:0\r\ndump_payload_sanitizations:0\r\ntotal_reads_processed:1\r\ntotal_writes_processed:0\r\nio_threaded_reads_processed:0\r\nio_threaded_writes_processed:0\r\nreply_buffer_shrinks:0\r\nreply_buffer_expands:0\r\neventloop_cycles:97\r\neventloop_duration_sum:13183\r\neventloop_duration_cmd_sum:0\r\ninstantaneous_eventloop_cycles_per_sec:9\r\ninstantaneous_eventloop_duration_usec:113\r\nacl_access_denied_auth:0\r\nacl_access_denied_cmd:0\r\nacl_access_denied_key:0\r\nacl_access_denied_channel:0\r\n\r\n# Replication\r\nrole:master\r\nconnected_slaves:0\r\nmaster_failover_state:no-failover\r\nmaster_replid:c9982097d89d02d9563d11bf31db6c8a6363f37c\r\nmaster_replid2:0000000000000000000000000000000000000000\r\nmaster_repl_offset:0\r\nsecond_repl_offset:-1\r\nrepl_backlog_active:0\r\nrepl_backlog_size:1048576\r\nrepl_backlog_first_byte_offset:0\r\nrepl_backlog_histlen:0\r\n\r\n# CPU\r\nused_cpu_sys:0.028826\r\nused_cpu_user:0.033174\r\nused_cpu_sys_children:0.001014\r\nused_cpu_user_children:0.005243\r\nused_cpu_sys_main_thread:0.029909\r\nused_cpu_user_main_thread:0.029909\r\n\r\n# Modules\r\n\r\n# Errorstats\r\n\r\n# Cluster\r\ncluster_enabled:0\r\n\r\n# Keyspace\r\n\r\n"
+    reqtimestampmock: 2024-07-01T11:18:08.380416501+05:30
+    restimestampmock: 2024-07-01T11:18:08.387431379+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-2
+spec:
+    metadata:
+        operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"create":"todos","lsid":{"id":{"$binary":{"base64":"7x81PQkDTwGFiTFYPZc94Q==","subType":"04"}}},"$db":"TodoDB"} }], checksum: 0 }'
+    requests:
+        - header:
+            length: 96
+            requestId: 4
+            responseTo: 0
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"create":"todos","lsid":{"id":{"$binary":{"base64":"7x81PQkDTwGFiTFYPZc94Q==","subType":"04"}}},"$db":"TodoDB"} }'
+            checksum: 0
+          read_delay: 1886147
+    responses:
+        - header:
+            length: 38
+            requestId: 6
+            responseTo: 4
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"ok":{"$numberDouble":"1.0"}} }'
+            checksum: 0
+          read_delay: 9700821
+    created: 1719812888
+    reqTimestampMock: 2024-07-01T11:18:08.397154558+05:30
+    resTimestampMock: 2024-07-01T11:18:08.406992049+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-3
+spec:
+    metadata:
+        operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"create":"users","lsid":{"id":{"$binary":{"base64":"mYQTby3iTkS80ETkZtjm2Q==","subType":"04"}}},"$db":"TodoDB"} }], checksum: 0 }'
+    requests:
+        - header:
+            length: 96
+            requestId: 5
+            responseTo: 0
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"create":"users","lsid":{"id":{"$binary":{"base64":"mYQTby3iTkS80ETkZtjm2Q==","subType":"04"}}},"$db":"TodoDB"} }'
+            checksum: 0
+          read_delay: 2413093
+    responses:
+        - header:
+            length: 38
+            requestId: 7
+            responseTo: 5
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"ok":{"$numberDouble":"1.0"}} }'
+            checksum: 0
+          read_delay: 11619340
+    created: 1719812888
+    reqTimestampMock: 2024-07-01T11:18:08.397718711+05:30
+    resTimestampMock: 2024-07-01T11:18:08.409408804+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-4
+spec:
+    metadata:
+        operation: '{ OpMsg flags: 65536, sections: [{ SectionSingle msg: {"hello":{"$numberInt":"1"},"maxAwaitTimeMS":{"$numberInt":"10000"},"topologyVersion":{"processId":{"$oid":"6682430e6cef07935a368b51"},"counter":{"$numberLong":"0"}},"$db":"admin"} }], checksum: 0 }'
+        type: config
+    requests:
+        - header:
+            length: 134
+            requestId: 6
+            responseTo: 0
+            Opcode: 2013
+          message:
+            flagBits: 65536
+            sections:
+                - '{ SectionSingle msg: {"hello":{"$numberInt":"1"},"maxAwaitTimeMS":{"$numberInt":"10000"},"topologyVersion":{"processId":{"$oid":"6682430e6cef07935a368b51"},"counter":{"$numberLong":"0"}},"$db":"admin"} }'
+            checksum: 0
+          read_delay: 505066721
+    responses:
+        - header:
+            length: 313
+            requestId: 9
+            responseTo: 6
+            Opcode: 2013
+          message:
+            flagBits: 2
+            sections:
+                - '{ SectionSingle msg: {"isWritablePrimary":true,"topologyVersion":{"processId":{"$oid":"6682430e6cef07935a368b51"},"counter":{"$numberLong":"0"}},"maxBsonObjectSize":{"$numberInt":"16777216"},"maxMessageSizeBytes":{"$numberInt":"48000000"},"maxWriteBatchSize":{"$numberInt":"100000"},"localTime":{"$date":{"$numberLong":"1719812898898"}},"logicalSessionTimeoutMinutes":{"$numberInt":"30"},"connectionId":{"$numberInt":"1"},"minWireVersion":{"$numberInt":"0"},"maxWireVersion":{"$numberInt":"21"},"readOnly":false,"ok":{"$numberDouble":"1.0"}} }'
+            checksum: 0
+          read_delay: 10010002873
+    created: 1719812898
+    reqTimestampMock: 2024-07-01T11:18:08.889055713+05:30
+    resTimestampMock: 2024-07-01T11:18:18.899266316+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-5
+spec:
+    metadata:
+        operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"ismaster":{"$numberInt":"1"},"$db":"admin"} }], checksum: 0 }'
+        type: config
+    requests:
+        - header:
+            length: 55
+            requestId: 8
+            responseTo: 0
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"ismaster":{"$numberInt":"1"},"$db":"admin"} }'
+            checksum: 0
+          read_delay: 10011551930
+    responses:
+        - header:
+            length: 304
+            requestId: 10
+            responseTo: 8
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"ismaster":true,"topologyVersion":{"processId":{"$oid":"6682430e6cef07935a368b51"},"counter":{"$numberLong":"0"}},"maxBsonObjectSize":{"$numberInt":"16777216"},"maxMessageSizeBytes":{"$numberInt":"48000000"},"maxWriteBatchSize":{"$numberInt":"100000"},"localTime":{"$date":{"$numberLong":"1719812908907"}},"logicalSessionTimeoutMinutes":{"$numberInt":"30"},"connectionId":{"$numberInt":"4"},"minWireVersion":{"$numberInt":"0"},"maxWireVersion":{"$numberInt":"21"},"readOnly":false,"ok":{"$numberDouble":"1.0"}} }'
+            checksum: 0
+          read_delay: 775526
+    created: 1719812908
+    reqTimestampMock: 2024-07-01T11:18:28.906823579+05:30
+    resTimestampMock: 2024-07-01T11:18:28.907914216+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-6
+spec:
+    metadata:
+        operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"insert":"todos","documents":[{"title":"Todo title","description":"Todo Description","_id":{"$oid":"6682434f5313b8b7f8024d3a"},"__v":{"$numberInt":"0"}}],"ordered":true,"lsid":{"id":{"$binary":{"base64":"mYQTby3iTkS80ETkZtjm2Q==","subType":"04"}}},"$db":"TodoDB"} }], checksum: 0 }'
+    requests:
+        - header:
+            length: 212
+            requestId: 12
+            responseTo: 0
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"insert":"todos","documents":[{"title":"Todo title","description":"Todo Description","_id":{"$oid":"6682434f5313b8b7f8024d3a"},"__v":{"$numberInt":"0"}}],"ordered":true,"lsid":{"id":{"$binary":{"base64":"mYQTby3iTkS80ETkZtjm2Q==","subType":"04"}}},"$db":"TodoDB"} }'
+            checksum: 0
+          read_delay: 54775018798
+    responses:
+        - header:
+            length: 45
+            requestId: 18
+            responseTo: 12
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"n":{"$numberInt":"1"},"ok":{"$numberDouble":"1.0"}} }'
+            checksum: 0
+          read_delay: 940426
+    created: 1719812943
+    reqTimestampMock: 2024-07-01T11:19:03.184519072+05:30
+    resTimestampMock: 2024-07-01T11:19:03.185569821+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-7
+spec:
+    metadata:
+        type: config
+    redisrequests:
+        - origin: client
+          message:
+            - type: string
+              data: "*2\r\n$3\r\nget\r\n$6\r\n/todos\r\n"
+    redisresponses:
+        - origin: server
+          message:
+            - type: string
+              data: "$-1\r\n"
+    reqtimestampmock: 2024-07-01T11:19:20.220777049+05:30
+    restimestampmock: 2024-07-01T11:19:20.221060855+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-8
+spec:
+    metadata:
+        type: config
+    redisrequests:
+        - origin: client
+          message:
+            - type: string
+              data: "*4\r\n$5\r\nsetex\r\n$6\r\n/todos\r\n$2\r\n60\r\n$4\r\nnull\r\n"
+    redisresponses:
+        - origin: server
+          message:
+            - type: string
+              data: "+OK\r\n"
+    reqtimestampmock: 2024-07-01T11:19:20.221299497+05:30
+    restimestampmock: 2024-07-01T11:19:20.221490668+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-9
+spec:
+    metadata:
+        operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"find":"todos","filter":{},"lsid":{"id":{"$binary":{"base64":"mYQTby3iTkS80ETkZtjm2Q==","subType":"04"}}},"$db":"TodoDB"} }], checksum: 0 }'
+    requests:
+        - header:
+            length: 107
+            requestId: 15
+            responseTo: 0
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"find":"todos","filter":{},"lsid":{"id":{"$binary":{"base64":"mYQTby3iTkS80ETkZtjm2Q==","subType":"04"}}},"$db":"TodoDB"} }'
+            checksum: 0
+          read_delay: 17040144772
+    responses:
+        - header:
+            length: 191
+            requestId: 23
+            responseTo: 15
+            Opcode: 2013
+          message:
+            flagBits: 0
+            sections:
+                - '{ SectionSingle msg: {"cursor":{"firstBatch":[{"_id":{"$oid":"6682434f5313b8b7f8024d3a"},"title":"Todo title","description":"Todo Description","__v":{"$numberInt":"0"}}],"id":{"$numberLong":"0"},"ns":"TodoDB.todos"},"ok":{"$numberDouble":"1.0"}} }'
+            checksum: 0
+          read_delay: 439882
+    created: 1719812960
+    reqTimestampMock: 2024-07-01T11:19:20.225803608+05:30
+    resTimestampMock: 2024-07-01T11:19:20.226336504+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-10
+spec:
+    metadata:
+        type: config
+    redisrequests:
+        - origin: client
+          message:
+            - type: string
+              data: "*2\r\n$3\r\nget\r\n$9\r\n/todos/id\r\n"
+    redisresponses:
+        - origin: server
+          message:
+            - type: string
+              data: "$-1\r\n"
+    reqtimestampmock: 2024-07-01T11:20:21.955642227+05:30
+    restimestampmock: 2024-07-01T11:20:21.956104039+05:30
+---
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-11
+spec:
+    metadata:
+        type: config
+    redisrequests:
+        - origin: client
+          message:
+            - type: string
+              data: "*4\r\n$5\r\nsetex\r\n$9\r\n/todos/id\r\n$2\r\n60\r\n$4\r\nnull\r\n"
+    redisresponses:
+        - origin: server
+          message:
+            - type: string
+              data: "+OK\r\n"
+    reqtimestampmock: 2024-07-01T11:20:21.956437453+05:30
+    restimestampmock: 2024-07-01T11:20:21.956770373+05:30

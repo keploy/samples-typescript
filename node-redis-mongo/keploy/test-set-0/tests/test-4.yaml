@@ -1,0 +1,42 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-4
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/todos/id
+        header:
+            Accept: '*/*'
+            Host: localhost:3000
+            User-Agent: curl/7.81.0
+        body: ""
+        timestamp: 2024-07-01T11:20:21.954658254+05:30
+    resp:
+        status_code: 500
+        header:
+            Connection: keep-alive
+            Content-Length: "101"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 01 Jul 2024 05:50:21 GMT
+            Etag: W/"65-r8/L9UPsT9dIL/lov1iaoF1tK+I"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"error":"Cast to ObjectId failed for value \"id\" (type string) at path \"_id\" for model \"Todo\""}'
+        status_message: Internal Server Error
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-07-01T11:20:23.971038683+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1719813023
+curl: |
+    curl --request GET \
+      --url http://localhost:3000/todos/id \
+      --header 'User-Agent: curl/7.81.0' \
+      --header 'Accept: */*' \
+      --header 'Host: localhost:3000' \

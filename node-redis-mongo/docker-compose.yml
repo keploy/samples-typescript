@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  node-app:
+    build:
+      context: .
+    container_name: nodeRedisMongoApp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+      - mongo 
+    networks:
+      - keploy-network 
+  mongo:
+    image: mongo
+    container_name: mongoDb
+    ports:
+      - 27017:27017
+    networks:
+      - keploy-network
+  redis:
+    image: redis
+    container_name: myredis
+    ports:
+      - "6379:6379"
+
+networks:
+  keploy-network:
+    external: true
