@@ -1,0 +1,53 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/todos
+        header:
+            Accept: '*/*'
+            Content-Length: "70"
+            Content-Type: application/json
+            Host: localhost:3000
+            User-Agent: curl/7.81.0
+        body: |-
+            {
+                "title" : "Todo title",
+                "description" : "Todo Description"
+            }
+        timestamp: 2024-07-01T11:19:03.160833137+05:30
+    resp:
+        status_code: 201
+        header:
+            Connection: keep-alive
+            Content-Length: "96"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 01 Jul 2024 05:49:03 GMT
+            Etag: W/"60-+XZjvzw9MqqkQj+8PZiv8JUF4x4"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"title":"Todo title","description":"Todo Description","_id":"6682434f5313b8b7f8024d3a","__v":0}'
+        status_message: Created
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-07-01T11:19:05.235709628+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1719812945
+curl: |-
+    curl --request POST \
+      --url http://localhost:3000/todos \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:3000' \
+      --header 'User-Agent: curl/7.81.0' \
+      --header 'Accept: */*' \
+      --data '{
+        "title" : "Todo title",
+        "description" : "Todo Description"
+    }'

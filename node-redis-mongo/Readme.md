@@ -5,7 +5,7 @@ A simple sample CRUD application to test using Keploy build with Node, Express, 
 ## Setup application
 Clone the repository and move to express-mongo folder
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typescript/Sample-Node-Mongo-Redis-app
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/node-redis-mongo
 
 # Install the dependencies
 npm install
@@ -18,55 +18,23 @@ npm install
 Keploy can be installed on Linux directly and on Windows with the help of WSL. Based on your system architecture, install the keploy latest binary release from here:-
 
 #### Linux
-1. AMD Architecture
-```zsh
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
 
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
+Let's get started by setting up the Keploy alias with this command:
+
+```bash
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
-
-<details>
-<Summary> 2. ARM Architecture </Summary>
-
-
-```zsh
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
-</details>
 
 #### Windows Subsystem for Linux (WSL)
 
 On Windows, WSL is required to run Keploy Binary. You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 to use the commands below.
 
-```bash
-wsl --install
-```
-Once installed download and Install "Keploy Binary" :
+Let's get started by setting up the Keploy alias with this command:
 
 ```bash
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
-
-Or you can use Keploy's One Click Install by running this command in WSL-2 terminal:
-
-```bash
-curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && sh keploy.sh
-```
-A folder named Keploy will appear on your folder structure after properly installing Keploy.
-### Let's start the MongoDB Instance
-#### Prequisite for starting Docker
-- Download Docker Desktop
-- Go to settings in Docker Desktop and choose WSL 2 in engine
-- Make sure you have the correct Dockerfile and docker-compose.yml file.
-```zsh
-docker-compose up -d
-```
-Now you will see this in your terminal\
-``` Server running on port 3000 ```  
+![setup](./img/setup.png)
 
 ### Capture the testcases
 
@@ -115,8 +83,22 @@ DELETE Todo by id :
 curl -X DELETE http://localhost:3000/todos/{id}
 ```
 
-![Record run](./img/record.png)
-
-![Record run](./img/record2.png)
+![Record run](./img/testcapture.png)
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+## 🏃 Running Testcases
+```bash
+keploy test -c "node server.js" --delay 10
+```
+we will get a result similar to this
+
+![testresult](./img/testresult.png)
+
+Summary
+
+![summary](./img/summary.png)
+
+## Wrapping it up 🎉
+
+Congratulations! You've conquered Keploy and unleashed its power for effortless testing in your NodeJS application. Time to go forth and build amazing things! 🧑🏻‍💻
