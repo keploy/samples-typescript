@@ -1,0 +1,55 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/
+        header:
+            Accept: '*/*'
+            Content-Length: "98"
+            Content-Type: application/json
+            Host: localhost:3000
+            User-Agent: curl/7.81.0
+        body: |-
+            {
+                "name": "Sample Product",
+                "description": "This is a sample product",
+                "cost": 100
+              }
+        timestamp: 2024-07-04T10:41:33.630128539+05:30
+    resp:
+        status_code: 404
+        header:
+            Connection: keep-alive
+            Content-Length: "64"
+            Content-Type: application/json; charset=utf-8
+            Date: Thu, 04 Jul 2024 05:11:33 GMT
+            Etag: W/"40-xjlQSbxP7UaFEVj9G3BfRYLWOV8"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"message":"Cannot POST /","error":"Not Found","statusCode":404}'
+        status_message: Not Found
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-07-04T10:41:35.669175597+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1720069895
+curl: |-
+    curl --request POST \
+      --url http://localhost:3000/ \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:3000' \
+      --header 'User-Agent: curl/7.81.0' \
+      --header 'Accept: */*' \
+      --data '{
+        "name": "Sample Product",
+        "description": "This is a sample product",
+        "cost": 100
+      }'
