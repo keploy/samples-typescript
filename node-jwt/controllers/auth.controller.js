@@ -68,7 +68,7 @@ exports.signin = (req, res) => {
                               {
                                 algorithm: 'HS256',
                                 allowInsecureKeySizes: true,
-                                expiresIn: 180, // 24 hours
+                                expiresIn: 35, // 35 seconds
                               });
 
       var authorities = [];
