@@ -20,7 +20,7 @@ npm install
 
 ### Let's start the MongoDB Instance
 ```zsh
-docker-compose up -d
+docker-compose up -d mongo
 ```
 
 > **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `db/connection.js`, from `mongodb://mongoDb:27017/Students` to `mongodb://127.0.0.1:27017/keploy`.**
