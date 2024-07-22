@@ -1,0 +1,45 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-3
+spec:
+    metadata: {}
+    req:
+        method: DELETE
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/users/33cf6586-5563-4b88-9cc7-1733af4bfbe7
+        header:
+            Accept: '*/*'
+            Content-Type: application/json
+            Host: localhost:3000
+            User-Agent: curl/8.6.0
+        body: ""
+        timestamp: 2024-07-22T07:43:58.401922235Z
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Connection: keep-alive
+            Content-Length: "85"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:43:59 GMT
+            Etag: W/"55-sJkmCxhuz8rKxnMzEauaQpx9EIE"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"message":"Successfully deleted a user","id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7"}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-07-22T07:44:01.95358275Z
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1721634241
+curl: |
+    curl --request DELETE \
+      --url http://localhost:3000/users/33cf6586-5563-4b88-9cc7-1733af4bfbe7 \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:3000' \
+      --header 'User-Agent: curl/8.6.0' \
+      --header 'Accept: */*' \

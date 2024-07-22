@@ -1,0 +1,359 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: mock-0
+spec:
+    metadata:
+        name: Http
+        operation: POST
+        type: HTTP_CLIENT
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: /v1/graphql
+        header:
+            Accept: application/json, text/plain, */*
+            Accept-Encoding: gzip, compress, deflate, br
+            Connection: close
+            Content-Length: "288"
+            Content-Type: application/json
+            User-Agent: axios/1.7.2
+            X-Hasura-Admin-Secret: '*B9#J:w1F2w=+U=6eP+9!8=_A2tF$=eC'
+        body: '{"query":"\n    mutation insertUser($object: users_insert_input!) {\n      insertUser(object: $object) {\n        id\n        displayName\n        email\n      }\n    }\n  ","variables":{"object":{"email":"arpit@gmail.com","passwordHash":"123456789","locale":"en","displayName":"Arpit"}}}'
+        timestamp: 0001-01-01T00:00:00Z
+    resp:
+        status_code: 200
+        header:
+            Content-Length: "117"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:43:24 GMT
+            X-Request-Id: b15420a3727fd5f7154d9e0ba3c8f88b
+        body: '{"data":{"insertUser":{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7","displayName":"Arpit","email":"arpit@gmail.com"}}}'
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+    objects: []
+    created: 1721634204
+    reqTimestampMock: 2024-07-22T07:43:24.057634219Z
+    resTimestampMock: 2024-07-22T07:43:24.057634219Z
+---
+version: api.keploy.io/v1beta1
+kind: Http
+name: mock-1
+spec:
+    metadata:
+        name: Http
+        operation: POST
+        type: HTTP_CLIENT
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: /v1/graphql
+        header:
+            Accept: application/json, text/plain, */*
+            Accept-Encoding: gzip, compress, deflate, br
+            Connection: close
+            Content-Length: "106"
+            Content-Type: application/json
+            User-Agent: axios/1.7.2
+            X-Hasura-Admin-Secret: '*B9#J:w1F2w=+U=6eP+9!8=_A2tF$=eC'
+        body: '{"query":"\n    query {\n      users {\n        id\n        email\n        createdAt\n      }\n    }\n  "}'
+        timestamp: 0001-01-01T00:00:00Z
+    resp:
+        status_code: 200
+        header:
+            Content-Length: "139"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:43:30 GMT
+            X-Request-Id: 65119830999773974d4d3d5bc06fc090
+        body: '{"data":{"users":[{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7","email":"arpit@gmail.com","createdAt":"2024-07-22T07:43:23.995234+00:00"}]}}'
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+    objects: []
+    created: 1721634210
+    reqTimestampMock: 2024-07-22T07:43:30.36570618Z
+    resTimestampMock: 2024-07-22T07:43:30.36570618Z
+---
+version: api.keploy.io/v1beta1
+kind: Http
+name: mock-2
+spec:
+    metadata:
+        name: Http
+        operation: POST
+        type: HTTP_CLIENT
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: /v1/graphql
+        header:
+            Accept: application/json, text/plain, */*
+            Accept-Encoding: gzip, compress, deflate, br
+            Connection: close
+            Content-Length: "126"
+            Content-Type: application/json
+            User-Agent: axios/1.7.2
+            X-Hasura-Admin-Secret: '*B9#J:w1F2w=+U=6eP+9!8=_A2tF$=eC'
+        body: '{"query":"\n    mutation {\n      deleteUser(id: \"33cf6586-5563-4b88-9cc7-1733af4bfbe7\") {\n        id\n      }\n    }\n  "}'
+        timestamp: 0001-01-01T00:00:00Z
+    resp:
+        status_code: 200
+        header:
+            Content-Length: "69"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:43:59 GMT
+            X-Request-Id: de4ba9fa39e2ccbd7a62d0417ca8227a
+        body: '{"data":{"deleteUser":{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7"}}}'
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+    objects: []
+    created: 1721634239
+    reqTimestampMock: 2024-07-22T07:43:59.90015393Z
+    resTimestampMock: 2024-07-22T07:43:59.90015393Z
+---
+version: api.keploy.io/v1beta1
+kind: Http
+name: mock-3
+spec:
+    metadata:
+        name: Http
+        operation: POST
+        type: HTTP_CLIENT
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: /v1/query
+        header:
+            Accept: application/json, text/plain, */*
+            Accept-Encoding: gzip, compress, deflate, br
+            Connection: close
+            Content-Length: "215"
+            Content-Type: application/json
+            User-Agent: axios/1.7.2
+            X-Hasura-Admin-Secret: '*B9#J:w1F2w=+U=6eP+9!8=_A2tF$=eC'
+        body: '{"type":"run_sql","args":{"source":"default","sql":"\n        CREATE TABLE public.todos (\n          id SERIAL PRIMARY KEY,\n          name TEXT NOT NULL,\n          is_completed BOOL NOT NULL\n        );\n      "}}'
+        timestamp: 0001-01-01T00:00:00Z
+    resp:
+        status_code: 200
+        header:
+            Content-Length: "41"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:44:07 GMT
+            X-Request-Id: d2d911ff3374552c6be09978f5b3cfc1
+        body: '{"result_type":"CommandOk","result":null}'
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+    objects: []
+    created: 1721634247
+    reqTimestampMock: 2024-07-22T07:44:07.667882711Z
+    resTimestampMock: 2024-07-22T07:44:07.667882711Z
+---
+version: api.keploy.io/v1beta1
+kind: Http
+name: mock-4
+spec:
+    metadata:
+        name: Http
+        operation: POST
+        type: HTTP_CLIENT
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: /v1/query
+        header:
+            Accept: application/json, text/plain, */*
+            Accept-Encoding: gzip, compress, deflate, br
+            Connection: close
+            Content-Length: "64"
+            Content-Type: application/json
+            User-Agent: axios/1.7.2
+            X-Hasura-Admin-Secret: '*B9#J:w1F2w=+U=6eP+9!8=_A2tF$=eC'
+        body: '{"type":"track_table","args":{"schema":"public","name":"todos"}}'
+        timestamp: 0001-01-01T00:00:00Z
+    resp:
+        status_code: 200
+        header:
+            Content-Length: "21"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:44:08 GMT
+            X-Request-Id: 5012c5d5f3d28e7a20bd58668721ec1f
+        body: '{"message":"success"}'
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+    objects: []
+    created: 1721634248
+    reqTimestampMock: 2024-07-22T07:44:08.544138045Z
+    resTimestampMock: 2024-07-22T07:44:08.544138045Z
+---
+version: api.keploy.io/v1beta1
+kind: Http
+name: mock-5
+spec:
+    metadata:
+        name: Http
+        operation: POST
+        type: HTTP_CLIENT
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: /v1/graphql
+        header:
+            Accept: application/json, text/plain, */*
+            Accept-Encoding: gzip, compress, deflate, br
+            Connection: close
+            Content-Length: "136"
+            Content-Type: application/json
+            User-Agent: axios/1.7.2
+            X-Hasura-Admin-Secret: '*B9#J:w1F2w=+U=6eP+9!8=_A2tF$=eC'
+        body: '{"query":"\n    mutation {\n      insert_todos_one(object: { name: \"Study\", is_completed: false }) {\n        id\n      }\n    }\n  "}'
+        timestamp: 0001-01-01T00:00:00Z
+    resp:
+        status_code: 200
+        header:
+            Content-Length: "38"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:44:18 GMT
+            X-Request-Id: 5070fe10084be061f4b3b31138cb19d6
+        body: '{"data":{"insert_todos_one":{"id":1}}}'
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+    objects: []
+    created: 1721634258
+    reqTimestampMock: 2024-07-22T07:44:18.363750216Z
+    resTimestampMock: 2024-07-22T07:44:18.363750216Z
+---
+version: api.keploy.io/v1beta1
+kind: Http
+name: mock-6
+spec:
+    metadata:
+        name: Http
+        operation: POST
+        type: HTTP_CLIENT
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: /v1/graphql
+        header:
+            Accept: application/json, text/plain, */*
+            Accept-Encoding: gzip, compress, deflate, br
+            Connection: close
+            Content-Length: "108"
+            Content-Type: application/json
+            User-Agent: axios/1.7.2
+            X-Hasura-Admin-Secret: '*B9#J:w1F2w=+U=6eP+9!8=_A2tF$=eC'
+        body: '{"query":"\n    query {\n      todos {\n        id\n        name\n        is_completed\n      }\n    }\n  "}'
+        timestamp: 0001-01-01T00:00:00Z
+    resp:
+        status_code: 200
+        header:
+            Content-Length: "65"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:44:25 GMT
+            X-Request-Id: 257d75d3fd723817eb2caac8801365f0
+        body: '{"data":{"todos":[{"id":1,"name":"Study","is_completed":false}]}}'
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+    objects: []
+    created: 1721634265
+    reqTimestampMock: 2024-07-22T07:44:25.341110386Z
+    resTimestampMock: 2024-07-22T07:44:25.341110386Z
+---
+version: api.keploy.io/v1beta1
+kind: Http
+name: mock-7
+spec:
+    metadata:
+        name: Http
+        operation: POST
+        type: HTTP_CLIENT
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: /v1/graphql
+        header:
+            Accept: application/json, text/plain, */*
+            Accept-Encoding: gzip, compress, deflate, br
+            Connection: close
+            Content-Length: "158"
+            Content-Type: application/json
+            User-Agent: axios/1.7.2
+            X-Hasura-Admin-Secret: '*B9#J:w1F2w=+U=6eP+9!8=_A2tF$=eC'
+        body: '{"query":"\n    mutation {\n      update_todos_by_pk(pk_columns: {id: 1}, _set: { name: \"Cricket\", is_completed: true }) {\n        id\n      }\n    }\n  "}'
+        timestamp: 0001-01-01T00:00:00Z
+    resp:
+        status_code: 200
+        header:
+            Content-Length: "40"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:44:51 GMT
+            X-Request-Id: e6c74c20d603920aa51b956377374af9
+        body: '{"data":{"update_todos_by_pk":{"id":1}}}'
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+    objects: []
+    created: 1721634291
+    reqTimestampMock: 2024-07-22T07:44:51.686969676Z
+    resTimestampMock: 2024-07-22T07:44:51.686969676Z
+---
+version: api.keploy.io/v1beta1
+kind: Http
+name: mock-8
+spec:
+    metadata:
+        name: Http
+        operation: POST
+        type: HTTP_CLIENT
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: /v1/graphql
+        header:
+            Accept: application/json, text/plain, */*
+            Accept-Encoding: gzip, compress, deflate, br
+            Connection: close
+            Content-Length: "95"
+            Content-Type: application/json
+            User-Agent: axios/1.7.2
+            X-Hasura-Admin-Secret: '*B9#J:w1F2w=+U=6eP+9!8=_A2tF$=eC'
+        body: '{"query":"\n    mutation {\n      delete_todos_by_pk(id: 1) {\n        id\n      }\n    }\n  "}'
+        timestamp: 0001-01-01T00:00:00Z
+    resp:
+        status_code: 200
+        header:
+            Content-Length: "40"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:45:04 GMT
+            X-Request-Id: 81a13fc220093e800131d6467e98ec9c
+        body: '{"data":{"delete_todos_by_pk":{"id":1}}}'
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+    objects: []
+    created: 1721634304
+    reqTimestampMock: 2024-07-22T07:45:04.94395271Z
+    resTimestampMock: 2024-07-22T07:45:04.94395271Z

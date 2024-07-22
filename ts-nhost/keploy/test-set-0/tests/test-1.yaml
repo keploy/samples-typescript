@@ -1,0 +1,58 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/users
+        header:
+            Accept: '*/*'
+            Content-Length: "113"
+            Content-Type: application/json
+            Host: localhost:3000
+            User-Agent: curl/8.6.0
+        body: |-
+            {
+                "email": "arpit@gmail.com",
+                "password": "123456789",
+                "locale": "en",
+                "displayName": "Arpit"
+              }
+        timestamp: 2024-07-22T07:43:23.382861677Z
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Connection: keep-alive
+            Content-Length: "142"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:43:24 GMT
+            Etag: W/"8e-6uu8XFWDWUyAsIEbjVNzmvouws8"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"message":"Successfully created a user","user":{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7","displayName":"Arpit","email":"arpit@gmail.com"}}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-07-22T07:43:26.070292262Z
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1721634206
+curl: |-
+    curl --request POST \
+      --url http://localhost:3000/users \
+      --header 'User-Agent: curl/8.6.0' \
+      --header 'Accept: */*' \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:3000' \
+      --data '{
+        "email": "arpit@gmail.com",
+        "password": "123456789",
+        "locale": "en",
+        "displayName": "Arpit"
+      }'

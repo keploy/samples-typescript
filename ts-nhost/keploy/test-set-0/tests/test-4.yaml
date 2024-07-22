@@ -1,0 +1,45 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-4
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/todos/createtable
+        header:
+            Accept: '*/*'
+            Content-Type: application/json
+            Host: localhost:3000
+            User-Agent: curl/8.6.0
+        body: ""
+        timestamp: 2024-07-22T07:44:07.106094822Z
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Connection: keep-alive
+            Content-Length: "101"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:44:08 GMT
+            Etag: W/"65-fbR21RI4dHO49sfYpCbxYqjDvII"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"message":"Table created and tracked successfully","data":{"result_type":"CommandOk","result":null}}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-07-22T07:44:10.618255587Z
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1721634250
+curl: |
+    curl --request POST \
+      --url http://localhost:3000/todos/createtable \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:3000' \
+      --header 'User-Agent: curl/8.6.0' \
+      --header 'Accept: */*' \

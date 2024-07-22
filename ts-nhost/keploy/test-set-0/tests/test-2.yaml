@@ -1,0 +1,46 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-2
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/users
+        header:
+            Accept: '*/*'
+            Content-Type: application/json
+            Host: localhost:3000
+            User-Agent: curl/8.6.0
+        body: ""
+        timestamp: 2024-07-22T07:43:29.78962743Z
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Connection: keep-alive
+            Content-Length: "120"
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 22 Jul 2024 07:43:30 GMT
+            Etag: W/"78-DDX595xlqR4Q2aISddBqeHfJMTg"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '[{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7","email":"arpit@gmail.com","createdAt":"2024-07-22T07:43:23.995234+00:00"}]'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-07-22T07:43:32.370972375Z
+    objects: []
+    assertions:
+        noise:
+            body.createdAt: []
+            header.Date: []
+    created: 1721634212
+curl: |
+    curl --request GET \
+      --url http://localhost:3000/users \
+      --header 'Host: localhost:3000' \
+      --header 'User-Agent: curl/8.6.0' \
+      --header 'Accept: */*' \
+      --header 'Content-Type: application/json' \
