@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  keploy:
+    image: ghcr.io/keploy/keploy:v2.2.0-alpha23
+    container_name: keploy
+    ports:
+      - "6789:6789"
+    networks:
+      - keploy-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ts-nhost
+    ports:
+      - "3000:3000"
+    networks:
+      - keploy-network
+
+networks:
+  keploy-network:
+    driver: bridge
