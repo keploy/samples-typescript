@@ -1,0 +1,69 @@
+path: ""
+appId: 0
+appName: node-jwt
+command: node app.js
+port: 0
+dnsPort: 26789
+proxyPort: 16789
+debug: false
+disableTele: false
+disableANSI: false
+containerName: ""
+networkName: ""
+buildDelay: 30
+test:
+    selectedTests: {}
+    globalNoise:
+        global: {}
+        test-sets: {}
+    delay: 5
+    apiTimeout: 5
+    skipCoverage: false
+    coverageReportPath: ""
+    ignoreOrdering: true
+    mongoPassword: default@123
+    language: ""
+    removeUnusedMocks: false
+    fallBackOnMiss: false
+    jacocoAgentPath: ""
+    basePath: ""
+    mocking: true
+    ignoredTests: {}
+    disableMockUpload: false
+    freezeTime: false
+record:
+    filters: []
+    recordTimer: 0s
+configPath: ""
+bypassRules: []
+generateGithubActions: true
+keployContainer: keploy-v2
+keployNetwork: keploy-network
+cmdType: native
+inCi: false
+autogen:
+    filters: []
+    recordTimer: 0s
+    schemaPath: ""
+dedup:
+    selectedTests: {}
+    globalNoise:
+        global: {}
+        test-sets: {}
+    delay: 0
+    apiTimeout: 0
+    skipCoverage: false
+    coverageReportPath: ""
+    ignoreOrdering: false
+    mongoPassword: ""
+    language: ""
+    removeUnusedMocks: false
+    fallBackOnMiss: false
+    jacocoAgentPath: ""
+    basePath: ""
+    mocking: true
+    ignoredTests: {}
+    rm: false
+    freezeTime: false
+
+# Visit [https://keploy.io/docs/running-keploy/configuration-file/] to learn about using keploy through configration file.
