@@ -1,0 +1,58 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-3
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8080/api/auth/signup
+        header:
+            Accept: '*/*'
+            Content-Length: "80"
+            Content-Type: application/json
+            Host: localhost:8080
+            User-Agent: curl/7.88.1
+        body: |-
+            {
+                "username":"user1",
+                "email":"user1@keploy.io",
+                "password":"1234"
+            }
+        timestamp: 2024-07-26T12:25:22.133806776+05:30
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Headers: x-access-token, Origin, Content-Type, Accept
+            Access-Control-Allow-Origin: http://localhost:8081
+            Connection: keep-alive
+            Content-Length: "47"
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 26 Jul 2024 06:55:22 GMT
+            Etag: W/"2f-ycIOj/6kXGxPaEoiW5+ikfXgO5w"
+            Keep-Alive: timeout=5
+            Vary: Origin
+            X-Powered-By: Express
+        body: '{"message":"User was registered successfully!"}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-07-26T12:25:24.258173858+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1721976924
+curl: |-
+    curl --request POST \
+      --url http://localhost:8080/api/auth/signup \
+      --header 'Accept: */*' \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:8080' \
+      --header 'User-Agent: curl/7.88.1' \
+      --data '{
+        "username":"user1",
+        "email":"user1@keploy.io",
+        "password":"1234"
+    }'

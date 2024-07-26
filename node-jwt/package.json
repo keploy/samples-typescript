@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nyc node app.js",
     "test": "jest --coverage --collectCoverageFrom='src/**/*.{js,jsx}'",
     "coverage": "nyc npm test && npm run coverage:merge && npm run coverage:report",
     "coverage:merge": "mkdir -p ./coverage && nyc merge ./coverage .nyc_output/out.json",
@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@keploy/sdk": "^2.0.4",
+    "@keploy/sdk": "^2.0.10",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
