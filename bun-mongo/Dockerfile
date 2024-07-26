@@ -14,12 +14,12 @@ RUN curl -fsSL https://bun.sh/install | bash
 
 COPY package*.json ./
 
-RUN bun install
+RUN bun install --upgrade canary
 # If you are building your code for production
 # RUN npm ci --omit=dev
 
 # Bundle app source
 COPY . .
 
-EXPOSE 420
+EXPOSE 4200
 CMD [ "bun", "start" ]

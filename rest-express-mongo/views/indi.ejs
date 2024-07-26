@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>individual</title>
+    <style>
+          .heading {
+                color: #0d0d0d;
+                background-color: #fef9f8;
+                font-size: 50px;
+                font-family: "Courier New", Courier, monospace;
+                text-align: left;
+                margin-bottom: 20px;
+            }
+            .para{
+                font-family: "Courier New", Courier, monospace;
+                font-size: 30px;
+            }
+          .but {
+                padding: 20px;
+                margin-top: 10px;
+                font-family: "Courier New", Courier, monospace;
+                background-color: rgba(239, 146, 115, 0.5);
+                border-radius: 10%;
+                margin-left:1%;
+                font-size: 20px;
+            }
+            .but:hover {
+                background-color: #ef9273;
+            }
+    </style>
+</head>
+<body>
+    <h1 class="heading"><%= result.title %></h1>
+    <p class="para"><%= result.body %></p>
+    <a class="delete" data-doc="<%= result._id %>"><button class="but">delete</button></a> <br>
+    <a href="/"> <button class="but">Return to HOME!</button> </a>
+    <script>
+        const del = document.querySelector('a.delete');
+        del.addEventListener('click',(e)=>{
+            const endpoint = `/${del.dataset.doc}`;
+            fetch(endpoint,{
+                method:'DELETE'
+            })
+            .then((response)=> response.json())
+            .then((data)=> window.location.href = data.redirect )
+            .catch((err)=>{
+                console.log(err);
+            })
+        })
+    </script>
+</body>
+</html>
