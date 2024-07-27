@@ -7,11 +7,11 @@ const bodyParser = require("body-parser");
 // Config dotenv
 dotenv.config();
 
-// Initialise body parser
-app.use(bodyParser.json());
-
 // Initialise expressJS
 const app = express();
+
+// Initialise body parser
+app.use(bodyParser.json());
 
 // ENV variables for initialising database.
 const dbConfig = {
@@ -40,12 +40,35 @@ app.get("/get", (req, res) => {
 
 // Route for updating items in DB.
 app.put("/update/:id", (req, res) => {
-  res.send("this route will manage update requests from the mysql database.");
+  const { id } = req.params;
+  const { name, age } = req.body;
+
+  if (!name || !age) {
+    return res.status(400).json({ message: "Name and age are required" });
+  }
+
+  const updateQuery = `UPDATE my_table SET name = ?, age = ? WHERE id = ?`;
+  connection.query(updateQuery, [name, age, id], (err, result) => {
+    if (err) throw err;
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Record not found" });
+    }
+    res.json({ message: "Record updated successfully.", result });
+  });
 });
 
 // Route for deleting records in DB.
 app.delete("/delete/:id", (req, res) => {
-  res.send("this route will manage delete requests from the mysql database.");
+  const { id } = req.params;
+
+  const deleteQuery = `DELETE FROM my_table WHERE id = ?`;
+  connection.query(deleteQuery, [id], (err, result) => {
+    if (err) throw err;
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Record not found" });
+    }
+    res.json({ message: "Record deleted successfully.", result });
+  });
 });
 
 // Route for adding items to DB.
