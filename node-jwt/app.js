@@ -1,7 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+// const kmiddleware = require('@keploy/sdk/dist/v2/dedup/middleware.js')
 
 const app = express();
+// app.use(kmiddleware())
+
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -47,7 +50,7 @@ function initial() {
       console.error('Error creating role:', error);
     }
   });
- 
+
   Role.create({
     id: 2,
     name: "moderator"
@@ -58,7 +61,7 @@ function initial() {
       console.error('Error creating role:', error);
     }
   });
- 
+
   Role.create({
     id: 3,
     name: "admin"
