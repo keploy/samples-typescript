@@ -17,5 +17,17 @@
   "bugs": {
     "url": "https://github.com/keploy/samples-typescript/issues"
   },
-  "homepage": "https://github.com/keploy/samples-typescript#readme"
+  "homepage": "https://github.com/keploy/samples-typescript#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4"
+  }
 }
