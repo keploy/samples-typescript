@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
+import mainRouter from './routes/mainRouter';
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const PORT = process.env.PORT
 const app = express();
 
 app.use(bodyParser.json());
+app.use('/api/v1', mainRouter);
 
 app.listen(PORT, ()=>{
     console.log(`Server is listening at PORT ${PORT}
