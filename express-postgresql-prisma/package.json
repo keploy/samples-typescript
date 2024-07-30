@@ -6,7 +6,10 @@
   "scripts": {
     "build": "tsc -b",
     "start": "node dist/index.js",
-    "dev": "tsc -w & nodemon dist/index.js"
+    "dev": "tsc -w & nodemon dist/index.js",
+    "generate": "prisma generate",
+    "migrate": "prisma migrate dev --name",
+    "reset": "prisma migrate reset"
   },
   "repository": {
     "type": "git",
@@ -21,13 +24,16 @@
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^22.0.0",
+    "prisma": "^5.17.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },
   "dependencies": {
+    "@prisma/client": "^5.17.0",
     "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "zod": "^3.23.8"
   }
 }
