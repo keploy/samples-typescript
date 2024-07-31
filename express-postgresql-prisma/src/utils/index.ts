@@ -1,5 +1,7 @@
 import createTask from "./createTask";
+import updateTask from "./updateTask";
 
 export {
-    createTask
+    createTask,
+    updateTask
 }

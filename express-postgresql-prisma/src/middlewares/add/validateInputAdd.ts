@@ -3,7 +3,6 @@ import zod from 'zod';
 import { StatusCodes } from '../../config';
 import { Task } from '../../types';
 
-
 const validateInputSchema = zod.object({
     author: zod.string().max(50, { message: "Author should not be more than 50 characters" }),
     title: zod.string().max(100, { message: "Title should not be more than 100 characters" }),
@@ -27,7 +26,7 @@ const validateInputSchema = zod.object({
     }),
 }).strict();
 
-const validateInput = (req: Request, res: Response, next: NextFunction) => {
+const validateInputAdd = (req: Request, res: Response, next: NextFunction) => {
     const body: Task = req.body;
     const zodResponse = validateInputSchema.safeParse(body);
 
@@ -40,4 +39,4 @@ const validateInput = (req: Request, res: Response, next: NextFunction) => {
     return next();
 };
 
-export default validateInput
+export default validateInputAdd;
