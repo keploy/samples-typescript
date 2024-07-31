@@ -1,45 +1,54 @@
 version: api.keploy.io/v1beta1
 kind: Http
-name: test-6
+name: test-5
 spec:
     metadata: {}
     req:
-        method: GET
+        method: POST
         proto_major: 1
         proto_minor: 1
         url: http://localhost:3000/todos
         header:
             Accept: '*/*'
+            Content-Length: "51"
             Content-Type: application/json
             Host: localhost:3000
             User-Agent: curl/8.6.0
-        body: ""
-        timestamp: 2024-07-22T07:44:24.832121248Z
+        body: |-
+            {
+                "name": "Study",
+                "isCompleted": false
+              }
+        timestamp: 2024-07-31T21:14:38.405188728Z
     resp:
-        status_code: 200
+        status_code: 201
         header:
             Access-Control-Allow-Origin: '*'
             Connection: keep-alive
-            Content-Length: "46"
+            Content-Length: "42"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:44:25 GMT
-            Etag: W/"2e-thHD2JfOCwNP16HnpP4gfZV6XGs"
+            Date: Wed, 31 Jul 2024 21:14:39 GMT
+            Etag: W/"2a-+IG0XWhwYvrWhZ/d3FtS14Z4Gvk"
             Keep-Alive: timeout=5
             X-Powered-By: Express
-        body: '[{"id":1,"name":"Study","is_completed":false}]'
-        status_message: OK
+        body: '{"message":"Successfully inserted","id":1}'
+        status_message: Created
         proto_major: 0
         proto_minor: 0
-        timestamp: 2024-07-22T07:44:27.354564012Z
+        timestamp: 2024-07-31T21:14:41.358724551Z
     objects: []
     assertions:
         noise:
             header.Date: []
-    created: 1721634267
-curl: |
-    curl --request GET \
+    created: 1722460481
+curl: |-
+    curl --request POST \
       --url http://localhost:3000/todos \
-      --header 'Content-Type: application/json' \
       --header 'Host: localhost:3000' \
       --header 'User-Agent: curl/8.6.0' \
       --header 'Accept: */*' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "name": "Study",
+        "isCompleted": false
+      }'

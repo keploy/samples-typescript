@@ -26,17 +26,17 @@ spec:
         header:
             Content-Length: "117"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:43:24 GMT
-            X-Request-Id: b15420a3727fd5f7154d9e0ba3c8f88b
-        body: '{"data":{"insertUser":{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7","displayName":"Arpit","email":"arpit@gmail.com"}}}'
+            Date: Wed, 31 Jul 2024 21:13:24 GMT
+            X-Request-Id: f0eb22ab54a3fb4d9a627a6f63b13b89
+        body: '{"data":{"insertUser":{"id":"f14a7f34-c7c6-4c60-a81f-7ca895e08af0","displayName":"Arpit","email":"arpit@gmail.com"}}}'
         status_message: ""
         proto_major: 0
         proto_minor: 0
         timestamp: 0001-01-01T00:00:00Z
     objects: []
-    created: 1721634204
-    reqTimestampMock: 2024-07-22T07:43:24.057634219Z
-    resTimestampMock: 2024-07-22T07:43:24.057634219Z
+    created: 1722460404
+    reqTimestampMock: 2024-07-31T21:13:24.989187418Z
+    resTimestampMock: 2024-07-31T21:13:24.989187418Z
 ---
 version: api.keploy.io/v1beta1
 kind: Http
@@ -66,17 +66,17 @@ spec:
         header:
             Content-Length: "139"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:43:30 GMT
-            X-Request-Id: 65119830999773974d4d3d5bc06fc090
-        body: '{"data":{"users":[{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7","email":"arpit@gmail.com","createdAt":"2024-07-22T07:43:23.995234+00:00"}]}}'
+            Date: Wed, 31 Jul 2024 21:13:36 GMT
+            X-Request-Id: c732a37a10e81895b4ceea5946e88f1e
+        body: '{"data":{"users":[{"id":"f14a7f34-c7c6-4c60-a81f-7ca895e08af0","email":"arpit@gmail.com","createdAt":"2024-07-31T21:13:24.901064+00:00"}]}}'
         status_message: ""
         proto_major: 0
         proto_minor: 0
         timestamp: 0001-01-01T00:00:00Z
     objects: []
-    created: 1721634210
-    reqTimestampMock: 2024-07-22T07:43:30.36570618Z
-    resTimestampMock: 2024-07-22T07:43:30.36570618Z
+    created: 1722460416
+    reqTimestampMock: 2024-07-31T21:13:36.615796923Z
+    resTimestampMock: 2024-07-31T21:13:36.615796923Z
 ---
 version: api.keploy.io/v1beta1
 kind: Http
@@ -99,24 +99,24 @@ spec:
             Content-Type: application/json
             User-Agent: axios/1.7.2
             X-Hasura-Admin-Secret: '*B9#J:w1F2w=+U=6eP+9!8=_A2tF$=eC'
-        body: '{"query":"\n    mutation {\n      deleteUser(id: \"33cf6586-5563-4b88-9cc7-1733af4bfbe7\") {\n        id\n      }\n    }\n  "}'
+        body: '{"query":"\n    mutation {\n      deleteUser(id: \"f14a7f34-c7c6-4c60-a81f-7ca895e08af0\") {\n        id\n      }\n    }\n  "}'
         timestamp: 0001-01-01T00:00:00Z
     resp:
         status_code: 200
         header:
             Content-Length: "69"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:43:59 GMT
-            X-Request-Id: de4ba9fa39e2ccbd7a62d0417ca8227a
-        body: '{"data":{"deleteUser":{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7"}}}'
+            Date: Wed, 31 Jul 2024 21:14:01 GMT
+            X-Request-Id: 1514e81ececa5c26cc33484041b8e4bd
+        body: '{"data":{"deleteUser":{"id":"f14a7f34-c7c6-4c60-a81f-7ca895e08af0"}}}'
         status_message: ""
         proto_major: 0
         proto_minor: 0
         timestamp: 0001-01-01T00:00:00Z
     objects: []
-    created: 1721634239
-    reqTimestampMock: 2024-07-22T07:43:59.90015393Z
-    resTimestampMock: 2024-07-22T07:43:59.90015393Z
+    created: 1722460441
+    reqTimestampMock: 2024-07-31T21:14:01.889523254Z
+    resTimestampMock: 2024-07-31T21:14:01.889523254Z
 ---
 version: api.keploy.io/v1beta1
 kind: Http
@@ -146,17 +146,17 @@ spec:
         header:
             Content-Length: "41"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:44:07 GMT
-            X-Request-Id: d2d911ff3374552c6be09978f5b3cfc1
+            Date: Wed, 31 Jul 2024 21:14:18 GMT
+            X-Request-Id: d102739d308960b133188df0bc4c9d74
         body: '{"result_type":"CommandOk","result":null}'
         status_message: ""
         proto_major: 0
         proto_minor: 0
         timestamp: 0001-01-01T00:00:00Z
     objects: []
-    created: 1721634247
-    reqTimestampMock: 2024-07-22T07:44:07.667882711Z
-    resTimestampMock: 2024-07-22T07:44:07.667882711Z
+    created: 1722460458
+    reqTimestampMock: 2024-07-31T21:14:18.261281554Z
+    resTimestampMock: 2024-07-31T21:14:18.261281554Z
 ---
 version: api.keploy.io/v1beta1
 kind: Http
@@ -186,17 +186,17 @@ spec:
         header:
             Content-Length: "21"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:44:08 GMT
-            X-Request-Id: 5012c5d5f3d28e7a20bd58668721ec1f
+            Date: Wed, 31 Jul 2024 21:14:20 GMT
+            X-Request-Id: e263c2417803b20c690adf08410ec1b0
         body: '{"message":"success"}'
         status_message: ""
         proto_major: 0
         proto_minor: 0
         timestamp: 0001-01-01T00:00:00Z
     objects: []
-    created: 1721634248
-    reqTimestampMock: 2024-07-22T07:44:08.544138045Z
-    resTimestampMock: 2024-07-22T07:44:08.544138045Z
+    created: 1722460460
+    reqTimestampMock: 2024-07-31T21:14:20.943694888Z
+    resTimestampMock: 2024-07-31T21:14:20.943694888Z
 ---
 version: api.keploy.io/v1beta1
 kind: Http
@@ -226,17 +226,17 @@ spec:
         header:
             Content-Length: "38"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:44:18 GMT
-            X-Request-Id: 5070fe10084be061f4b3b31138cb19d6
+            Date: Wed, 31 Jul 2024 21:14:39 GMT
+            X-Request-Id: 0d60e1fd6ebb013c95e3ef8183056fb9
         body: '{"data":{"insert_todos_one":{"id":1}}}'
         status_message: ""
         proto_major: 0
         proto_minor: 0
         timestamp: 0001-01-01T00:00:00Z
     objects: []
-    created: 1721634258
-    reqTimestampMock: 2024-07-22T07:44:18.363750216Z
-    resTimestampMock: 2024-07-22T07:44:18.363750216Z
+    created: 1722460479
+    reqTimestampMock: 2024-07-31T21:14:39.232832966Z
+    resTimestampMock: 2024-07-31T21:14:39.232832966Z
 ---
 version: api.keploy.io/v1beta1
 kind: Http
@@ -266,17 +266,17 @@ spec:
         header:
             Content-Length: "65"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:44:25 GMT
-            X-Request-Id: 257d75d3fd723817eb2caac8801365f0
+            Date: Wed, 31 Jul 2024 21:14:48 GMT
+            X-Request-Id: 12b97c3e234da8f9a1ea49fb7394a3b3
         body: '{"data":{"todos":[{"id":1,"name":"Study","is_completed":false}]}}'
         status_message: ""
         proto_major: 0
         proto_minor: 0
         timestamp: 0001-01-01T00:00:00Z
     objects: []
-    created: 1721634265
-    reqTimestampMock: 2024-07-22T07:44:25.341110386Z
-    resTimestampMock: 2024-07-22T07:44:25.341110386Z
+    created: 1722460488
+    reqTimestampMock: 2024-07-31T21:14:48.244641054Z
+    resTimestampMock: 2024-07-31T21:14:48.244641054Z
 ---
 version: api.keploy.io/v1beta1
 kind: Http
@@ -295,28 +295,28 @@ spec:
             Accept: application/json, text/plain, */*
             Accept-Encoding: gzip, compress, deflate, br
             Connection: close
-            Content-Length: "158"
+            Content-Length: "159"
             Content-Type: application/json
             User-Agent: axios/1.7.2
             X-Hasura-Admin-Secret: '*B9#J:w1F2w=+U=6eP+9!8=_A2tF$=eC'
-        body: '{"query":"\n    mutation {\n      update_todos_by_pk(pk_columns: {id: 1}, _set: { name: \"Cricket\", is_completed: true }) {\n        id\n      }\n    }\n  "}'
+        body: '{"query":"\n    mutation {\n      update_todos_by_pk(pk_columns: {id: 1}, _set: { name: \"cricket\", is_completed: false }) {\n        id\n      }\n    }\n  "}'
         timestamp: 0001-01-01T00:00:00Z
     resp:
         status_code: 200
         header:
             Content-Length: "40"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:44:51 GMT
-            X-Request-Id: e6c74c20d603920aa51b956377374af9
+            Date: Wed, 31 Jul 2024 21:15:10 GMT
+            X-Request-Id: db7c9b52748ebda3e07a61bfda07c1ae
         body: '{"data":{"update_todos_by_pk":{"id":1}}}'
         status_message: ""
         proto_major: 0
         proto_minor: 0
         timestamp: 0001-01-01T00:00:00Z
     objects: []
-    created: 1721634291
-    reqTimestampMock: 2024-07-22T07:44:51.686969676Z
-    resTimestampMock: 2024-07-22T07:44:51.686969676Z
+    created: 1722460510
+    reqTimestampMock: 2024-07-31T21:15:10.305801258Z
+    resTimestampMock: 2024-07-31T21:15:10.305801258Z
 ---
 version: api.keploy.io/v1beta1
 kind: Http
@@ -346,14 +346,14 @@ spec:
         header:
             Content-Length: "40"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:45:04 GMT
-            X-Request-Id: 81a13fc220093e800131d6467e98ec9c
+            Date: Wed, 31 Jul 2024 21:15:22 GMT
+            X-Request-Id: d5cedd428bba968eae7bc8046eb070ab
         body: '{"data":{"delete_todos_by_pk":{"id":1}}}'
         status_message: ""
         proto_major: 0
         proto_minor: 0
         timestamp: 0001-01-01T00:00:00Z
     objects: []
-    created: 1721634304
-    reqTimestampMock: 2024-07-22T07:45:04.94395271Z
-    resTimestampMock: 2024-07-22T07:45:04.94395271Z
+    created: 1722460522
+    reqTimestampMock: 2024-07-31T21:15:22.092095208Z
+    resTimestampMock: 2024-07-31T21:15:22.092095208Z

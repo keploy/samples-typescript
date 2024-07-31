@@ -1,5 +1,5 @@
 version: api.keploy.io/v1beta1
-name: test-set-0-report
+name: test-set-1-report
 status: PASSED
 success: 8
 failure: 0
@@ -7,12 +7,12 @@ ignored: 0
 total: 8
 tests:
     - kind: Http
-      name: test-set-0
+      name: test-set-1
       status: PASSED
-      started: 1721634358
-      completed: 1721634358
-      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0
-      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0/mocks
+      started: 1722460568
+      completed: 1722460568
+      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1
+      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1/mocks
       test_case_id: test-1
       req:
         method: POST
@@ -32,7 +32,7 @@ tests:
                 "locale": "en",
                 "displayName": "Arpit"
               }
-        timestamp: 2024-07-22T07:43:23.382861677Z
+        timestamp: 2024-07-31T21:13:23.94427882Z
       resp:
         status_code: 200
         header:
@@ -40,11 +40,11 @@ tests:
             Connection: keep-alive
             Content-Length: "142"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:45:58 GMT
-            Etag: W/"8e-6uu8XFWDWUyAsIEbjVNzmvouws8"
+            Date: Wed, 31 Jul 2024 21:16:08 GMT
+            Etag: W/"8e-qRQmCOp8z1PPQCp1OFSshzkDzmQ"
             Keep-Alive: timeout=5
             X-Powered-By: Express
-        body: '{"message":"Successfully created a user","user":{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7","displayName":"Arpit","email":"arpit@gmail.com"}}'
+        body: '{"message":"Successfully created a user","user":{"id":"f14a7f34-c7c6-4c60-a81f-7ca895e08af0","displayName":"Arpit","email":"arpit@gmail.com"}}'
         status_message: ""
         proto_major: 0
         proto_minor: 0
@@ -59,15 +59,6 @@ tests:
         headers_result:
             - normal: true
               expected:
-                key: Connection
-                value:
-                    - keep-alive
-              actual:
-                key: Connection
-                value:
-                    - keep-alive
-            - normal: true
-              expected:
                 key: Content-Length
                 value:
                     - "142"
@@ -88,20 +79,20 @@ tests:
               expected:
                 key: Date
                 value:
-                    - Mon, 22 Jul 2024 07:43:24 GMT
+                    - Wed, 31 Jul 2024 21:13:24 GMT
               actual:
                 key: Date
                 value:
-                    - Mon, 22 Jul 2024 07:45:58 GMT
+                    - Wed, 31 Jul 2024 21:16:08 GMT
             - normal: true
               expected:
                 key: Etag
                 value:
-                    - W/"8e-6uu8XFWDWUyAsIEbjVNzmvouws8"
+                    - W/"8e-qRQmCOp8z1PPQCp1OFSshzkDzmQ"
               actual:
                 key: Etag
                 value:
-                    - W/"8e-6uu8XFWDWUyAsIEbjVNzmvouws8"
+                    - W/"8e-qRQmCOp8z1PPQCp1OFSshzkDzmQ"
             - normal: true
               expected:
                 key: Keep-Alive
@@ -129,19 +120,28 @@ tests:
                 key: Access-Control-Allow-Origin
                 value:
                     - '*'
+            - normal: true
+              expected:
+                key: Connection
+                value:
+                    - keep-alive
+              actual:
+                key: Connection
+                value:
+                    - keep-alive
         body_result:
             - normal: true
               type: JSON
-              expected: '{"message":"Successfully created a user","user":{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7","displayName":"Arpit","email":"arpit@gmail.com"}}'
-              actual: '{"message":"Successfully created a user","user":{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7","displayName":"Arpit","email":"arpit@gmail.com"}}'
+              expected: '{"message":"Successfully created a user","user":{"id":"f14a7f34-c7c6-4c60-a81f-7ca895e08af0","displayName":"Arpit","email":"arpit@gmail.com"}}'
+              actual: '{"message":"Successfully created a user","user":{"id":"f14a7f34-c7c6-4c60-a81f-7ca895e08af0","displayName":"Arpit","email":"arpit@gmail.com"}}'
         dep_result: []
     - kind: Http
-      name: test-set-0
+      name: test-set-1
       status: PASSED
-      started: 1721634358
-      completed: 1721634358
-      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0
-      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0/mocks
+      started: 1722460568
+      completed: 1722460568
+      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1
+      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1/mocks
       test_case_id: test-2
       req:
         method: GET
@@ -154,7 +154,7 @@ tests:
             Host: localhost:3000
             User-Agent: curl/8.6.0
         body: ""
-        timestamp: 2024-07-22T07:43:29.78962743Z
+        timestamp: 2024-07-31T21:13:35.928440659Z
       resp:
         status_code: 200
         header:
@@ -162,11 +162,11 @@ tests:
             Connection: keep-alive
             Content-Length: "120"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:45:58 GMT
-            Etag: W/"78-DDX595xlqR4Q2aISddBqeHfJMTg"
+            Date: Wed, 31 Jul 2024 21:16:08 GMT
+            Etag: W/"78-WdZ0ACilvgOq5TSDX5Dy4LzveGg"
             Keep-Alive: timeout=5
             X-Powered-By: Express
-        body: '[{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7","email":"arpit@gmail.com","createdAt":"2024-07-22T07:43:23.995234+00:00"}]'
+        body: '[{"id":"f14a7f34-c7c6-4c60-a81f-7ca895e08af0","email":"arpit@gmail.com","createdAt":"2024-07-31T21:13:24.901064+00:00"}]'
         status_message: ""
         proto_major: 0
         proto_minor: 0
@@ -182,6 +182,33 @@ tests:
         headers_result:
             - normal: true
               expected:
+                key: Etag
+                value:
+                    - W/"78-WdZ0ACilvgOq5TSDX5Dy4LzveGg"
+              actual:
+                key: Etag
+                value:
+                    - W/"78-WdZ0ACilvgOq5TSDX5Dy4LzveGg"
+            - normal: true
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
+            - normal: true
+              expected:
                 key: Access-Control-Allow-Origin
                 value:
                     - '*'
@@ -220,64 +247,37 @@ tests:
               expected:
                 key: Date
                 value:
-                    - Mon, 22 Jul 2024 07:43:30 GMT
+                    - Wed, 31 Jul 2024 21:13:36 GMT
               actual:
                 key: Date
                 value:
-                    - Mon, 22 Jul 2024 07:45:58 GMT
-            - normal: true
-              expected:
-                key: Etag
-                value:
-                    - W/"78-DDX595xlqR4Q2aISddBqeHfJMTg"
-              actual:
-                key: Etag
-                value:
-                    - W/"78-DDX595xlqR4Q2aISddBqeHfJMTg"
-            - normal: true
-              expected:
-                key: Keep-Alive
-                value:
-                    - timeout=5
-              actual:
-                key: Keep-Alive
-                value:
-                    - timeout=5
-            - normal: true
-              expected:
-                key: X-Powered-By
-                value:
-                    - Express
-              actual:
-                key: X-Powered-By
-                value:
-                    - Express
+                    - Wed, 31 Jul 2024 21:16:08 GMT
         body_result:
             - normal: true
               type: JSON
-              expected: '[{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7","email":"arpit@gmail.com","createdAt":"2024-07-22T07:43:23.995234+00:00"}]'
-              actual: '[{"id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7","email":"arpit@gmail.com","createdAt":"2024-07-22T07:43:23.995234+00:00"}]'
+              expected: '[{"id":"f14a7f34-c7c6-4c60-a81f-7ca895e08af0","email":"arpit@gmail.com","createdAt":"2024-07-31T21:13:24.901064+00:00"}]'
+              actual: '[{"id":"f14a7f34-c7c6-4c60-a81f-7ca895e08af0","email":"arpit@gmail.com","createdAt":"2024-07-31T21:13:24.901064+00:00"}]'
         dep_result: []
     - kind: Http
-      name: test-set-0
+      name: test-set-1
       status: PASSED
-      started: 1721634358
-      completed: 1721634358
-      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0
-      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0/mocks
+      started: 1722460568
+      completed: 1722460568
+      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1
+      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1/mocks
       test_case_id: test-3
       req:
         method: DELETE
         proto_major: 1
         proto_minor: 1
-        url: http://172.18.0.3:3000/users/33cf6586-5563-4b88-9cc7-1733af4bfbe7
+        url: http://172.18.0.3:3000/users/f14a7f34-c7c6-4c60-a81f-7ca895e08af0
         header:
             Accept: '*/*'
             Content-Type: application/json
             Host: localhost:3000
             User-Agent: curl/8.6.0
         body: ""
-        timestamp: 2024-07-22T07:43:58.401922235Z
+        timestamp: 2024-07-31T21:13:59.742824502Z
       resp:
         status_code: 200
         header:
@@ -285,11 +285,11 @@ tests:
             Connection: keep-alive
             Content-Length: "85"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:45:58 GMT
-            Etag: W/"55-sJkmCxhuz8rKxnMzEauaQpx9EIE"
+            Date: Wed, 31 Jul 2024 21:16:08 GMT
+            Etag: W/"55-YRX1yxzmud6ALhYKxzhBvBYao90"
             Keep-Alive: timeout=5
             X-Powered-By: Express
-        body: '{"message":"Successfully deleted a user","id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7"}'
+        body: '{"message":"Successfully deleted a user","id":"f14a7f34-c7c6-4c60-a81f-7ca895e08af0"}'
         status_message: ""
         proto_major: 0
         proto_minor: 0
@@ -304,6 +304,15 @@ tests:
         headers_result:
             - normal: true
               expected:
+                key: Etag
+                value:
+                    - W/"55-YRX1yxzmud6ALhYKxzhBvBYao90"
+              actual:
+                key: Etag
+                value:
+                    - W/"55-YRX1yxzmud6ALhYKxzhBvBYao90"
+            - normal: true
+              expected:
                 key: Keep-Alive
                 value:
                     - timeout=5
@@ -360,33 +369,24 @@ tests:
               expected:
                 key: Date
                 value:
-                    - Mon, 22 Jul 2024 07:43:59 GMT
+                    - Wed, 31 Jul 2024 21:14:01 GMT
               actual:
                 key: Date
                 value:
-                    - Mon, 22 Jul 2024 07:45:58 GMT
-            - normal: true
-              expected:
-                key: Etag
-                value:
-                    - W/"55-sJkmCxhuz8rKxnMzEauaQpx9EIE"
-              actual:
-                key: Etag
-                value:
-                    - W/"55-sJkmCxhuz8rKxnMzEauaQpx9EIE"
+                    - Wed, 31 Jul 2024 21:16:08 GMT
         body_result:
             - normal: true
               type: JSON
-              expected: '{"message":"Successfully deleted a user","id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7"}'
-              actual: '{"message":"Successfully deleted a user","id":"33cf6586-5563-4b88-9cc7-1733af4bfbe7"}'
+              expected: '{"message":"Successfully deleted a user","id":"f14a7f34-c7c6-4c60-a81f-7ca895e08af0"}'
+              actual: '{"message":"Successfully deleted a user","id":"f14a7f34-c7c6-4c60-a81f-7ca895e08af0"}'
         dep_result: []
     - kind: Http
-      name: test-set-0
+      name: test-set-1
       status: PASSED
-      started: 1721634358
-      completed: 1721634358
-      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0
-      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0/mocks
+      started: 1722460568
+      completed: 1722460568
+      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1
+      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1/mocks
       test_case_id: test-4
       req:
         method: POST
@@ -399,7 +399,7 @@ tests:
             Host: localhost:3000
             User-Agent: curl/8.6.0
         body: ""
-        timestamp: 2024-07-22T07:44:07.106094822Z
+        timestamp: 2024-07-31T21:14:16.578723469Z
       resp:
         status_code: 200
         header:
@@ -407,7 +407,7 @@ tests:
             Connection: keep-alive
             Content-Length: "101"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:45:58 GMT
+            Date: Wed, 31 Jul 2024 21:16:08 GMT
             Etag: W/"65-fbR21RI4dHO49sfYpCbxYqjDvII"
             Keep-Alive: timeout=5
             X-Powered-By: Express
@@ -426,6 +426,51 @@ tests:
         headers_result:
             - normal: true
               expected:
+                key: Content-Length
+                value:
+                    - "101"
+              actual:
+                key: Content-Length
+                value:
+                    - "101"
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+              actual:
+                key: Content-Type
+                value:
+                    - application/json; charset=utf-8
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Wed, 31 Jul 2024 21:14:20 GMT
+              actual:
+                key: Date
+                value:
+                    - Wed, 31 Jul 2024 21:16:08 GMT
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"65-fbR21RI4dHO49sfYpCbxYqjDvII"
+              actual:
+                key: Etag
+                value:
+                    - W/"65-fbR21RI4dHO49sfYpCbxYqjDvII"
+            - normal: true
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+            - normal: true
+              expected:
                 key: X-Powered-By
                 value:
                     - Express
@@ -451,51 +496,6 @@ tests:
                 key: Connection
                 value:
                     - keep-alive
-            - normal: true
-              expected:
-                key: Content-Length
-                value:
-                    - "101"
-              actual:
-                key: Content-Length
-                value:
-                    - "101"
-            - normal: true
-              expected:
-                key: Content-Type
-                value:
-                    - application/json; charset=utf-8
-              actual:
-                key: Content-Type
-                value:
-                    - application/json; charset=utf-8
-            - normal: true
-              expected:
-                key: Date
-                value:
-                    - Mon, 22 Jul 2024 07:44:08 GMT
-              actual:
-                key: Date
-                value:
-                    - Mon, 22 Jul 2024 07:45:58 GMT
-            - normal: true
-              expected:
-                key: Etag
-                value:
-                    - W/"65-fbR21RI4dHO49sfYpCbxYqjDvII"
-              actual:
-                key: Etag
-                value:
-                    - W/"65-fbR21RI4dHO49sfYpCbxYqjDvII"
-            - normal: true
-              expected:
-                key: Keep-Alive
-                value:
-                    - timeout=5
-              actual:
-                key: Keep-Alive
-                value:
-                    - timeout=5
         body_result:
             - normal: true
               type: JSON
@@ -503,12 +503,12 @@ tests:
               actual: '{"message":"Table created and tracked successfully","data":{"result_type":"CommandOk","result":null}}'
         dep_result: []
     - kind: Http
-      name: test-set-0
+      name: test-set-1
       status: PASSED
-      started: 1721634358
-      completed: 1721634358
-      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0
-      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0/mocks
+      started: 1722460568
+      completed: 1722460568
+      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1
+      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1/mocks
       test_case_id: test-5
       req:
         method: POST
@@ -526,7 +526,7 @@ tests:
                 "name": "Study",
                 "isCompleted": false
               }
-        timestamp: 2024-07-22T07:44:17.821388453Z
+        timestamp: 2024-07-31T21:14:38.405188728Z
       resp:
         status_code: 201
         header:
@@ -534,7 +534,7 @@ tests:
             Connection: keep-alive
             Content-Length: "42"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:45:58 GMT
+            Date: Wed, 31 Jul 2024 21:16:08 GMT
             Etag: W/"2a-+IG0XWhwYvrWhZ/d3FtS14Z4Gvk"
             Keep-Alive: timeout=5
             X-Powered-By: Express
@@ -553,6 +553,33 @@ tests:
         headers_result:
             - normal: true
               expected:
+                key: Date
+                value:
+                    - Wed, 31 Jul 2024 21:14:39 GMT
+              actual:
+                key: Date
+                value:
+                    - Wed, 31 Jul 2024 21:16:08 GMT
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"2a-+IG0XWhwYvrWhZ/d3FtS14Z4Gvk"
+              actual:
+                key: Etag
+                value:
+                    - W/"2a-+IG0XWhwYvrWhZ/d3FtS14Z4Gvk"
+            - normal: true
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+            - normal: true
+              expected:
                 key: X-Powered-By
                 value:
                     - Express
@@ -596,33 +623,6 @@ tests:
                 key: Content-Type
                 value:
                     - application/json; charset=utf-8
-            - normal: true
-              expected:
-                key: Date
-                value:
-                    - Mon, 22 Jul 2024 07:44:18 GMT
-              actual:
-                key: Date
-                value:
-                    - Mon, 22 Jul 2024 07:45:58 GMT
-            - normal: true
-              expected:
-                key: Etag
-                value:
-                    - W/"2a-+IG0XWhwYvrWhZ/d3FtS14Z4Gvk"
-              actual:
-                key: Etag
-                value:
-                    - W/"2a-+IG0XWhwYvrWhZ/d3FtS14Z4Gvk"
-            - normal: true
-              expected:
-                key: Keep-Alive
-                value:
-                    - timeout=5
-              actual:
-                key: Keep-Alive
-                value:
-                    - timeout=5
         body_result:
             - normal: true
               type: JSON
@@ -630,12 +630,12 @@ tests:
               actual: '{"message":"Successfully inserted","id":1}'
         dep_result: []
     - kind: Http
-      name: test-set-0
+      name: test-set-1
       status: PASSED
-      started: 1721634358
-      completed: 1721634358
-      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0
-      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0/mocks
+      started: 1722460568
+      completed: 1722460568
+      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1
+      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1/mocks
       test_case_id: test-6
       req:
         method: GET
@@ -648,7 +648,7 @@ tests:
             Host: localhost:3000
             User-Agent: curl/8.6.0
         body: ""
-        timestamp: 2024-07-22T07:44:24.832121248Z
+        timestamp: 2024-07-31T21:14:47.493232024Z
       resp:
         status_code: 200
         header:
@@ -656,7 +656,7 @@ tests:
             Connection: keep-alive
             Content-Length: "46"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:45:58 GMT
+            Date: Wed, 31 Jul 2024 21:16:08 GMT
             Etag: W/"2e-thHD2JfOCwNP16HnpP4gfZV6XGs"
             Keep-Alive: timeout=5
             X-Powered-By: Express
@@ -675,24 +675,6 @@ tests:
         headers_result:
             - normal: true
               expected:
-                key: Keep-Alive
-                value:
-                    - timeout=5
-              actual:
-                key: Keep-Alive
-                value:
-                    - timeout=5
-            - normal: true
-              expected:
-                key: X-Powered-By
-                value:
-                    - Express
-              actual:
-                key: X-Powered-By
-                value:
-                    - Express
-            - normal: true
-              expected:
                 key: Access-Control-Allow-Origin
                 value:
                     - '*'
@@ -731,11 +713,11 @@ tests:
               expected:
                 key: Date
                 value:
-                    - Mon, 22 Jul 2024 07:44:25 GMT
+                    - Wed, 31 Jul 2024 21:14:48 GMT
               actual:
                 key: Date
                 value:
-                    - Mon, 22 Jul 2024 07:45:58 GMT
+                    - Wed, 31 Jul 2024 21:16:08 GMT
             - normal: true
               expected:
                 key: Etag
@@ -745,6 +727,24 @@ tests:
                 key: Etag
                 value:
                     - W/"2e-thHD2JfOCwNP16HnpP4gfZV6XGs"
+            - normal: true
+              expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
         body_result:
             - normal: true
               type: JSON
@@ -752,12 +752,12 @@ tests:
               actual: '[{"id":1,"name":"Study","is_completed":false}]'
         dep_result: []
     - kind: Http
-      name: test-set-0
+      name: test-set-1
       status: PASSED
-      started: 1721634358
-      completed: 1721634358
-      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0
-      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0/mocks
+      started: 1722460568
+      completed: 1722460568
+      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1
+      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1/mocks
       test_case_id: test-7
       req:
         method: PUT
@@ -766,16 +766,16 @@ tests:
         url: http://172.18.0.3:3000/todos/1
         header:
             Accept: '*/*'
-            Content-Length: "52"
+            Content-Length: "53"
             Content-Type: application/json
             Host: localhost:3000
             User-Agent: curl/8.6.0
         body: |-
             {
-                "name": "Cricket",
-                "isCompleted": true
+                "name": "cricket",
+                "isCompleted": false
               }
-        timestamp: 2024-07-22T07:44:50.799777551Z
+        timestamp: 2024-07-31T21:15:09.545669492Z
       resp:
         status_code: 200
         header:
@@ -783,7 +783,7 @@ tests:
             Connection: keep-alive
             Content-Length: "41"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:45:58 GMT
+            Date: Wed, 31 Jul 2024 21:16:08 GMT
             Etag: W/"29-qLEo+XrP7v2fwdMnfflCBAkXuiQ"
             Keep-Alive: timeout=5
             X-Powered-By: Express
@@ -802,6 +802,24 @@ tests:
         headers_result:
             - normal: true
               expected:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+              actual:
+                key: Keep-Alive
+                value:
+                    - timeout=5
+            - normal: true
+              expected:
+                key: X-Powered-By
+                value:
+                    - Express
+              actual:
+                key: X-Powered-By
+                value:
+                    - Express
+            - normal: true
+              expected:
                 key: Access-Control-Allow-Origin
                 value:
                     - '*'
@@ -840,11 +858,11 @@ tests:
               expected:
                 key: Date
                 value:
-                    - Mon, 22 Jul 2024 07:44:51 GMT
+                    - Wed, 31 Jul 2024 21:15:10 GMT
               actual:
                 key: Date
                 value:
-                    - Mon, 22 Jul 2024 07:45:58 GMT
+                    - Wed, 31 Jul 2024 21:16:08 GMT
             - normal: true
               expected:
                 key: Etag
@@ -854,24 +872,6 @@ tests:
                 key: Etag
                 value:
                     - W/"29-qLEo+XrP7v2fwdMnfflCBAkXuiQ"
-            - normal: true
-              expected:
-                key: Keep-Alive
-                value:
-                    - timeout=5
-              actual:
-                key: Keep-Alive
-                value:
-                    - timeout=5
-            - normal: true
-              expected:
-                key: X-Powered-By
-                value:
-                    - Express
-              actual:
-                key: X-Powered-By
-                value:
-                    - Express
         body_result:
             - normal: true
               type: JSON
@@ -879,12 +879,12 @@ tests:
               actual: '{"message":"Successfully updated","id":1}'
         dep_result: []
     - kind: Http
-      name: test-set-0
+      name: test-set-1
       status: PASSED
-      started: 1721634358
-      completed: 1721634358
-      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0
-      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-0/mocks
+      started: 1722460568
+      completed: 1722460568
+      test_case_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1
+      mock_path: /Users/amanrai/Desktop/samples-typescript/ts-nhost/keploy/test-set-1/mocks
       test_case_id: test-8
       req:
         method: DELETE
@@ -897,7 +897,7 @@ tests:
             Host: localhost:3000
             User-Agent: curl/8.6.0
         body: ""
-        timestamp: 2024-07-22T07:45:04.443309932Z
+        timestamp: 2024-07-31T21:15:21.383219998Z
       resp:
         status_code: 200
         header:
@@ -905,7 +905,7 @@ tests:
             Connection: keep-alive
             Content-Length: "41"
             Content-Type: application/json; charset=utf-8
-            Date: Mon, 22 Jul 2024 07:45:58 GMT
+            Date: Wed, 31 Jul 2024 21:16:08 GMT
             Etag: W/"29-kiLI9YnooXEOYUbFFP0trZZHqxQ"
             Keep-Alive: timeout=5
             X-Powered-By: Express
@@ -924,24 +924,6 @@ tests:
         headers_result:
             - normal: true
               expected:
-                key: Date
-                value:
-                    - Mon, 22 Jul 2024 07:45:04 GMT
-              actual:
-                key: Date
-                value:
-                    - Mon, 22 Jul 2024 07:45:58 GMT
-            - normal: true
-              expected:
-                key: Etag
-                value:
-                    - W/"29-kiLI9YnooXEOYUbFFP0trZZHqxQ"
-              actual:
-                key: Etag
-                value:
-                    - W/"29-kiLI9YnooXEOYUbFFP0trZZHqxQ"
-            - normal: true
-              expected:
                 key: Keep-Alive
                 value:
                     - timeout=5
@@ -994,10 +976,28 @@ tests:
                 key: Content-Type
                 value:
                     - application/json; charset=utf-8
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Wed, 31 Jul 2024 21:15:22 GMT
+              actual:
+                key: Date
+                value:
+                    - Wed, 31 Jul 2024 21:16:08 GMT
+            - normal: true
+              expected:
+                key: Etag
+                value:
+                    - W/"29-kiLI9YnooXEOYUbFFP0trZZHqxQ"
+              actual:
+                key: Etag
+                value:
+                    - W/"29-kiLI9YnooXEOYUbFFP0trZZHqxQ"
         body_result:
             - normal: true
               type: JSON
               expected: '{"message":"Successfully deleted","id":1}'
               actual: '{"message":"Successfully deleted","id":1}'
         dep_result: []
-test_set: test-set-0
+test_set: test-set-1
