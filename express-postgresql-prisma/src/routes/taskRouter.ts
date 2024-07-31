@@ -1,7 +1,7 @@
 import Router, { Request, Response } from 'express';
 import validateInputAdd from '../middlewares/add/validateInputAdd';
 import validateInputUpdate from '../middlewares/update/validateInputUpdate';
-import { createTask, updateTask, deleteTask, viewTask } from '../utils';
+import { createTask, updateTask, deleteTask, viewTask, viewTaskById } from '../utils';
 import { Task, UpdateTask } from '../types';
 import { StatusCodes } from '../config';
 import validateInputParam from '../middlewares/validateInputParam';
@@ -72,7 +72,19 @@ router.get("/view", async(req: Request, res: Response)=>{
 })
 
 router.get("/view/:id", validateInputParam, async(req: Request, res: Response)=>{
+    const id = parseInt(req.params.id);
 
+    const response = await viewTaskById(id);
+
+    if(!response.success){
+        return res.status(StatusCodes.FORBIDDEN).json({
+            tasks: response.task
+        })
+    }
+
+    return res.status(StatusCodes.CREATED).json({
+        tasks: response.task
+    })
 })
 
 export default router
