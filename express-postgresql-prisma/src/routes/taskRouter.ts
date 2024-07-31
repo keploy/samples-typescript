@@ -4,7 +4,7 @@ import validateInputUpdate from '../middlewares/update/validateInputUpdate';
 import { createTask, updateTask, deleteTask, viewTask } from '../utils';
 import { Task, UpdateTask } from '../types';
 import { StatusCodes } from '../config';
-import validateInputDelete from '../middlewares/delete/validInputDelete';
+import validateInputParam from '../middlewares/validateInputParam';
 
 const router = Router();
 
@@ -24,7 +24,7 @@ router.post("/add", validateInputAdd, async (req: Request, res: Response)=>{
     })
 })
 
-router.put("/update/:id", validateInputUpdate, async (req: Request, res: Response)=>{
+router.put("/update/:id", validateInputParam, validateInputUpdate, async (req: Request, res: Response)=>{
     const id = parseInt(req.params.id);
     const body: UpdateTask = req.body;
 
@@ -41,7 +41,7 @@ router.put("/update/:id", validateInputUpdate, async (req: Request, res: Respons
     })
 })
 
-router.delete("/delete/:id", validateInputDelete, async(req: Request, res: Response)=>{
+router.delete("/delete/:id", validateInputParam, async(req: Request, res: Response)=>{
     const id = parseInt(req.params.id);
 
     const response = await deleteTask(id);
@@ -69,6 +69,10 @@ router.get("/view", async(req: Request, res: Response)=>{
     return res.status(StatusCodes.CREATED).json({
         tasks: response.tasks
     })
+})
+
+router.get("/view/:id", validateInputParam, async(req: Request, res: Response)=>{
+
 })
 
 export default router

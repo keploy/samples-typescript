@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import zod from 'zod';
-import { StatusCodes } from '../../config';
+import { StatusCodes } from '../config';
 
 const validateParamSchema = zod.number();
 
-const validateInputDelete = (req: Request, res: Response, next: NextFunction) => {
+const validateInputParam = (req: Request, res: Response, next: NextFunction) => {
     const id = parseInt(req.params.id);
 
     const zodResponseParam = validateParamSchema.safeParse(id);
@@ -18,4 +18,4 @@ const validateInputDelete = (req: Request, res: Response, next: NextFunction) =>
     return next();
 };
 
-export default validateInputDelete;
+export default validateInputParam;

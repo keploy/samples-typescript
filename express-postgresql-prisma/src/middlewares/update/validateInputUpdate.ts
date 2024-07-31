@@ -3,8 +3,6 @@ import zod from 'zod';
 import { StatusCodes } from '../../config';
 import { Task } from '../../types';
 
-const validateParamSchema = zod.number();
-
 const validateInputSchema = zod.object({
     author: zod.string().max(50, { message: "Author should not be more than 50 characters" }).optional(),
     title: zod.string().max(100, { message: "Title should not be more than 100 characters" }).optional(),
@@ -30,15 +28,6 @@ const validateInputSchema = zod.object({
 
 const validateInputUpdate = (req: Request, res: Response, next: NextFunction) => {
     const body: Task = req.body;
-    const id = parseInt(req.params.id);
-
-    const zodResponseParam = validateParamSchema.safeParse(id);
-
-    if(!zodResponseParam.success){
-        return res.status(StatusCodes.BAD_REQUEST).json({
-            message: zodResponseParam.error.issues[0].message
-        })
-    }
 
     const zodResponseBody = validateInputSchema.safeParse(body);
 
