@@ -19,7 +19,7 @@ model Task {
   author  String
   title   String
   description   String
-  dueDate   DateTime
+  dueDate   String
   status  String
   priority  Int?
   createdAt   DateTime @default(now())
