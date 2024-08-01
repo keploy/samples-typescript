@@ -1,0 +1,44 @@
+paths:
+  /delete/{id}:
+    delete:
+      summary: Delete a task by ID
+      tags:
+        - Tasks
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The task ID
+      responses:
+        201:
+          description: Task deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Task deleted successfully"
+        400:
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Validation error message"
+        403:
+          description: Deletion failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Failed to delete task"
