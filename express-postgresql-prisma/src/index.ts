@@ -19,6 +19,6 @@ app.listen(PORT, ()=>{
     console.log(`Server is listening at PORT ${PORT}
 
     Server: http://localhost:${PORT}
-    API Docs: http://localhost:${PORT}/api-docs
+    API Docs: http://localhost:${PORT}/api/docs
     `);
 });
