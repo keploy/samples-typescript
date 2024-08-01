@@ -1,0 +1,58 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-7
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8080/api/test/user1
+        header:
+            Accept: '*/*'
+            Host: localhost:8080
+            User-Agent: curl/7.88.1
+            X-Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzIxOTc3MDUwLCJleHAiOjE3MjE5NzcwODV9._rKthH5lu_GeCToi76zDZKvJ67T_6V_GPy7zQglylOA
+        body: ""
+        timestamp: 2024-07-26T12:27:49.615013889+05:30
+    resp:
+        status_code: 404
+        header:
+            Access-Control-Allow-Headers: Origin, Content-Type, Accept
+            Access-Control-Allow-Origin: http://localhost:8081
+            Connection: keep-alive
+            Content-Length: "153"
+            Content-Security-Policy: default-src 'none'
+            Content-Type: text/html; charset=utf-8
+            Date: Fri, 26 Jul 2024 06:57:49 GMT
+            Keep-Alive: timeout=5
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Powered-By: Express
+        body: |
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+            <meta charset="utf-8">
+            <title>Error</title>
+            </head>
+            <body>
+            <pre>Cannot GET /api/test/user1</pre>
+            </body>
+            </html>
+        status_message: Not Found
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-07-26T12:27:51.652809542+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1721977071
+curl: |
+    curl --request GET \
+      --url http://localhost:8080/api/test/user1 \
+      --header 'Host: localhost:8080' \
+      --header 'User-Agent: curl/7.88.1' \
+      --header 'Accept: */*' \
+      --header 'X-Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzIxOTc3MDUwLCJleHAiOjE3MjE5NzcwODV9._rKthH5lu_GeCToi76zDZKvJ67T_6V_GPy7zQglylOA' \
