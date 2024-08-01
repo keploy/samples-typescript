@@ -1,5 +1,5 @@
 paths:
-  /change-priority/{id}:
+  /api/v1/task/change-priority/{id}:
     put:
       summary: Change the priority of a task by ID
       tags:

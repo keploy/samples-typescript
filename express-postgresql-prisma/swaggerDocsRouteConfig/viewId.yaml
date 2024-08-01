@@ -1,5 +1,5 @@
 paths:
-  /view/{id}:
+  /api/v1/task/view/{id}:
     get:
       summary: View a task by ID
       tags:

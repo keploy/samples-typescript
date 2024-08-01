@@ -1,5 +1,5 @@
 paths:
-  /view:
+  /api/v1/task/view:
     get:
       summary: View all tasks
       tags:

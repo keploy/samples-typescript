@@ -1,5 +1,5 @@
 paths:
-  /update/{id}:
+  /api/v1/task/update/{id}:
     put:
       summary: Update a task by ID
       tags:
