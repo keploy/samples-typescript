@@ -1,0 +1,44 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-3
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:5000/users
+        header:
+            Accept: '*/*'
+            Host: localhost:5000
+            User-Agent: curl/8.6.0
+        body: ""
+        timestamp: 2024-08-02T14:30:38.59090468Z
+    resp:
+        status_code: 200
+        header:
+            Content-Length: "34"
+            Content-Type: application/json
+            Date: Fri, 02 Aug 2024 14:30:38 GMT
+            Server: Werkzeug/3.0.3 Python/3.10.14
+        body: |
+            {
+              "users": [
+                "keploy"
+              ]
+            }
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-08-02T14:30:40.641982168Z
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1722609040
+curl: |
+    curl --request GET \
+      --url http://localhost:5000/users \
+      --header 'Host: localhost:5000' \
+      --header 'User-Agent: curl/8.6.0' \
+      --header 'Accept: */*' \

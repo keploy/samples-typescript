@@ -1,0 +1,113 @@
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-0
+spec:
+    metadata:
+        type: config
+    redisrequests:
+        - origin: client
+          message:
+            - type: string
+              data: "*4\r\n$6\r\nCLIENT\r\n$7\r\nSETINFO\r\n$8\r\nLIB-NAME\r\n$8\r\nredis-py\r\n"
+    redisresponses:
+        - origin: server
+          message:
+            - type: string
+              data: "+OK\r\n"
+    reqtimestampmock: 2024-08-02T14:30:27.470693176Z
+    restimestampmock: 2024-08-02T14:30:27.472249718Z
+---
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-1
+spec:
+    metadata:
+        type: config
+    redisrequests:
+        - origin: client
+          message:
+            - type: string
+              data: "*4\r\n$6\r\nCLIENT\r\n$7\r\nSETINFO\r\n$7\r\nLIB-VER\r\n$5\r\n5.0.8\r\n"
+    redisresponses:
+        - origin: server
+          message:
+            - type: string
+              data: "+OK\r\n"
+    reqtimestampmock: 2024-08-02T14:30:27.473307051Z
+    restimestampmock: 2024-08-02T14:30:27.473777426Z
+---
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-2
+spec:
+    metadata:
+        type: config
+    redisrequests:
+        - origin: client
+          message:
+            - type: string
+              data: "*2\r\n$6\r\nEXISTS\r\n$6\r\nkeploy\r\n"
+    redisresponses:
+        - origin: server
+          message:
+            - type: string
+              data: ":0\r\n"
+    reqtimestampmock: 2024-08-02T14:30:27.474443009Z
+    restimestampmock: 2024-08-02T14:30:27.474939884Z
+---
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-3
+spec:
+    metadata:
+        type: config
+    redisrequests:
+        - origin: client
+          message:
+            - type: string
+              data: "*4\r\n$4\r\nHSET\r\n$6\r\nkeploy\r\n$8\r\npassword\r\n$9\r\n123456789\r\n"
+    redisresponses:
+        - origin: server
+          message:
+            - type: string
+              data: ":1\r\n"
+    reqtimestampmock: 2024-08-02T14:30:27.475884676Z
+    restimestampmock: 2024-08-02T14:30:27.477373468Z
+---
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-4
+spec:
+    metadata:
+        type: config
+    redisrequests:
+        - origin: client
+          message:
+            - type: string
+              data: "*3\r\n$4\r\nHGET\r\n$6\r\nkeploy\r\n$8\r\npassword\r\n"
+    redisresponses:
+        - origin: server
+          message:
+            - type: string
+              data: "$9\r\n123456789\r\n"
+    reqtimestampmock: 2024-08-02T14:30:33.062512054Z
+    restimestampmock: 2024-08-02T14:30:33.063008304Z
+---
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-5
+spec:
+    metadata:
+        type: config
+    redisrequests:
+        - origin: client
+          message:
+            - type: string
+              data: "*2\r\n$4\r\nKEYS\r\n$1\r\n*\r\n"
+    redisresponses:
+        - origin: server
+          message:
+            - type: string
+              data: "*1\r\n$6\r\nkeploy\r\n"
+    reqtimestampmock: 2024-08-02T14:30:38.583319417Z
+    restimestampmock: 2024-08-02T14:30:38.583579625Z

@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    container_name: flask-web
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+    environment:
+      - FLASK_ENV=development
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    # volumes:
+    #   - .:/usr/src/app
+    networks:
+      - keploy-network
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis-server
+    restart: always
+    ports:
+      - "6379:6379"
+    # volumes:
+    #   - db_data:/var/lib/redis
+    networks:
+      - keploy-network
+
+networks:
+  keploy-network:
+    external: true
+# volumes:
+#   db_data:

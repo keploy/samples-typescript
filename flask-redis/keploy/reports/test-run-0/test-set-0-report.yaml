@@ -1,0 +1,289 @@
+version: api.keploy.io/v1beta1
+name: test-set-0-report
+status: PASSED
+success: 3
+failure: 0
+ignored: 0
+total: 3
+tests:
+    - kind: Http
+      name: test-set-0
+      status: PASSED
+      started: 1722609064
+      completed: 1722609064
+      test_case_path: /Users/amanrai/Desktop/flask-redis/keploy/test-set-0
+      mock_path: /Users/amanrai/Desktop/flask-redis/keploy/test-set-0/mocks
+      test_case_id: test-1
+      req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://172.18.0.4:5000/signup
+        header:
+            Accept: '*/*'
+            Content-Length: "47"
+            Content-Type: application/json
+            Host: localhost:5000
+            User-Agent: curl/8.6.0
+        body: '{"username": "keploy", "password": "123456789"}'
+        timestamp: 2024-08-02T14:30:27.462534051Z
+      resp:
+        status_code: 201
+        header:
+            Content-Length: "47"
+            Content-Type: application/json
+            Date: Fri, 02 Aug 2024 14:31:04 GMT
+            Server: Werkzeug/3.0.3 Python/3.10.14
+        body: |
+            {
+              "message": "User signed up successfully"
+            }
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+      noise:
+        header.Date: []
+      result:
+        status_code:
+            normal: true
+            expected: 201
+            actual: 201
+        headers_result:
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "47"
+              actual:
+                key: Content-Length
+                value:
+                    - "47"
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json
+              actual:
+                key: Content-Type
+                value:
+                    - application/json
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Fri, 02 Aug 2024 14:30:27 GMT
+              actual:
+                key: Date
+                value:
+                    - Fri, 02 Aug 2024 14:31:04 GMT
+            - normal: true
+              expected:
+                key: Server
+                value:
+                    - Werkzeug/3.0.3 Python/3.10.14
+              actual:
+                key: Server
+                value:
+                    - Werkzeug/3.0.3 Python/3.10.14
+        body_result:
+            - normal: true
+              type: JSON
+              expected: |
+                {
+                  "message": "User signed up successfully"
+                }
+              actual: |
+                {
+                  "message": "User signed up successfully"
+                }
+        dep_result: []
+    - kind: Http
+      name: test-set-0
+      status: PASSED
+      started: 1722609064
+      completed: 1722609064
+      test_case_path: /Users/amanrai/Desktop/flask-redis/keploy/test-set-0
+      mock_path: /Users/amanrai/Desktop/flask-redis/keploy/test-set-0/mocks
+      test_case_id: test-2
+      req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://172.18.0.4:5000/login
+        header:
+            Accept: '*/*'
+            Content-Length: "47"
+            Content-Type: application/json
+            Host: localhost:5000
+            User-Agent: curl/8.6.0
+        body: '{"username": "keploy", "password": "123456789"}'
+        timestamp: 2024-08-02T14:30:33.067492637Z
+      resp:
+        status_code: 200
+        header:
+            Content-Length: "47"
+            Content-Type: application/json
+            Date: Fri, 02 Aug 2024 14:31:04 GMT
+            Server: Werkzeug/3.0.3 Python/3.10.14
+        body: |
+            {
+              "message": "User logged in successfully"
+            }
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+      noise:
+        header.Date: []
+      result:
+        status_code:
+            normal: true
+            expected: 200
+            actual: 200
+        headers_result:
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json
+              actual:
+                key: Content-Type
+                value:
+                    - application/json
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Fri, 02 Aug 2024 14:30:33 GMT
+              actual:
+                key: Date
+                value:
+                    - Fri, 02 Aug 2024 14:31:04 GMT
+            - normal: true
+              expected:
+                key: Server
+                value:
+                    - Werkzeug/3.0.3 Python/3.10.14
+              actual:
+                key: Server
+                value:
+                    - Werkzeug/3.0.3 Python/3.10.14
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "47"
+              actual:
+                key: Content-Length
+                value:
+                    - "47"
+        body_result:
+            - normal: true
+              type: JSON
+              expected: |
+                {
+                  "message": "User logged in successfully"
+                }
+              actual: |
+                {
+                  "message": "User logged in successfully"
+                }
+        dep_result: []
+    - kind: Http
+      name: test-set-0
+      status: PASSED
+      started: 1722609064
+      completed: 1722609064
+      test_case_path: /Users/amanrai/Desktop/flask-redis/keploy/test-set-0
+      mock_path: /Users/amanrai/Desktop/flask-redis/keploy/test-set-0/mocks
+      test_case_id: test-3
+      req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://172.18.0.4:5000/users
+        header:
+            Accept: '*/*'
+            Host: localhost:5000
+            User-Agent: curl/8.6.0
+        body: ""
+        timestamp: 2024-08-02T14:30:38.59090468Z
+      resp:
+        status_code: 200
+        header:
+            Content-Length: "34"
+            Content-Type: application/json
+            Date: Fri, 02 Aug 2024 14:31:04 GMT
+            Server: Werkzeug/3.0.3 Python/3.10.14
+        body: |
+            {
+              "users": [
+                "keploy"
+              ]
+            }
+        status_message: ""
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 0001-01-01T00:00:00Z
+      noise:
+        header.Date: []
+      result:
+        status_code:
+            normal: true
+            expected: 200
+            actual: 200
+        headers_result:
+            - normal: true
+              expected:
+                key: Content-Length
+                value:
+                    - "34"
+              actual:
+                key: Content-Length
+                value:
+                    - "34"
+            - normal: true
+              expected:
+                key: Content-Type
+                value:
+                    - application/json
+              actual:
+                key: Content-Type
+                value:
+                    - application/json
+            - normal: true
+              expected:
+                key: Date
+                value:
+                    - Fri, 02 Aug 2024 14:30:38 GMT
+              actual:
+                key: Date
+                value:
+                    - Fri, 02 Aug 2024 14:31:04 GMT
+            - normal: true
+              expected:
+                key: Server
+                value:
+                    - Werkzeug/3.0.3 Python/3.10.14
+              actual:
+                key: Server
+                value:
+                    - Werkzeug/3.0.3 Python/3.10.14
+        body_result:
+            - normal: true
+              type: JSON
+              expected: |
+                {
+                  "users": [
+                    "keploy"
+                  ]
+                }
+              actual: |
+                {
+                  "users": [
+                    "keploy"
+                  ]
+                }
+        dep_result: []
+test_set: test-set-0

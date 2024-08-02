@@ -1,0 +1,46 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-2
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:5000/login
+        header:
+            Accept: '*/*'
+            Content-Length: "47"
+            Content-Type: application/json
+            Host: localhost:5000
+            User-Agent: curl/8.6.0
+        body: '{"username": "keploy", "password": "123456789"}'
+        timestamp: 2024-08-02T14:30:33.067492637Z
+    resp:
+        status_code: 200
+        header:
+            Content-Length: "47"
+            Content-Type: application/json
+            Date: Fri, 02 Aug 2024 14:30:33 GMT
+            Server: Werkzeug/3.0.3 Python/3.10.14
+        body: |
+            {
+              "message": "User logged in successfully"
+            }
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-08-02T14:30:35.068004638Z
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1722609035
+curl: |-
+    curl --request POST \
+      --url http://localhost:5000/login \
+      --header 'User-Agent: curl/8.6.0' \
+      --header 'Accept: */*' \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:5000' \
+      --data '{"username": "keploy", "password": "123456789"}'
