@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -b",
+    "clean-build": "rm -rf ./dist & tsc -b",
     "start": "node dist/index.js",
     "dev": "tsc -w & nodemon dist/index.js",
     "generate": "prisma generate",
