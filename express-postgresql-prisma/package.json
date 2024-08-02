@@ -10,6 +10,7 @@
     "dev": "tsc -w & nodemon dist/index.js",
     "generate": "prisma generate",
     "migrate": "prisma migrate dev --name",
+    "migrate-data": "prisma migrate dev",
     "reset": "prisma migrate reset"
   },
   "repository": {
