@@ -1,0 +1,54 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-7
+spec:
+    metadata: {}
+    req:
+        method: PUT
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/todos/1
+        header:
+            Accept: '*/*'
+            Content-Length: "53"
+            Content-Type: application/json
+            Host: localhost:3000
+            User-Agent: curl/8.6.0
+        body: |-
+            {
+                "name": "cricket",
+                "isCompleted": false
+              }
+        timestamp: 2024-07-31T21:15:09.545669492Z
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Connection: keep-alive
+            Content-Length: "41"
+            Content-Type: application/json; charset=utf-8
+            Date: Wed, 31 Jul 2024 21:15:10 GMT
+            Etag: W/"29-qLEo+XrP7v2fwdMnfflCBAkXuiQ"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '{"message":"Successfully updated","id":1}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-07-31T21:15:12.333616843Z
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1722460512
+curl: |-
+    curl --request PUT \
+      --url http://localhost:3000/todos/1 \
+      --header 'Accept: */*' \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:3000' \
+      --header 'User-Agent: curl/8.6.0' \
+      --data '{
+        "name": "cricket",
+        "isCompleted": false
+      }'

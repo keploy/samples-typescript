@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+    container_name: ts-nhost
+    ports:
+      - "3000:3000"
+    networks:
+      - keploy-network
+
+networks:
+  keploy-network:
+    external: true
