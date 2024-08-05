@@ -1,0 +1,84 @@
+Copy paste the curl commands each at a time and run it on terminal/cmd
+
+--------------------------------------------------------------------------------------------------------
+
+-Create a new user
+
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "arpit@gmail.com",
+    "password": "123456789",
+    "locale": "en",
+    "displayName": "Arpit"
+  }' \
+  http://localhost:3000/users
+
+--------------------------------------------------------------------------------------------------------
+
+-Get all users
+
+curl -X GET \  -H "Content-Type: application/json" \
+  http://localhost:3000/users
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+-Delete a user
+--replace <id> with id of any users from users list
+
+curl -X DELETE \
+  -H "Content-Type: application/json" \
+  http://localhost:3000/users/<id>
+
+--------------------------------------------------------------------------------------------------------
+
+-Create a todo table
+
+curl -X POST \  -H "Content-Type: application/json" \
+  http://localhost:3000/todos/createtable
+
+--------------------------------------------------------------------------------------------------------
+
+-Insert a todo activity into todo table
+
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Study",
+    "isCompleted": false
+  }' \
+  http://localhost:3000/todos
+
+--------------------------------------------------------------------------------------------------------
+
+-Get all todo list
+
+curl -X GET \  -H "Content-Type: application/json" \
+  http://localhost:3000/todos
+
+--------------------------------------------------------------------------------------------------------
+
+-Update the todo activity
+--replace <id> with the id of the todo activity you want to update
+--replace <name> with any name you want to change to
+
+curl -X PUT \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "<name>",
+    "isCompleted": false
+  }' \
+  http://localhost:3000/todos/<id>
+
+--------------------------------------------------------------------------------------------------------
+
+-Delete the todo activity
+--replace <id> with any id in todo list you want to delete
+
+curl -X DELETE \
+  -H "Content-Type: application/json" \
+  http://localhost:3000/todos/<id>
+
+
