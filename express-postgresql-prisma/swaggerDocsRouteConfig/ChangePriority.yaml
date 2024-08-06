@@ -1,0 +1,57 @@
+paths:
+  /api/v1/task/change-priority/{id}:
+    put:
+      summary: Change the priority of a task by ID
+      tags:
+        - Tasks
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The task ID
+      requestBody:
+        description: Priority data to update the task
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                priority:
+                  type: integer
+                  enum: [1, 2, 3, 4, 5]
+                  description: Priority of the task
+                  example: 3
+      responses:
+        201:
+          description: Task priority updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Priority Changed Successfully"
+        400:
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Validation error message"
+        403:
+          description: Update failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Failed to Change Priority"
