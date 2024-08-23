@@ -1,0 +1,47 @@
+{
+  "name": "task-manager",
+  "version": "1.0.0",
+  "description": "An Express server to manage personal or team tasks.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -b",
+    "clean-build": "rm -rf ./dist & tsc -b",
+    "start": "node dist/index.js",
+    "dev": "tsc -w & nodemon dist/index.js",
+    "generate": "prisma generate",
+    "migrate": "prisma migrate dev --name",
+    "migrate-data": "prisma migrate dev",
+    "reset": "prisma migrate reset"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keploy/samples-typescript.git"
+  },
+  "author": "starvader13",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keploy/samples-typescript/issues"
+  },
+  "homepage": "https://github.com/keploy/samples-typescript#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.0.0",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
+    "@types/yamljs": "^0.2.34",
+    "prisma": "^5.17.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.17.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0",
+    "zod": "^3.23.8"
+  }
+}

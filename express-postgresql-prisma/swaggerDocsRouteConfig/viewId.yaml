@@ -1,0 +1,92 @@
+paths:
+  /api/v1/task/view/{id}:
+    get:
+      summary: View a task by ID
+      tags:
+        - Tasks
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The task ID
+      responses:
+        201:
+          description: Task retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  task:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      author:
+                        type: string
+                        example: "John Doe"
+                      title:
+                        type: string
+                        example: "Complete the report"
+                      description:
+                        type: string
+                        example: "Complete the quarterly report by end of the week"
+                      dueDate:
+                        type: string
+                        example: "2024-08-01"
+                      status:
+                        type: string
+                        example: "Pending"
+                      priority:
+                        type: integer
+                        example: 3
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2024-07-31T12:34:56Z"
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: "2024-07-31T12:34:56Z"
+        403:
+          description: Retrieval failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  task:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      author:
+                        type: string
+                        example: "John Doe"
+                      title:
+                        type: string
+                        example: "Complete the report"
+                      description:
+                        type: string
+                        example: "Complete the quarterly report by end of the week"
+                      dueDate:
+                        type: string
+                        example: "2024-08-01"
+                      status:
+                        type: string
+                        example: "Pending"
+                      priority:
+                        type: integer
+                        example: 3
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2024-07-31T12:34:56Z"
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: "2024-07-31T12:34:56Z"
