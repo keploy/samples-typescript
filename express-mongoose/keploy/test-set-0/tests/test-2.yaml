@@ -1,0 +1,49 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-2
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:8000/students
+        header:
+            Accept: '*/*'
+            Content-Length: "69"
+            Content-Type: application/json
+            Host: localhost:8000
+            User-Agent: curl/7.88.1
+        body: '{"name":"Alice Green","email":"green@alice.com","phone":"3939201584"}'
+        timestamp: 2024-06-14T22:13:12.377074288+05:30
+    resp:
+        status_code: 201
+        header:
+            Connection: keep-alive
+            Content-Length: "32"
+            Content-Type: text/html; charset=utf-8
+            Date: Fri, 14 Jun 2024 16:43:12 GMT
+            Etag: W/"20-eRnsw5wzaHLQ7mrcxkJtVBiy7Xg"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: Student registration successful!
+        status_message: Created
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-06-14T22:13:14.444890762+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+            header.Keep-Alive: []
+            header.connection: []
+            header.Etag: []
+    created: 1718383394
+curl: |-
+    curl --request POST \
+      --url http://localhost:8000/students \
+      --header 'Accept: */*' \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:8000' \
+      --header 'User-Agent: curl/7.88.1' \
+      --data '{"name":"Alice Green","email":"green@alice.com","phone":"3939201584"}'

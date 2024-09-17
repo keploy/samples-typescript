@@ -1,0 +1,44 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-4
+spec:
+    metadata: {}
+    req:
+        method: PATCH
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/products/8444f5c5-1d1a-4d33-903f-4167317a4614
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Contain-Type: application/json
+            Content-Length: "65"
+            Content-Type: application/json
+            Host: localhost:3000
+            Postman-Token: 467c6bbf-a1d1-4a18-a424-b13fab8ee60f
+            User-Agent: PostmanRuntime/7.32.1
+        body: "{\r\n    \r\n    \"name\":\"alph2\",\r\n    \"desc\":\"fgh\",\r\n    \"cost\":20\r\n}"
+        timestamp: 2024-04-21T10:02:10.304845085+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Length: "2"
+            Content-Type: applications/json; charset=utf-8
+            Date: Sun, 21 Apr 2024 04:32:10 GMT
+            Etag: W/"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: '[]'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-21T10:02:12.410638182+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1713673932
+curl: "curl --request PATCH \\\n  --url http://localhost:3000/products/8444f5c5-1d1a-4d33-903f-4167317a4614 \\\n  --header 'Postman-Token: 467c6bbf-a1d1-4a18-a424-b13fab8ee60f' \\\n  --header 'Accept-Encoding: gzip, deflate, br' \\\n  --header 'Contain-Type: application/json' \\\n  --header 'Content-Type: application/json' \\\n  --header 'Cache-Control: no-cache' \\\n  --header 'Accept: */*' \\\n  --header 'User-Agent: PostmanRuntime/7.32.1' \\\n  --header 'Host: localhost:3000' \\\n  --header 'Connection: keep-alive' \\\n  --data '{\r\n    \r\n    \"name\":\"alph2\",\r\n    \"desc\":\"fgh\",\r\n    \"cost\":20\r\n}'"
