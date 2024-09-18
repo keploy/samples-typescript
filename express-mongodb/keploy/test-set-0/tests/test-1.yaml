@@ -1,0 +1,66 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/
+        header:
+            Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+            Accept-Encoding: gzip, deflate, br
+            Accept-Language: en-GB,en
+            Connection: keep-alive
+            Host: localhost:3000
+            If-None-Match: W/"22-1zTtRKCtWDH+a9AlmEC9xS1mvKM"
+            Sec-Ch-Ua: '"Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"'
+            Sec-Ch-Ua-Mobile: ?0
+            Sec-Ch-Ua-Platform: '"Linux"'
+            Sec-Fetch-Dest: document
+            Sec-Fetch-Mode: navigate
+            Sec-Fetch-Site: none
+            Sec-Fetch-User: ?1
+            Sec-Gpc: "1"
+            Upgrade-Insecure-Requests: "1"
+            User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+        body: ""
+        timestamp: 2024-04-22T14:59:23.376284154+05:30
+    resp:
+        status_code: 304
+        header:
+            Connection: keep-alive
+            Date: Mon, 22 Apr 2024 09:29:23 GMT
+            Etag: W/"22-1zTtRKCtWDH+a9AlmEC9xS1mvKM"
+            Keep-Alive: timeout=5
+            X-Powered-By: Express
+        body: ""
+        status_message: Not Modified
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-04-22T14:59:23.516347365+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1713778163
+curl: |
+    curl --request GET \
+      --url http://localhost:3000/ \
+      --header 'Sec-Fetch-User: ?1' \
+      --header 'Sec-Fetch-Dest: document' \
+      --header 'Upgrade-Insecure-Requests: 1' \
+      --header 'Sec-Gpc: 1' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'Sec-Fetch-Mode: navigate' \
+      --header 'Accept-Language: en-GB,en' \
+      --header 'Host: localhost:3000' \
+      --header 'If-None-Match: W/"22-1zTtRKCtWDH+a9AlmEC9xS1mvKM"' \
+      --header 'Sec-Ch-Ua-Mobile: ?0' \
+      --header 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36' \
+      --header 'Sec-Fetch-Site: none' \
+      --header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8' \
+      --header 'Connection: keep-alive' \
+      --header 'Sec-Ch-Ua: "Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"' \
+      --header 'Sec-Ch-Ua-Platform: "Linux"' \

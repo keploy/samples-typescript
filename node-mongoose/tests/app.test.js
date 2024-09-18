@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { app, mongoConnection ,Course} = require('./app');
+const { app, mongoConnection ,Course} = require('../app');
 const mongoose = require("mongoose");
 
 beforeAll(async () => {
