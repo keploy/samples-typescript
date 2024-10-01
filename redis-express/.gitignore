@@ -1,0 +1,6 @@
+# node modules
+node_modules
+
+# vs code
+
+.DS_Store
