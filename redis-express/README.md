@@ -29,6 +29,7 @@ Clone the repository and move to express-redis folder
 git clone https://github.com/keploy/samples-typescript.git
 cd samples-typescript/express-redis
 ```
+## Installing Locally
 
 ### Install the dependencies
 ```bash
@@ -45,29 +46,26 @@ docker run -d --name redis-stack-server -p 6379:6379 redis/redis-stack-server:la
 In case of running application natively, we will have to change the host to localhost in index.ts
 
 ```bash
-    const redisClient = new Redis({
+const redisClient = new Redis({
 ```
 
 If running server on docker
 
 ```bash
-    host: 'redis',
+host: 'redis',
 ```
 
 If running server locally
 
 ```bash
-    host: 'localhost'
-    port: 6379
+host: 'localhost'
+port: 6379
 ```
 
+### Build the application:
 ```bash
-    npm install
-    npm run build
-```
-
-> redis-ts@1.0.0 build
-> tsc -b
+npm install
+npm run build
 ```
 
 ### Start the application:
@@ -75,11 +73,12 @@ If running server locally
 npm run start
 ```
 
-```bash
 
 > redis-ts@1.0.0 start
 > node dist/index.js
 
+
+```bash
 Server is running on http://localhost:3000
 Connected to Redis server
 Sample books loaded into Redis
@@ -87,10 +86,28 @@ Sample books loaded into Redis
 
 Some sample data is automatically created in redis.
 
-### Generate Test Cases
+
+## Using Docker
+
+Make sure you have docker installed.
 
 ```bash
+git clone https://github.com/keploy/samples-typescript.git
+cd samples-typescript/express-redis
+docker compose up
+```
+
+### Generate Test Cases
+
+For server running locally.
+```bash
 keploy record -c "npm run start"
+```
+
+For the docker container.
+
+```bash
+keploy record -c "docker compose up" --container-name "redis-express" -n "keploy-network"
 ```
 
 The above command will start recording the API calls made to the application and will generate a test case in the `testcases/` directory.
@@ -145,8 +162,15 @@ Voila!! Our test cases have passed 🌟
 
 ### Test the Application using Keploy
 
+For server running locally.
 ```bash
-keploy test -c "npm start"
+keploy test -c "npm run start"
+```
+
+For the docker container.
+
+```bash
+keploy test -c "docker compose up" --container-name "redis-express" -n "keploy-network"
 ```
 
 Keploy will replay the recorded interactions and validate the responses against the expected results.
