@@ -13,6 +13,9 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+RUN npm run generate
+RUN npm run migrate init
+
 RUN npm run clean-build
 
 # Expose the port the app runs on
