@@ -65,10 +65,10 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 
 ### Let's start the MongoDB Instance
 ```zsh
-docker-compose up -d
+docker-compose up -d mongo
 ```
 
-> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `supabun.ts`, from `mongodb://mongoDb-bun:27017/keploy` to `mongodb://loacalhost:27017/keploy`.**
+> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `supabun.ts`, from `mongodb://mongoDb-bun:27017/keploy` to `mongodb://localhost:27017/keploy`.**
 
 ### Capture the testcases
 
