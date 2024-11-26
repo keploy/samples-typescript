@@ -65,10 +65,10 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 
 ### Let's start the MongoDB Instance
 ```zsh
-docker-compose up -d
+docker-compose up -d mongo
 ```
 
-> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `supabun.ts`, from `mongodb://mongoDb-bun:27017/keploy` to `mongodb://loacalhost:27017/keploy`.**
+> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `supabun.ts`, from `mongodb://mongoDb-bun:27017/keploy` to `mongodb://localhost:27017/keploy`.**
 
 ### Capture the testcases
 
@@ -107,10 +107,16 @@ We will get the following output in our terminal
 
 Keploy can be used on Linux & Windows through Docker, and on MacOS by the help of [Colima](https://docs.keploy.io/docs/server/macos/installation/#using-colima).
 
-## Create Keploy Alias
-We need create an alias for Keploy:
+## Create Network (if it doesn't already exist)
+This creates a new docker network isolated from others (named keploy-network)
 ```bash
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
+docker network create keploy-network
+```
+
+## Create Keploy Alias
+Now, we need create an alias for Keploy:
+```bash
+alias keploy='sudo docker run --pull always --name keploy-v2 --network keploy-network -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
 ```
 
 ## Let's start the MongoDB Instance
