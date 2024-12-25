@@ -1,0 +1,58 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-6
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/todos
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NzgyZWY2Mi03ZmY4LTQ2NzEtYjFjMS04MGYzMDA5NGVlMmUiLCJpYXQiOjE3MzUxMjM2MDR9.xua1on3OilfNQ8Ta3h6EqtL6ce_WmBG5ef_gTwKIyP4
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: "31"
+            Content-Type: application/json
+            Host: localhost:3000
+            Postman-Token: 0d90abf1-c589-4a4a-9bc9-9bd99d785e44
+            User-Agent: PostmanRuntime/7.43.0
+        body: |-
+            {
+                "title" : "Test Todo 2"
+            }
+        timestamp: 2024-12-25T16:17:43.655152682+05:30
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Content-Length: "211"
+            Content-Type: application/json
+            Date: Wed, 25 Dec 2024 10:47:43 GMT
+        body: '{"id":"64fd1980-5258-424c-91b7-1d04a550432d","title":"Test Todo 2","completed":false,"userId":"8782ef62-7ff8-4671-b1c1-80f30094ee2e","createdAt":"2024-12-25T10:47:43.658Z","updatedAt":"2024-12-25T10:47:43.658Z"}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-12-25T16:17:45.693084387+05:30
+    objects: []
+    assertions:
+        noise:
+            body.createdAt: []
+            body.updatedAt: []
+            header.Date: []
+    created: 1735123665
+curl: |-
+    curl --request POST \
+      --url http://localhost:3000/todos \
+      --header 'Connection: keep-alive' \
+      --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NzgyZWY2Mi03ZmY4LTQ2NzEtYjFjMS04MGYzMDA5NGVlMmUiLCJpYXQiOjE3MzUxMjM2MDR9.xua1on3OilfNQ8Ta3h6EqtL6ce_WmBG5ef_gTwKIyP4' \
+      --header 'Cache-Control: no-cache' \
+      --header 'Accept: */*' \
+      --header 'Postman-Token: 0d90abf1-c589-4a4a-9bc9-9bd99d785e44' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'Content-Type: application/json' \
+      --header 'User-Agent: PostmanRuntime/7.43.0' \
+      --header 'Host: localhost:3000' \
+      --data "{\n    \"title\" : \"Test Todo 2\"\n}"

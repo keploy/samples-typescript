@@ -1,0 +1,55 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-3
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/login
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: "63"
+            Content-Type: application/json
+            Host: localhost:3000
+            Postman-Token: 49a8e6ce-f6e3-4149-9be2-dcdbe0df1969
+            User-Agent: PostmanRuntime/7.43.0
+        body: |-
+            {
+                "email" : "test2@gmail.com",
+                "password" : "test123"
+            }
+        timestamp: 2024-12-25T16:16:44.740088526+05:30
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Content-Length: "181"
+            Content-Type: application/json
+            Date: Wed, 25 Dec 2024 10:46:44 GMT
+        body: '{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NzgyZWY2Mi03ZmY4LTQ2NzEtYjFjMS04MGYzMDA5NGVlMmUiLCJpYXQiOjE3MzUxMjM2MDR9.xua1on3OilfNQ8Ta3h6EqtL6ce_WmBG5ef_gTwKIyP4"}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-12-25T16:16:46.858224148+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1735123606
+curl: |-
+    curl --request POST \
+      --url http://localhost:3000/login \
+      --header 'User-Agent: PostmanRuntime/7.43.0' \
+      --header 'Connection: keep-alive' \
+      --header 'Postman-Token: 49a8e6ce-f6e3-4149-9be2-dcdbe0df1969' \
+      --header 'Host: localhost:3000' \
+      --header 'Cache-Control: no-cache' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'Content-Type: application/json' \
+      --header 'Accept: */*' \
+      --data "{\n    \"email\" : \"test2@gmail.com\",\n    \"password\" : \"test123\"\n}"

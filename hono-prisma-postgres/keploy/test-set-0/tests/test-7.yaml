@@ -1,0 +1,58 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-7
+spec:
+    metadata: {}
+    req:
+        method: POST
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/todos
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NzgyZWY2Mi03ZmY4LTQ2NzEtYjFjMS04MGYzMDA5NGVlMmUiLCJpYXQiOjE3MzUxMjM2MDR9.xua1on3OilfNQ8Ta3h6EqtL6ce_WmBG5ef_gTwKIyP4
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: "31"
+            Content-Type: application/json
+            Host: localhost:3000
+            Postman-Token: a67092af-5dff-40fe-b0e6-a4b3a576e4bd
+            User-Agent: PostmanRuntime/7.43.0
+        body: |-
+            {
+                "title" : "Test Todo 3"
+            }
+        timestamp: 2024-12-25T16:17:47.383713524+05:30
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Content-Length: "211"
+            Content-Type: application/json
+            Date: Wed, 25 Dec 2024 10:47:46 GMT
+        body: '{"id":"cfc860aa-b5b4-4ece-9267-b27b99beb51a","title":"Test Todo 3","completed":false,"userId":"8782ef62-7ff8-4671-b1c1-80f30094ee2e","createdAt":"2024-12-25T10:47:47.386Z","updatedAt":"2024-12-25T10:47:47.386Z"}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-12-25T16:17:49.401329015+05:30
+    objects: []
+    assertions:
+        noise:
+            body.createdAt: []
+            body.updatedAt: []
+            header.Date: []
+    created: 1735123669
+curl: |-
+    curl --request POST \
+      --url http://localhost:3000/todos \
+      --header 'Postman-Token: a67092af-5dff-40fe-b0e6-a4b3a576e4bd' \
+      --header 'Content-Type: application/json' \
+      --header 'Host: localhost:3000' \
+      --header 'Accept: */*' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'User-Agent: PostmanRuntime/7.43.0' \
+      --header 'Cache-Control: no-cache' \
+      --header 'Connection: keep-alive' \
+      --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NzgyZWY2Mi03ZmY4LTQ2NzEtYjFjMS04MGYzMDA5NGVlMmUiLCJpYXQiOjE3MzUxMjM2MDR9.xua1on3OilfNQ8Ta3h6EqtL6ce_WmBG5ef_gTwKIyP4' \
+      --data "{\n    \"title\" : \"Test Todo 3\"\n}"

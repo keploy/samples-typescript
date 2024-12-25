@@ -1,0 +1,47 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Host: localhost:3000
+            Postman-Token: 2bc09276-938d-4d5c-bb52-42ec955ad1d9
+            User-Agent: PostmanRuntime/7.43.0
+        body: ""
+        timestamp: 2024-12-25T16:16:12.580822546+05:30
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Content-Length: "27"
+            Content-Type: application/json
+            Date: Wed, 25 Dec 2024 10:46:12 GMT
+        body: '{"message":"Hello, world!"}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-12-25T16:16:14.681431854+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1735123574
+curl: |
+    curl --request GET \
+      --url http://localhost:3000/ \
+      --header 'Postman-Token: 2bc09276-938d-4d5c-bb52-42ec955ad1d9' \
+      --header 'Host: localhost:3000' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'Connection: keep-alive' \
+      --header 'User-Agent: PostmanRuntime/7.43.0' \
+      --header 'Accept: */*' \
+      --header 'Cache-Control: no-cache' \

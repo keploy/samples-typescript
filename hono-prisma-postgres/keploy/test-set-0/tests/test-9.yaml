@@ -1,0 +1,51 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-9
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/todos
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NzgyZWY2Mi03ZmY4LTQ2NzEtYjFjMS04MGYzMDA5NGVlMmUiLCJpYXQiOjE3MzUxMjM2MDR9.xua1on3OilfNQ8Ta3h6EqtL6ce_WmBG5ef_gTwKIyP4
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Host: localhost:3000
+            Postman-Token: 3f64eaae-e6cf-41c5-8fb7-b7dd3a05a77c
+            User-Agent: PostmanRuntime/7.43.0
+        body: ""
+        timestamp: 2024-12-25T16:18:44.914579575+05:30
+    resp:
+        status_code: 200
+        header:
+            Access-Control-Allow-Origin: '*'
+            Content-Length: "645"
+            Content-Type: application/json
+            Date: Wed, 25 Dec 2024 10:48:44 GMT
+        body: '[{"id":"5ca8f981-e1c8-4dc9-95ce-af5d34b7b9e3","title":"Test Todo 1","completed":false,"userId":"8782ef62-7ff8-4671-b1c1-80f30094ee2e","createdAt":"2024-12-25T10:47:30.130Z","updatedAt":"2024-12-25T10:47:30.130Z"},{"id":"64fd1980-5258-424c-91b7-1d04a550432d","title":"Test Todo 2","completed":false,"userId":"8782ef62-7ff8-4671-b1c1-80f30094ee2e","createdAt":"2024-12-25T10:47:43.658Z","updatedAt":"2024-12-25T10:47:43.658Z"},{"id":"cfc860aa-b5b4-4ece-9267-b27b99beb51a","title":"Test Todo 3 Updated","completed":false,"userId":"8782ef62-7ff8-4671-b1c1-80f30094ee2e","createdAt":"2024-12-25T10:47:47.386Z","updatedAt":"2024-12-25T10:48:40.249Z"}]'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-12-25T16:18:46.93088299+05:30
+    objects: []
+    assertions:
+        noise:
+            body.createdAt: []
+            body.updatedAt: []
+            header.Date: []
+    created: 1735123726
+curl: |
+    curl --request GET \
+      --url http://localhost:3000/todos \
+      --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NzgyZWY2Mi03ZmY4LTQ2NzEtYjFjMS04MGYzMDA5NGVlMmUiLCJpYXQiOjE3MzUxMjM2MDR9.xua1on3OilfNQ8Ta3h6EqtL6ce_WmBG5ef_gTwKIyP4' \
+      --header 'User-Agent: PostmanRuntime/7.43.0' \
+      --header 'Accept: */*' \
+      --header 'Cache-Control: no-cache' \
+      --header 'Postman-Token: 3f64eaae-e6cf-41c5-8fb7-b7dd3a05a77c' \
+      --header 'Host: localhost:3000' \
+      --header 'Accept-Encoding: gzip, deflate, br' \
+      --header 'Connection: keep-alive' \
