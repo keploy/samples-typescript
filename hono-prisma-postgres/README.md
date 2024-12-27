@@ -7,6 +7,7 @@ This is a simple Todo application built using **Hono**, **Prisma**, **PostgreSQL
 - User authentication with JWT
 - CRUD operations for Todo items
 - API testing with Keploy
+- Docker support for containerized deployment
 
 ## Tech Stack
 
@@ -16,32 +17,37 @@ This is a simple Todo application built using **Hono**, **Prisma**, **PostgreSQL
 - **Authentication**: JWT
 - **Language**: TypeScript
 - **Package Manager**: Bun
+- **Containerization**: Docker
 
 ## API Endpoints
 
 ### Auth Routes
 
-- `GET /` - Test response
-- `POST /register` - Register a new user
-- `POST /login` - Log in a user
+- GET / - Test response
+- POST /register - Register a new user
+- POST /login - Log in a user
 
 ### Protected Todo Routes (require authentication)
 
-- `POST /todos` - Create a new todo
-- `GET /todos` - Retrieve all todos
-- `PUT /todos` - Update a todo
-- `DELETE /todos` - Delete a todo
+- POST /todos - Create a new todo
+- GET /todos - Retrieve all todos
+- PUT /todos - Update a todo
+- DELETE /todos - Delete a todo
 
 ## Setup Instructions
 
-### Prerequisites
+There are two ways to run this application:
+
+### Method 1: Local Development
+
+#### Prerequisites
 
 - Node.js (with Bun installed)
 - PostgreSQL installed and running
-- Prisma CLI installed globally (`npm install -g prisma`)
+- Prisma CLI installed globally (npm install -g prisma)
 - Keploy installed (Follow [documentation](https://keploy.io/docs/server/installation/) for installation)
 
-### Steps to Run the Project
+#### Steps to Run
 
 1. **Clone the Repository**
 
@@ -51,58 +57,89 @@ This is a simple Todo application built using **Hono**, **Prisma**, **PostgreSQL
    ```
 
 2. **Install Dependencies**
-   Use the following command to install dependencies with Bun:
+
    ```bash
    bun install
    ```
-3. **Setup `.env`**
-   Create a .env file and add your Postgres database url. following is an example url:
+
+3. **Setup .env**
+   Create a .env file and add your Postgres database url:
+
    ```bash
    DATABASE_URL="postgresql://postgres:password@localhost:5432/my_pgserver?schema=public"
    ```
+
 4. **Setup Database**
-   Run the Prisma migration command to initialize the database schema:
 
    ```bash
    npx prisma migrate dev --name init
    ```
 
 5. **Run the Application**
-   Start the application using the following command:
-
    ```bash
    bun dev
    ```
 
-   The application should now be running on the specified port.
+### Method 2: Docker Deployment
+
+#### Prerequisites
+
+- Docker and Docker Compose installed
+- Keploy installed
+
+#### Steps to Run
+
+1. **Create Docker Network**
+
+   ```bash
+   docker network create keploy-network
+   ```
+
+   > **Note:** While this network should be created automatically during installation, this command ensures it exists.
+
+   ```
+
+   ```
+
+2. **Start the Application**
+   ```bash
+   docker-compose up --build
+   ```
 
 ## Keploy Integration
 
-Keploy allows you to record and test API requests and responses. Follow the steps below to use Keploy with this project:
+Keploy allows you to record and test API requests and responses. There are two methods to use Keploy with this project:
 
-### Recording Test Cases
+### Method 1: Local Testing
 
-1. Start the Keploy server if it's not already running.
-2. Record test cases using the following command:
+1. **Recording Test Cases**
+
    ```bash
    keploy record -c "bun dev"
    ```
-   This will record all API interactions.
 
-### Running Test Cases
-
-1. Once test cases are recorded, you can run them using the following command:
-
+2. **Running Test Cases**
    ```bash
    keploy test -c "bun dev" --delay 10
    ```
 
-   The `--delay` flag ensures Keploy has enough time to send API requests after the application starts.
+### Method 2: Docker-based Testing
+
+1. **Recording Test Cases**
+
+   ```bash
+   keploy record -c "docker compose up" --container-name "hono-prisma-postgres" -n "keploy-network"
+   ```
+
+2. **Running Test Cases**
+   ```bash
+   keploy test -c "docker compose up" --container-name "hono-prisma-postgres" -n "keploy-network"
+   ```
 
 ## Notes
 
-- Ensure your database is properly configured in the `prisma.schema` file and the environment variables are set.
-- Use the `authMiddleware` to protect routes requiring user authentication.
+- Ensure your database is properly configured in the prisma.schema file and the environment variables are set.
+- Use the authMiddleware to protect routes requiring user authentication.
 - For CORS support, the application includes:
   ```typescript
   app.use("/*", cors());
@@ -110,26 +147,20 @@ Keploy allows you to record and test API requests and responses. Follow the step
 
 ## Common Issues
 
-## PrismaClientInitializationError with Keploy Recording
+### PrismaClientInitializationError with Keploy Recording
 
 When running Keploy record command with database interactions, you might encounter a PrismaClientInitializationError. This often occurs due to SSL connection issues with PostgreSQL.
 
-### Symptoms
+#### Symptoms
 
-When executing the Keploy record command:
-
-```bash
-keploy record -c "bun dev"
-```
-
-You might encounter database connectivity issues, particularly when making API calls that interact with the database. The PostgreSQL logs typically show SSL-related errors like:
+When executing the Keploy record command, you might encounter database connectivity issues, particularly when making API calls that interact with the database. The PostgreSQL logs typically show SSL-related errors like:
 
 ```
 2024-12-25 13:42:23.035 IST [123887] [unknown]@[unknown] LOG: could not accept SSL connection: EOF detected
 2024-12-25 14:41:45.859 IST [172605] [unknown]@[unknown] LOG: could not accept SSL connection: EOF detected
 ```
 
-### Resolution (Ubuntu/Linux)
+#### Resolution (Ubuntu/Linux)
 
 1. **Access PostgreSQL Configuration**
 
@@ -140,14 +171,14 @@ You might encounter database connectivity issues, particularly when making API c
 2. **Modify SSL Settings**
 
    - Locate the SSL configuration line
-   - Change `ssl = on` to `ssl = off`
+   - Change ssl = on to ssl = off
 
 3. **Restart PostgreSQL**
    ```bash
    sudo service postgresql restart
    ```
 
-### Important Security Note
+#### Important Security Note
 
 ⚠️ Disabling SSL should only be done in development environments. For production deployments:
 
@@ -155,8 +186,8 @@ You might encounter database connectivity issues, particularly when making API c
 - Properly configure SSL certificates
 - Follow security best practices for database connections
 
-### Additional Considerations
+#### Additional Considerations
 
-- Make sure your database connection string in `.env` is properly configured
+- Make sure your database connection string in .env is properly configured
 - If you're using a different PostgreSQL version, the configuration file path might vary
 - Always backup your configuration files before making changes
