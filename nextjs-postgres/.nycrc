@@ -1,0 +1,9 @@
+{
+  "all": true,
+  "include": ["src/app/api/**/*.ts", "lib/**/*.ts"],
+  "exclude": ["**/*.test.ts", "node_modules/**"],
+  "extension": [".ts"],
+  "reporter": ["text", "html"],
+  "cache": false,
+  "require": ["ts-node/register"]
+}

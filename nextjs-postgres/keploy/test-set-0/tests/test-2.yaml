@@ -1,0 +1,44 @@
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-2
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: http://localhost:3000/api/users
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip,deflate,br
+            Connection: keep-alive
+            Host: localhost:3000
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.33 Safari/537.36
+        body: ""
+        timestamp: 2024-12-16T16:23:36.401806885+05:30
+    resp:
+        status_code: 200
+        header:
+            Connection: keep-alive
+            Content-Type: application/json
+            Date: Mon, 16 Dec 2024 10:53:50 GMT
+            Keep-Alive: timeout=5
+            Vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url
+        body: '{"users":[]}'
+        status_message: OK
+        proto_major: 0
+        proto_minor: 0
+        timestamp: 2024-12-16T16:23:50.279945386+05:30
+    objects: []
+    assertions:
+        noise:
+            header.Date: []
+    created: 1734346430
+curl: |
+    curl --request GET \
+      --url http://localhost:3000/api/users \
+      --header 'Accept: */*' \
+      --header 'Accept-Encoding: gzip,deflate,br' \
+      --header 'Host: localhost:3000' \
+      --header 'Connection: keep-alive' \
+      --header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.33 Safari/537.36' \
