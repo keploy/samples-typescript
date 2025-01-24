@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo-app
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/my_pgserver"
+    depends_on:
+      - db
+    command: >
+      sh -c "bunx prisma migrate dev --name init && bun dev"
+    networks:
+      - keploy-network
+
+  db:
+    image: postgres:15
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: my_pgserver
+    ports:
+      - "5432:5432"
+    networks:
+      - keploy-network
+
+networks:
+  keploy-network:
+    external: true
