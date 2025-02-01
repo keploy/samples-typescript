@@ -1,0 +1,28 @@
+{
+  "name": "hono-drizzle-postgres",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --watch ./src --exec tsx ./src/index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/drizzle/migrate.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.39.1",
+    "hono": "^4.6.19",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.1",
+    "postgres": "^3.4.5"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.8",
+    "@types/node": "^20.11.17",
+    "@types/pg": "^8.11.11",
+    "drizzle-kit": "^0.30.4",
+    "nodemon": "^3.1.9",
+    "tsx": "^4.19.2"
+  }
+}
