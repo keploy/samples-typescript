@@ -1,0 +1,1 @@
+keploy record -c "docker run -p 3000:3000 --name nestjs-graphql --network keploy-network nestjs-graphql" --container-name "nestjs-demo" --buildDelay 60
