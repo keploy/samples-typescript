@@ -17,7 +17,11 @@ const bookingSchema = new mongoose.Schema({
   startTime: { type: Date, required: true },  
   roomType : {type : String, required : true},
   endTime: { type: Date, required: true },
-  totalPrice: { type: Number, required: false },
+  totalPrice: { type: Number},
+
+  // New fields
+  isReported: {type: Boolean, default:false},
+  reportReason: {type: String, defult: null},
 });
 
 const Booking = mongoose.model("Booking", bookingSchema);
