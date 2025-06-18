@@ -26,14 +26,39 @@ interface GraphQLResponse<T> {
   errors?: { message: string }[];
 }
 
+// Input validation functions
+const validateUserInput = (displayName: string, email: string, password: string, locale: string): boolean => {
+  return typeof displayName === 'string' && 
+         displayName.trim().length > 0 && 
+         displayName.trim().length <= 255 &&
+         typeof email === 'string' && 
+         email.includes('@') &&
+         typeof password === 'string' && 
+         password.length >= 6 &&
+         typeof locale === 'string' && 
+         locale.length === 2;
+};
+
+const validateId = (id: string): boolean => {
+  const numId = parseInt(id);
+  return !isNaN(numId) && numId > 0;
+};
+
 export const createUser = async (req: Request, res: Response) => {
   const { displayName, email, password, locale }: User = req.body;
 
+  // Input validation
+  if (!validateUserInput(displayName, email, password, locale)) {
+    return res.status(400).json({ 
+      error: "Invalid input. All fields are required. Email must be valid, password must be at least 6 characters, and locale must be 2 characters." 
+    });
+  }
+
   const user = {
-    email,
+    email: email.trim().toLowerCase(),
     passwordHash: password,
-    locale,
-    displayName,
+    locale: locale.trim().toLowerCase(),
+    displayName: displayName.trim(),
   };
 
   const query = `
@@ -95,17 +120,28 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
   const { id } = req.params;
+
+  // Input validation
+  if (!validateId(id)) {
+    return res.status(400).json({ error: "Invalid ID format" });
+  }
+
   const mutation = `
-    mutation {
-      deleteUser(id: "${id}") {
+    mutation DeleteUser($id: Int!) {
+      deleteUser(id: $id) {
         id
       }
     }
   `;
+
+  const variables = {
+    id: parseInt(id)
+  };
+
   try {
     const response: AxiosResponse<
       GraphQLResponse<{ deleteUser: { id: string } }>
-    > = await axios.post(url, { query: mutation }, { headers });
+    > = await axios.post(url, { query: mutation, variables }, { headers });
 
     if (response.data.errors) {
       throw new Error(response.data.errors[0].message);

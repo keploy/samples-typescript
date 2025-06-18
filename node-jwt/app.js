@@ -5,9 +5,10 @@ const cors = require("cors");
 const app = express();
 // app.use(kmiddleware())
 
-
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: process.env.CORS_ORIGIN || "http://localhost:8081",
+  credentials: true,
+  optionsSuccessStatus: 200
 };
 
 const db = require("./models");
