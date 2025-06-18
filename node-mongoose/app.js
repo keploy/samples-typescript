@@ -1,97 +1,97 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const app = express();
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
+const app = express();
 
 dotenv.config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors())
-
-
+app.use(cors());
 
 // MongoDB connection
-
-
-const mongoConnection=async ()=>{
+const mongoConnection = async () => {
   try {
     await mongoose.connect(process.env.mongodb_url);
-
-    console.log("connected database");
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("MongoDB connection failed:", err.message);
+    process.exit(1);
   }
-  catch (err) {
-    throw err;
-  }
-}
+};
 
-mongoConnection()
+mongoConnection();
 
-
-// schema of our db
+// Course Schema
 const Course = mongoose.model("Course", {
-  title: String,
+  title: { type: String, required: true },
   description: String,
-  price: Number,
-  published: Boolean,
+  price: { type: Number, required: true },
+  published: { type: Boolean, default: false },
 });
 
+// Helper: Validate request body
+function validateCourseInput(course) {
+  const { title, price } = course;
+  if (!title || typeof title !== "string") {
+    return "Title is required and must be a string.";
+  }
+  if (price === undefined || typeof price !== "number") {
+    return "Price is required and must be a number.";
+  }
+  return null;
+}
 
-
-// Create a course 
+// Create a course
 app.post("/courses", async (req, res) => {
+  const validationError = validateCourseInput(req.body);
+  if (validationError) return res.status(400).json({ error: validationError });
 
   try {
     const course = new Course(req.body);
     await course.save();
-    res.json({ message: "Course created successfully", courseId: course._id });
+    res.status(201).json({ message: "Course created successfully", courseId: course._id });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-
-
 });
 
-// Read all courses
+// Get all courses
 app.get("/courses", async (req, res) => {
   try {
     const courses = await Course.find();
-    res.json({ courses });
+    res.status(200).json({ courses });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-
-// Read a course by ID
+// Get course by ID
 app.get("/courses/:id", async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
-    if (!course) {
-      return res.status(404).json({ message: "Course not found" });
-    }
-    res.json({ course });
+    if (!course) return res.status(404).json({ message: "Course not found" });
+    res.status(200).json({ course });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(400).json({ error: "Invalid course ID format" });
   }
 });
 
-
 // Update a course
 app.put("/courses/:id", async (req, res) => {
+  const validationError = validateCourseInput(req.body);
+  if (validationError) return res.status(400).json({ error: validationError });
+
   try {
     const course = await Course.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-
-    if (!course) {
-      return res.status(404).json({ message: "Course not found" });
-    }
-    res.json({ message: "Course updated successfully" });
+    if (!course) return res.status(404).json({ message: "Course not found" });
+    res.status(200).json({ message: "Course updated successfully", course });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(400).json({ error: "Invalid course ID format" });
   }
 });
 
@@ -99,16 +99,11 @@ app.put("/courses/:id", async (req, res) => {
 app.delete("/courses/:id", async (req, res) => {
   try {
     const course = await Course.findByIdAndDelete(req.params.id);
-    if (!course) {
-      return res.status(404).json({ message: "Course not found" });
-    }
-    res.json({ message: "Course deleted successfully" });
+    if (!course) return res.status(404).json({ message: "Course not found" });
+    res.status(200).json({ message: "Course deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(400).json({ error: "Invalid course ID format" });
   }
 });
 
-
-
-
-module.exports={app,mongoConnection,Course};
+module.exports = { app, mongoConnection, Course };
