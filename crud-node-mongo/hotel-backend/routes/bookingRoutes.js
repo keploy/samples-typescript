@@ -11,4 +11,9 @@ router.put("/edit/:id", bookingController.editBooking);
 router.delete("/cancel/:id", bookingController.cancelBooking);
 router.get("/view", bookingController.viewBookings);
 
+//Report a booking
+router.post("/report/:id", bookingController.reportBooking);
+
+//View all reported bookings
+router.get("/reports",bookingController.getReportedBookings);
 module.exports = router;
