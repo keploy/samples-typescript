@@ -17,8 +17,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongodb": "^6.5.0",
-    "mongoose": "^8.1.0",
-    "moongoose": "^0.0.5"
+    "mongoose": "^8.1.0"
   },
   "devDependencies": {
     "import-local": "^3.1.0",

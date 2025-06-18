@@ -51,6 +51,19 @@ interface DeleteTodoResponse {
   errors?: { message: string }[];
 }
 
+// Input validation function
+const validateTodoInput = (name: string, isCompleted: boolean): boolean => {
+  return typeof name === 'string' && 
+         name.trim().length > 0 && 
+         name.trim().length <= 255 && 
+         typeof isCompleted === 'boolean';
+};
+
+const validateId = (id: string): boolean => {
+  const numId = parseInt(id);
+  return !isNaN(numId) && numId > 0;
+};
+
 export const createTable = async (req: Request, res: Response) => {
   const createTableQuery = {
     type: "run_sql",
@@ -130,17 +143,33 @@ export const getTodos = async (req: Request, res: Response) => {
 export const insertTodo = async (req: Request, res: Response) => {
   const { name, isCompleted } = req.body;
 
+  // Input validation
+  if (!validateTodoInput(name, isCompleted)) {
+    return res.status(400).json({ 
+      error: "Invalid input. Name must be a non-empty string (max 255 chars) and isCompleted must be a boolean." 
+    });
+  }
+
   const mutation = `
-    mutation {
-      insert_todos_one(object: { name: "${name}", is_completed: ${isCompleted} }) {
+    mutation InsertTodo($name: String!, $isCompleted: Boolean!) {
+      insert_todos_one(object: { name: $name, is_completed: $isCompleted }) {
         id
       }
     }
   `;
+
+  const variables = {
+    name: name.trim(),
+    isCompleted
+  };
+
   try {
     const response: AxiosResponse<InsertTodoResponse> = await axios.post(
       url,
-      { query: mutation },
+      { 
+        query: mutation,
+        variables 
+      },
       { headers }
     );
     if (response.data.errors) {
@@ -151,24 +180,47 @@ export const insertTodo = async (req: Request, res: Response) => {
       id: response.data.data.insert_todos_one.id,
     });
   } catch (error) {
-    res.status(400).json({ error: (error as Error).message });
+    console.error("Error inserting todo:", error);
+    res.status(400).json({ error: "Failed to insert todo" });
   }
 };
 
 export const updateTodo = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { name, isCompleted } = req.body;
+
+  // Input validation
+  if (!validateId(id)) {
+    return res.status(400).json({ error: "Invalid ID format" });
+  }
+
+  if (!validateTodoInput(name, isCompleted)) {
+    return res.status(400).json({ 
+      error: "Invalid input. Name must be a non-empty string (max 255 chars) and isCompleted must be a boolean." 
+    });
+  }
+
   const mutation = `
-    mutation {
-      update_todos_by_pk(pk_columns: {id: ${id}}, _set: { name: "${name}", is_completed: ${isCompleted} }) {
+    mutation UpdateTodo($id: Int!, $name: String!, $isCompleted: Boolean!) {
+      update_todos_by_pk(pk_columns: {id: $id}, _set: { name: $name, is_completed: $isCompleted }) {
         id
       }
     }
   `;
+
+  const variables = {
+    id: parseInt(id),
+    name: name.trim(),
+    isCompleted
+  };
+
   try {
     const response: AxiosResponse<UpdateTodoResponse> = await axios.post(
       url,
-      { query: mutation },
+      { 
+        query: mutation,
+        variables 
+      },
       { headers }
     );
     if (response.data.errors) {
@@ -179,23 +231,38 @@ export const updateTodo = async (req: Request, res: Response) => {
       id: response.data.data.update_todos_by_pk.id,
     });
   } catch (error) {
-    res.status(400).json({ error: (error as Error).message });
+    console.error("Error updating todo:", error);
+    res.status(400).json({ error: "Failed to update todo" });
   }
 };
 
 export const deleteTodo = async (req: Request, res: Response) => {
   const { id } = req.params;
+
+  // Input validation
+  if (!validateId(id)) {
+    return res.status(400).json({ error: "Invalid ID format" });
+  }
+
   const mutation = `
-    mutation {
-      delete_todos_by_pk(id: ${id}) {
+    mutation DeleteTodo($id: Int!) {
+      delete_todos_by_pk(id: $id) {
         id
       }
     }
   `;
+
+  const variables = {
+    id: parseInt(id)
+  };
+
   try {
     const response: AxiosResponse<DeleteTodoResponse> = await axios.post(
       url,
-      { query: mutation },
+      { 
+        query: mutation,
+        variables 
+      },
       { headers }
     );
     if (response.data.errors) {
@@ -206,6 +273,7 @@ export const deleteTodo = async (req: Request, res: Response) => {
       id: response.data.data.delete_todos_by_pk.id,
     });
   } catch (error) {
-    res.status(400).json({ error: (error as Error).message });
+    console.error("Error deleting todo:", error);
+    res.status(400).json({ error: "Failed to delete todo" });
   }
 };
