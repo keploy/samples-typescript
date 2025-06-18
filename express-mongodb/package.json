@@ -16,9 +16,17 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.5.0",
+    "http-errors": "^2.0.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.5.0",
     "mongoose": "^8.1.0",
-    "moongoose": "^0.0.5"
+    "moongoose": "^0.0.5",
+    "rate-limit-redis": "^4.2.1",
+    "redis": "^5.5.6",
+    "xss-clean": "^0.1.4"
   },
   "devDependencies": {
     "import-local": "^3.1.0",
