@@ -1,4 +1,9 @@
 const validateCourse = (req, res, next) => {
+  // Only validate for POST and PUT requests
+  if (req.method === 'GET' || req.method === 'DELETE') {
+    return next();
+  }
+
   const { title, description, price } = req.body;
 
   const errors = [];

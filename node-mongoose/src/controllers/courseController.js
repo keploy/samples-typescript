@@ -1,24 +1,38 @@
 const Course = require('../models/Course');
 
-// Get all courses with pagination
+// Get all courses with pagination and search
 const getAllCourses = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
+    const searchQuery = req.query.search;
 
-    const courses = await Course.find()
+    let query = {};
+    
+    // If search query is provided, add search filter
+    if (searchQuery) {
+      query = {
+        $or: [
+          { title: { $regex: searchQuery, $options: 'i' } },
+          { description: { $regex: searchQuery, $options: 'i' } }
+        ]
+      };
+    }
+
+    const courses = await Course.find(query)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
 
-    const total = await Course.countDocuments();
+    const total = await Course.countDocuments(query);
 
     res.json({
       courses,
       currentPage: page,
       totalPages: Math.ceil(total / limit),
-      totalCourses: total
+      totalCourses: total,
+      searchQuery: searchQuery || null
     });
   } catch (error) {
     res.status(500).json({ error: 'Error fetching courses' });

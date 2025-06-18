@@ -10,11 +10,11 @@ const {
 } = require('../controllers/courseController');
 const validateCourse = require('../middleware/validateCourse');
 
-// Get all courses with pagination
+// Get all courses with pagination and search
 router.get('/', getAllCourses);
 
-// Search courses
-router.get('/search', searchCourses);
+// Search courses (using a different path to avoid conflicts)
+router.get('/search/courses', searchCourses);
 
 // Get a single course
 router.get('/:id', getCourse);
