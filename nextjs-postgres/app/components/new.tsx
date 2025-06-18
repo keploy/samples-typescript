@@ -1,7 +1,7 @@
 
 export default function New() {
   return (
-    <div>
+    <div className= "bg-green">
         Hello World
     </div>
   );
