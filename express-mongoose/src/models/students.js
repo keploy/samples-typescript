@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
+const mongoose = require('mongoose');
+const validator = require('validator');
 
 const studSchema = mongoose.Schema({
     name: {
@@ -9,21 +9,24 @@ const studSchema = mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: [true, "Email already exists"],
+        unique: true,
         validate(value) {
             if(!validator.isEmail(value)) {
-                throw new Error("Invalid email")
+                throw new Error("Invalid email");
             }
         }
     },
     phone: {
-        type: Number,
+        type: String,
         required: true,
         unique: true,
-        minLength:10,
-        maxLength:10
+        validate(value) {
+            if(value.length !== 10 || !/^\d+$/.test(value)) {
+                throw new Error("Phone number must be exactly 10 digits");
+            }
+        }
     }
-})
+});
 
 const Student = mongoose.model('Student', studSchema);
 
