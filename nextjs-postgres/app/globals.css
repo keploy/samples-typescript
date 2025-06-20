@@ -24,6 +24,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 @layer utilities {
