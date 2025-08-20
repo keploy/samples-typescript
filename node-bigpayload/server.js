@@ -16,7 +16,7 @@ const generateJsonPayload = (targetSizeInKb) => {
     email: "user@example.com",
     isActive: true,
     data: "This is a sample object used to create a JSON payload of a specific size.",
-    timestamp: "2025-08-20T12:52:18.000Z"
+    age: "50"
   };
 
   const singleObjectString = JSON.stringify(sampleObject);
@@ -31,7 +31,7 @@ const generateJsonPayload = (targetSizeInKb) => {
       email: "user@example.com",
       isActive: true,
       data: "This is a sample object used to create a JSON payload of a specific size.",
-      timestamp: new Date().toISOString()
+      age: "50"
     });
   }
   return payloadArray;
