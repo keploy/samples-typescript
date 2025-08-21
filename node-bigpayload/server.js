@@ -47,7 +47,7 @@ app.get('/small-payload', (req, res) => {
 // Route for a 500KB payload (changed to a POST request)
 app.post('/large-payload', (req, res) => {
   console.log('Request received for /large-payload');
-  // The server will still send its own 500KB response, ignoring the request body.
+  // The server will still send its own 1MB response, ignoring the request body.
   const payload = generateJsonPayload(1000);
   res.json(payload);
 });
