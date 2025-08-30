@@ -23,6 +23,18 @@ This is a simple RESTful API for managing products. It provides endpoints for ba
 - Node.js installed on your machine
 - MongoDB installed and running locally or on a remote server
 
+## Environment Variables
+
+Create a `.env` file in the root directory and add the following variables:
+
+```
+REDIS_URL=your_redis_connection_string
+RATE_LIMIT_WINDOW=15
+RATE_LIMIT_MAX=100
+MONGODB_URL=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
+
 ## Installation
 
 1. Clone the repository <br>
