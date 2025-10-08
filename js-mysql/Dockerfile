@@ -1,4 +1,4 @@
-# Use the official Node.js 14 image as a parent image
+# Use the official Node.js 18  image as a parent image
 FROM node:18.13.0
 
 # Set the working directory in the container
