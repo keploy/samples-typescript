@@ -15,7 +15,7 @@ RUN apk add --no-cache bash
 RUN npm run build
 
 
-# Download the ca.crt file and setup_ca.sh script
+# Add the ca.crt file and setup_ca.sh script
 ADD  https://raw.githubusercontent.com/keploy/keploy/refs/heads/main/pkg/core/proxy/tls/asset/ca.crt ca.crt
 ADD https://raw.githubusercontent.com/keploy/keploy/refs/heads/main/pkg/core/proxy/tls/asset/setup_ca.sh setup_ca.sh
 
