@@ -20,6 +20,19 @@ You will need the following software installed on your system:
 - **Node.js**: Version 18.x or higher. You can download it from [nodejs.org](https://nodejs.org/).
 - **npm** (Node Package Manager): This is included with the Node.js installation.
 
+#### Linux Users (Ubuntu/Debian) Note
+
+The default `docker.io` package may not include Docker Compose v2, which is required for running Keploy sample projects using Docker Compose.
+
+To avoid errors, install Docker Compose v2 using:
+
+```bash
+sudo apt update
+sudo apt install docker-compose-plugin
+```
+
+Then use `docker compose up` instead of `docker-compose up`.
+
 ### Installation
 
 1.  **Clone the repository** (or download the source code) to your local machine.
@@ -42,8 +55,8 @@ You will need the following software installed on your system:
 Once the dependencies are installed, you can start the server with the following command:
 
 ```bash
-
-sudo -E env PATH=$PATH usr/local/bin/keploy record -c "node server.js" --bigRequest 
+sudo -E env PATH=$PATH /usr/local/bin/keploy record -c "node server.js" --bigRequest 
+```
 
 (You can remove --bigRequest to record it for smaller size payloads)
 
@@ -53,27 +66,40 @@ You should see a confirmation message in your terminal indicating that the serve
 
 The API is now live and ready to accept requests.
 
-🧪 Testing the Endpoints
+## 🧪 Testing the Endpoints
+
 You can use a tool like curl or any API client (like Postman or Insomnia) to test the endpoints.
 
-Small Payload (10KB)
+### Small Payload (10KB)
+
 # Make a request to the endpoint
+
+```bash
 curl http://localhost:3000/small-payload
+```
 
 # Verify the size of the response (should be 10240 bytes)
-curl -s http://localhost:3000/small-payload | wc -c
 
-Large Payload (500KB)
+```bash
+curl -s http://localhost:3000/small-payload | wc -c
+```
+
+### Large Payload (500KB)
+
 # Make a request to the endpoint (output will be large)
+
+```bash
 curl http://localhost:3000/large-payload
+```
 
 # Verify the size of the response (should be 512000 bytes)
-curl -s http://localhost:3000/large-payload | wc -c
 
+```bash
+curl -s http://localhost:3000/large-payload | wc -c
 ```
 
 ## Run test using Keploy
 
 ```bash
-sudo -E env PATH=$PATH usr/local/bin/keploy record -c "node server.js"  &> testlogs.txt
+sudo -E env PATH=$PATH keploy test -c "node server.js" --delay 10 &> testlogs.txt
 ```
