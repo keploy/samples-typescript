@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Todo {
+  id          Int          @id @default(autoincrement())
+  title       String
+  description String?
+  completed   Boolean      @default(false)
+  priority    Int          @default(1) // 1=Low, 2=Medium, 3=High, 4=Urgent
+  dueDate     DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  
+  categoryId  Int?
+  category    Category?    @relation(fields: [categoryId], references: [id])
+  
+  tags        TodoTag[]
+  subtasks    Subtask[]
+  attachments Attachment[]
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  color       String   @default("#3B82F6")
+  description String?
+  createdAt   DateTime @default(now())
+  todos       Todo[]
+}
+
+model Tag {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  color     String    @default("#10B981")
+  createdAt DateTime  @default(now())
+  todos     TodoTag[]
+}
+
+model TodoTag {
+  todoId    Int
+  tagId     Int
+  todo      Todo     @relation(fields: [todoId], references: [id], onDelete: Cascade)
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([todoId, tagId])
+}
+
+model Subtask {
+  id        Int      @id @default(autoincrement())
+  title     String
+  completed Boolean  @default(false)
+  order     Int      @default(0)
+  todoId    Int
+  todo      Todo     @relation(fields: [todoId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Attachment {
+  id        Int      @id @default(autoincrement())
+  filename  String
+  mimeType  String   @default("application/octet-stream")
+  data      String   // Base64 encoded data for large payload testing
+  size      Int
+  todoId    Int
+  todo      Todo     @relation(fields: [todoId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
