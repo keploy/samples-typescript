@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: booklist-api
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/booklist
+    networks:
+      - booklist-network
+
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - booklist-network
+
+volumes:
+  mongo-data:
+
+networks:
+  booklist-network:
