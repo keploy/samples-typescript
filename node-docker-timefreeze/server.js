@@ -9,8 +9,8 @@ const JWT_KEY = 'my_super_secret_key';
 app.post('/login', (req, res) => {
     console.log(`Login attempt at: ${new Date()}`);
 
-    // Token expires in 2 minutes (120 seconds)
-    const expirationTime = Math.floor(Date.now() / 1000) + (2 * 60);
+    // Token expires in 10 seconds
+    const expirationTime = Math.floor(Date.now() / 1000) + (10);
 
     const payload = {
         username: 'testuser',
