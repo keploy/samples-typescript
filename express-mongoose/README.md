@@ -3,6 +3,7 @@
 A simple sample CRUD application to test using Keploy build with Express and MongoDB.
 
 ## Install Keploy
+
 Install keploy via one-click:-
 
 ```bash
@@ -10,7 +11,9 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
 ## Setup application
+
 Clone the repository and move to express-mongo folder
+
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typescript/express-mongoose
 
@@ -19,9 +22,23 @@ npm install
 ```
 
 ### Let's start the MongoDB Instance
-```zsh
+
+```bash
 docker-compose up -d mongo
 ```
+
+#### Linux Users (Ubuntu/Debian) Note
+
+The default `docker.io` package may not include Docker Compose v2, which is required for running Keploy sample projects using Docker Compose.
+
+To avoid errors, install Docker Compose v2 using:
+
+```bash
+sudo apt update
+sudo apt install docker-compose-plugin
+```
+
+Then use `docker compose up` instead of `docker-compose up`.
 
 > **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `db/connection.js`, from `mongodb://mongoDb:27017/Students` to `mongodb://127.0.0.1:27017/keploy`.**
 
@@ -32,7 +49,8 @@ sudo -E env PATH=$PATH keploy record -c 'node src/app.js'
 ```
 
 #### Let's generate the testcases.
-Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+
+Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy will capture those calls to generate the test-suites containing testcases and data mocks.
 
 ```bash
 curl --request POST \
@@ -58,7 +76,7 @@ We will get the following output in our terminal
 ## Running the testcases
 
 ```bash
-sudo -E env PATH=$PATH keploy test -c 'npm run src/app.js' --delay 10
+sudo -E env PATH=$PATH keploy test -c 'node src/app.js' --delay 10
 ```
 
 Our testcases will fail as the Keep-Alive connection won't be available when we are using testmode, this happen because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode.
@@ -86,19 +104,23 @@ Now, let's run the keploy in test mode again:-
 Keploy can be used on Linux & Windows through Docker, and on MacOS by the help of [Colima](https://docs.keploy.io/docs/server/macos/installation/#using-colima).
 
 ## Create Keploy Alias
+
 We need create an alias for Keploy:
+
 ```bash
 alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
 ```
 
 ## Capture the testcases
- 
+
 We will run the keploy in record mode with docker-compose to start our application:-
+
 ```bash
 keploy record -c "docker compose up" --containerName "nodeMongoApp"
 ```
 
 #### Let's generate the testcases.
+
 Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 ```bash
@@ -122,11 +144,10 @@ We will get the following output in our terminal
 
 ![Testcase](./img/testcase-node.png)
 
-
 ## Running the testcases
 
 ```bash
-keploy test -c "docker compose up --node-app" --containerName "nodeMongoApp" --delay 10
+keploy test -c "docker compose up node-app" --containerName "nodeMongoApp" --delay 10
 ```
 
 Our testcases will fail as the Keep-Alive connection won't be available when we are using testmode, this happen because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode.
@@ -149,7 +170,7 @@ Now, let's run the keploy in test mode again:-
 
 ## Create Unit Testcase with Keploy
 
-### Prequiste
+### Prerequisite
 AI model API_KEY to use:
 
 - OpenAI's GPT-4o.
@@ -177,7 +198,11 @@ We got around 31.5% of code coverage.
 Now, let's run keploy to create testcases.
 
 ```bash
-keploy gen --sourceFilePath="/home/sonichigi.linux/samples-typescript/express-mongoose/src/routes/routes.js" --testFilePath="/home/sonichigi.linux/samples-typescript/express-mongoose/test/routes.test.js" --testCommand="npm test" --coverageReportPath="/home/sonichigi.linux/samples-typescript/express-mongoose/coverage/cobertura-coverage.xml"
+keploy gen \
+  --sourceFilePath="./src/routes/routes.js" \
+  --testFilePath="./test/routes.test.js" \
+  --testCommand="npm test" \
+  --coverageReportPath="./coverage/cobertura-coverage.xml"
 ```
 
 With the above command, Keploy will generate new testcases in the our `routes.test.js` and will increase code coverage upto 58%.

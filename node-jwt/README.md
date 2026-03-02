@@ -2,20 +2,42 @@
 
 A simple sample CRUD application to test using Keploy build with Node, JWT and Postgres.
 
+#### Linux Users (Ubuntu/Debian) Note
+
+The default `docker.io` package may not include Docker Compose v2, which is required for running Keploy sample projects using Docker Compose.
+
+To avoid errors, install Docker Compose v2 using:
+
+```bash
+sudo apt update
+sudo apt install docker-compose-plugin
+```
+
+Then use `docker compose up` instead of `docker-compose up`.
+
 ## Setup application
+
 Clone the repository and move to express-mongo folder
+
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typescript/node-jwt
+```
 
 # Install the dependencies
+
+```bash
 npm install
 ```
+
 # Installing Keploy
+
 Let's get started by setting up the Keploy alias with this command:
-```sh
+
+```bash
 curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
 ```
-## Using Keploy :
+
+## Using Keploy
 
 There are 2 ways you can run this sample application.
 
@@ -24,12 +46,10 @@ There are 2 ways you can run this sample application.
 
 # Natively on Ubuntu/WSL
 
-
-
-
 ## Let's start the Postgres Instance
-```zsh
-docker-compose up -d
+
+```bash
+docker compose up -d
 ```
 
 ## Capture the testcases
@@ -38,7 +58,10 @@ docker-compose up -d
 sudo -E env PATH=$PATH keploy record -c 'node app.js'
 ```
 
-### Let's Generate the testcases.
+# Note: sudo -E is used to preserve PATH so that keploy command works correctly.
+
+### Let's Generate the testcases
+
 Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 1. Create User
@@ -63,7 +86,7 @@ We will get the following output in our terminal
 
 ![Testcase](./img/record.png)
 
-Let's go ahead create few more testcases for different endpoints!
+Let's go ahead and create few more testcases for different endpoints!
 
 2. Create Admin User
 
@@ -85,6 +108,7 @@ we will get the output:
 ```
 
 3. User Signin
+
 ```bash
 curl --location 'http://localhost:8080/api/auth/signin' \
 --header 'Content-Type: application/json' \
@@ -96,6 +120,7 @@ curl --location 'http://localhost:8080/api/auth/signin' \
 ```
 
 We will get access token once the user has signed in:
+
 ```json
 {
     "id":1,
@@ -105,37 +130,43 @@ We will get access token once the user has signed in:
     "accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNzY0ODY1LCJleHAiOjE3MTM3NjUwNDV9.5LSU1A1jxIbIQFS6Tq26ENNWZBinFt2cJQZ7swpipbc"}
 ```
 
-4. Access user Content
-```sh
+1. Access user Content
+
+```bash
 curl --location 'http://localhost:8080/api/test/all'
 ```
 
 We will get:
+
 ```
 Public Content
 ```
 
-5. Access user Content
-```sh
+1. Access user Content
+
+```bash
 curl --location 'http://localhost:8080/api/test/user' \
 --header 'x-access-token: <TOKEN>'
 ```
 
 We will get
+
 ```
 User Content
 ```
+
 ## Running the testcases
 
 ```bash
 sudo -E env PATH=$PATH keploy test -c 'npm run app.js' --delay 10
 ```
 
-Our testcases will fail as the Token will generated again when we are using testmode.
+Our testcases will fail because the Token will generated again when we are using testmode.
 
 ![Testcase](./img/test-fail.png)
 
 Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
+
 ```
         noise:
         |   - header.Date
@@ -158,11 +189,13 @@ Since we have setup our sample-app using docker, we need to update the postgres 
 ## Capture the testcases
  
 We will run the keploy in record mode with docker-compose to start our application:-
+
 ```bash
-keploy record -c "docker-compose up" --containerName "jwtSqlApp"
+keploy record -c "docker compose up" --containerName "jwtSqlApp"
 ```
 
 #### Let's generate the testcases.
+
 Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 1. Create User
@@ -209,6 +242,7 @@ we will get the output:
 ```
 
 3. User Signin
+
 ```bash
 curl --location 'http://localhost:8080/api/auth/signin' \
 --header 'Content-Type: application/json' \
@@ -220,6 +254,7 @@ curl --location 'http://localhost:8080/api/auth/signin' \
 ```
 
 We will get access token once the user has signed in:
+
 ```json
 {
     "id":1,
@@ -229,37 +264,43 @@ We will get access token once the user has signed in:
     "accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEzNzY0ODY1LCJleHAiOjE3MTM3NjUwNDV9.5LSU1A1jxIbIQFS6Tq26ENNWZBinFt2cJQZ7swpipbc"}
 ```
 
-4. Access user Content
-```sh
+1. Access user Content
+
+```bash
 curl --location 'http://localhost:8080/api/test/all'
 ```
 
 We will get:
+
 ```
 Public Content
 ```
 
-5. Access user Content
-```sh
+1. Access user Content
+
+```bash
 curl --location 'http://localhost:8080/api/test/user' \
 --header 'x-access-token: <TOKEN>'
 ```
 
 We will get
+
 ```
 User Content
 ```
+
 ## Running the testcases
 
 ```bash
 keploy test -c 'sudo docker-compose up'  --containerName "jwtSqlApp" --delay 10
 ```
 
-Our testcases will fail as the Token will generated again when we are using testmode.
+Our testcases will fail as the Token will be generated again when we are using testmode.
 
 ![Testcase](./img/test-fail.png)
 
 Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
+
 ```
         noise:
         |   - header.Date
@@ -271,4 +312,4 @@ Now, let's run the keploy in test mode again:-
 
 ![Testrun](./img/test-pass.png)
 
-*Voila!! Our testcases has passed 🌟*
+*Voila!! Our test cases have passed 🌟*

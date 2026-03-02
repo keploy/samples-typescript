@@ -6,11 +6,11 @@ This API manages personal or team tasks, built with Express, PostgreSQL, and Pri
 
 ## Features
 
-- **ORM: Prisma**
-- **Database: PostgreSQL**
-- **RESTful routes for managing tasks**
-- **Validation middleware**
-- **Swagger documentation**
+- **ORM**: Prisma
+- **Database**: PostgreSQL
+- **RESTful routes**: for managing tasks
+- **Validation**: middleware for data integrity
+- **Documentation**: Swagger/OpenAPI support
 
 ## Middlewares
 
@@ -29,6 +29,21 @@ Ensure you have the following installed:
 - Node.js and npm
 - Keploy CLI
 
+#### Linux Users (Ubuntu/Debian) Note
+
+The default `docker.io` package may not include Docker Compose v2, which is required for running Keploy sample projects using Docker Compose.
+
+To avoid errors, install Docker Compose v2 using:
+
+```bash
+sudo apt update
+sudo apt install docker-compose-plugin
+```
+
+Then use `docker compose up` instead of `docker-compose up`.
+
+### 1. Setup Project
+
 Clone the repository and move to express-postgresql-prisma folder
 
 ```bash
@@ -36,18 +51,20 @@ git clone https://github.com/keploy/samples-typescript.git
 cd samples-typescript/express-postgresql-prisma
 ```
 
+### Install dependencies
 
-### Install the dependencies
 ```bash
 npm install
 ```
 
-### Set up environment variables:
+### Set up environment variables
+
 ```bash
 cp .env.example .env
 ```
 
 ### Start PostgreSQL Container
+
 ```bash
 docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
 ```
@@ -60,10 +77,11 @@ docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432
 PORT=3000
 DATABASE_URL="postgresql://postgres:mysecretpassword@localhost:5432/postgres"
 ```
+
 > Note: If you are using Supabase, you need to add a DIRECT_URL to your .env file and uncomment the directUrl line in your prisma/schema.prisma file.
 
+### Migrate the database
 
-### Migrate the database:
 ```bash
 npm run generate
 npm run migrate init
@@ -104,7 +122,8 @@ nt in 50ms
 └─────────────────────────────────────────────────────────┘
 ```
 
-### Start the application:
+### Start the application
+
 ```bash
 npm run dev
 ```
@@ -118,8 +137,7 @@ Server is listening at PORT 3000
 
 > Note: The application will run on `http://localhost:3000`.
 
-Now we walkthrough how to leverage Keploy to automatically generate test cases for the application, and later test the application using Keploy.
-
+Now we walk through how to leverage Keploy to automatically generate and run test cases for the application.
 
 ### Generate Test Cases
 
@@ -165,7 +183,6 @@ The above command will start recording the API calls made to the application and
 
 > 💡 You can use Postman or any other API testing tool to test the API calls. Additionally, the application will run a swagger UI on `http://localhost:3000/api/docs` to visualize the API calls.
 
-
 ### Interact with Application
 
 Use Postman or Swagger to hit your API routes. This interaction will be recorded by Keploy.
@@ -176,7 +193,6 @@ Use Postman or Swagger to hit your API routes. This interaction will be recorded
 ## API Routes
 
 #### Add Task
-
 
 - **URL:** `/api/v1/task/add`
 - **Method:** `POST`
@@ -194,6 +210,7 @@ Use Postman or Swagger to hit your API routes. This interaction will be recorded
     ```
 
 Using `curl`
+
 ```bash
 curl -X 'POST' \
   'http://localhost:3000/api/v1/task/add' \
@@ -209,25 +226,22 @@ curl -X 'POST' \
 }'
 ```
 
-
 #### View All Tasks
 
 Using `curl`
+
 ```bash
 curl -X 'GET' \
   'http://localhost:3000/api/v1/task/view' \
   -H 'accept: application/json'
 ```
 
-
 #### View Task by ID
-
 
 - **URL:** `/api/v1/task/view/:id`
 - **Method:** `GET`
 - **Description:** Retrieve a specific task by its ID.
 - **Request Params:** `id` (task ID)
-
 
 Using `curl`
 
@@ -237,7 +251,6 @@ curl -X 'GET' \
   -H 'accept: application/json'
 ```
 
-
 #### Change Task Priority
 
 - **URL:** `/api/v1/task/change-priority/:id`
@@ -245,6 +258,7 @@ curl -X 'GET' \
 - **Description:** Update the priority of a specific task.
 - **Request Params:** `id` (task ID)
 - **Request Body:**
+
     ```json
     {
       "priority": 3
@@ -252,6 +266,7 @@ curl -X 'GET' \
     ```
 
 Using `curl`
+
 ```bash
 curl -X 'PUT' \
   'http://localhost:3000/api/v1/task/change-priority/1' \
@@ -269,6 +284,7 @@ curl -X 'PUT' \
 - **Description:** Update details of a specific task.
 - **Request Params:** `id` (task ID)
 - **Request Body:**
+
     ```json
     {
       "author": "John Doe",
@@ -281,6 +297,7 @@ curl -X 'PUT' \
     ```
 
 Using `curl`
+
 ```bash
 curl -X 'PUT' \
   'http://localhost:3000/api/v1/task/update/2' \
@@ -304,6 +321,7 @@ curl -X 'PUT' \
 - **Request Params:** `id` (task ID)
 
 Using `curl`
+
 ```bash
 curl -X 'DELETE' \
   'http://localhost:3000/api/v1/task/delete/1' \
@@ -311,61 +329,6 @@ curl -X 'DELETE' \
 ```
 
 > 🐰 Test Data and Configuration: After recording the interactions, a `keploy` folder will be created containing the recorded test data. Additionally, a `keploy.yml` file will be created as the configuration file.
-
-### - Add Task
-
-
-
-### - Update Task
-
-- **URL:** `/update/:id`
-- **Method:** `PUT`
-- **Description:** Update an existing task by ID.
-- **Request Params:** `id` (task ID)
-- **Request Body:**
-    ```json
-    {
-      "title": "Updated Task Title",
-      "description": "Updated Task Description",
-      "priority": 2
-    }
-    ```
-
-### - Delete Task
-
-- **URL:** `/delete/:id`
-- **Method:** `DELETE`
-- **Description:** Delete a task by ID.
-- **Request Params:** `id` (task ID)
-
-
-### - View All Tasks
-
-- **URL:** `/view`
-- **Method:** `GET`
-- **Description:** View all tasks.
-
-
-### - View Task by ID
-
-- **URL:** `/view/:id`
-- **Method:** `GET`
-- **Description:** View a task by ID.
-- **Request Params:** `id` (task ID)
-
-
-### - Change Task Priority
-
-- **URL:** `/change-priority/:id`
-- **Method:** `PUT`
-- **Description:** Change the priority of a task by ID.
-- **Request Params:** `id` (task ID)
-- **Request Body:**
-    ```json
-    {
-      "priority": 3
-    }
-    ```
 
 ### Test the Application using Keploy
 

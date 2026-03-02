@@ -3,7 +3,7 @@
 
 ## Overview
 
-This API manages books record, built with Express and Redis. It provides routes to add, update, delete, view books, view books by ID, and change task authors.
+This API manages book records, built with Express and Redis. It provides routes to add, update, delete, view books, view books by ID, and change task authors.
 
 ## Installation
 
@@ -15,12 +15,25 @@ Ensure you have the following installed:
 - Node.js and npm
 - Keploy CLI
 
+#### Linux Users (Ubuntu/Debian) Note
+
+The default `docker.io` package may not include Docker Compose v2, which is required for running Keploy sample projects using Docker Compose.
+
+To avoid errors, install Docker Compose v2 using:
+
+```bash
+sudo apt update
+sudo apt install docker-compose-plugin
+```
+
+Then use `docker compose up` instead of `docker-compose up`.
+
 # Installing Keploy
 
 Let's get started by setting up the Keploy alias with this command:
 
-```sh
-curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
+```bash
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
 Clone the repository and move to express-redis folder
@@ -29,14 +42,17 @@ Clone the repository and move to express-redis folder
 git clone https://github.com/keploy/samples-typescript.git
 cd samples-typescript/express-redis
 ```
+
 ## Installing Locally
 
 ### Install the dependencies
+
 ```bash
 npm install
 ```
 
 ### Start Redis-server Container
+
 ```bash
 docker run -d --name redis-stack-server -p 6379:6379 redis/redis-stack-server:latest
 ```
@@ -63,20 +79,18 @@ port: 6379
 ```
 
 ### Build the application:
+
 ```bash
 npm install
 npm run build
 ```
 
-### Start the application:
-```bash
-npm run start
-```
+### Start the application
 
+Note: Do not start the application manually; Keploy will start it for you during the recording process.
 
 > redis-ts@1.0.0 start
 > node dist/index.js
-
 
 ```bash
 Server is running on http://localhost:3000
@@ -84,8 +98,7 @@ Connected to Redis server
 Sample books loaded into Redis
 ```
 
-Some sample data is automatically created in redis.
-
+Some sample data is automatically created in Redis.
 
 ## Using Docker
 
@@ -100,25 +113,26 @@ docker compose up
 ### Generate Test Cases
 
 For server running locally.
+
 ```bash
-keploy record -c "npm run start"
+sudo -E env PATH=$PATH keploy record -c "npm run start"
 ```
 
 For the docker container.
 
 ```bash
-keploy record -c "docker compose up" --container-name "redis-express" -n "keploy-network"
+keploy record -c "docker compose up" --containerName "redis-express" -n "keploy-network"
 ```
 
 The above command will start recording the API calls made to the application and will generate a test case in the `testcases/` directory.
 
-> 💡 You can use Postman ,CURL or any other API testing tool to test the API calls.
+> 💡 You can use Postman,CURL or any other API testing tool to test the API calls.
 
 ### Interact with Application
 
 Use Postman, CURL, or any other API testing tool to hit your API routes. This interaction will be recorded by Keploy.
 
-Some curl commands to easily test the application are 
+Some curl commands to easily test the application are:
 
 1. "http://localhost:3000/books" to retrieve the data of the books
 
@@ -157,14 +171,12 @@ curl --location --request PUT 'http://localhost:3000/books/6' --header 'Content-
 }'
 ```
 
-Observe test run results:
-Voila!! Our test cases have passed 🌟
-
 ### Test the Application using Keploy
 
 For server running locally.
+
 ```bash
-keploy test -c "npm run start"
+sudo -E env PATH=$PATH keploy test -c "npm run start" --delay 10
 ```
 
 For the docker container.
@@ -175,4 +187,4 @@ keploy test -c "docker compose up" --container-name "redis-express" -n "keploy-n
 
 Keploy will replay the recorded interactions and validate the responses against the expected results.
 
-Voila! 🎉 You have successfully tested the application using Keploy. Keploy also generates coverage reports for the test-suites.
+Voila!! Our test cases have passed 🌟

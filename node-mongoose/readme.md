@@ -1,21 +1,34 @@
-
 ## COURSE SELLING API
 
-This is an application to create online courses also with that you can update,delete and view your courses .
+This is an application to create online courses, and also update, delete, or view them.
 
 ## Technologies Used
+
 - Node.js
 - Express.js
 - MongoDB
 - Mongoose
 
+## Quick Note: If you face any difficulty, refer to the following link.
 
-## Quick Note If you face any difficulty refer to the given link 
 ```bash
 Docs Link : https://keploy.io/blog/community/getting-started-with-keploy
 ```
 
 ## Get Started! 🎬
+
+#### Linux Users (Ubuntu/Debian) Note
+
+The default `docker.io` package may not include Docker Compose v2, which is required for running Keploy sample projects using Docker Compose.
+
+To avoid errors, install Docker Compose v2 using:
+
+```bash
+sudo apt update
+sudo apt install docker-compose-plugin
+```
+
+Then use `docker compose up` instead of `docker-compose up`.
 
 **1. Clone the repository and move to express-mongoose-Sahil :**
 Run the following command to start the application:
@@ -30,31 +43,50 @@ npm install
 **2. Run the Development Server:**
 Run the following command to start the application:
 
-```Bash
-node server.js
+```bash
+npm start
 ```
 
-### Docker installation and running the mongodb compass
+### Docker Installation & MongoDB Compass
 
 **1. Install docker in your windows and follow this tutorial to connect with mongodb compass :**
-``` bash
+
+```
 https://www.youtube.com/watch?v=NEPZqSvKx40&list=PLff_PESolMjuDXQdjiqYRW_GnDQjU32QX
 ```
 
-**2. after installing docker and running those commands in video use this command as well to create a network:**
+# Pull the MongoDB image
+
+```bash
+docker pull mongo
+```
+
+# Run MongoDB container with port 27023 mapping
+
+```bash
+docker run --name mongo-db -p 27023:27017 -d mongo
+```
+
+**2. After installing Docker and following the video commands, run the following to create a network:**
+
 ```bash
 docker network create keploy-network
 ```
 
-> **url should look something like this depending on your connection you can adjust, also update your .env file with mongodb_url:`mongodb://127.0.0.1:27023/courses`.*
+> **The URL may vary depending on your connection. Also, update your .env file with MONGODB_URL::`mongodb://127.0.0.1:27023/courses`.*
 
+## Keploy Installation
 
-## keploy installation
+On Windows, WSL is required to run Keploy Binary.
 
-On Windows, WSL is required to run Keploy Binary. 
+# Install Keploy Binary
 
 ```bash
 wsl --install
+```
+
+```bash
+curl --silent --location "https://get.keploy.io" | bash
 ```
 
 ### Capture the testcases in keploy
@@ -62,25 +94,27 @@ wsl --install
 ```bash
 sudo -E env PATH=$PATH keploy record -c 'npm start'
 ```
+
 ## Running the testcases
 
 ```bash
-keploy -E env PATH=$PATH keploy test -c 'npm start' --delay 10
+sudo -E env PATH=$PATH keploy test -c 'npm start' --delay 10
 ```
 
-### Api endpoints 
+### API Endpoints
+
 - GET http://localhost:3000/courses - to get all courses.
 
-- POST http://localhost:3000/courses - to post courses .
+- POST http://localhost:3000/courses - to post courses.
 
 - DELETE http://localhost:3000/courses/:id - to delete a specific course.
 
-- PUT http://localhost:3000/courses/:id  - to update any course.
+- PUT http://localhost:3000/courses/:id  - to update a specific course.
 
-jest test coverage report : 
+jest test coverage report :
 ![Screenshot 2024-04-22 025850](https://github.com/s2ahil/samples-typescript/assets/101473078/f60570d0-b998-4b4a-912d-80d4c73604e3)
 
-postman tests: 
+postman tests:
 ![Screenshot 2024-04-22 031914](https://github.com/s2ahil/samples-typescript/assets/101473078/1ee5850e-3d31-46bd-bb5e-f842e5262cdd)
 
 Keploy test report:

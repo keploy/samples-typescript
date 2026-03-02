@@ -8,8 +8,11 @@ A sample App using Typescript and using nhost.io as Backend as a service
 
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typescript/ts-nhost
+```
 
 # Install the dependencies
+
+```bash
 npm install
 ```
 
@@ -22,15 +25,28 @@ npm install
 3. -> Go to Hasura Console and open Hasura
 4. -> Get the x-hasura-admin-secret and GraphQL Endpoint and name them as HASURA_ADMIN_SECRET and GRAPHQL_ENDPOINT respectively in .env
 
+#### Linux Users (Ubuntu/Debian) Note
+
+The default `docker.io` package may not include Docker Compose v2, which is required for running Keploy sample projects using Docker Compose.
+
+To avoid errors, install Docker Compose v2 using:
+
+```bash
+sudo apt update
+sudo apt install docker-compose-plugin
+```
+
+Then use `docker compose up` instead of `docker-compose up`.
+
 ## Installing Keploy
 
 Let's get started by setting up the Keploy alias with this command:
 
-```sh
-curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
+```bash
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-## Using Keploy :
+## Using Keploy:
 
 There are 2 ways you can run this sample application.
 
@@ -83,6 +99,7 @@ There are 2 ways you can run this sample application.
 ## Capture the test cases
 
 1. **Start recording tests:**
+
    ```bash
    sudo -E env "PATH=$PATH" keploy record -c 'ts-node src/app.ts'
    ```
@@ -92,6 +109,7 @@ There are 2 ways you can run this sample application.
 Make API Calls using Hoppscotch, Postman or cURL command. Keploy will capture those calls to generate test suites containing test cases and data mocks.
 
 1. Create User
+
 ```bash
 curl --request POST \
       --url http://localhost:3000/users \
@@ -107,7 +125,8 @@ curl --request POST \
       }'
 ```
 
-2. Get User
+1. Get User
+
 ```bash
     curl --request GET \
       --url http://localhost:3000/users \
@@ -117,7 +136,8 @@ curl --request POST \
       --header 'Host: localhost:3000'
 ```
 
-3. Delete user
+1. Delete user
+
 ```bash
     curl --request DELETE \
       --url http://localhost:3000/users/<ID> \
@@ -138,12 +158,8 @@ Before executing the test cases, please ensure to delete the newly created user 
    ```bash
    sudo -E env "PATH=$PATH" keploy test -c 'ts-node src/app.ts' --delay 10
    ```
-   _Voila!! Our test cases have passed 🌟_
 
    <img width="809" alt="image" src="https://github.com/user-attachments/assets/beeff37c-c636-48ed-a513-06db50e60f66">
-
-
----
 
 # Running the app using docker
 
@@ -154,15 +170,15 @@ Since we have to setup our app using docker(make sure your docker is running)
 We will run the keploy in record mode with docker-compose to start our application:-
 
 ```bash
-keploy record -c "sudo docker-compose up" --containerName "ts-nhost"
-
+sudo -E env PATH=$PATH keploy record -c "sudo docker-compose up" --containerName "ts-nhost"
 ```
 
-#### Let's generate the testcases.
+#### Let's generate the testcases
 
 Make API Calls using Hoppscotch, Postman or cURL command. Keploy will capture those calls to generate test suites containing test cases and data mocks.
 
 1. Create User
+
 ```bash
 curl --request POST \
       --url http://localhost:3000/users \
@@ -178,7 +194,8 @@ curl --request POST \
       }'
 ```
 
-2. Get User
+1. Get User
+
 ```bash
     curl --request GET \
       --url http://localhost:3000/users \
@@ -188,7 +205,8 @@ curl --request POST \
       --header 'Host: localhost:3000'
 ```
 
-3. Delete user
+1. Delete user
+
 ```bash
     curl --request DELETE \
       --url http://localhost:3000/users/<ID> \
@@ -199,9 +217,11 @@ curl --request POST \
 ```
 
 ## Running the testcases
+
 Let's run our captured test cases
+
 ```bash
 keploy test -c 'sudo docker-compose up' --containerName "ts-nhost" --delay 10
 ```
 
-_Voila!! Our testcases has passed 🌟_
+Voila!! Our test cases have passed 🌟_

@@ -84,8 +84,22 @@ There are two ways to run this application:
 
 #### Prerequisites
 
-- Docker and Docker Compose installed
+- Docker installed
+- Docker Compose v2 installed
 - Keploy installed
+
+#### Linux Users (Ubuntu/Debian) Note
+
+The default `docker.io` package may not include Docker Compose v2, which is required for running Keploy sample projects using Docker Compose.
+
+To avoid errors, install Docker Compose v2 using:
+
+```bash
+sudo apt update
+sudo apt install docker-compose-plugin
+```
+
+Then use `docker compose up` instead of `docker-compose up`.
 
 #### Steps to Run
 
@@ -97,13 +111,10 @@ There are two ways to run this application:
 
    > **Note:** While this network should be created automatically during installation, this command ensures it exists.
 
-   ```
-
-   ```
-
 2. **Start the Application**
+
    ```bash
-   docker-compose up --build
+   docker compose up --build
    ```
 
 ## Keploy Integration
