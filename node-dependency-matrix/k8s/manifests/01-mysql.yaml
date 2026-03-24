@@ -27,6 +27,9 @@ spec:
       containers:
         - name: mysql
           image: mysql:8.0
+          args:
+            - mysqld
+            - --default-authentication-plugin=mysql_native_password
           env:
             - name: MYSQL_ALLOW_EMPTY_PASSWORD
               value: "yes"

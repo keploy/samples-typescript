@@ -249,11 +249,13 @@ export async function runRedisScenario(config: AppConfig): Promise<ScenarioResul
   const client = new Redis(config.redisUrl, {
     tls: {
       ca: readCaBundle(config),
-      rejectUnauthorized: true
+      rejectUnauthorized: true,
+      checkServerIdentity: () => undefined
     },
     lazyConnect: true,
     maxRetriesPerRequest: 1
   });
+  client.on('error', () => undefined);
 
   await client.connect();
 
@@ -391,7 +393,8 @@ export async function runGenericScenario(config: AppConfig): Promise<ScenarioRes
         host: config.fixtureGenericHost,
         port: config.fixtureGenericPort,
         ca: readCaBundle(config),
-        rejectUnauthorized: true
+        rejectUnauthorized: true,
+        checkServerIdentity: () => undefined
       },
       () => {
         socket.write('matrix-generic\n');

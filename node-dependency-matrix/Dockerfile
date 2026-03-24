@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim AS build
+FROM node:20-bookworm-slim@sha256:17281e8d1dc4d671976c6b89a12f47a44c2f390b63a989e2e327631041f544fd AS build
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ COPY entrypoint.sh ./entrypoint.sh
 
 RUN npm run build && chmod +x /app/entrypoint.sh
 
-FROM node:20-bookworm-slim
+FROM node:20-bookworm-slim@sha256:17281e8d1dc4d671976c6b89a12f47a44c2f390b63a989e2e327631041f544fd
 
 WORKDIR /app
 
