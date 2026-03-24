@@ -1,0 +1,98 @@
+{
+  "sampleId": "node-dependency-matrix",
+  "cluster": {
+    "namespace": "default",
+    "deployment": "node-dependency-matrix",
+    "service": "node-dependency-matrix",
+    "httpNodePort": 30081,
+    "grpcNodePort": 30090,
+    "k8sProxyNodePort": 30080
+  },
+  "recording": {
+    "pods": {
+      "expectedReplicas": 1,
+      "expectedReadyContainersWhileRecording": 2
+    },
+    "httpTrafficScript": {
+      "expectedTestcasesExact": 17
+    },
+    "grpcTrafficScript": {
+      "expectedAdditionalTestcasesExact": 2
+    },
+    "mockSummary": {
+      "total": {
+        "min": 9,
+        "max": 250
+      },
+      "requiredKinds": [
+        "Http",
+        "MySQL"
+      ],
+      "preferredKinds": [
+        "Http",
+        "Http2",
+        "gRPC",
+        "MySQL",
+        "PostgresV2",
+        "Mongo",
+        "Redis",
+        "Kafka",
+        "Generic"
+      ],
+      "fallbackKinds": {
+        "deps-http2": ["Http2", "Generic", "Http"],
+        "deps-grpc": ["gRPC", "Generic", "Http2"],
+        "deps-postgres": ["PostgresV2", "Generic"],
+        "deps-mongo": ["Mongo", "Generic"],
+        "deps-redis": ["Redis", "Generic"],
+        "deps-kafka": ["Kafka", "Generic"],
+        "deps-sqs": ["Http", "Generic"]
+      }
+    },
+    "dedup": {
+      "expectedEntries": [
+        {
+          "method": "GET",
+          "path": "/dedup/catalog?id=alpha",
+          "duplicateCount": 2
+        },
+        {
+          "method": "GET",
+          "path": "/dedup/catalog?id=beta",
+          "duplicateCount": 1
+        }
+      ]
+    }
+  },
+  "replay": {
+    "expectedPassScenarios": [
+      "deps-http",
+      "deps-http2",
+      "deps-grpc",
+      "deps-mysql",
+      "deps-postgres",
+      "deps-mongo",
+      "deps-redis",
+      "deps-kafka",
+      "deps-sqs",
+      "deps-generic",
+      "dedup/catalog"
+    ],
+    "expectedNoisyScenarios": [
+      "noise/runtime"
+    ],
+    "expectedFailScenarios": [
+      "expected-fail/time-window"
+    ],
+    "globalNoiseSuggestions": {
+      "body": [
+        "runtime.requestId",
+        "runtime.servedAt"
+      ],
+      "header": [
+        "x-matrix-generated-at",
+        "etag"
+      ]
+    }
+  }
+}

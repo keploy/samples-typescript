@@ -1,0 +1,37 @@
+{
+  "name": "node-dependency-matrix",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TypeScript sample app for exercising Keploy cloud record/replay dependency flows.",
+  "main": "dist/bin/app.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/bin/app.js",
+    "start:app": "node dist/bin/app.js",
+    "start:fixture": "node dist/bin/dependencyFixture.js",
+    "start:tls-proxy": "node dist/bin/tlsProxy.js",
+    "dev": "tsx watch src/bin/app.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.893.0",
+    "@grpc/grpc-js": "^1.14.0",
+    "@grpc/proto-loader": "^0.8.0",
+    "@smithy/node-http-handler": "^4.4.5",
+    "express": "^4.21.2",
+    "ioredis": "^5.8.1",
+    "kafkajs": "^2.2.4",
+    "mongodb": "^6.20.0",
+    "mysql2": "^3.15.3",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.7.2",
+    "@types/pg": "^8.15.5",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
