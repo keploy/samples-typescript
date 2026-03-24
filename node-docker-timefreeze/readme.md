@@ -37,6 +37,18 @@ bash k8s/deploy-kind.sh
 APP_URL=http://localhost:30081 ./test_record_replay_flow.sh
 ```
 
+If Docker Hub is timing out while resolving the base image, first try:
+
+```bash
+docker build --pull=false -t node-docker-timefreeze:latest .
+```
+
+If the image already exists locally, you can skip rebuilding during Kind deployment:
+
+```bash
+SKIP_BUILD=1 bash k8s/deploy-kind.sh
+```
+
 The deployment to record in Keploy is:
 
 - namespace: `default`

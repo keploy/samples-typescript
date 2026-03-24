@@ -29,10 +29,18 @@ Or use the helper:
 bash k8s/deploy-kind.sh
 ```
 
+If Docker Hub metadata fetches are flaky on your machine, the helper already builds with
+`--pull=false` and can reuse an existing local image. If you have already built
+`node-docker-timefreeze:latest` once, you can skip rebuilding entirely:
+
+```bash
+SKIP_BUILD=1 bash k8s/deploy-kind.sh
+```
+
 ## 2. Manual deploy flow
 
 ```bash
-docker build -t node-docker-timefreeze:latest .
+docker build --pull=false -t node-docker-timefreeze:latest .
 kind load docker-image node-docker-timefreeze:latest --name keploy-timefreeze
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/service.yaml
