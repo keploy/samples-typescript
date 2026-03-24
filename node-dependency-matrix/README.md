@@ -95,3 +95,9 @@ The full Kind and hosted UI flow is in:
 ```bash
 k8s/README.md
 ```
+
+The detailed step-by-step staging runbook and troubleshooting guide is in:
+
+```bash
+k8s/STAGING_RUNBOOK.md
+```
