@@ -4,9 +4,114 @@
     "namespace": "default",
     "deployment": "node-dependency-matrix",
     "service": "node-dependency-matrix",
+    "podLabelSelector": "app=node-dependency-matrix",
+    "httpServicePort": 8080,
+    "grpcServicePort": 9090,
     "httpNodePort": 30081,
     "grpcNodePort": 30090,
     "k8sProxyNodePort": 30080
+  },
+  "coverage": {
+    "incoming": {
+      "httpEndpoints": [
+        "/health",
+        "/expectations",
+        "/deps/http",
+        "/deps/http2",
+        "/deps/grpc",
+        "/deps/mysql",
+        "/deps/postgres",
+        "/deps/mongo",
+        "/deps/redis",
+        "/deps/kafka",
+        "/deps/sqs",
+        "/deps/generic",
+        "/deps/all",
+        "/dedup/catalog",
+        "/noise/runtime",
+        "/expected-fail/time-window"
+      ],
+      "grpcMethods": [
+        "/dependencymatrix.DependencyMatrix/Ping",
+        "/dependencymatrix.DependencyMatrix/RunDependencyScenario"
+      ]
+    },
+    "transportNotes": {
+      "incomingHttp": "plaintext HTTP on the sample service",
+      "incomingGrpc": "plaintext gRPC on the sample service",
+      "outgoingHttp": "HTTPS to fixture-service",
+      "outgoingHttp2": "TLS HTTP/2 to fixture-service",
+      "outgoingGrpc": "TLS gRPC to fixture-service",
+      "outgoingMySql": "direct MySQL protocol to mysql:3306",
+      "outgoingPostgres": "direct Postgres protocol to postgres:5432",
+      "outgoingMongo": "Mongo over TLS through mongo-tls",
+      "outgoingRedis": "Redis over TLS through redis-tls",
+      "outgoingKafka": "direct Kafka protocol to redpanda:9092",
+      "outgoingSqs": "HTTPS to sqs-tls",
+      "outgoingGeneric": "raw TLS socket to fixture-service:9445"
+    },
+    "outgoingPreferredMockKinds": [
+      "Http",
+      "Http2",
+      "gRPC",
+      "MySQL",
+      "PostgresV2",
+      "Mongo",
+      "Redis",
+      "Kafka",
+      "Generic"
+    ],
+    "enterpriseSpecificOutgoingIntegrations": [
+      "Redis",
+      "Kafka",
+      "SQS"
+    ],
+    "knownNonGoals": [
+      "incoming TLS gRPC is not exercised in the default flow",
+      "the HTTP ingress coverage is protocol-focused and GET-only",
+      "mysql-tls, postgres-tls, and kafka-tls deployments exist but are not used by the default app path"
+    ]
+  },
+  "hostedUi": {
+    "supportedEnvironments": {
+      "prod": {
+        "uiBaseUrl": "https://app.keploy.io",
+        "clustersPageUrl": "https://app.keploy.io/clusters",
+        "apiServerUrl": "https://api.keploy.io",
+        "environment": "prod"
+      },
+      "staging": {
+        "uiBaseUrl": "https://app.staging.keploy.io",
+        "clustersPageUrl": "https://app.staging.keploy.io/clusters",
+        "apiServerUrl": "https://api.staging.keploy.io",
+        "environment": "staging"
+      }
+    },
+    "requiredHelmValues": {
+      "service.type": "NodePort",
+      "service.nodePort": 30080,
+      "proxy.insecure.enabled": true
+    },
+    "consistencyRules": [
+      "use the same environment in the UI domain, apiServerUrl, and Helm environment value",
+      "use the same ingress URL in the UI cluster entry and keploy.ingressUrl"
+    ]
+  },
+  "playwright": {
+    "portForward": {
+      "script": "k8s/port-forward.sh",
+      "resource": "svc/node-dependency-matrix",
+      "http": {
+        "localPort": 8080,
+        "remotePort": 8080,
+        "baseUrl": "http://localhost:8080"
+      },
+      "grpc": {
+        "localPort": 9090,
+        "remotePort": 9090,
+        "target": "localhost:9090"
+      }
+    }
   },
   "recording": {
     "pods": {
@@ -14,10 +119,190 @@
       "expectedReadyContainersWhileRecording": 2
     },
     "httpTrafficScript": {
-      "expectedTestcasesExact": 17
+      "path": "scripts/record_traffic.sh",
+      "expectedTestcasesExact": 17,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/deps/http",
+          "count": 1,
+          "preferredMockKinds": [
+            "Http"
+          ],
+          "acceptableMockKinds": [
+            "Http"
+          ],
+          "replayExpectation": "pass"
+        },
+        {
+          "method": "GET",
+          "path": "/deps/http2",
+          "count": 1,
+          "preferredMockKinds": [
+            "Http2"
+          ],
+          "acceptableMockKinds": [
+            "Http2",
+            "Generic",
+            "Http"
+          ],
+          "replayExpectation": "pass"
+        },
+        {
+          "method": "GET",
+          "path": "/deps/grpc",
+          "count": 1,
+          "preferredMockKinds": [
+            "gRPC"
+          ],
+          "acceptableMockKinds": [
+            "gRPC",
+            "Generic",
+            "Http2"
+          ],
+          "replayExpectation": "pass"
+        },
+        {
+          "method": "GET",
+          "path": "/deps/mysql",
+          "count": 1,
+          "preferredMockKinds": [
+            "MySQL"
+          ],
+          "acceptableMockKinds": [
+            "MySQL"
+          ],
+          "replayExpectation": "pass"
+        },
+        {
+          "method": "GET",
+          "path": "/deps/postgres",
+          "count": 1,
+          "preferredMockKinds": [
+            "PostgresV2"
+          ],
+          "acceptableMockKinds": [
+            "PostgresV2",
+            "Generic"
+          ],
+          "replayExpectation": "pass"
+        },
+        {
+          "method": "GET",
+          "path": "/deps/mongo",
+          "count": 1,
+          "preferredMockKinds": [
+            "Mongo"
+          ],
+          "acceptableMockKinds": [
+            "Mongo",
+            "Generic"
+          ],
+          "replayExpectation": "pass"
+        },
+        {
+          "method": "GET",
+          "path": "/deps/redis",
+          "count": 1,
+          "preferredMockKinds": [
+            "Redis"
+          ],
+          "acceptableMockKinds": [
+            "Redis",
+            "Generic"
+          ],
+          "replayExpectation": "pass"
+        },
+        {
+          "method": "GET",
+          "path": "/deps/kafka",
+          "count": 1,
+          "preferredMockKinds": [
+            "Kafka"
+          ],
+          "acceptableMockKinds": [
+            "Kafka",
+            "Generic"
+          ],
+          "replayExpectation": "pass"
+        },
+        {
+          "method": "GET",
+          "path": "/deps/sqs",
+          "count": 1,
+          "preferredMockKinds": [
+            "Http"
+          ],
+          "acceptableMockKinds": [
+            "Http",
+            "Generic"
+          ],
+          "replayExpectation": "pass"
+        },
+        {
+          "method": "GET",
+          "path": "/deps/generic",
+          "count": 1,
+          "preferredMockKinds": [
+            "Generic"
+          ],
+          "acceptableMockKinds": [
+            "Generic"
+          ],
+          "replayExpectation": "pass"
+        },
+        {
+          "method": "GET",
+          "path": "/dedup/catalog?id=alpha",
+          "count": 3,
+          "replayExpectation": "pass",
+          "dedupExpectation": {
+            "duplicateCount": 2
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/dedup/catalog?id=beta",
+          "count": 2,
+          "replayExpectation": "pass",
+          "dedupExpectation": {
+            "duplicateCount": 1
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/noise/runtime",
+          "count": 1,
+          "replayExpectation": "noisy"
+        },
+        {
+          "method": "GET",
+          "path": "/expected-fail/time-window?ts=<unix-seconds>",
+          "count": 1,
+          "replayExpectation": "fail"
+        }
+      ]
     },
     "grpcTrafficScript": {
-      "expectedAdditionalTestcasesExact": 2
+      "path": "scripts/send_grpc_traffic.sh",
+      "expectedAdditionalTestcasesExact": 2,
+      "calls": [
+        {
+          "method": "/dependencymatrix.DependencyMatrix/Ping",
+          "request": {
+            "name": "matrix"
+          },
+          "expectedAdditionalTestcases": 1
+        },
+        {
+          "method": "/dependencymatrix.DependencyMatrix/RunDependencyScenario",
+          "request": {
+            "scenario": "deps-http"
+          },
+          "expectedAdditionalTestcases": 1,
+          "invokesScenario": "deps-http"
+        }
+      ]
     },
     "mockSummary": {
       "total": {
@@ -65,6 +350,112 @@
     }
   },
   "replay": {
+    "scenarioCatalog": [
+      {
+        "scenario": "deps-http",
+        "triggerPath": "/deps/http",
+        "replayExpectation": "pass",
+        "acceptableMockKinds": [
+          "Http"
+        ]
+      },
+      {
+        "scenario": "deps-http2",
+        "triggerPath": "/deps/http2",
+        "replayExpectation": "pass",
+        "acceptableMockKinds": [
+          "Http2",
+          "Generic",
+          "Http"
+        ]
+      },
+      {
+        "scenario": "deps-grpc",
+        "triggerPath": "/deps/grpc",
+        "replayExpectation": "pass",
+        "acceptableMockKinds": [
+          "gRPC",
+          "Generic",
+          "Http2"
+        ]
+      },
+      {
+        "scenario": "deps-mysql",
+        "triggerPath": "/deps/mysql",
+        "replayExpectation": "pass",
+        "acceptableMockKinds": [
+          "MySQL"
+        ]
+      },
+      {
+        "scenario": "deps-postgres",
+        "triggerPath": "/deps/postgres",
+        "replayExpectation": "pass",
+        "acceptableMockKinds": [
+          "PostgresV2",
+          "Generic"
+        ]
+      },
+      {
+        "scenario": "deps-mongo",
+        "triggerPath": "/deps/mongo",
+        "replayExpectation": "pass",
+        "acceptableMockKinds": [
+          "Mongo",
+          "Generic"
+        ]
+      },
+      {
+        "scenario": "deps-redis",
+        "triggerPath": "/deps/redis",
+        "replayExpectation": "pass",
+        "acceptableMockKinds": [
+          "Redis",
+          "Generic"
+        ]
+      },
+      {
+        "scenario": "deps-kafka",
+        "triggerPath": "/deps/kafka",
+        "replayExpectation": "pass",
+        "acceptableMockKinds": [
+          "Kafka",
+          "Generic"
+        ]
+      },
+      {
+        "scenario": "deps-sqs",
+        "triggerPath": "/deps/sqs",
+        "replayExpectation": "pass",
+        "acceptableMockKinds": [
+          "Http",
+          "Generic"
+        ]
+      },
+      {
+        "scenario": "deps-generic",
+        "triggerPath": "/deps/generic",
+        "replayExpectation": "pass",
+        "acceptableMockKinds": [
+          "Generic"
+        ]
+      },
+      {
+        "scenario": "dedup/catalog",
+        "triggerPath": "/dedup/catalog",
+        "replayExpectation": "pass"
+      },
+      {
+        "scenario": "noise/runtime",
+        "triggerPath": "/noise/runtime",
+        "replayExpectation": "noisy"
+      },
+      {
+        "scenario": "expected-fail/time-window",
+        "triggerPath": "/expected-fail/time-window",
+        "replayExpectation": "fail"
+      }
+    ],
     "expectedPassScenarios": [
       "deps-http",
       "deps-http2",
@@ -84,6 +475,7 @@
     "expectedFailScenarios": [
       "expected-fail/time-window"
     ],
+    "environmentAgnostic": true,
     "globalNoiseSuggestions": {
       "body": [
         "runtime.requestId",

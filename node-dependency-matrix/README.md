@@ -81,13 +81,16 @@ Use it later in Playwright or manual verification for:
 
 - testcase counts
 - required and acceptable mock kinds
+- scenario-to-mock-kind mapping
+- the exact HTTP and gRPC traffic plans
+- hosted UI + Helm expectations for Kind
 - total mock count ranges
 - dedup expectations
 - expected replay pass/noisy/fail scenarios
 
 ## Kubernetes
 
-The full Kind and staging UI flow is in:
+The full Kind and hosted UI flow is in:
 
 ```bash
 k8s/README.md

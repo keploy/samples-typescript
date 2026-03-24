@@ -10,6 +10,9 @@ CERT_DIR="${ROOT_DIR}/.generated/certs"
 HOST_PROXY_PORT="${HOST_PROXY_PORT:-30080}"
 HOST_APP_PORT="${HOST_APP_PORT:-30081}"
 HOST_GRPC_PORT="${HOST_GRPC_PORT:-30090}"
+KEPLOY_INGRESS_URL="${KEPLOY_INGRESS_URL:-}"
+KEPLOY_INGRESS_HOST="${KEPLOY_INGRESS_HOST:-localhost}"
+KEPLOY_INGRESS_SCHEME="${KEPLOY_INGRESS_SCHEME:-}"
 SKIP_DEPENDENCY_PULLS="${SKIP_DEPENDENCY_PULLS:-0}"
 
 DEPENDENCY_IMAGES=(
@@ -84,7 +87,20 @@ done
 
 "${KUBECTL[@]}" get pods,svc
 
+if [[ -z "${KEPLOY_INGRESS_URL}" ]]; then
+  if [[ -z "${KEPLOY_INGRESS_SCHEME}" ]]; then
+    if [[ "${KEPLOY_INGRESS_HOST}" == "localhost" || "${KEPLOY_INGRESS_HOST}" == "127.0.0.1" ]]; then
+      KEPLOY_INGRESS_SCHEME="http"
+    else
+      KEPLOY_INGRESS_SCHEME="https"
+    fi
+  fi
+
+  KEPLOY_INGRESS_URL="${KEPLOY_INGRESS_SCHEME}://${KEPLOY_INGRESS_HOST}:${HOST_PROXY_PORT}"
+fi
+
 echo ""
 echo "HTTP app: http://localhost:${HOST_APP_PORT}"
 echo "gRPC app: localhost:${HOST_GRPC_PORT}"
-echo "Keploy ingress URL: http://localhost:${HOST_PROXY_PORT}"
+echo "Keploy ingress URL: ${KEPLOY_INGRESS_URL}"
+echo "Use that same ingress URL when you create the cluster in Keploy staging UI."
