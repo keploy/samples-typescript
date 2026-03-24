@@ -5,6 +5,28 @@ APP_URL="${APP_URL:-http://localhost:30081}"
 
 echo "Using APP_URL=${APP_URL}"
 
+show_recording_hint() {
+  cat >&2 <<'EOF'
+Hint: if this target is a Keploy-hosted recording pod in Kubernetes, send sample traffic through port-forward instead of the app NodePorts:
+  kubectl -n default port-forward svc/node-dependency-matrix 8080:8080 9090:9090
+  APP_URL=http://localhost:8080 bash scripts/record_traffic.sh
+EOF
+}
+
+preflight() {
+  local expectations_status
+  expectations_status="$(curl -sS -o /dev/null -w '%{http_code}' "${APP_URL}/expectations" || true)"
+  if [[ "${expectations_status}" == "200" ]]; then
+    return
+  fi
+
+  echo "Preflight failed: ${APP_URL}/expectations returned ${expectations_status:-connection-error}." >&2
+  if [[ "${APP_URL}" =~ localhost:(30081|31081)$ ]]; then
+    show_recording_hint
+  fi
+  exit 1
+}
+
 run() {
   local scenario="$1"
   local path="$2"
@@ -24,6 +46,8 @@ post_json() {
   curl -fsS -X POST "${APP_URL}${path}" -H "content-type: application/json" "$@" --data "${body}"
   echo
 }
+
+preflight
 
 run "deps-http" "/deps/http"
 run "deps-http2" "/deps/http2"

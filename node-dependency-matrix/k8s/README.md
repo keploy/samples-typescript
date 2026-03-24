@@ -207,24 +207,32 @@ kubectl get pods -w
 
 ## 9. Generate record-time traffic
 
-Run these on the machine where the Kind cluster is running:
+Once the hosted UI has started recording and the pod is `2/2`, port-forward the app service:
 
 ```bash
-APP_URL=http://localhost:30081 bash scripts/record_traffic.sh
-GRPC_TARGET=localhost:30090 bash scripts/send_grpc_traffic.sh
+bash k8s/port-forward.sh
 ```
 
-If you changed host ports:
+Then, in a second terminal, run:
 
 ```bash
-APP_URL=http://localhost:31081 bash scripts/record_traffic.sh
-GRPC_TARGET=localhost:31090 bash scripts/send_grpc_traffic.sh
+APP_URL=http://localhost:8080 bash scripts/record_traffic.sh
+GRPC_TARGET=localhost:9090 bash scripts/send_grpc_traffic.sh
+```
+
+If `8080` or `9090` are already in use locally:
+
+```bash
+LOCAL_HTTP_PORT=18080 LOCAL_GRPC_PORT=19090 bash k8s/port-forward.sh
+APP_URL=http://localhost:18080 bash scripts/record_traffic.sh
+GRPC_TARGET=localhost:19090 bash scripts/send_grpc_traffic.sh
 ```
 
 Expected record-time behavior:
 
 - the deployment restarts when recording begins
 - the restarted pod becomes `2/2`
+- the sample traffic goes through `kubectl port-forward`, not the service NodePorts
 - the HTTP script creates exactly 23 HTTP testcases
 - the gRPC script adds 2 incoming gRPC testcases
 - the mock inventory includes the supported outgoing kinds, with acceptable fallbacks captured in the expectations file

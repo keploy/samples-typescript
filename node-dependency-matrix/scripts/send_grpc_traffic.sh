@@ -5,7 +5,16 @@ GRPC_TARGET="${GRPC_TARGET:-localhost:30090}"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-GRPC_TARGET="${GRPC_TARGET}" ROOT_DIR="${ROOT_DIR}" node <<'NODE'
+show_recording_hint() {
+  cat >&2 <<'EOF'
+Hint: if this target is a Keploy-hosted recording pod in Kubernetes, send sample traffic through port-forward instead of the app NodePorts:
+  kubectl -n default port-forward svc/node-dependency-matrix 8080:8080 9090:9090
+  GRPC_TARGET=localhost:9090 bash scripts/send_grpc_traffic.sh
+EOF
+}
+
+if ! output="$(
+  GRPC_TARGET="${GRPC_TARGET}" ROOT_DIR="${ROOT_DIR}" node <<'NODE' 2>&1
 const path = require('path');
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
@@ -39,3 +48,12 @@ client.Ping({ name: 'matrix' }, (pingErr, pingRes) => {
   });
 });
 NODE
+ )"; then
+  printf '%s\n' "${output}" >&2
+  if [[ "${output}" == *"ECONNREFUSED"* ]] && [[ "${GRPC_TARGET}" =~ localhost:(30090|31090)$ ]]; then
+    show_recording_hint
+  fi
+  exit 1
+fi
+
+printf '%s\n' "${output}"

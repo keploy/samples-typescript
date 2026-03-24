@@ -208,15 +208,36 @@ That `2/2` is the app container plus the Keploy sidecar.
 
 ## 9. Send record-time traffic
 
-For the working custom-port flow:
+Once the hosted UI has started recording and the pod is `2/2 Running`, port-forward the app service:
 
 ```bash
 cd /Users/asish/coding/work/regression-test-kube-cloud-flow/samples-typescript/node-dependency-matrix
-APP_URL=http://localhost:31081 bash scripts/record_traffic.sh
-GRPC_TARGET=localhost:31090 bash scripts/send_grpc_traffic.sh
+bash k8s/port-forward.sh
 ```
 
-What this hits:
+Then, in a second terminal:
+
+```bash
+cd /Users/asish/coding/work/regression-test-kube-cloud-flow/samples-typescript/node-dependency-matrix
+APP_URL=http://localhost:8080 bash scripts/record_traffic.sh
+GRPC_TARGET=localhost:9090 bash scripts/send_grpc_traffic.sh
+```
+
+If `8080` or `9090` are already in use locally:
+
+```bash
+cd /Users/asish/coding/work/regression-test-kube-cloud-flow/samples-typescript/node-dependency-matrix
+LOCAL_HTTP_PORT=18080 LOCAL_GRPC_PORT=19090 bash k8s/port-forward.sh
+APP_URL=http://localhost:18080 bash scripts/record_traffic.sh
+GRPC_TARGET=localhost:19090 bash scripts/send_grpc_traffic.sh
+```
+
+Important:
+
+- after Keploy starts recording, do not send sample traffic to `30081/30090` or `31081/31090`
+- keep using the hosted UI ingress URL only for the browser and `k8s-proxy`
+
+What this record-time traffic hits:
 
 - `/deps/http`
 - `/deps/http2`
