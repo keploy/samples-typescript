@@ -279,54 +279,31 @@ export async function runKafkaScenario(config: AppConfig): Promise<ScenarioResul
   const kafka = new Kafka({
     clientId: config.sampleId,
     brokers: config.kafkaBrokers,
-    ssl: false
+    ssl: false,
+    retry: {
+      retries: 0
+    }
   });
 
   const admin = kafka.admin();
-  const producer = kafka.producer();
 
   await admin.connect();
 
   try {
-    await admin.createTopics({
-      waitForLeaders: true,
-      topics: [
-        {
-          topic: config.kafkaTopic,
-          numPartitions: 1,
-          replicationFactor: 1
-        }
-      ]
-    }).catch((err: unknown) => {
-      info('kafka topic create returned non-fatal error', {
-        scenario: 'deps-kafka',
-        error: err instanceof Error ? err.message : String(err)
-      });
-    });
-
-    await producer.connect();
-    const produceResult = await producer.send({
-      topic: config.kafkaTopic,
-      messages: [
-        {
-          key: 'matrix-event',
-          value: JSON.stringify({
-            sampleId: config.sampleId,
-            sentAt: new Date().toISOString()
-          })
-        }
-      ]
-    });
+    const cluster = await admin.describeCluster();
+    const topics = await admin.listTopics();
 
     return {
       scenario: 'deps-kafka',
       protocol: 'Kafka',
       payload: {
-        produced: produceResult
+        brokerCount: cluster.brokers.length,
+        controller: cluster.controller ?? null,
+        topicCount: topics.length,
+        hasMatrixTopic: topics.includes(config.kafkaTopic)
       }
     };
   } finally {
-    await producer.disconnect().catch(() => undefined);
     await admin.disconnect().catch(() => undefined);
   }
 }
@@ -335,6 +312,7 @@ export async function runSqsScenario(config: AppConfig): Promise<ScenarioResult>
   const client = new SQSClient({
     endpoint: config.sqsEndpoint,
     region: config.sqsRegion,
+    md5: false,
     requestHandler: new NodeHttpHandler({
       httpsAgent: new https.Agent({
         ca: readCaBundle(config),
@@ -388,6 +366,7 @@ export async function runSqsScenario(config: AppConfig): Promise<ScenarioResult>
 
 export async function runGenericScenario(config: AppConfig): Promise<ScenarioResult> {
   const payload = await new Promise<string>((resolve, reject) => {
+    let settled = false;
     const socket = tls.connect(
       {
         host: config.fixtureGenericHost,
@@ -397,15 +376,41 @@ export async function runGenericScenario(config: AppConfig): Promise<ScenarioRes
         checkServerIdentity: () => undefined
       },
       () => {
-        socket.write('matrix-generic\n');
+        socket.end('matrix-generic\n');
       }
     );
 
-    socket.on('data', (data) => {
-      resolve(data.toString('utf8').trim());
-      socket.end();
+    const fail = (err: Error) => {
+      if (settled) {
+        return;
+      }
+
+      settled = true;
+      socket.destroy();
+      reject(err);
+    };
+
+    socket.setTimeout(3000, () => {
+      fail(new Error('generic socket timeout'));
     });
-    socket.on('error', reject);
+
+    socket.once('data', (data) => {
+      if (settled) {
+        return;
+      }
+
+      settled = true;
+      resolve(data.toString('utf8').trim());
+      socket.destroy();
+    });
+
+    socket.once('end', () => {
+      fail(new Error('generic socket closed before response'));
+    });
+
+    socket.once('error', (err) => {
+      fail(err);
+    });
   });
 
   return {
