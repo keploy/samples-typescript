@@ -1,0 +1,205 @@
+name: node-dependency-matrix
+
+x-node-matrix-image: &node_matrix_image
+  build:
+    context: .
+  image: node-dependency-matrix:compose
+
+services:
+  app:
+    <<: *node_matrix_image
+    depends_on:
+      fixture-service:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      mongo-tls:
+        condition: service_started
+      redis-tls:
+        condition: service_started
+      redpanda:
+        condition: service_started
+      sqs-tls:
+        condition: service_started
+    environment:
+      PORT: "8080"
+      GRPC_PORT: "9090"
+      FIXTURE_HTTPS_BASE: https://fixture-service:8443
+      FIXTURE_HTTP2_ORIGIN: https://fixture-service:9443
+      FIXTURE_GRPC_TARGET: fixture-service:50051
+      FIXTURE_GENERIC_HOST: fixture-service
+      FIXTURE_GENERIC_PORT: "9445"
+      MYSQL_URL: mysql://root@mysql:3306/matrix
+      POSTGRES_URL: postgresql://postgres@postgres:5432/matrix
+      MONGO_URL: mongodb://mongo-tls:27017/matrix?tls=true
+      REDIS_URL: rediss://redis-tls:6380
+      KAFKA_BROKERS: redpanda:9092
+      KAFKA_TOPIC: matrix-events
+      SQS_ENDPOINT: https://sqs-tls:4567
+      SQS_QUEUE_URL: https://sqs-tls:4567/000000000000/dependency-matrix
+      SAMPLE_CA_CERT_PATH: /etc/sample-certs/ca.crt
+      COMBINED_CA_CERT_PATH: /tmp/node-dependency-matrix-ca-bundle.crt
+      NODE_EXTRA_CA_CERTS: /tmp/node-dependency-matrix-ca-bundle.crt
+      SSL_CERT_FILE: /tmp/node-dependency-matrix-ca-bundle.crt
+    ports:
+      - "${APP_HTTP_PORT:-38081}:8080"
+      - "${APP_GRPC_PORT:-39090}:9090"
+    volumes:
+      - ./.generated/certs:/etc/sample-certs:ro
+
+  fixture-service:
+    <<: *node_matrix_image
+    command: ["node", "dist/bin/dependencyFixture.js"]
+    environment:
+      TLS_CERT_PATH: /etc/sample-certs/proxy.crt
+      TLS_KEY_PATH: /etc/sample-certs/proxy.key
+    volumes:
+      - ./.generated/certs:/etc/sample-certs:ro
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: matrix
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: matrix
+      POSTGRES_USER: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d matrix"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  mongo:
+    image: mongo:7
+    command: ["--bind_ip_all"]
+
+  redis:
+    image: redis:7-alpine
+
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v25.1.2
+    command:
+      - redpanda
+      - start
+      - --overprovisioned
+      - --smp
+      - "1"
+      - --memory
+      - 512M
+      - --reserve-memory
+      - 0M
+      - --check=false
+      - --node-id
+      - "0"
+      - --kafka-addr
+      - PLAINTEXT://0.0.0.0:9092
+      - --advertise-kafka-addr
+      - PLAINTEXT://redpanda:9092
+      - --set
+      - redpanda.auto_create_topics_enabled=true
+
+  localstack:
+    image: localstack/localstack:3.3
+    environment:
+      SERVICES: sqs
+      AWS_DEFAULT_REGION: us-east-1
+    volumes:
+      - ./scripts/localstack-init:/etc/localstack/init/ready.d:ro
+
+  mysql-tls:
+    <<: *node_matrix_image
+    command: ["node", "dist/bin/tlsProxy.js"]
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      LISTEN_PORT: "3306"
+      TARGET_HOST: mysql
+      TARGET_PORT: "3306"
+      TLS_CERT_PATH: /etc/sample-certs/proxy.crt
+      TLS_KEY_PATH: /etc/sample-certs/proxy.key
+    volumes:
+      - ./.generated/certs:/etc/sample-certs:ro
+
+  postgres-tls:
+    <<: *node_matrix_image
+    command: ["node", "dist/bin/tlsProxy.js"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      LISTEN_PORT: "5432"
+      TARGET_HOST: postgres
+      TARGET_PORT: "5432"
+      TLS_CERT_PATH: /etc/sample-certs/proxy.crt
+      TLS_KEY_PATH: /etc/sample-certs/proxy.key
+    volumes:
+      - ./.generated/certs:/etc/sample-certs:ro
+
+  mongo-tls:
+    <<: *node_matrix_image
+    command: ["node", "dist/bin/tlsProxy.js"]
+    depends_on:
+      - mongo
+    environment:
+      LISTEN_PORT: "27017"
+      TARGET_HOST: mongo
+      TARGET_PORT: "27017"
+      TLS_CERT_PATH: /etc/sample-certs/proxy.crt
+      TLS_KEY_PATH: /etc/sample-certs/proxy.key
+    volumes:
+      - ./.generated/certs:/etc/sample-certs:ro
+
+  redis-tls:
+    <<: *node_matrix_image
+    command: ["node", "dist/bin/tlsProxy.js"]
+    depends_on:
+      - redis
+    environment:
+      LISTEN_PORT: "6380"
+      TARGET_HOST: redis
+      TARGET_PORT: "6379"
+      TLS_CERT_PATH: /etc/sample-certs/proxy.crt
+      TLS_KEY_PATH: /etc/sample-certs/proxy.key
+    volumes:
+      - ./.generated/certs:/etc/sample-certs:ro
+
+  kafka-tls:
+    <<: *node_matrix_image
+    command: ["node", "dist/bin/tlsProxy.js"]
+    depends_on:
+      - redpanda
+    environment:
+      LISTEN_PORT: "9094"
+      TARGET_HOST: redpanda
+      TARGET_PORT: "9092"
+      TLS_CERT_PATH: /etc/sample-certs/proxy.crt
+      TLS_KEY_PATH: /etc/sample-certs/proxy.key
+    volumes:
+      - ./.generated/certs:/etc/sample-certs:ro
+
+  sqs-tls:
+    <<: *node_matrix_image
+    command: ["node", "dist/bin/tlsProxy.js"]
+    depends_on:
+      - localstack
+    environment:
+      LISTEN_PORT: "4567"
+      TARGET_HOST: localstack
+      TARGET_PORT: "4566"
+      TLS_CERT_PATH: /etc/sample-certs/proxy.crt
+      TLS_KEY_PATH: /etc/sample-certs/proxy.key
+    volumes:
+      - ./.generated/certs:/etc/sample-certs:ro

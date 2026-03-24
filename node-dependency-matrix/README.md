@@ -43,6 +43,32 @@ Optional incoming gRPC traffic:
 GRPC_TARGET=localhost:30090 bash scripts/send_grpc_traffic.sh
 ```
 
+## Docker Compose
+
+For a non-Kubernetes local stack:
+
+```bash
+cd samples-typescript/node-dependency-matrix
+npm install
+bash scripts/compose_up.sh
+APP_URL=http://localhost:38081 bash scripts/record_traffic.sh
+GRPC_TARGET=localhost:39090 bash scripts/send_grpc_traffic.sh
+```
+
+To stop it:
+
+```bash
+bash scripts/compose_down.sh
+```
+
+If `38081` or `39090` are occupied:
+
+```bash
+APP_HTTP_PORT=48081 APP_GRPC_PORT=49090 bash scripts/compose_up.sh
+APP_URL=http://localhost:48081 bash scripts/record_traffic.sh
+GRPC_TARGET=localhost:49090 bash scripts/send_grpc_traffic.sh
+```
+
 ## Keploy expectations
 
 The machine-readable contract is:
