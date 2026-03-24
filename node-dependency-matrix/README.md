@@ -16,9 +16,10 @@ What it exposes:
 - outgoing Kafka
 - outgoing SQS-over-HTTPS
 - outgoing generic TLS traffic
+- an async background workflow that performs real outbound calls after a `202 Accepted`
 - a noisy endpoint
 - an expected replay failure endpoint
-- duplicate-friendly endpoints for static dedup verification
+- duplicate-friendly GET and POST endpoints for static dedup verification
 
 ## Quick start
 
@@ -77,12 +78,13 @@ The machine-readable contract is:
 fixtures/expected-values.json
 ```
 
-Use it later in Playwright or manual verification for:
+Use it later in manual verification or other automation for:
 
 - testcase counts
 - required and acceptable mock kinds
 - scenario-to-mock-kind mapping
 - the exact HTTP and gRPC traffic plans
+- the async workflow contract and expected background scenarios
 - hosted UI + Helm expectations for Kind
 - total mock count ranges
 - dedup expectations

@@ -16,9 +16,11 @@ What it covers:
 - outgoing Kafka
 - outgoing SQS over HTTPS
 - outgoing generic TLS traffic
+- POST JSON + header-driven ingress cases
+- an async background workflow that fans out to HTTP, Redis, and SQS after the initial response
 - noisy replay cases
 - expected replay failures
-- static dedup-friendly duplicate requests
+- static dedup-friendly duplicate GET and POST requests
 
 Transport notes:
 
@@ -29,6 +31,7 @@ Transport notes:
 - MySQL is started with `mysql_native_password` because the current Keploy MySQL recorder does not handle the default MySQL 8 `caching_sha2_password` handshake reliably during recording
 - Redis and the generic TLS socket keep TLS but skip hostname verification because the current Keploy TLS MITM path for those flows does not preserve SANs reliably during recording
 - `mysql-tls`, `postgres-tls`, and `kafka-tls` are deployed for experimentation, but they are not exercised by the default app config today
+- the async workflow stays inside one pod; it validates background dependency capture, not multi-workload consumer coordination
 
 The official Keploy Kind flow is documented at [Kubernetes Local Setup (Kind)](https://keploy.io/docs/keploy-cloud/kubernetes-local-setup/). The VM-specific hosted UI flow in `Run k8s-proxy ( with our ui ) with the kind in our vm’s.pdf` adds the hostname/TLS details you need when the cluster is running on a VM and the browser is on your laptop.
 
@@ -222,13 +225,14 @@ Expected record-time behavior:
 
 - the deployment restarts when recording begins
 - the restarted pod becomes `2/2`
-- the HTTP script creates exactly 17 HTTP testcases
+- the HTTP script creates exactly 23 HTTP testcases
 - the gRPC script adds 2 incoming gRPC testcases
 - the mock inventory includes the supported outgoing kinds, with acceptable fallbacks captured in the expectations file
+- the async workflow finishes and records background HTTP, Redis, and SQS activity
 - the noisy endpoint is reported as noisy during replay
 - the time-window endpoint is an intentional replay failure
 
-## 10. Use the machine-readable contract for replay and Playwright
+## 10. Use the machine-readable contract for replay and validation
 
 The contract is in:
 
@@ -241,6 +245,7 @@ It now includes:
 - the supported incoming and outgoing coverage matrix
 - the hosted UI and Helm expectations
 - the exact HTTP and gRPC traffic plans
+- the async workflow request/response and background dependency plan
 - preferred and acceptable mock kinds per scenario
 - dedup expectations
 - expected pass/noisy/fail replay outcomes
@@ -251,16 +256,16 @@ The sample also exposes the same contract over HTTP:
 curl http://localhost:30081/expectations
 ```
 
-That endpoint is the easiest source for future Playwright wiring because it keeps the traffic plan and verification contract next to the sample itself.
+That endpoint is the easiest source for future automation because it keeps the traffic plan and verification contract next to the sample itself.
 
-## 11. Playwright-friendly traffic path
+## 11. Local validation traffic path
 
-The existing cluster Playwright flow in `enterprise-ui` uses two separate network paths:
+The existing cluster validation flow uses two separate network paths:
 
 - the browser talks to `k8s-proxy` through the cluster ingress URL
 - the sample traffic itself is sent through `kubectl port-forward` to the app service
 
-This sample now documents that explicitly. For later Playwright work, port-forward the app service instead of sending sample traffic to the proxy ingress:
+This sample now documents that explicitly. For local validation, port-forward the app service instead of sending sample traffic to the proxy ingress:
 
 ```bash
 bash k8s/port-forward.sh

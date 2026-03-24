@@ -228,7 +228,8 @@ What this hits:
 - `/deps/kafka`
 - `/deps/sqs`
 - `/deps/generic`
-- dedup endpoints
+- GET and POST dedup endpoints
+- async background-sync start and wait endpoints
 - noisy endpoint
 - expected replay-failure endpoint
 - incoming gRPC endpoints
@@ -246,9 +247,10 @@ In the UI:
 
 What to verify:
 
-- testcases were captured
+- 23 HTTP testcases and 2 incoming gRPC testcases were captured
 - mock kinds are present for supported outgoing dependencies
-- dedup captured repeated requests
+- dedup captured repeated GET and POST requests
+- the async workflow completed and captured its background HTTP, Redis, and SQS calls
 - the noisy endpoint is recorded
 - the time-window endpoint is recorded
 
@@ -263,6 +265,7 @@ Expected replay contract is already encoded in:
 In broad terms:
 
 - core dependency flows should pass
+- async catalog sync should pass
 - `noise/runtime` should be noisy
 - `expected-fail/time-window` is an intentional replay-failure case
 

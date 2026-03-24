@@ -1,9 +1,7 @@
-import fs from 'node:fs';
-import path from 'node:path';
-
 import * as grpc from '@grpc/grpc-js';
-import express, { Request, Response } from 'express';
+import express, { Response } from 'express';
 
+import { getCatalogSyncJob, startCatalogSyncJob, waitForCatalogSyncJob } from '../lib/asyncJobs';
 import { loadConfig, readExpectationsJson } from '../lib/config';
 import {
   runAllDependencyScenarios,
@@ -27,11 +25,22 @@ const app = express();
 
 app.use(express.json());
 
+interface DedupOrderLineItem {
+  quantity: number;
+  sku: string;
+}
+
+interface DedupOrderPayload {
+  customerTier: string;
+  items: DedupOrderLineItem[];
+  orderId: string;
+}
+
 function logScenarioStart(name: string): void {
   info('scenario started', { scenario: name });
 }
 
-function logScenarioSuccess(name: string, payload: Record<string, unknown>): void {
+function logScenarioSuccess(name: string, payload: unknown): void {
   info('scenario completed', { scenario: name, payload });
 }
 
@@ -57,6 +66,81 @@ async function executeScenario(res: Response, scenarioName: string, runner: () =
       error: err instanceof Error ? err.message : String(err)
     });
   }
+}
+
+function stableSerialize(value: unknown): string {
+  if (Array.isArray(value)) {
+    return `[${value.map((item) => stableSerialize(item)).join(',')}]`;
+  }
+
+  if (value && typeof value === 'object') {
+    const record = value as Record<string, unknown>;
+    return `{${Object.keys(record)
+      .sort()
+      .map((key) => `${JSON.stringify(key)}:${stableSerialize(record[key])}`)
+      .join(',')}}`;
+  }
+
+  return JSON.stringify(value) ?? 'null';
+}
+
+function normalizeDedupOrder(body: unknown): DedupOrderPayload | null {
+  if (!body || typeof body !== 'object') {
+    return null;
+  }
+
+  const source = body as Record<string, unknown>;
+  const orderId = typeof source.orderId === 'string' ? source.orderId.trim() : '';
+  if (!orderId) {
+    return null;
+  }
+
+  const customerTier = typeof source.customerTier === 'string' && source.customerTier.trim() ? source.customerTier.trim() : 'standard';
+  const rawItems = Array.isArray(source.items) ? source.items : [];
+
+  const items = rawItems
+    .map((item) => {
+      if (!item || typeof item !== 'object') {
+        return null;
+      }
+
+      const record = item as Record<string, unknown>;
+      const sku = typeof record.sku === 'string' ? record.sku.trim() : '';
+      const quantity = typeof record.quantity === 'number' ? record.quantity : Number.parseInt(String(record.quantity ?? ''), 10);
+      if (!sku || !Number.isInteger(quantity) || quantity <= 0) {
+        return null;
+      }
+
+      return {
+        sku,
+        quantity
+      };
+    })
+    .filter((item): item is DedupOrderLineItem => item !== null)
+    .sort((left, right) => left.sku.localeCompare(right.sku) || left.quantity - right.quantity);
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  return {
+    orderId,
+    customerTier,
+    items
+  };
+}
+
+function parseTimeoutMs(raw: unknown, fallback: number, max: number): number {
+  if (typeof raw !== 'string') {
+    return fallback;
+  }
+
+  const parsed = Number.parseInt(raw, 10);
+  if (Number.isNaN(parsed) || parsed <= 0) {
+    return fallback;
+  }
+
+  return Math.min(parsed, max);
 }
 
 app.get('/health', (_req, res) => {
@@ -95,6 +179,103 @@ app.get('/dedup/catalog', (req, res) => {
 
   logScenarioSuccess('dedup/catalog', payload);
   res.json(payload);
+});
+
+app.post('/dedup/order', (req, res) => {
+  const normalizedOrder = normalizeDedupOrder(req.body);
+  if (!normalizedOrder) {
+    return res.status(400).json({
+      scenario: 'dedup/order',
+      error: 'orderId and at least one valid item are required'
+    });
+  }
+
+  const dedupKey = req.get('x-matrix-dedup-key')?.trim() || normalizedOrder.orderId;
+  logScenarioStart('dedup/order');
+
+  const payload = {
+    scenario: 'dedup/order',
+    dedupKey,
+    order: normalizedOrder,
+    stableFingerprint: stableSerialize({
+      dedupKey,
+      order: normalizedOrder
+    })
+  };
+
+  logScenarioSuccess('dedup/order', payload);
+  return res.json(payload);
+});
+
+app.post('/async/catalog-sync', (req, res) => {
+  const jobId = typeof req.body?.jobId === 'string' ? req.body.jobId.trim() : '';
+  const catalogId = typeof req.body?.catalogId === 'string' && req.body.catalogId.trim() ? req.body.catalogId.trim() : 'alpha';
+  const correlationId = req.get('x-matrix-correlation-id')?.trim() || jobId;
+
+  if (!jobId) {
+    return res.status(400).json({
+      scenario: 'async/catalog-sync',
+      error: 'jobId is required'
+    });
+  }
+
+  logScenarioStart('async/catalog-sync');
+  const payload = startCatalogSyncJob(config, {
+    jobId,
+    catalogId,
+    correlationId
+  });
+  logScenarioSuccess('async/catalog-sync', payload);
+  return res.status(202).json(payload);
+});
+
+app.get('/async/catalog-sync/:jobId', (req, res) => {
+  const payload = getCatalogSyncJob(req.params.jobId);
+  if (!payload) {
+    return res.status(404).json({
+      scenario: 'async/catalog-sync',
+      error: 'job not found',
+      jobId: req.params.jobId
+    });
+  }
+
+  return res.json(payload);
+});
+
+app.get('/async/catalog-sync/:jobId/wait', async (req, res) => {
+  const timeoutMs = parseTimeoutMs(req.query.timeoutMs, 5000, 15000);
+  logScenarioStart('async/catalog-sync/wait');
+
+  const payload = await waitForCatalogSyncJob(req.params.jobId, timeoutMs);
+  if (!payload) {
+    logScenarioFailure('async/catalog-sync/wait', 'job not found');
+    return res.status(404).json({
+      scenario: 'async/catalog-sync/wait',
+      error: 'job not found',
+      jobId: req.params.jobId
+    });
+  }
+
+  if (payload.status === 'completed') {
+    logScenarioSuccess('async/catalog-sync/wait', {
+      jobId: payload.jobId,
+      status: payload.status,
+      completedScenarios: payload.completedScenarios
+    });
+    return res.json(payload);
+  }
+
+  if (payload.status === 'failed') {
+    logScenarioFailure('async/catalog-sync/wait', payload.error ?? 'async job failed');
+    return res.status(500).json(payload);
+  }
+
+  logScenarioFailure('async/catalog-sync/wait', `timed out after ${timeoutMs}ms`);
+  return res.status(504).json({
+    ...payload,
+    scenario: 'async/catalog-sync/wait',
+    error: `timed out after ${timeoutMs}ms`
+  });
 });
 
 app.get('/noise/runtime', (_req, res) => {

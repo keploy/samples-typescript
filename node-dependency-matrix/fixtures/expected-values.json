@@ -28,6 +28,10 @@
         "/deps/generic",
         "/deps/all",
         "/dedup/catalog",
+        "/dedup/order",
+        "/async/catalog-sync",
+        "/async/catalog-sync/:jobId",
+        "/async/catalog-sync/:jobId/wait",
         "/noise/runtime",
         "/expected-fail/time-window"
       ],
@@ -68,7 +72,8 @@
     ],
     "knownNonGoals": [
       "incoming TLS gRPC is not exercised in the default flow",
-      "the HTTP ingress coverage is protocol-focused and GET-only",
+      "the HTTP ingress coverage now includes GET plus POST JSON and headers, but not multipart/form-data or auth/session traffic",
+      "the async workflow validates in-pod background dependency capture, not a separate worker deployment",
       "mysql-tls, postgres-tls, and kafka-tls deployments exist but are not used by the default app path"
     ]
   },
@@ -97,7 +102,7 @@
       "use the same ingress URL in the UI cluster entry and keploy.ingressUrl"
     ]
   },
-  "playwright": {
+  "localAccess": {
     "portForward": {
       "script": "k8s/port-forward.sh",
       "resource": "svc/node-dependency-matrix",
@@ -120,7 +125,7 @@
     },
     "httpTrafficScript": {
       "path": "scripts/record_traffic.sh",
-      "expectedTestcasesExact": 17,
+      "expectedTestcasesExact": 23,
       "requests": [
         {
           "method": "GET",
@@ -270,6 +275,44 @@
           }
         },
         {
+          "method": "POST",
+          "path": "/dedup/order",
+          "count": 3,
+          "matchHint": "x-matrix-dedup-key=order-alpha",
+          "replayExpectation": "pass",
+          "dedupExpectation": {
+            "duplicateCount": 2
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/dedup/order",
+          "count": 1,
+          "matchHint": "x-matrix-dedup-key=order-beta",
+          "replayExpectation": "pass"
+        },
+        {
+          "method": "POST",
+          "path": "/async/catalog-sync",
+          "count": 1,
+          "requestBody": {
+            "jobId": "sync-alpha",
+            "catalogId": "alpha"
+          },
+          "replayExpectation": "pass",
+          "backgroundScenarios": [
+            "deps-http",
+            "deps-redis",
+            "deps-sqs"
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/async/catalog-sync/sync-alpha/wait?timeoutMs=5000",
+          "count": 1,
+          "replayExpectation": "pass"
+        },
+        {
           "method": "GET",
           "path": "/noise/runtime",
           "count": 1,
@@ -283,6 +326,27 @@
         }
       ]
     },
+    "asyncWorkflows": [
+      {
+        "scenario": "async/catalog-sync",
+        "jobId": "sync-alpha",
+        "catalogId": "alpha",
+        "startRequest": {
+          "method": "POST",
+          "path": "/async/catalog-sync"
+        },
+        "completionRequest": {
+          "method": "GET",
+          "path": "/async/catalog-sync/sync-alpha/wait?timeoutMs=5000"
+        },
+        "backgroundScenarios": [
+          "deps-http",
+          "deps-redis",
+          "deps-sqs"
+        ],
+        "replayExpectation": "pass"
+      }
+    ],
     "grpcTrafficScript": {
       "path": "scripts/send_grpc_traffic.sh",
       "expectedAdditionalTestcasesExact": 2,
@@ -345,6 +409,12 @@
           "method": "GET",
           "path": "/dedup/catalog?id=beta",
           "duplicateCount": 1
+        },
+        {
+          "method": "POST",
+          "path": "/dedup/order",
+          "matchHint": "x-matrix-dedup-key=order-alpha",
+          "duplicateCount": 2
         }
       ]
     }
@@ -446,6 +516,21 @@
         "replayExpectation": "pass"
       },
       {
+        "scenario": "dedup/order",
+        "triggerPath": "/dedup/order",
+        "replayExpectation": "pass"
+      },
+      {
+        "scenario": "async/catalog-sync",
+        "triggerPath": "/async/catalog-sync",
+        "replayExpectation": "pass"
+      },
+      {
+        "scenario": "async/catalog-sync/wait",
+        "triggerPath": "/async/catalog-sync/:jobId/wait",
+        "replayExpectation": "pass"
+      },
+      {
         "scenario": "noise/runtime",
         "triggerPath": "/noise/runtime",
         "replayExpectation": "noisy"
@@ -467,7 +552,10 @@
       "deps-kafka",
       "deps-sqs",
       "deps-generic",
-      "dedup/catalog"
+      "dedup/catalog",
+      "dedup/order",
+      "async/catalog-sync",
+      "async/catalog-sync/wait"
     ],
     "expectedNoisyScenarios": [
       "noise/runtime"
