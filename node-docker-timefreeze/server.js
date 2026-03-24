@@ -1,19 +1,29 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const app = express();
-const port = 8080;
+const port = Number.parseInt(process.env.PORT ?? '8080', 10);
 
-const JWT_KEY = 'my_super_secret_key';
+const JWT_KEY = process.env.JWT_KEY ?? 'my_super_secret_key';
+const JWT_USERNAME = process.env.JWT_USERNAME ?? 'testuser';
+const JWT_TTL_SECONDS = Number.parseInt(process.env.JWT_TTL_SECONDS ?? '10', 10);
+
+let server;
+
+app.disable('x-powered-by');
+
+app.get('/health', (_req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
 
 // /login endpoint to generate a JWT
 app.post('/login', (req, res) => {
     console.log(`Login attempt at: ${new Date()}`);
 
     // Token expires in 10 seconds
-    const expirationTime = Math.floor(Date.now() / 1000) + (10);
+    const expirationTime = Math.floor(Date.now() / 1000) + JWT_TTL_SECONDS;
 
     const payload = {
-        username: 'testuser',
+        username: JWT_USERNAME,
         exp: expirationTime,
     };
 
@@ -96,7 +106,29 @@ app.get('/check-time', (req, res) => {
     }, 1000); // 1000 milliseconds = 1 second
 });
 
-app.listen(port, () => {
+server = app.listen(port, () => {
     console.log(`Current time: ${Math.floor(Date.now() / 1000)}`);
     console.log(`Server starting on port ${port}...`);
 });
+
+const shutdown = (signal) => {
+    console.log(`${signal} received, shutting down server...`);
+
+    if (!server) {
+        process.exit(0);
+        return;
+    }
+
+    server.close((err) => {
+        if (err) {
+            console.error('Error during shutdown:', err);
+            process.exit(1);
+            return;
+        }
+
+        process.exit(0);
+    });
+};
+
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));

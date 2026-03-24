@@ -1,66 +1,43 @@
-Of course. Here is the updated README content, incorporating the instruction to run the `./test_time_endpoint.sh` script.
+# Node Docker Timefreeze
 
----
+This sample is a small Express application for Keploy time-freeze validation.
 
-# Node.js JWT Application
+Endpoints:
 
-This is a simple Node.js application using Express.js to demonstrate JWT authentication and a time-sensitive endpoint.
+- `POST /login`
+- `GET /protected`
+- `GET /check-time?ts=<unix-seconds>`
+- `GET /health`
 
-## Running the Application with Docker
+## Docker
 
-### 1. Build the Docker image
-
-```bash
-docker build -t node-jwt-app .
-```
-
-### 2. Run the Docker container
+Build and run:
 
 ```bash
-docker run -p 8080:8080 --name my-node-app node-jwt-app
+docker build -t node-docker-timefreeze:latest .
+docker run --rm -p 8080:8080 --name node-docker-timefreeze node-docker-timefreeze:latest
 ```
 
-### 3. Test the Endpoints
-
-You can test the endpoints using `curl`.
-
-**Test the `/login` endpoint:**
+Generate traffic:
 
 ```bash
 curl -X POST http://localhost:8080/login
-```
-
-**Test the time-sensitive `/check-time` endpoint:**
-
-A helper script is provided to automatically send the current timestamp.
-
-```bash
 ./test_time_endpoint.sh
+APP_URL=http://localhost:8080 ./test_record_replay_flow.sh
 ```
 
-### 4. Stop and remove the container when done
+## Kubernetes
+
+The local Kind setup for Keploy K8s record/replay is documented in [k8s/README.md](./k8s/README.md).
+
+Quick path:
 
 ```bash
-docker stop my-node-app
-docker rm my-node-app
+bash k8s/deploy-kind.sh
+APP_URL=http://localhost:30081 ./test_record_replay_flow.sh
 ```
 
-## Testing with Keploy
+The deployment to record in Keploy is:
 
-Keploy can be used to record and replay API calls as tests.
-
-### Record Test Cases
-
-Use the `keploy record` command to capture API calls and generate test cases. While this is running, you can use `curl` or run the `./test_time_endpoint.sh` script to generate tests.
-
-```bash
-keploy record -c "docker run -p 8080:8080 --network keploy-network --name my-node-app node-jwt-app" --container-name=my-node-app
-```
-
-### Run Recorded Test Cases with Time Freezing
-
-To replay the recorded tests, use the `keploy test` command. The `--freezeTime` flag is essential for testing the `/check-time` endpoint, as it ensures the application's clock is set to the time of the original request, allowing the test to pass reliably.
-
-```bash
-keploy test -c "docker run -p 8080:8080 --network keploy-network --name my-node-app node-jwt-app" --container-name=my-node-app --freezeTime
-```
+- namespace: `default`
+- deployment: `node-docker-timefreeze`

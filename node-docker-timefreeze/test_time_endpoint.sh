@@ -5,8 +5,9 @@
 # - If run with a number as an argument, it uses that number as the timestamp.
 
 # --- Configuration ---
-HOSTNAME="localhost"
-PORT="8080"
+APP_URL="${APP_URL:-}"
+HOSTNAME="${HOSTNAME:-localhost}"
+PORT="${PORT:-8080}"
 ENDPOINT="/check-time"
 # ---------------------
 
@@ -22,7 +23,11 @@ else
 fi
 
 # Construct the full URL
-URL="http://${HOSTNAME}:${PORT}${ENDPOINT}?ts=${TIMESTAMP_TO_SEND}"
+if [ -n "${APP_URL}" ]; then
+  URL="${APP_URL%/}${ENDPOINT}?ts=${TIMESTAMP_TO_SEND}"
+else
+  URL="http://${HOSTNAME}:${PORT}${ENDPOINT}?ts=${TIMESTAMP_TO_SEND}"
+fi
 
 # Send the request using curl and print the result
 echo "Sending request to: ${URL}"
