@@ -6,6 +6,7 @@ CLUSTER_NAME="${KIND_CLUSTER_NAME:-node-dependency-matrix}"
 KIND_CONTEXT="kind-${CLUSTER_NAME}"
 KUBECTL=(kubectl --context "${KIND_CONTEXT}")
 IMAGE_NAME="${IMAGE_NAME:-node-dependency-matrix:latest}"
+KIND_NODE_IMAGE="${KIND_NODE_IMAGE:-}"
 CERT_DIR="${ROOT_DIR}/.generated/certs"
 HOST_PROXY_PORT="${HOST_PROXY_PORT:-30080}"
 HOST_APP_PORT="${HOST_APP_PORT:-30081}"
@@ -42,7 +43,11 @@ nodes:
         hostPort: ${HOST_GRPC_PORT}
         protocol: TCP
 EOF
-  kind create cluster --name "${CLUSTER_NAME}" --config "${TMP_KIND_CONFIG}"
+  KIND_CREATE_CMD=(kind create cluster --name "${CLUSTER_NAME}" --config "${TMP_KIND_CONFIG}")
+  if [[ -n "${KIND_NODE_IMAGE}" ]]; then
+    KIND_CREATE_CMD+=(--image "${KIND_NODE_IMAGE}")
+  fi
+  "${KIND_CREATE_CMD[@]}"
   rm -f "${TMP_KIND_CONFIG}"
 fi
 
