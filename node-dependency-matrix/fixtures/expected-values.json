@@ -375,7 +375,9 @@
       },
       "requiredKinds": [
         "Http",
-        "MySQL"
+        "MySQL",
+        "PostgresV2",
+        "Redis"
       ],
       "preferredKinds": [
         "Http",
