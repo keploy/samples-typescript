@@ -26,8 +26,12 @@ export interface ScenarioResult {
   payload: ScenarioPayload;
 }
 
+let cachedCaBundle: Buffer | undefined;
 function readCaBundle(config: AppConfig): Buffer {
-  return fs.readFileSync(config.caBundlePath);
+  if (!cachedCaBundle) {
+    cachedCaBundle = fs.readFileSync(config.caBundlePath);
+  }
+  return cachedCaBundle;
 }
 
 export async function runHttpScenario(config: AppConfig): Promise<ScenarioResult> {

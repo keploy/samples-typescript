@@ -8,7 +8,8 @@ function log(level: LogLevel, message: string, details: Record<string, unknown> 
     ...details
   };
 
-  console.log(JSON.stringify(payload));
+  const output = level === 'ERROR' ? console.error : console.log;
+  output(JSON.stringify(payload));
 }
 
 export function info(message: string, details: Record<string, unknown> = {}): void {

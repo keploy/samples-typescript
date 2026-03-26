@@ -15,4 +15,9 @@ if [ -f /tmp/keploy-tls/ca.crt ]; then
   cat /tmp/keploy-tls/ca.crt >> "${COMBINED_CA_CERT_PATH}"
 fi
 
+if [ ! -f "${COMBINED_CA_CERT_PATH}" ]; then
+  : > "${COMBINED_CA_CERT_PATH}"
+  >&2 echo "Warning: No CA certificates were found to create the combined CA bundle at '${COMBINED_CA_CERT_PATH}'. To fix this, either set SAMPLE_CA_CERT_PATH to a valid CA bundle file or mount /tmp/keploy-tls/ca.crt before starting this container so fixture endpoints can establish TLS correctly."
+fi
+
 exec "$@"
