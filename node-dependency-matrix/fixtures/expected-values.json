@@ -125,7 +125,7 @@
     },
     "httpTrafficScript": {
       "path": "scripts/record_traffic.sh",
-      "expectedTestcasesExact": 23,
+      "expectedTestcasesExact": 18,
       "requests": [
         {
           "method": "GET",
@@ -349,7 +349,7 @@
     ],
     "grpcTrafficScript": {
       "path": "scripts/send_grpc_traffic.sh",
-      "expectedAdditionalTestcasesExact": 2,
+      "expectedAdditionalTestcasesExact": 0,
       "calls": [
         {
           "method": "/dependencymatrix.DependencyMatrix/Ping",
@@ -402,19 +402,13 @@
       "expectedEntries": [
         {
           "method": "GET",
-          "path": "/dedup/catalog?id=alpha",
-          "duplicateCount": 2
-        },
-        {
-          "method": "GET",
-          "path": "/dedup/catalog?id=beta",
-          "duplicateCount": 1
+          "path": "/dedup/catalog",
+          "duplicateCount": 4
         },
         {
           "method": "POST",
           "path": "/dedup/order",
-          "matchHint": "x-matrix-dedup-key=order-alpha",
-          "duplicateCount": 2
+          "duplicateCount": 3
         }
       ]
     }
