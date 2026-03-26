@@ -374,10 +374,7 @@
         "max": 250
       },
       "requiredKinds": [
-        "Http",
-        "MySQL",
-        "PostgresV2",
-        "Redis"
+        "Http"
       ],
       "preferredKinds": [
         "Http",
