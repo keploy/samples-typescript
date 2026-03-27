@@ -53,10 +53,17 @@ fi
 
 bash "${ROOT_DIR}/scripts/generate_certs.sh" "${CERT_DIR}"
 
+# Pull dependency images via Docker daemon (uses local cache / MinIO cache)
+# then load into Kind's containerd. This avoids hitting registry rate limits
+# because `docker pull` reuses cached layers while `crictl pull` always goes
+# to the registry.
 if [[ "${SKIP_DEPENDENCY_PULLS}" != "1" ]]; then
   for dep_image in "${DEPENDENCY_IMAGES[@]}"; do
-    docker exec "${CLUSTER_NAME}-control-plane" crictl pull "${dep_image}"
+    echo "Pulling ${dep_image} via Docker daemon..."
+    docker pull "${dep_image}" || echo "WARN: pull failed for ${dep_image}, may already be cached"
   done
+  echo "Loading dependency images into Kind cluster..."
+  kind load docker-image "${DEPENDENCY_IMAGES[@]}" --name "${CLUSTER_NAME}" || true
 fi
 
 docker build --pull=false -t "${IMAGE_NAME}" "${ROOT_DIR}"
