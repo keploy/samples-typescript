@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql:8.0
+          image: public.ecr.aws/docker/library/mysql:8.0
           args:
             - mysqld
             - --default-authentication-plugin=mysql_native_password

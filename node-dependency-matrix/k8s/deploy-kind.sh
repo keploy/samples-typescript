@@ -17,10 +17,10 @@ KEPLOY_INGRESS_SCHEME="${KEPLOY_INGRESS_SCHEME:-}"
 SKIP_DEPENDENCY_PULLS="${SKIP_DEPENDENCY_PULLS:-0}"
 
 DEPENDENCY_IMAGES=(
-  "mysql:8.0"
-  "postgres:16"
-  "mongo:7"
-  "redis:7-alpine"
+  "public.ecr.aws/docker/library/mysql:8.0"
+  "public.ecr.aws/docker/library/postgres:16"
+  "public.ecr.aws/docker/library/mongo:7"
+  "public.ecr.aws/docker/library/redis:7-alpine"
   "docker.redpanda.com/redpandadata/redpanda:v25.1.2"
   "localstack/localstack:3.3"
 )
