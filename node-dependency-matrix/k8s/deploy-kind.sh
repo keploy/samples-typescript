@@ -67,7 +67,9 @@ if [[ "${SKIP_DEPENDENCY_PULLS}" != "1" ]]; then
     docker pull "${dep_image}" || echo "WARN: pull failed for ${dep_image}, may already be cached"
   done
   echo "Loading dependency images into Kind cluster..."
-  kind load docker-image "${DEPENDENCY_IMAGES[@]}" --name "${CLUSTER_NAME}" || true
+  for dep_image in "${DEPENDENCY_IMAGES[@]}"; do
+    kind load docker-image "${dep_image}" --name "${CLUSTER_NAME}" 2>/dev/null || true
+  done
 fi
 
 docker build --pull=false -t "${IMAGE_NAME}" "${ROOT_DIR}"
