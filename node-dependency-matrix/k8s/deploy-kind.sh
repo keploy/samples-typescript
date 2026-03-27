@@ -17,10 +17,10 @@ KEPLOY_INGRESS_SCHEME="${KEPLOY_INGRESS_SCHEME:-}"
 SKIP_DEPENDENCY_PULLS="${SKIP_DEPENDENCY_PULLS:-0}"
 
 DEPENDENCY_IMAGES=(
-  "public.ecr.aws/docker/library/mysql:8.0"
-  "public.ecr.aws/docker/library/postgres:16"
-  "public.ecr.aws/docker/library/mongo:7"
-  "public.ecr.aws/docker/library/redis:7-alpine"
+  "mysql:8.0"
+  "postgres:16"
+  "mongo:7"
+  "redis:7-alpine"
   "docker.redpanda.com/redpandadata/redpanda:v25.1.2"
   "localstack/localstack:3.3"
 )
@@ -30,6 +30,12 @@ if ! kind get clusters | grep -qx "${CLUSTER_NAME}"; then
   cat > "${TMP_KIND_CONFIG}" <<EOF
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
+containerdConfigPatches:
+  - |-
+    [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
+      endpoint = ["https://mirror.gcr.io"]
+    [plugins."io.containerd.grpc.v1.cri".registry.mirrors."public.ecr.aws"]
+      endpoint = ["https://mirror.gcr.io"]
 nodes:
   - role: control-plane
     extraPortMappings:

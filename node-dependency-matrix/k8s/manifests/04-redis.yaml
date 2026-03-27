@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: public.ecr.aws/docker/library/redis:7-alpine
+          image: redis:7-alpine
           args:
             - redis-server
             - --appendonly

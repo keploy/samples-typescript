@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: mongo
-          image: public.ecr.aws/docker/library/mongo:7
+          image: mongo:7
           args:
             - --bind_ip_all
           ports:
