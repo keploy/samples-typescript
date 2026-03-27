@@ -33,9 +33,7 @@ apiVersion: kind.x-k8s.io/v1alpha4
 containerdConfigPatches:
   - |-
     [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
-      endpoint = ["https://mirror.gcr.io"]
-    [plugins."io.containerd.grpc.v1.cri".registry.mirrors."public.ecr.aws"]
-      endpoint = ["https://mirror.gcr.io"]
+      endpoint = ["http://192.168.116.165:5000", "https://mirror.gcr.io"]
 nodes:
   - role: control-plane
     extraPortMappings:
