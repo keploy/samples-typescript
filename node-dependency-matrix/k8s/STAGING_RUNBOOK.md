@@ -417,21 +417,26 @@ File:
 
 - [dependencies.ts](/Users/asish/coding/work/regression-test-kube-cloud-flow/samples-typescript/node-dependency-matrix/src/lib/dependencies.ts)
 
-### Error: Mongo request fails with hostname mismatch
+### Error: Mongo request fails with hostname mismatch or server-selection timeout
 
 Symptoms:
 
 - `/deps/mongo` fails
 - app logs mention `Hostname/IP does not match certificate's altnames`
+  or `Server selection timed out after 30000 ms`
 
 Cause:
 
 - same class of TLS MITM SAN mismatch as Redis
+- Mongo topology discovery can also drift from the `mongo-tls` endpoint to the
+  plain upstream `mongo` service, which makes selection hang behind the TLS
+  proxy path
 
 Fix already applied in this sample:
 
 - keep TLS
 - skip hostname verification for the Mongo client
+- force a direct connection to the configured `mongo-tls` endpoint
 
 File:
 

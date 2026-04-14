@@ -219,6 +219,10 @@ export async function runPostgresScenario(config: AppConfig): Promise<ScenarioRe
 export async function runMongoScenario(config: AppConfig): Promise<ScenarioResult> {
   const client = new MongoClient(config.mongoUrl, {
     tlsCAFile: config.caBundlePath,
+    // The TLS helper fronts a single upstream mongo service. Keep the driver
+    // pinned to the provided endpoint so topology discovery does not drift to
+    // the plain upstream service and hang server selection.
+    directConnection: true,
     // Keploy's current TLS MITM path does not preserve SANs reliably for
     // Mongo, so keep CA validation but skip strict hostname checks.
     tlsAllowInvalidHostnames: true
