@@ -437,6 +437,8 @@ Fix already applied in this sample:
 - keep TLS
 - skip hostname verification for the Mongo client
 - force a direct connection to the configured `mongo-tls` endpoint
+- use polling server monitoring so the Mongo driver does not rely on the
+  default streaming monitor through the proxied path
 
 File:
 

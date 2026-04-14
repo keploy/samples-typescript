@@ -223,6 +223,9 @@ export async function runMongoScenario(config: AppConfig): Promise<ScenarioResul
     // pinned to the provided endpoint so topology discovery does not drift to
     // the plain upstream service and hang server selection.
     directConnection: true,
+    // Transparent sidecars do better with the driver's polling heartbeat mode
+    // than with the default streaming monitor.
+    serverMonitoringMode: 'poll',
     // Keploy's current TLS MITM path does not preserve SANs reliably for
     // Mongo, so keep CA validation but skip strict hostname checks.
     tlsAllowInvalidHostnames: true
