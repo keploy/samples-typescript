@@ -29,7 +29,7 @@ Transport notes:
 - outgoing HTTPS, HTTP/2, gRPC, Mongo, Redis, SQS, and the generic socket flow use TLS in the default path
 - outgoing MySQL, Postgres, and Kafka use direct protocol connections in the default path
 - MySQL is started with `mysql_native_password` because the current Keploy MySQL recorder does not handle the default MySQL 8 `caching_sha2_password` handshake reliably during recording
-- Redis and the generic TLS socket keep TLS but skip hostname verification because the current Keploy TLS MITM path for those flows does not preserve SANs reliably during recording
+- Mongo, Redis, and the generic TLS socket keep TLS but skip hostname verification because the current Keploy TLS MITM path for those flows does not preserve SANs reliably during recording
 - `mysql-tls`, `postgres-tls`, and `kafka-tls` are deployed for experimentation, but they are not exercised by the default app config today
 - the async workflow stays inside one pod; it validates background dependency capture, not multi-workload consumer coordination
 

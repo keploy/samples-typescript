@@ -417,6 +417,26 @@ File:
 
 - [dependencies.ts](/Users/asish/coding/work/regression-test-kube-cloud-flow/samples-typescript/node-dependency-matrix/src/lib/dependencies.ts)
 
+### Error: Mongo request fails with hostname mismatch
+
+Symptoms:
+
+- `/deps/mongo` fails
+- app logs mention `Hostname/IP does not match certificate's altnames`
+
+Cause:
+
+- same class of TLS MITM SAN mismatch as Redis
+
+Fix already applied in this sample:
+
+- keep TLS
+- skip hostname verification for the Mongo client
+
+File:
+
+- [dependencies.ts](/Users/asish/coding/work/regression-test-kube-cloud-flow/samples-typescript/node-dependency-matrix/src/lib/dependencies.ts)
+
 ### Error: generic TLS request fails with hostname mismatch
 
 Symptoms:
