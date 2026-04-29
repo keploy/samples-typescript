@@ -1,0 +1,17 @@
+{
+  "name": "parse-server-mongo",
+  "version": "1.0.0",
+  "description": "Minimal Parse Server + MongoDB sample exercising the boot-phase chronology divergence: at startup, parse-server runs find _SCHEMA filter:{} repeatedly while flow.sh's traffic mid-stream inserts a user-defined class into _SCHEMA. The recording captures multiple same-shape mocks with diverging responses; the matcher's boot-phase tiebreaker must pick the earliest, and DeleteStartupMock must advance through the sequence on repeats.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "4.21.2",
+    "parse-server": "8.2.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "Apache-2.0"
+}
