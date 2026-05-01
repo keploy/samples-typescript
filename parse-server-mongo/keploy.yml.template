@@ -1,0 +1,8 @@
+test:
+  globalNoise:
+    global:
+      header.Date: []
+      body.objectId: []
+      body.sessionToken: []
+      body.createdAt: []
+      body.updatedAt: []
