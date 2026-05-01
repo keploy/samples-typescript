@@ -454,21 +454,28 @@ umami_record_traffic() {
 }
 
 umami_list_routes() {
-    # umami exposes its v1 routes via the Next.js file-system
-    # router. Inside the container, src/app/api/**/route.ts is
-    # the source of truth. find them and emit (method, path).
-    docker exec -i "$UMAMI_APP_CONTAINER" sh -c '
-        cd /app && find src/app/api -name "route.ts" -o -name "route.js" 2>/dev/null | while read f; do
-            rel="${f#src/app/api/}"
-            rel="${rel%/route.ts}"
-            rel="${rel%/route.js}"
-            grep -oE "export[[:space:]]+(async[[:space:]]+)?function[[:space:]]+(GET|POST|PUT|DELETE|PATCH)" "$f" \
-                | awk "{print \$NF}" \
-                | sort -u \
-                | while read method; do
-                    echo "$method /api/${rel}"
-                done
-        done
+    # The upstream umami image ships a compiled Next.js build, not
+    # the TypeScript source tree, so the route surface is read from
+    # the built artefacts: app-path-routes-manifest.json gives every
+    # route's URL path; the matching compiled route.js exports the
+    # HTTP methods. node is in PATH inside the container.
+    docker exec -i "$UMAMI_APP_CONTAINER" node -e '
+        const fs = require("fs");
+        const manifest = require("/app/.next/app-path-routes-manifest.json");
+        const seen = new Set();
+        for (const url of Object.values(manifest)) {
+            const file = "/app/.next/server/app" + url + "/route.js";
+            let body;
+            try { body = fs.readFileSync(file, "utf8"); } catch { continue; }
+            const found = new Set();
+            for (const m of body.matchAll(/(GET|POST|PUT|DELETE|PATCH|OPTIONS|HEAD)["\x3a,]/g)) {
+                found.add(m[1]);
+            }
+            for (const method of found) {
+                const key = method + " " + url;
+                if (!seen.has(key)) { seen.add(key); console.log(key); }
+            }
+        }
     ' 2>/dev/null | sort -u
 }
 
