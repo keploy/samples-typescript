@@ -10,9 +10,12 @@ The lane consumer is **keploy/enterprise** — its `.ci/scripts/parse-server-lin
 |---|---|
 | `index.js` | 25-line Parse Server bootstrap; reads config from env |
 | `package.json` | Pins `parse-server@8.2.3` and `express@4.21.2` |
-| `Dockerfile` | `node:20-bookworm-slim` + `npm install --omit=dev` |
+| `Dockerfile` | `node:20-bookworm-slim` + `npm install --omit=dev` (base; uninstrumented) |
+| `Dockerfile.coverage` | extends base, installs c8 + drops a graceful-shutdown shim so `NODE_V8_COVERAGE` flushes on `compose stop` |
 | `docker-compose.yml` | mongo:7 + this sample, env-driven (defaults preserve standalone `docker compose up`) |
-| `flow.sh` | Subcommand traffic driver: `bootstrap | record-traffic | coverage | list-routes` |
+| `docker-compose.coverage.yml` | overlay; arms `NODE_V8_COVERAGE=/coverage` and bind-mounts the dump dir |
+| `coverage-report.js` | reads V8 dumps and emits `Covered N/M (XX.X%)` for the line-coverage gate |
+| `flow.sh` | Subcommand traffic driver: `bootstrap | record-traffic | coverage` |
 | `keploy.yml.template` | Noise filter for parse-server identifiers (`objectId`, `sessionToken`, `createdAt`, `updatedAt`, `Date` header) |
 
 ## flow.sh subcommands
@@ -24,13 +27,14 @@ flow.sh bootstrap [timeout]   wait for /parse/health, sign up the fixed user,
 
 flow.sh record-traffic        drive the broad parse-server REST + GraphQL surface
                               the recording should capture. Reads the persisted
-                              session token. Honours PARSE_FIRED_ROUTES_FILE.
+                              session token.
 
-flow.sh coverage              print (method,route) coverage. Numerator from
-                              keploy/test-set-*/tests/*.yaml when present, else
-                              falls back to PARSE_FIRED_ROUTES_FILE.
-
-flow.sh list-routes           print the curated route table.
+flow.sh coverage              when run against the coverage overlay, render the
+                              JS line coverage from V8 dumps under ./coverage and
+                              emit `Covered N/M (XX.X%)`. When run against the
+                              base compose (uninstrumented), prints an INFO
+                              message and exits 0 so enterprise lanes'
+                              `flow.sh coverage || true` calls keep working.
 ```
 
 ### Boot-phase divergence preserved
@@ -43,8 +47,6 @@ flow.sh list-routes           print the curated route table.
 At replay, the matcher sees multiple same-shape `find _SCHEMA` candidates with diverging responses. The boot-phase tiebreaker fix in `keploy/integrations` mongo/v2 + `keploy/keploy` mockmanager prefers the earliest candidate and consumes startup-tier mocks on match so the next identical query advances to the next-earliest in chronological order.
 
 ## Route surface covered by `record-traffic`
-
-Curated in `parse_list_routes` (`flow.sh list-routes` to print). Covers:
 
 - **Health / config**: `/health`, `/serverInfo`, `/config`
 - **Users**: `POST /users` (signup), `GET /users`, `GET /users/me`, `GET/PUT /users/{id}`, `GET /users?where=...`
@@ -98,7 +100,6 @@ All container names, network name, network subnet, IPs, host:container port and 
 | `PARSE_FIXED_SCORE_ID` | `keploy-score-id` | pinned `GameScore` `objectId` |
 | `PARSE_FIXED_PLAYER_ID` | `keploy-player-id` | pinned `PlayerStats` `objectId` |
 | `PARSE_FIXED_ACHIEVEMENT_ID` | `keploy-achievement-id` | pinned `Achievement` `objectId` |
-| `PARSE_FIRED_ROUTES_FILE` | _unset_ | if set, every fired curl appends `METHOD /path` |
 | `PARSE_TOKEN_FILE` | `/tmp/parse-token-${PARSE_PHASE}` | persisted session token slot |
 
 ## keploy.yml.template
@@ -120,17 +121,34 @@ A lane consumer copies this onto the generated `keploy.yml` after `keploy config
 
 ## Running locally
 
-Standalone (no env vars):
+### Without keploy — smoke check
 
 ```bash
 docker compose up -d
 bash flow.sh bootstrap 240
-PARSE_FIRED_ROUTES_FILE=/tmp/p.log bash flow.sh record-traffic
-PARSE_FIRED_ROUTES_FILE=/tmp/p.log bash flow.sh coverage
+bash flow.sh record-traffic
 docker compose down -v
 ```
 
-Concurrent matrix cell:
+This is what the keploy/enterprise compat lane wraps in `keploy record` / `keploy test` — the base compose is uninstrumented and runs unchanged inside that lane.
+
+### Without keploy — measuring real JS line coverage
+
+The base image is uninstrumented. Apply the coverage overlay to add c8 / `NODE_V8_COVERAGE` instrumentation:
+
+```bash
+mkdir -p coverage
+docker compose -f docker-compose.yml -f docker-compose.coverage.yml up -d --build
+bash flow.sh bootstrap 240
+bash flow.sh record-traffic
+docker compose -f docker-compose.yml -f docker-compose.coverage.yml stop -t 30 parse-server
+bash flow.sh coverage
+docker compose -f docker-compose.yml -f docker-compose.coverage.yml down -v
+```
+
+The overlay (`Dockerfile.coverage` + `docker-compose.coverage.yml`) sets `NODE_V8_COVERAGE=/coverage` and replaces the entrypoint with a graceful-shutdown shim so V8 actually flushes coverage data on `compose stop`. `flow.sh coverage` runs the bundled `coverage-report.js` over the V8 dumps. The overlay is consumed ONLY by the standalone GH Actions workflow — keploy/enterprise's compat lane ignores it and runs the base compose, paying zero coverage cost.
+
+### Concurrent matrix cell
 
 ```bash
 PARSE_PROJECT=cell-A \
@@ -147,5 +165,3 @@ PARSE_PROJECT=cell-A \
 APP_PORT=7100 PARSE_PHASE=cell-A bash flow.sh bootstrap 240
 APP_PORT=7100 PARSE_PHASE=cell-A bash flow.sh record-traffic
 ```
-
-Under keploy record / replay, the lane consumer wraps `docker compose up` with the keploy binary and runs `flow.sh bootstrap` and `flow.sh record-traffic` against the published port.
