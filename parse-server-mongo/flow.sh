@@ -307,117 +307,59 @@ parse_record_traffic() {
   echo "[flow] record-traffic complete"
 }
 
-parse_list_routes() {
-  cat <<'ROUTES'
-GET /parse/health
-GET /parse/serverInfo
-GET /parse/config
-POST /parse/users
-GET /parse/users
-GET /parse/users/me
-GET /parse/users/{objectId}
-PUT /parse/users/{objectId}
-GET /parse/login
-POST /parse/logout
-GET /parse/sessions
-GET /parse/sessions/me
-DELETE /parse/sessions/{objectId}
-POST /parse/classes/{className}
-GET /parse/classes/{className}
-GET /parse/classes/{className}/{objectId}
-PUT /parse/classes/{className}/{objectId}
-DELETE /parse/classes/{className}/{objectId}
-GET /parse/aggregate/{className}
-GET /parse/schemas
-GET /parse/schemas/{className}
-POST /parse/schemas/{className}
-PUT /parse/schemas/{className}
-DELETE /parse/schemas/{className}
-POST /parse/functions/{name}
-POST /parse/jobs/{name}
-GET /parse/roles
-POST /parse/roles
-POST /parse/files/{filename}
-GET /parse/hooks/functions
-POST /parse/hooks/functions
-PUT /parse/hooks/functions/{name}
-DELETE /parse/hooks/functions/{name}
-GET /parse/hooks/triggers
-POST /parse/graphql
-ROUTES
-}
-
-# parse_collect_recorded_routes — read keploy/test-set-*/tests/*.yaml, emit
-# normalised "METHOD /path" lines. When no recording is present, fall back
-# to PARSE_FIRED_ROUTES_FILE.
-parse_collect_recorded_routes() {
-  local out
-  out=""
-
-  if compgen -G "keploy/test-set-*/tests/*.yaml" > /dev/null; then
-    while IFS= read -r f; do
-      local method route
-      method="$(awk '/^    method:/{print $2; exit}' "${f}")"
-      route="$(awk '/^    url:/{print $2; exit}' "${f}")"
-      route="${route%%\?*}"
-      case "${route}" in
-        http://*|https://*) route="/${route#*://*/}" ;;
-      esac
-      if [ -n "${method}" ] && [ -n "${route}" ]; then
-        out+="${method} ${route}"$'\n'
-      fi
-    done < <(find keploy -type f -path '*/tests/*.yaml' 2>/dev/null | sort)
-  fi
-
-  if [ -z "${out}" ] && [ -n "${PARSE_FIRED_ROUTES_FILE}" ] && [ -f "${PARSE_FIRED_ROUTES_FILE}" ]; then
-    out="$(cat "${PARSE_FIRED_ROUTES_FILE}")"$'\n'
-  fi
-
-  printf '%s' "${out}" | sort -u
-}
-
+# parse_coverage (real JS line coverage via NODE_V8_COVERAGE).
+#
+# Requires the docker-compose.coverage.yml overlay — the base compose
+# is uninstrumented so keploy CI lanes (enterprise, integrations) pay
+# zero overhead. When called from a base-compose run this function
+# detects the missing V8 dumps and exits 0 cleanly so
+# `flow.sh coverage || true` informational hooks don't break.
+#
+# Mechanics:
+#   - The overlay sets NODE_V8_COVERAGE=/coverage. V8 emits per-process
+#     coverage-<pid>-<ts>.json dumps on clean process exit.
+#   - The overlay's coverage-entrypoint.js installs SIGTERM/SIGINT
+#     handlers that call process.exit(0) so `compose stop` produces
+#     a clean exit (otherwise express's app.listen pins the loop and
+#     node would be signal-killed without flushing V8 coverage).
+#   - coverage-report.js (in this dir) reads the V8 dumps and emits
+#     a `Covered N/M (XX.X%)` line summary plus a coverage-summary.json
+#     in c8's shape. We don't use `c8 report` because c8's default
+#     filtering excludes node_modules even with --include overrides,
+#     and parse-server lives entirely under node_modules/parse-server.
 parse_coverage() {
-  local routes_file recorded_file total covered missing pct method route pattern line
+  local app="${PARSE_APP_CONTAINER:-parse-server-mongo-app}"
+  local data_dir="${PARSE_COVERAGE_DATA_DIR:-${PWD}/coverage}"
+  local report_file="${COVERAGE_REPORT_FILE:-coverage_report.txt}"
 
-  routes_file="$(mktemp)"
-  recorded_file="$(mktemp)"
-
-  parse_list_routes | sort -u > "${routes_file}"
-  parse_collect_recorded_routes > "${recorded_file}"
-
-  total="$(wc -l < "${routes_file}" | tr -d ' ')"
-  covered=0
-  missing=""
-
-  while IFS= read -r line; do
-    [ -z "${line}" ] && continue
-    method="${line%% *}"
-    route="${line#* }"
-    pattern="$(printf '%s' "${route}" | sed -E -e 's/\{[^}]+\}/[^\/]+/g')"
-    if grep -qE "^${method} ${pattern}\$" "${recorded_file}"; then
-      covered=$((covered + 1))
-    else
-      missing+="  ${method} ${route}"$'\n'
-    fi
-  done < "${routes_file}"
-
-  if [ "${total}" -gt 0 ]; then
-    pct="$(awk -v c="${covered}" -v t="${total}" 'BEGIN{printf "%.1f", c*100/t}')"
-  else
-    pct="0.0"
+  # Detect V8 dumps. If present we treat this as overlay mode.
+  if ! ls "${data_dir}"/coverage-*.json >/dev/null 2>&1; then
+    echo "INFO: no V8 coverage dumps under ${data_dir} — base image is uninstrumented (apply docker-compose.coverage.yml overlay to enable)"
+    : >"${report_file}"
+    return 0
   fi
 
-  echo "================ Parse Server API Coverage ================"
-  echo "Phase: ${PARSE_PHASE}"
-  echo "Source: $( [ -s "${recorded_file}" ] && echo "recorded test-set or fired-routes log" || echo "(empty)" )"
-  echo "Covered ${covered}/${total} routes (${pct}%)"
-  if [ -n "${missing}" ]; then
-    echo "Uncovered:"
-    printf '%s' "${missing}"
+  # Run the report tool inside the coverage image so we have node + the
+  # installed source tree at the expected paths.
+  local image
+  image="${PARSE_COVERAGE_IMAGE:-parse-server-mongo:local-coverage}"
+  if ! docker image inspect "${image}" >/dev/null 2>&1; then
+    echo "ERROR: coverage report image ${image} not found locally; rebuild via docker-compose.coverage.yml" >&2
+    return 1
   fi
-  echo "==========================================================="
 
-  rm -f "${routes_file}" "${recorded_file}"
+  docker run --rm \
+    -v "${data_dir}:/coverage" \
+    -v "${PWD}/coverage-report.js:/usr/src/app/coverage-report.js:ro" \
+    -e NODE_V8_COVERAGE=/coverage \
+    -e COVERAGE_INCLUDE="${PARSE_COVERAGE_INCLUDE:-node_modules/parse-server/lib}" \
+    -e COVERAGE_REPORT_FILE=/coverage/coverage_report.txt \
+    "${image}" \
+    sh -c 'cd /usr/src/app && node coverage-report.js'
+
+  if [ -f "${data_dir}/coverage_report.txt" ]; then
+    cp "${data_dir}/coverage_report.txt" "${report_file}"
+  fi
 }
 
 usage() {
@@ -453,7 +395,6 @@ main() {
     bootstrap)      parse_bootstrap "$@" ;;
     record-traffic) parse_record_traffic "$@" ;;
     coverage)       parse_coverage "$@" ;;
-    list-routes)    parse_list_routes "$@" ;;
     -h|--help|help|"")
       usage
       [ -z "${cmd}" ] && exit 1

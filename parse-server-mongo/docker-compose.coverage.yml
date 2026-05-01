@@ -1,0 +1,37 @@
+# Coverage overlay compose for parse-server-mongo.
+#
+# Used as a second `-f` to docker compose, e.g.:
+#   docker compose -f docker-compose.yml -f docker-compose.coverage.yml up -d --build
+#
+# Replaces the parse-server image with the c8-instrumented variant
+# from Dockerfile.coverage and overrides the command so c8 wraps
+# `node index.js`. Coverage artifacts are dropped onto a host
+# bind-mount so the workflow can read them after stopping the
+# container (SIGTERM lets c8 flush its summary).
+#
+# The base docker-compose.yml is intentionally untouched —
+# enterprise's keploy compat lane consumes only the base file and
+# must pay no instrumentation cost.
+services:
+  parse-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.coverage
+    image: ${PARSE_IMAGE:-parse-server-mongo:local-coverage}
+    environment:
+      # Node-native V8 coverage. Each Node process writes a
+      # coverage-<pid>-<ts>.json file into NODE_V8_COVERAGE on
+      # exit (any clean exit including SIGTERM). The flow.sh
+      # `coverage` subcommand runs `c8 report` over the dumped
+      # files to produce a summary.
+      #
+      # We deliberately do NOT wrap with `c8 ...`: c8's runtime
+      # wrap (subprocess + tee'd V8 coverage) doesn't propagate
+      # SIGTERM cleanly to the inner node, so the wrapped process
+      # sometimes exits before its coverage data is flushed.
+      # NODE_V8_COVERAGE has no such issue — V8 writes the data
+      # synchronously on process exit, then c8 report turns the
+      # raw V8 data into a summary post-hoc.
+      NODE_V8_COVERAGE: /coverage
+    volumes:
+      - ./coverage:/coverage
