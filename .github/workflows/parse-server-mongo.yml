@@ -195,5 +195,3 @@ jobs:
             | this PR | **${{ needs.build-coverage.outputs.coverage }}%** |
 
             Threshold: PR may not drop coverage by more than **${{ env.COVERAGE_THRESHOLD }}pp**. Override per-repo via the `PARSE_COVERAGE_THRESHOLD` actions variable.
-
-            Coverage measures the parse-server REST + GraphQL surface (`/parse/users` + `/parse/sessions` + `/parse/classes/*` + `/parse/roles` + `/parse/files/*` + `/parse/functions/*` + `/parse/schemas/*` + `/parse/hooks/*` + `/parse/graphql` + `/parse/aggregate/*` + health) that `flow.sh::parse_record_traffic` exercises against the running backend. Reports are attached as artifacts on each job ("coverage-build" / "coverage-release").
