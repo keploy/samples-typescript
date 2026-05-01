@@ -1,0 +1,30 @@
+# keploy.yml template for the umami-postgres sample.
+#
+# Lane scripts copy this into the run dir before invoking
+# `keploy record` / `keploy test`. globalNoise covers the
+# fields whose value is inherently non-deterministic across
+# record/replay (timestamps the server stamps from time.now()
+# or generates from random sources):
+#
+#   header.Date
+#     Set by Next.js / the runtime on every response.
+#   body.createdAt / body.updatedAt
+#     Prisma auto-now fields stamped on insert/update.
+#   body.id (when it's a uuid response field) / body.token
+#     Server-generated identifiers — the test surface that
+#     gates correctness lives in the *response shape*, not
+#     these random values.
+#
+# Add to this list when umami introduces another auto-stamped
+# field; do NOT add it to the lane scripts (that's how the
+# noise lists drift between consumers).
+test:
+  globalNoise:
+    global:
+      header.Date: []
+      body.createdAt: []
+      body.updatedAt: []
+      body.id: []
+      body.token: []
+      body.shareId: []
+      body.websiteId: []

@@ -1,0 +1,58 @@
+# umami-postgres sample compose. Postgres-15 + umami v2 on a fixed
+# subnet, every name env-driven so multiple matrix cells can run
+# in parallel on the same docker daemon. Two-phase boot pattern
+# matches the doccano-django sibling: SKIP_INIT=0 first time so
+# umami's `npx umami-app db:up` runs migrations and seeds; volume
+# is retained; SKIP_INIT=1 second time launches the app against
+# the populated volume.
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${UMAMI_APP_CONTAINER:-umami_app}
+    init: true
+    stop_grace_period: 5s
+    ports:
+      - "${UMAMI_APP_PORT:-3001}:3000"
+    environment:
+      DATABASE_URL: postgresql://umami:umami@${UMAMI_DB_IP:-172.35.0.10}:5432/umami
+      DATABASE_TYPE: postgresql
+      APP_SECRET: ${UMAMI_APP_SECRET:-keploy-fixed-app-secret-for-deterministic-recordings}
+      DISABLE_TELEMETRY: "1"
+      DISABLE_UPDATES: "1"
+      UMAMI_SKIP_INIT: "${UMAMI_SKIP_INIT:-0}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - umami-net
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: ${UMAMI_DB_CONTAINER:-umami_db}
+    stop_grace_period: 5s
+    environment:
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: umami
+      POSTGRES_DB: umami
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U umami -d umami"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - umami-db-data:/var/lib/postgresql/data
+    networks:
+      umami-net:
+        ipv4_address: ${UMAMI_DB_IP:-172.35.0.10}
+
+networks:
+  umami-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${UMAMI_NETWORK_SUBNET:-172.35.0.0/24}
+
+volumes:
+  umami-db-data:
