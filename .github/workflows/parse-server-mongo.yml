@@ -120,7 +120,7 @@ jobs:
       - id: detect
         name: Detect baseline presence
         run: |
-          if [ -d parse-server-mongo ] && [ -x parse-server-mongo/flow.sh ]; then
+          if [ -d parse-server-mongo ] && [ -x parse-server-mongo/flow.sh ] && [ -f .github/workflows/scripts/run-and-measure-parse-server.sh ]; then
             echo "sample-existed=true" >>"$GITHUB_OUTPUT"
             echo "Sample exists on base ref — running full measurement."
           else
