@@ -21,10 +21,25 @@
 test:
   globalNoise:
     global:
-      header.Date: []
-      body.createdAt: []
-      body.updatedAt: []
-      body.id: []
-      body.token: []
-      body.shareId: []
-      body.websiteId: []
+      # keploy's GlobalNoise type is map[string]map[string][]string
+      # — outer key is the section ("header" / "body"), inner key
+      # is the field name within that section, value is list of
+      # values to ignore (empty == match anything). The dotted
+      # flat form (`header.Date: []`) doesn't actually parse into
+      # this shape, so older samples that used it had no effective
+      # filter; only fields keploy auto-stamps into per-test
+      # `noise:` (e.g. Date) were ignored.
+      header:
+        Date: []
+      body:
+        createdAt: []
+        updatedAt: []
+        id: []
+        token: []
+        shareId: []
+        websiteId: []
+        # /api/realtime stamps body.timestamp from Date.now() at
+        # response time; --freezeTime catches clock_gettime in C
+        # extensions but not V8's internal `now()` path, so the
+        # value drifts 1-50ms between record and replay.
+        timestamp: []
