@@ -1,0 +1,70 @@
+# umami-postgres sample compose. Postgres-15 + umami v2 on a fixed
+# subnet, every name env-driven so multiple matrix cells can run
+# in parallel on the same docker daemon. Two-phase boot pattern
+# matches the doccano-django sibling: SKIP_INIT=0 first time so
+# umami's `npx umami-app db:up` runs migrations and seeds; volume
+# is retained; SKIP_INIT=1 second time launches the app against
+# the populated volume.
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${UMAMI_APP_CONTAINER:-umami_app}
+    init: true
+    stop_grace_period: 5s
+    ports:
+      - "${UMAMI_APP_PORT:-3001}:3000"
+    environment:
+      DATABASE_URL: postgresql://umami:umami@${UMAMI_DB_IP:-172.35.0.10}:5432/umami
+      DATABASE_TYPE: postgresql
+      APP_SECRET: ${UMAMI_APP_SECRET:-keploy-fixed-app-secret-for-deterministic-recordings}
+      DISABLE_TELEMETRY: "1"
+      DISABLE_UPDATES: "1"
+      UMAMI_SKIP_INIT: "${UMAMI_SKIP_INIT:-0}"
+      # umami's scripts/check-db.js reads SKIP_DB_CHECK to decide
+      # whether to skip the on-startup `prisma migrate deploy`. The
+      # script tests `if (process.env.SKIP_DB_CHECK)` — a JS
+      # truthiness check, so the literal string "0" is **truthy**
+      # and skips. The only way to NOT skip is to leave the env
+      # var unset or empty. Bootstrap phase wants migrations to
+      # run (admin user creation), so the lane sets
+      # SKIP_DB_CHECK="" (empty). Keploy record/replay phases need
+      # the skip on (keploy's DNS interception blocks
+      # binaries.prisma.sh, so the runtime prisma fetch fails with
+      # EAI_AGAIN), so the lane sets SKIP_DB_CHECK="1".
+      SKIP_DB_CHECK: "${SKIP_DB_CHECK:-}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - umami-net
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: ${UMAMI_DB_CONTAINER:-umami_db}
+    stop_grace_period: 5s
+    environment:
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: umami
+      POSTGRES_DB: umami
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U umami -d umami"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - umami-db-data:/var/lib/postgresql/data
+    networks:
+      umami-net:
+        ipv4_address: ${UMAMI_DB_IP:-172.35.0.10}
+
+networks:
+  umami-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${UMAMI_NETWORK_SUBNET:-172.35.0.0/24}
+
+volumes:
+  umami-db-data:

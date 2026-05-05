@@ -1,0 +1,45 @@
+# keploy.yml template for the umami-postgres sample.
+#
+# Lane scripts copy this into the run dir before invoking
+# `keploy record` / `keploy test`. globalNoise covers the
+# fields whose value is inherently non-deterministic across
+# record/replay (timestamps the server stamps from time.now()
+# or generates from random sources):
+#
+#   header.Date
+#     Set by Next.js / the runtime on every response.
+#   body.createdAt / body.updatedAt
+#     Prisma auto-now fields stamped on insert/update.
+#   body.id (when it's a uuid response field) / body.token
+#     Server-generated identifiers — the test surface that
+#     gates correctness lives in the *response shape*, not
+#     these random values.
+#
+# Add to this list when umami introduces another auto-stamped
+# field; do NOT add it to the lane scripts (that's how the
+# noise lists drift between consumers).
+test:
+  globalNoise:
+    global:
+      # keploy's GlobalNoise type is map[string]map[string][]string
+      # — outer key is the section ("header" / "body"), inner key
+      # is the field name within that section, value is list of
+      # values to ignore (empty == match anything). The dotted
+      # flat form (`header.Date: []`) doesn't actually parse into
+      # this shape, so older samples that used it had no effective
+      # filter; only fields keploy auto-stamps into per-test
+      # `noise:` (e.g. Date) were ignored.
+      header:
+        Date: []
+      body:
+        createdAt: []
+        updatedAt: []
+        id: []
+        token: []
+        shareId: []
+        websiteId: []
+        # /api/realtime stamps body.timestamp from Date.now() at
+        # response time; --freezeTime catches clock_gettime in C
+        # extensions but not V8's internal `now()` path, so the
+        # value drifts 1-50ms between record and replay.
+        timestamp: []
