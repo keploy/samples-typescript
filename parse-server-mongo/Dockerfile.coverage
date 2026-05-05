@@ -1,0 +1,45 @@
+# Coverage overlay image for parse-server-mongo.
+#
+# Extends the base sample image build chain (node:20-bookworm-slim +
+# parse-server deps + index.js) with c8 (for `c8 report`) and a
+# tiny JavaScript entrypoint shim that registers SIGTERM/SIGINT
+# handlers calling process.exit(0) — without that, parse-server's
+# express server pins the event loop and signal-driven kills
+# bypass V8's coverage flush, leaving NODE_V8_COVERAGE empty.
+#
+# IMPORTANT: this image is only consumed by docker-compose.coverage.yml.
+# The base Dockerfile and docker-compose.yml stay uninstrumented so
+# enterprise's keploy compat lane pays no coverage-instrumentation
+# cost.
+FROM node:20-bookworm-slim
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ca-certificates curl dumb-init && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm install --omit=dev
+
+COPY index.js ./
+
+# c8 is the report generator (we use NODE_V8_COVERAGE for raw data
+# collection at runtime, then `c8 report` post-hoc to produce
+# json-summary / lcov). Installing globally keeps the app's own
+# node_modules byte-identical to the base image.
+RUN npm install -g c8@10.1.2
+
+# Graceful-shutdown shim: parse-server's app.listen() pins the
+# event loop, so a `compose stop` (SIGTERM) would kill node by
+# signal — exit code 143 — before V8's NODE_V8_COVERAGE writer
+# runs. Calling process.exit(0) from a SIGTERM handler turns the
+# kill into a clean exit, so V8 dumps coverage to NODE_V8_COVERAGE
+# before the process terminates.
+RUN printf "process.on('SIGTERM', () => process.exit(0));\nprocess.on('SIGINT', () => process.exit(0));\nrequire('/usr/src/app/index.js');\n" \
+    > /usr/src/app/coverage-entrypoint.js
+
+EXPOSE 1337
+
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["node", "/usr/src/app/coverage-entrypoint.js"]

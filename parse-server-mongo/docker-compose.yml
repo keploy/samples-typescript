@@ -1,11 +1,11 @@
-name: parse-server-mongo
+name: ${PARSE_PROJECT:-parse-server-mongo}
 services:
   mongo:
     image: mongo:7
-    container_name: parse-server-mongo-mongo
+    container_name: ${PARSE_MONGO_CONTAINER:-parse-server-mongo-mongo}
     networks:
-      parse-server-mongo-net:
-        ipv4_address: 172.30.0.10
+      parse-net:
+        ipv4_address: ${PARSE_MONGO_IP:-172.30.0.10}
     healthcheck:
       test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
       interval: 5s
@@ -15,29 +15,30 @@ services:
   parse-server:
     build:
       context: .
-    image: parse-server-mongo:local
-    container_name: parse-server-mongo-app
+    image: ${PARSE_IMAGE:-parse-server-mongo:local}
+    container_name: ${PARSE_APP_CONTAINER:-parse-server-mongo-app}
     networks:
-      parse-server-mongo-net:
-        ipv4_address: 172.30.0.11
+      parse-net:
+        ipv4_address: ${PARSE_APP_IP:-172.30.0.11}
     depends_on:
       mongo:
         condition: service_healthy
     ports:
-      - "6100:6100"
+      - "${PARSE_HOST_PORT:-6100}:${PARSE_CONTAINER_PORT:-6100}"
     environment:
-      PORT: "6100"
-      PARSE_MOUNT: "/parse"
-      PARSE_SERVER_APPLICATION_ID: keploy-parse-app
-      PARSE_SERVER_MASTER_KEY: keploy-parse-master
-      PARSE_SERVER_MASTER_KEY_IPS: 0.0.0.0/0,::0
-      PARSE_SERVER_SERVER_URL: http://localhost:6100/parse
-      PARSE_SERVER_DATABASE_URI: mongodb://172.30.0.10:27017/parse
-      PARSE_SERVER_ALLOW_CUSTOM_OBJECT_ID: "1"
+      PORT: "${PARSE_CONTAINER_PORT:-6100}"
+      PARSE_MOUNT: "${PARSE_MOUNT_PATH:-/parse}"
+      PARSE_SERVER_APPLICATION_ID: ${PARSE_APP_ID:-keploy-parse-app}
+      PARSE_SERVER_MASTER_KEY: ${PARSE_MASTER_KEY:-keploy-parse-master}
+      PARSE_SERVER_MASTER_KEY_IPS: ${PARSE_MASTER_KEY_IPS:-0.0.0.0/0,::0}
+      PARSE_SERVER_SERVER_URL: ${PARSE_SERVER_URL:-http://localhost:6100/parse}
+      PARSE_SERVER_DATABASE_URI: ${PARSE_DATABASE_URI:-mongodb://172.30.0.10:27017/parse}
+      PARSE_SERVER_ALLOW_CUSTOM_OBJECT_ID: "${PARSE_ALLOW_CUSTOM_OBJECT_ID:-1}"
 
 networks:
-  parse-server-mongo-net:
+  parse-net:
+    name: ${PARSE_NETWORK_NAME:-parse-server-mongo-net}
     driver: bridge
     ipam:
       config:
-        - subnet: 172.30.0.0/24
+        - subnet: ${PARSE_NETWORK_SUBNET:-172.30.0.0/24}
