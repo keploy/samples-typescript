@@ -125,7 +125,7 @@
     },
     "httpTrafficScript": {
       "path": "scripts/record_traffic.sh",
-      "expectedTestcasesExact": 18,
+      "expectedTestcasesExact": 19,
       "requests": [
         {
           "method": "GET",
