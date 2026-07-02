@@ -1,0 +1,98 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-dependency-matrix
+spec:
+  type: NodePort
+  selector:
+    app: node-dependency-matrix
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      nodePort: 30081
+    - name: grpc
+      port: 9090
+      targetPort: 9090
+      nodePort: 30090
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-dependency-matrix
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-dependency-matrix
+  template:
+    metadata:
+      labels:
+        app: node-dependency-matrix
+    spec:
+      containers:
+        - name: node-dependency-matrix
+          image: node-dependency-matrix:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PORT
+              value: "8080"
+            - name: GRPC_PORT
+              value: "9090"
+            - name: FIXTURE_HTTPS_BASE
+              value: https://fixture-service:8443
+            - name: FIXTURE_HTTP2_ORIGIN
+              value: https://fixture-service:9443
+            - name: FIXTURE_GRPC_TARGET
+              value: fixture-service:50051
+            - name: FIXTURE_GENERIC_HOST
+              value: fixture-service
+            - name: FIXTURE_GENERIC_PORT
+              value: "9445"
+            - name: MYSQL_URL
+              value: mysql://root@mysql:3306/matrix
+            - name: POSTGRES_URL
+              value: postgresql://postgres@postgres:5432/matrix
+            - name: MONGO_URL
+              value: mongodb://mongo-tls:27017/matrix?tls=true
+            - name: REDIS_URL
+              value: rediss://redis-tls:6380
+            - name: KAFKA_BROKERS
+              value: redpanda:9092
+            - name: KAFKA_TOPIC
+              value: matrix-events
+            - name: SQS_ENDPOINT
+              value: https://sqs-tls:4567
+            - name: SQS_QUEUE_URL
+              value: https://sqs-tls:4567/000000000000/dependency-matrix
+            - name: SAMPLE_CA_CERT_PATH
+              value: /etc/sample-certs/ca.crt
+            - name: COMBINED_CA_CERT_PATH
+              value: /tmp/node-dependency-matrix-ca-bundle.crt
+            - name: NODE_EXTRA_CA_CERTS
+              value: /tmp/node-dependency-matrix-ca-bundle.crt
+            - name: SSL_CERT_FILE
+              value: /tmp/node-dependency-matrix-ca-bundle.crt
+          ports:
+            - containerPort: 8080
+            - containerPort: 9090
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          volumeMounts:
+            - name: sample-tls
+              mountPath: /etc/sample-certs
+              readOnly: true
+      volumes:
+        - name: sample-tls
+          secret:
+            secretName: node-dependency-matrix-tls
