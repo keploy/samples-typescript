@@ -349,7 +349,7 @@
     ],
     "grpcTrafficScript": {
       "path": "scripts/send_grpc_traffic.sh",
-      "expectedAdditionalTestcasesExact": 0,
+      "expectedAdditionalTestcasesExact": 2,
       "calls": [
         {
           "method": "/dependencymatrix.DependencyMatrix/Ping",
