@@ -24,10 +24,11 @@ exports.bookRoom = async (req, res) => {
     const existingBooking = await Booking.findOne({
       roomNumber,
       $or: [
-        { startTime: { $lt: endTimeDate }, endTime: { $gt: startTimeDate } },
-        { startTime: { $gte: startTimeDate, $lt: endTimeDate } },
-        { endTime: { $lte: endTimeDate, $gt: startTimeDate } },
-      ],
+      {
+        startTime: { $lt: endTimeDate },//This will cover all the overlap cases.
+        endTime: { $gt: startTimeDate },
+      }
+    ]
     });
 
     if (existingBooking) {
@@ -39,7 +40,7 @@ exports.bookRoom = async (req, res) => {
 
     // Calculate duration and price
     const duration = (endTimeDate - startTimeDate) / (1000 * 60 * 60); // Convert to hours
-    const room = await Room.findOne({ roomNumber });
+    const room = existingBooking;//this unnesessary and wasiting database time and resources
     const totalPrice = duration * room.pricePerHour;
 
     // Create new booking
@@ -150,7 +151,7 @@ exports.cancelBooking = async (req, res) => {
     booking.status = "cancelled";
     booking.refundAmount = refundAmount;
 
-    await Booking.findByIdAndDelete(bookingId);
+    await booking.save();// You're updating the booking's status to "cancelled" and adding a refundAmount, but then you're deleting that booking from the database right after.**
 
     res
       .status(200)
@@ -183,6 +184,9 @@ exports.viewBookings = async (req, res) => {
       query.startTime = { $gte: startDateTime, $lte: endDateTime };
     }
 
+    //  Exclude cancelled bookings by default
+    query.status = { $ne: "cancelled" };
+
     // Find bookings based on filters
     const bookings = await Booking.find(query);
 
@@ -192,3 +196,35 @@ exports.viewBookings = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+// Report a booking
+// controllers/bookingController.js
+exports.reportBooking = async (req, res) => {
+  try{
+    const bookingId = req.params.id;
+    const {reason} = req.body;
+
+    const booking = await Booking.findbyIdAndUpdate(
+      bookingId,
+      { isReported: true, reportReason: reason },
+      { new: true}
+    );
+    if(!booking){
+      return res.status(404).json({message: "Booking not found"})
+    }
+      res.status(200).json({message:"Booking reported",booking});
+  }
+    catch(err){
+      res.status(500).json({message: "Error reporting booking",error: err.message});
+    }
+  }
+
+  //Get all reported bookings
+  exports.getReportedBookings = async (req, res) =>{
+    try{
+      const reported = await Booking.find({ isReported: true});
+      res.status(200).json(reported);
+    } catch(err) {
+      res.status(500).json({message: "Error fetching reports",error: err.message});
+    }
+  }
