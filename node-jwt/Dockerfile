@@ -16,7 +16,7 @@ RUN npm install
 # If you are building your code for production
 # RUN npm ci --omit=dev
 
-ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/freeze_time_arm64.so /lib/keploy/freeze_time_arm64.so
+ADD https://keployenterprise.blob.core.windows.net/releases/latest/assets/freeze_time_arm64.so /lib/keploy/freeze_time_arm64.so
 RUN chmod +x /lib/keploy/freeze_time_arm64.so
 # Run app.py when the container launches
 ENV LD_PRELOAD=/lib/keploy/freeze_time_arm64.so
