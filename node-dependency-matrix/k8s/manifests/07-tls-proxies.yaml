@@ -1,0 +1,297 @@
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: mysql-tls
+    spec:
+      selector:
+        app: mysql-tls
+      ports:
+        - name: mysql
+          port: 3306
+          targetPort: 3306
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: mysql-tls
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: mysql-tls
+      template:
+        metadata:
+          labels:
+            app: mysql-tls
+        spec:
+          containers:
+            - name: mysql-tls
+              image: node-dependency-matrix:latest
+              imagePullPolicy: IfNotPresent
+              command: ["node", "dist/bin/tlsProxy.js"]
+              env:
+                - name: LISTEN_PORT
+                  value: "3306"
+                - name: TARGET_HOST
+                  value: mysql
+                - name: TARGET_PORT
+                  value: "3306"
+                - name: TLS_CERT_PATH
+                  value: /etc/sample-certs/proxy.crt
+                - name: TLS_KEY_PATH
+                  value: /etc/sample-certs/proxy.key
+              volumeMounts:
+                - name: sample-tls
+                  mountPath: /etc/sample-certs
+                  readOnly: true
+          volumes:
+            - name: sample-tls
+              secret:
+                secretName: node-dependency-matrix-tls
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: postgres-tls
+    spec:
+      selector:
+        app: postgres-tls
+      ports:
+        - name: postgres
+          port: 5432
+          targetPort: 5432
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: postgres-tls
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: postgres-tls
+      template:
+        metadata:
+          labels:
+            app: postgres-tls
+        spec:
+          containers:
+            - name: postgres-tls
+              image: node-dependency-matrix:latest
+              imagePullPolicy: IfNotPresent
+              command: ["node", "dist/bin/tlsProxy.js"]
+              env:
+                - name: LISTEN_PORT
+                  value: "5432"
+                - name: TARGET_HOST
+                  value: postgres
+                - name: TARGET_PORT
+                  value: "5432"
+                - name: TLS_CERT_PATH
+                  value: /etc/sample-certs/proxy.crt
+                - name: TLS_KEY_PATH
+                  value: /etc/sample-certs/proxy.key
+              volumeMounts:
+                - name: sample-tls
+                  mountPath: /etc/sample-certs
+                  readOnly: true
+          volumes:
+            - name: sample-tls
+              secret:
+                secretName: node-dependency-matrix-tls
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: mongo-tls
+    spec:
+      selector:
+        app: mongo-tls
+      ports:
+        - name: mongo
+          port: 27017
+          targetPort: 27017
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: mongo-tls
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: mongo-tls
+      template:
+        metadata:
+          labels:
+            app: mongo-tls
+        spec:
+          containers:
+            - name: mongo-tls
+              image: node-dependency-matrix:latest
+              imagePullPolicy: IfNotPresent
+              command: ["node", "dist/bin/tlsProxy.js"]
+              env:
+                - name: LISTEN_PORT
+                  value: "27017"
+                - name: TARGET_HOST
+                  value: mongo
+                - name: TARGET_PORT
+                  value: "27017"
+                - name: TLS_CERT_PATH
+                  value: /etc/sample-certs/proxy.crt
+                - name: TLS_KEY_PATH
+                  value: /etc/sample-certs/proxy.key
+              volumeMounts:
+                - name: sample-tls
+                  mountPath: /etc/sample-certs
+                  readOnly: true
+          volumes:
+            - name: sample-tls
+              secret:
+                secretName: node-dependency-matrix-tls
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: redis-tls
+    spec:
+      selector:
+        app: redis-tls
+      ports:
+        - name: redis
+          port: 6380
+          targetPort: 6380
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: redis-tls
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: redis-tls
+      template:
+        metadata:
+          labels:
+            app: redis-tls
+        spec:
+          containers:
+            - name: redis-tls
+              image: node-dependency-matrix:latest
+              imagePullPolicy: IfNotPresent
+              command: ["node", "dist/bin/tlsProxy.js"]
+              env:
+                - name: LISTEN_PORT
+                  value: "6380"
+                - name: TARGET_HOST
+                  value: redis
+                - name: TARGET_PORT
+                  value: "6379"
+                - name: TLS_CERT_PATH
+                  value: /etc/sample-certs/proxy.crt
+                - name: TLS_KEY_PATH
+                  value: /etc/sample-certs/proxy.key
+              volumeMounts:
+                - name: sample-tls
+                  mountPath: /etc/sample-certs
+                  readOnly: true
+          volumes:
+            - name: sample-tls
+              secret:
+                secretName: node-dependency-matrix-tls
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: kafka-tls
+    spec:
+      selector:
+        app: kafka-tls
+      ports:
+        - name: kafka
+          port: 9094
+          targetPort: 9094
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: kafka-tls
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: kafka-tls
+      template:
+        metadata:
+          labels:
+            app: kafka-tls
+        spec:
+          containers:
+            - name: kafka-tls
+              image: node-dependency-matrix:latest
+              imagePullPolicy: IfNotPresent
+              command: ["node", "dist/bin/tlsProxy.js"]
+              env:
+                - name: LISTEN_PORT
+                  value: "9094"
+                - name: TARGET_HOST
+                  value: redpanda
+                - name: TARGET_PORT
+                  value: "9092"
+                - name: TLS_CERT_PATH
+                  value: /etc/sample-certs/proxy.crt
+                - name: TLS_KEY_PATH
+                  value: /etc/sample-certs/proxy.key
+              volumeMounts:
+                - name: sample-tls
+                  mountPath: /etc/sample-certs
+                  readOnly: true
+          volumes:
+            - name: sample-tls
+              secret:
+                secretName: node-dependency-matrix-tls
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: sqs-tls
+    spec:
+      selector:
+        app: sqs-tls
+      ports:
+        - name: https
+          port: 4567
+          targetPort: 4567
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: sqs-tls
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: sqs-tls
+      template:
+        metadata:
+          labels:
+            app: sqs-tls
+        spec:
+          containers:
+            - name: sqs-tls
+              image: node-dependency-matrix:latest
+              imagePullPolicy: IfNotPresent
+              command: ["node", "dist/bin/tlsProxy.js"]
+              env:
+                - name: LISTEN_PORT
+                  value: "4567"
+                - name: TARGET_HOST
+                  value: localstack
+                - name: TARGET_PORT
+                  value: "4566"
+                - name: TLS_CERT_PATH
+                  value: /etc/sample-certs/proxy.crt
+                - name: TLS_KEY_PATH
+                  value: /etc/sample-certs/proxy.key
+              volumeMounts:
+                - name: sample-tls
+                  mountPath: /etc/sample-certs
+                  readOnly: true
+          volumes:
+            - name: sample-tls
+              secret:
+                secretName: node-dependency-matrix-tls

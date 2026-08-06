@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package dependencymatrix;
+
+service DependencyFixture {
+  rpc GetDependencyQuote (QuoteRequest) returns (QuoteReply);
+}
+
+service DependencyMatrix {
+  rpc Ping (PingRequest) returns (PingReply);
+  rpc RunDependencyScenario (ScenarioRequest) returns (ScenarioReply);
+}
+
+message QuoteRequest {
+  string scenario = 1;
+}
+
+message QuoteReply {
+  string scenario = 1;
+  string message = 2;
+  int64 unix_time = 3;
+}
+
+message PingRequest {
+  string name = 1;
+}
+
+message PingReply {
+  string message = 1;
+  string sample_id = 2;
+}
+
+message ScenarioRequest {
+  string scenario = 1;
+}
+
+message ScenarioReply {
+  string scenario = 1;
+  string status = 2;
+  string payload_json = 3;
+}
