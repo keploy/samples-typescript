@@ -13,10 +13,25 @@ var corsOptions = {
 const db = require("./models");
 const Role = db.role;
 
-db.sequelize.sync().then(() => {
-  console.log('Synchronized Db');
-  initial();
-});
+// Listen only once the schema AND the seed roles exist. app.listen() used to
+// run immediately, while sequelize.sync() was still creating the tables, so
+// for the first second or so the server answered every DB-backed route with
+// a 500 ("relation \"users\" does not exist") -- and signup, which sets role
+// id 1 on the new user, would have hit the user_roles foreign key until
+// initial() had inserted it. Anything probing the app for readiness during
+// that window (Keploy's CI does, on /api/users, while recording) captured
+// that 500 as a real response.
+const PORT = process.env.PORT || 8080;
+db.sequelize.sync()
+  .then(() => {
+    console.log('Synchronized Db');
+    return initial();
+  })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}.`);
+    });
+  });
 
 app.use(cors(corsOptions));
 
@@ -33,13 +48,9 @@ app.get("/", (req, res) => {
 
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
-// set port, listen for requests
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
 
 function initial() {
+  return Promise.all([
   Role.create({
     id: 1,
     name: "user"
@@ -49,7 +60,7 @@ function initial() {
     } else {
       console.error('Error creating role:', error);
     }
-  });
+  }),
 
   Role.create({
     id: 2,
@@ -60,7 +71,7 @@ function initial() {
     } else {
       console.error('Error creating role:', error);
     }
-  });
+  }),
 
   Role.create({
     id: 3,
@@ -71,5 +82,6 @@ function initial() {
     } else {
       console.error('Error creating role:', error);
     }
-  });
+  }),
+  ]);
 }
