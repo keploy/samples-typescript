@@ -17,7 +17,9 @@
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.2.2"
+    "mongoose": "^6.2.2",
+    "morgan": "^1.10.0",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "jest": "^29.7.0"
