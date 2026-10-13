@@ -6,18 +6,27 @@
 #   bootstrap [timeout]   wait for /parse/health, sign up the fixed user,
 #                         capture a session token, persist it under
 #                         /tmp/parse-token-${PARSE_PHASE}. Idempotent —
-#                         re-runs treat already-exists as success.
+#                         a re-run finds the user there and logs in. Exits 1
+#                         when parse-server does not come up, the signup
+#                         fails for any other reason, or the login gives no
+#                         session for the fixed user.
 #   record-traffic        drive the broad parse-server REST + GraphQL
 #                         surface that the recording should capture.
-#                         Reads the persisted session token. Honours
+#                         Reads the persisted session token, and logs it
+#                         out at the end (run bootstrap again before
+#                         another record-traffic). Honours
 #                         PARSE_FIRED_ROUTES_FILE for fire logging.
-#   coverage              print (method,route) coverage. Numerator from
-#                         keploy/test-set-*.yaml when present, else
-#                         falls back to PARSE_FIRED_ROUTES_FILE.
-#   list-routes           print the curated route table.
+#                         Sends every call, then exits 1 listing each call
+#                         that did not work, and the session calls it could
+#                         not send without a token.
+#   coverage              render the JS line coverage from the V8 dumps the
+#                         coverage overlay writes (an INFO line and exit 0
+#                         without them).
 #
-# Determinism: bootstrap pins the user objectId/session token via the
-# PARSE_FIXED_* env vars so replay sees stable identifiers.
+# Determinism: the PARSE_FIXED_* env vars pin the objectIds of the user and
+# of the objects record-traffic creates by REST, so replay sees stable
+# identifiers. The session token and the GraphQL mutation's objectId change
+# every run; keploy.yml.template noises them.
 #
 # Boot-phase divergence preserved: bootstrap + record-traffic together
 # still drive the multi-class _SCHEMA mutation pattern (GameScore,
@@ -38,6 +47,7 @@ PARSE_FIXED_EMAIL="${PARSE_FIXED_EMAIL:-keploy@example.com}"
 PARSE_FIXED_SCORE_ID="${PARSE_FIXED_SCORE_ID:-keploy-score-id}"
 PARSE_FIXED_PLAYER_ID="${PARSE_FIXED_PLAYER_ID:-keploy-player-id}"
 PARSE_FIXED_ACHIEVEMENT_ID="${PARSE_FIXED_ACHIEVEMENT_ID:-keploy-achievement-id}"
+PARSE_FIXED_ROLE_ID="${PARSE_FIXED_ROLE_ID:-keploy-role-id}"
 
 PARSE_FIRED_ROUTES_FILE="${PARSE_FIRED_ROUTES_FILE:-}"
 PARSE_TOKEN_FILE="${PARSE_TOKEN_FILE:-/tmp/parse-token-${PARSE_PHASE}}"
@@ -66,13 +76,69 @@ log_fired() {
   fi
 }
 
-# fire METHOD URL [curl args...] — log then send a tolerant curl.
+# Calls that did not work, one line each. record-traffic fails at the end
+# when there are any.
+unexpected=()
+
+# The response body and curl's own error output of the last call sent, read
+# for the GraphQL check and quoted when a call did not work. Made by
+# fire_files, only for the subcommands that send calls.
+FIRE_BODY=""
+FIRE_ERR=""
+fire_files() {
+  [ -n "${FIRE_BODY}" ] && return 0
+  FIRE_BODY="$(mktemp)"
+  FIRE_ERR="$(mktemp)"
+  trap 'rm -f "${FIRE_BODY}" "${FIRE_ERR}"' EXIT
+}
+
+# answer_excerpt — the first 200 bytes of the last answer, printable, then
+# curl's error if it gave one (a refused or reset connection, an empty reply).
+answer_excerpt() {
+  local body err
+  body="$(head -c 200 "${FIRE_BODY}" | LC_ALL=C tr -c '[:print:]' '.')"
+  err="$(head -c 200 "${FIRE_ERR}" | LC_ALL=C tr -c '[:print:]' ' ' | sed 's/ *$//')"
+  printf '%s%s' "${body}" "${err:+${body:+ }(${err})}"
+}
+
+# fire [--expect CODE] [--graphql] METHOD URL [curl args...] — log the hit,
+# send it, and check its HTTP status: any 2xx, or exactly CODE with --expect
+# (the calls that probe an error path). With --graphql the answer must also be
+# a GraphQL result, a JSON object with a "data" object and no "errors":
+# GraphQL reports a failed query or mutation in a 200. Every call is sent
+# whatever the earlier ones got back, so a recording still has the whole
+# surface; a call that did not work is noted, with the start of its answer,
+# not fatal here. Without the check a refused call is still a recorded test:
+# a masterKeyIps that refused the master key once turned 46 of these calls
+# into recorded 403s, and every keploy lane on this sample stayed green.
 fire() {
+  local want=2xx graphql=0
+  while :; do
+    case "$1" in
+      --expect) want="$2"; shift 2 ;;
+      --graphql) graphql=1; shift ;;
+      *) break ;;
+    esac
+  done
   local method="$1"
   local url="$2"
   shift 2
   log_fired "${method}" "${url}"
-  curl -sS -X "${method}" "${url}" "$@" >/dev/null 2>&1 || true
+  local code why=""
+  fire_files
+  : > "${FIRE_BODY}"
+  code="$(curl -sS -o "${FIRE_BODY}" -w '%{http_code}' -X "${method}" "${url}" "$@" 2>"${FIRE_ERR}" || true)"
+  case "${want}:${code}" in
+    2xx:2[0-9][0-9] | "${code}:${code}") ;;
+    *) why="HTTP ${code:-none}, want ${want}" ;;
+  esac
+  if [ -z "${why}" ] && [ "${graphql}" = 1 ] &&
+    ! jq -e 'type == "object" and (.data | type == "object") and (has("errors") | not)' "${FIRE_BODY}" >/dev/null 2>&1; then
+    why="HTTP ${code}, but the answer is not a GraphQL result with data and no errors"
+  fi
+  if [ -n "${why}" ]; then
+    unexpected+=("${method} ${url} -> ${why}: $(answer_excerpt)")
+  fi
 }
 
 # urlenc — minimal URL-encoder for query payloads.
@@ -91,13 +157,16 @@ parse_wait_for_health() {
     fi
     sleep 1
   done
-  echo "[flow] timeout waiting for parse-server"
+  echo "[flow] timeout waiting for parse-server" >&2
   return 1
 }
 
 parse_bootstrap() {
   local timeout="${1:-180}"
-  parse_wait_for_health "${timeout}"
+  if ! parse_wait_for_health "${timeout}"; then
+    : > "${PARSE_TOKEN_FILE}"
+    return 1
+  fi
 
   # Give parse-server a beat to finish its boot eager-index sweep so the
   # recording captures pre-mutation find _SCHEMA snapshots before any
@@ -107,25 +176,31 @@ parse_bootstrap() {
   # contend over.
   sleep 3
 
-  local signup_resp signup_status login_resp token
+  local signup_status signup_failed="" login_resp token user_id
 
-  signup_resp="$(curl -sS -o /tmp/parse-bootstrap-signup.body -w '%{http_code}' \
+  fire_files
+  : > "${FIRE_BODY}"
+  signup_status="$(curl -sS -o "${FIRE_BODY}" -w '%{http_code}' \
     -X POST "${base}/users" \
     "${h_app[@]}" "${h_json[@]}" \
     --data "{\"objectId\":\"${PARSE_FIXED_USER_ID}\",\"username\":\"${PARSE_FIXED_USERNAME}\",\"password\":\"${PARSE_FIXED_PASSWORD}\",\"email\":\"${PARSE_FIXED_EMAIL}\"}" \
-    || true)"
-  signup_status="${signup_resp}"
+    2>"${FIRE_ERR}" || true)"
   log_fired POST "${base}/users"
-
+  # On a re-run the fixed user is already there, and parse-server answers the
+  # signup with 400, code 137 (its objectId is taken; the username and email
+  # checks skip the user's own objectId). That is the one failed signup to go
+  # on from, and only when the login below gives a session for that user. In
+  # the stack keploy records the database is new, so the signup must be a 2xx
+  # there; anything else is a broken signup that would be recorded as a test.
   case "${signup_status}" in
-    2*) echo "[flow] signup ok (HTTP ${signup_status})" ;;
-    4*)
-      # 4xx during bootstrap is treated as already-exists; re-run case.
-      echo "[flow] signup returned HTTP ${signup_status} — treating as already-exists"
-      ;;
+    2[0-9][0-9]) echo "[flow] signup ok (HTTP ${signup_status})" ;;
     *)
-      echo "[flow] signup unexpected status: ${signup_status}"
-      cat /tmp/parse-bootstrap-signup.body || true
+      signup_failed="HTTP ${signup_status:-none}: $(answer_excerpt)"
+      if [ "${signup_status}" != 400 ] || ! jq -e '.code == 137' "${FIRE_BODY}" >/dev/null 2>&1; then
+        echo "[flow] signup failed: ${signup_failed}" >&2
+        : > "${PARSE_TOKEN_FILE}"
+        return 1
+      fi
       ;;
   esac
 
@@ -135,13 +210,18 @@ parse_bootstrap() {
   log_fired GET "${base}/login"
 
   token="$(printf '%s' "${login_resp}" | jq -r '.sessionToken // empty' 2>/dev/null || true)"
-  if [ -z "${token}" ]; then
-    echo "[flow] no sessionToken in login response — bootstrap will continue but session-bound calls will be skipped"
+  user_id="$(printf '%s' "${login_resp}" | jq -r '.objectId // empty' 2>/dev/null || true)"
+  # The login has to give a session for the user with the fixed objectId: every
+  # call about the user after it depends on it.
+  if [ -z "${token}" ] || [ "${user_id}" != "${PARSE_FIXED_USER_ID}" ]; then
     : > "${PARSE_TOKEN_FILE}"
-  else
-    printf '%s' "${token}" > "${PARSE_TOKEN_FILE}"
-    echo "[flow] session token persisted to ${PARSE_TOKEN_FILE}"
+    [ -n "${signup_failed}" ] && echo "[flow] signup failed: ${signup_failed}" >&2
+    echo "[flow] login gave no session for ${PARSE_FIXED_USER_ID}: $(printf '%s' "${login_resp}" | head -c 200 | LC_ALL=C tr -c '[:print:]' '.')" >&2
+    return 1
   fi
+  [ -n "${signup_failed}" ] && echo "[flow] signup: the user already exists (${signup_failed})"
+  printf '%s' "${token}" > "${PARSE_TOKEN_FILE}"
+  echo "[flow] session token persisted to ${PARSE_TOKEN_FILE}"
 }
 
 parse_load_token() {
@@ -159,6 +239,8 @@ parse_record_traffic() {
   local h_session=()
   if [ -n "${token}" ]; then
     h_session=(-H "X-Parse-Session-Token: ${token}")
+  else
+    unexpected+=("no session token in ${PARSE_TOKEN_FILE} (run bootstrap first): GET /users/me, PUT /users/${PARSE_FIXED_USER_ID} with the session, GET /sessions/me and POST /logout not sent")
   fi
 
   # ----- Tier 1: read-only probes (drives schema cache reload) -----
@@ -171,7 +253,8 @@ parse_record_traffic() {
   # ----- Tier 2: user-class mutations driving _SCHEMA divergence -----
   # Each POST /classes/<NewClass> inserts the class into _SCHEMA, refreshes
   # parse-server's schema cache, and runs listIndexes on the new collection.
-  # Three distinct classes widen the divergence window to four shapes.
+  # Three distinct classes widen the divergence window to at least four
+  # shapes; the schema calls further down add more.
   fire POST "${base}/classes/GameScore" \
     "${h_app[@]}" "${h_master[@]}" "${h_json[@]}" \
     --data "{\"objectId\":\"${PARSE_FIXED_SCORE_ID}\",\"score\":10,\"playerName\":\"${PARSE_FIXED_USERNAME}\"}"
@@ -224,13 +307,13 @@ parse_record_traffic() {
   if [ "${#h_session[@]}" -gt 0 ]; then
     fire GET "${base}/sessions/me" "${h_app[@]}" "${h_session[@]}"
   fi
-  fire DELETE "${base}/sessions/no-such-session-id" "${h_app[@]}" "${h_master[@]}"
+  fire --expect 404 DELETE "${base}/sessions/no-such-session-id" "${h_app[@]}" "${h_master[@]}"
 
-  # ----- Roles: GET, POST, GET by id, PUT (relation add) -----
+  # ----- Roles: GET, POST, GET ?where (deleted in the cleanup) -----
   fire GET "${base}/roles" "${h_app[@]}" "${h_master[@]}"
   fire POST "${base}/roles" \
     "${h_app[@]}" "${h_master[@]}" "${h_json[@]}" \
-    --data "{\"name\":\"keployRole\",\"ACL\":{\"*\":{\"read\":true}},\"users\":{\"__type\":\"Relation\",\"className\":\"_User\"},\"roles\":{\"__type\":\"Relation\",\"className\":\"_Role\"}}"
+    --data "{\"objectId\":\"${PARSE_FIXED_ROLE_ID}\",\"name\":\"keployRole\",\"ACL\":{\"*\":{\"read\":true}},\"users\":{\"__type\":\"Relation\",\"className\":\"_User\"},\"roles\":{\"__type\":\"Relation\",\"className\":\"_Role\"}}"
   local role_q
   role_q="$(urlenc '{"name":"keployRole"}')"
   fire GET "${base}/roles?where=${role_q}" "${h_app[@]}" "${h_master[@]}"
@@ -250,9 +333,9 @@ parse_record_traffic() {
     --data-binary 'binary-payload-12345'
 
   # ----- Cloud functions / jobs (drives FunctionsRouter cold paths) -----
-  fire POST "${base}/functions/no-such-fn" \
+  fire --expect 400 POST "${base}/functions/no-such-fn" \
     "${h_app[@]}" "${h_master[@]}" "${h_json[@]}" --data '{}'
-  fire POST "${base}/jobs/no-such-job" \
+  fire --expect 400 POST "${base}/jobs/no-such-job" \
     "${h_app[@]}" "${h_master[@]}" "${h_json[@]}" --data '{}'
 
   # ----- Schemas: POST/PUT/DELETE on a custom class -----
@@ -275,26 +358,33 @@ parse_record_traffic() {
   fire PUT "${base}/hooks/functions/covFn" \
     "${h_app[@]}" "${h_master[@]}" "${h_json[@]}" \
     --data '{"url":"http://example.com/hook2"}'
-  fire DELETE "${base}/hooks/functions/covFn" "${h_app[@]}" "${h_master[@]}"
+  # A hook is deleted with a PUT of {"__op":"Delete"}; there is no DELETE route.
+  fire PUT "${base}/hooks/functions/covFn" \
+    "${h_app[@]}" "${h_master[@]}" "${h_json[@]}" \
+    --data '{"__op":"Delete"}'
   fire GET "${base}/hooks/triggers" "${h_app[@]}" "${h_master[@]}"
 
   # ----- GraphQL: query + mutation + introspection -----
-  fire POST "${base}/graphql" \
+  fire --graphql POST "${base}/graphql" \
     "${h_app[@]}" "${h_master[@]}" "${h_json[@]}" \
     --data '{"query":"{ __typename }"}'
-  fire POST "${base}/graphql" \
+  fire --graphql POST "${base}/graphql" \
     "${h_app[@]}" "${h_master[@]}" "${h_json[@]}" \
     --data '{"query":"{ __schema { queryType { name } mutationType { name } } }"}'
-  fire POST "${base}/graphql" \
+  fire --graphql POST "${base}/graphql" \
     "${h_app[@]}" "${h_master[@]}" "${h_json[@]}" \
     --data '{"query":"mutation { createGameScore(input: { fields: { score: 11, playerName: \"gql-1\" } }) { gameScore { objectId score } } }"}'
 
-  # ----- Aggregate (drives AggregateRouter; not all upstreams ship this) -----
+  # ----- Aggregate (drives AggregateRouter) -----
   local agg_q
   agg_q="$(urlenc '[{"$group":{"_id":"$playerName"}}]')"
   fire GET "${base}/aggregate/GameScore?pipeline=${agg_q}" "${h_app[@]}" "${h_master[@]}"
 
-  # ----- Cleanup: DELETE the seeded class objects -----
+  # ----- Cleanup: DELETE the objects with fixed ids, so another bootstrap and
+  # record-traffic run on the same database (the role's name and objectId are
+  # unique). The uploaded files, the GraphQL mutation's GameScore and the
+  # sessions stay. -----
+  fire DELETE "${base}/roles/${PARSE_FIXED_ROLE_ID}" "${h_app[@]}" "${h_master[@]}"
   fire DELETE "${base}/classes/GameScore/${PARSE_FIXED_SCORE_ID}"     "${h_app[@]}" "${h_master[@]}"
   fire DELETE "${base}/classes/PlayerStats/${PARSE_FIXED_PLAYER_ID}"  "${h_app[@]}" "${h_master[@]}"
   fire DELETE "${base}/classes/Achievement/${PARSE_FIXED_ACHIEVEMENT_ID}" "${h_app[@]}" "${h_master[@]}"
@@ -304,6 +394,11 @@ parse_record_traffic() {
       "${h_app[@]}" "${h_session[@]}" "${h_json[@]}" --data '{}'
   fi
 
+  if [ "${#unexpected[@]}" -gt 0 ]; then
+    echo "[flow] record-traffic failed (${#unexpected[@]}): each line is a call that did not work, or calls it could not send:" >&2
+    printf '[flow]   %s\n' "${unexpected[@]}" >&2
+    return 1
+  fi
   echo "[flow] record-traffic complete"
 }
 
@@ -368,10 +463,14 @@ Usage: $0 <subcommand> [args]
 
 Subcommands:
   bootstrap [timeout]   wait for /parse/health, sign up the fixed user,
-                        capture session token to ${PARSE_TOKEN_FILE}
-  record-traffic        drive the broad parse-server REST + GraphQL surface
-  coverage              print (method,route) coverage report
-  list-routes           print the curated route table
+                        capture session token to ${PARSE_TOKEN_FILE};
+                        exits 1 when parse-server does not come up, the
+                        signup fails (bar the fixed user already being
+                        there), or the login gives no session for it
+  record-traffic        drive the broad parse-server REST + GraphQL surface,
+                        and log the session out; exits 1 listing each call
+                        that did not work
+  coverage              render the JS line coverage from V8 dumps
 
 Environment:
   APP_PORT                 host port parse-server is listening on (default 6100)
@@ -395,9 +494,10 @@ main() {
     bootstrap)      parse_bootstrap "$@" ;;
     record-traffic) parse_record_traffic "$@" ;;
     coverage)       parse_coverage "$@" ;;
-    -h|--help|help|"")
-      usage
-      [ -z "${cmd}" ] && exit 1
+    -h|--help|help) usage ;;
+    "")
+      usage >&2
+      exit 1
       ;;
     *)
       echo "unknown subcommand: ${cmd}" >&2
