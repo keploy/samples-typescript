@@ -2,6 +2,7 @@ test:
   globalNoise:
     global:
       header.Date: []
+      header.Etag: []
       body.objectId: []
       body.sessionToken: []
       body.createdAt: []
