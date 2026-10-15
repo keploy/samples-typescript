@@ -1,0 +1,7 @@
+node_modules
+dist
+.generated
+README.md
+k8s
+scripts
+keploy
