@@ -50,12 +50,22 @@ export async function runHttpScenario(config: AppConfig): Promise<ScenarioResult
       (response) => {
         const chunks: Buffer[] = [];
         response.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
+        response.on('error', reject);
         response.on('end', () => {
+          const status = response.statusCode ?? 0;
           const body = Buffer.concat(chunks).toString('utf8');
-          resolve({
-            status: response.statusCode ?? 0,
-            body: JSON.parse(body) as ScenarioPayload
-          });
+          // Parsed here, in the stream's callback, so a body that is not JSON
+          // must become this promise's rejection: a throw would escape every
+          // caller's try/catch as an uncaught exception and take the process
+          // down. Keploy answers a dependency call it has no mock for with a
+          // plaintext 502, and the async catalog-sync job makes this call
+          // after its response has gone out -- so that crash restarted the
+          // app mid-replay and failed whichever cases ran while it was down.
+          try {
+            resolve({ status, body: JSON.parse(body) as ScenarioPayload });
+          } catch {
+            reject(new Error(`deps-http: ${target.host} answered ${status} with a body that is not JSON: ${body.slice(0, 200)}`));
+          }
         });
       }
     );
