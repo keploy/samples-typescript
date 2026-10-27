@@ -28,6 +28,7 @@ This repo contains the sample for [Keploy's](https://keploy.io) JS Application. 
 8. [Node-JWT](https://github.com/keploy/samples-typescript/tree/main/node-jwt)
 9. [Node-Mongoose](https://github.com/keploy/samples-typescript/tree/main/node-mongoose)
 10. [Rest-Express-Mongo](https://github.com/keploy/samples-typescript/tree/main/rest-express-mongo)
+11. [Node-Dependency-Matrix](https://github.com/keploy/samples-typescript/tree/main/node-dependency-matrix)
 
 ## Community Support ❤️
 
