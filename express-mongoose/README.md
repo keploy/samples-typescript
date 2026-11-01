@@ -6,7 +6,7 @@ A simple sample CRUD application to test using Keploy build with Express and Mon
 Install keploy via one-click:-
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ## Setup application
