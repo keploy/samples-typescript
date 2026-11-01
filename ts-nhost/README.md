@@ -27,7 +27,7 @@ npm install
 Let's get started by setting up the Keploy alias with this command:
 
 ```sh
-curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
+source /dev/stdin <<<"$(curl -fsSL https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ## Using Keploy :
