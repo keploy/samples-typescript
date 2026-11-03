@@ -36,7 +36,8 @@ spec:
     spec:
       containers:
         - name: localstack
-          image: localstack/localstack:3.3
+          # compose.yaml's LocalStack (see the reason there).
+          image: localstack/localstack:4.14.0
           env:
             - name: SERVICES
               value: sqs
