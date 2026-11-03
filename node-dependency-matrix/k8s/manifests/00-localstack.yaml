@@ -46,8 +46,13 @@ spec:
           ports:
             - containerPort: 4566
           volumeMounts:
+            # The hook alone (subPath), not the whole ConfigMap volume:
+            # LocalStack 4.x runs every script under ready.d, its
+            # subdirectories too, so it would also run the copy in the
+            # volume's hidden timestamped directory, and run the hook twice.
             - name: init-scripts
-              mountPath: /etc/localstack/init/ready.d
+              mountPath: /etc/localstack/init/ready.d/01-create-queue.sh
+              subPath: 01-create-queue.sh
       volumes:
         - name: init-scripts
           configMap:
