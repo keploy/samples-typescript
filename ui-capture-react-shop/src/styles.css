@@ -1,0 +1,82 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #1f2933;
+  background: #f7f7f2;
+}
+body {
+  margin: 0;
+}
+.top {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #fff;
+  border-bottom: 1px solid #e4e4dc;
+}
+.top nav {
+  display: flex;
+  gap: 1rem;
+}
+.top a {
+  color: #1f2933;
+  text-decoration: none;
+}
+.brand {
+  font-weight: 700;
+}
+main {
+  max-width: 40rem;
+  padding: 1rem 2rem;
+}
+.card,
+.products li,
+.reviews blockquote {
+  background: #fff;
+  border: 1px solid #e4e4dc;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+.products {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.products li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.reviews blockquote {
+  margin: 0.5rem 0;
+}
+form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: end;
+}
+form label {
+  display: grid;
+  gap: 0.25rem;
+}
+input,
+button,
+.button {
+  font: inherit;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #c9c9bf;
+}
+button,
+.button {
+  background: #2f6f4f;
+  color: #fff;
+  border-color: #2f6f4f;
+  cursor: pointer;
+  text-decoration: none;
+}
+.error {
+  color: #b42318;
+}

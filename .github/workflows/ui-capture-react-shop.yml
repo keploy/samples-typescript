@@ -1,0 +1,71 @@
+# ui-capture-react-shop sample CI: the Keploy UI capture sample shop
+# (React + Vite) is installed from its lockfile, built, and visited in Chromium
+# by its Playwright smoke test (npm test). The SDK posts to a local fake
+# ingest (test/fake-ingest.mjs) that the test starts, so no Keploy account
+# or key is involved: nothing here needs a secret.
+#
+# Runs only for changes under ui-capture-react-shop/ or to this file.
+name: ui-capture-react-shop sample
+
+on:
+  pull_request:
+    paths:
+      - 'ui-capture-react-shop/**'
+      - '.github/workflows/ui-capture-react-shop.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'ui-capture-react-shop/**'
+      - '.github/workflows/ui-capture-react-shop.yml'
+  workflow_dispatch: {}
+
+concurrency:
+  group: ui-capture-react-shop-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: build and smoke test against a fake ingest (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The lowest Node the sample's package.json allows, and the current LTS.
+        node: ['22.22', '24']
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: ui-capture-react-shop
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+          cache-dependency-path: ui-capture-react-shop/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Build (type-check and production build)
+        run: npm run build
+
+      - name: Smoke test (npm test)
+        run: npm test
+
+      - name: Upload the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-capture-react-shop-playwright-report-node${{ matrix.node }}
+          path: |
+            ui-capture-react-shop/playwright-report
+            ui-capture-react-shop/test-results
+          if-no-files-found: ignore

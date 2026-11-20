@@ -29,6 +29,14 @@ This repo contains the sample for [Keploy's](https://keploy.io) JS Application. 
 9. [Node-Mongoose](https://github.com/keploy/samples-typescript/tree/main/node-mongoose)
 10. [Rest-Express-Mongo](https://github.com/keploy/samples-typescript/tree/main/rest-express-mongo)
 
+## UI capture samples
+
+One small shop, built three ways, recorded in the browser with [Keploy UI capture](https://keploy.io/docs/running-keploy/ui-capture/) (`@keploy/capture-sdk`). The three have the same pages, `data-testid`s and `/api` routes.
+
+1. [UI-Capture-React-Shop](https://github.com/keploy/samples-typescript/tree/main/ui-capture-react-shop): React, Vite and React Router
+2. [UI-Capture-Next-Shop](https://github.com/keploy/samples-typescript/tree/main/ui-capture-next-shop): Next.js App Router
+3. [UI-Capture-HTML-Shop](https://github.com/keploy/samples-typescript/tree/main/ui-capture-html-shop): plain HTML pages, no bundler
+
 ## Community Support ❤️
 
 ### 🤔 Questions?
