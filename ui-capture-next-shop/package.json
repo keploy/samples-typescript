@@ -16,7 +16,7 @@
     "test:serve": "next build && next start --hostname 127.0.0.1 --port 3001"
   },
   "dependencies": {
-    "@keploy/capture-sdk": "3.1.0-rc.2",
+    "@keploy/capture-sdk": "3.1.0",
     "next": "16.4.3",
     "react": "19.3.1",
     "react-dom": "19.3.1"
