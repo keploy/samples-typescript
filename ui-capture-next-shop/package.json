@@ -1,0 +1,31 @@
+{
+  "name": "ui-capture-next-shop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A small Next.js shop recorded with Keploy UI capture (@keploy/capture-sdk)",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "demo:visits": "node --env-file-if-exists=.env scripts/demo-visits.mjs",
+    "test": "playwright test",
+    "test:serve": "next build && next start --hostname 127.0.0.1 --port 3001"
+  },
+  "dependencies": {
+    "@keploy/capture-sdk": "3.1.0-rc.2",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "typescript": "5.9.3"
+  }
+}

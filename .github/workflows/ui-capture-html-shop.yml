@@ -1,0 +1,69 @@
+# ui-capture-html-shop sample CI: the Keploy UI capture sample shop with
+# plain HTML pages and no bundler is installed from its lockfile and
+# visited in Chromium by its Playwright smoke test (npm test). The SDK
+# posts to a local fake ingest (test/fake-ingest.mjs) that the test
+# starts, so no Keploy account or key is involved: nothing here needs a
+# secret.
+#
+# Runs only for changes under ui-capture-html-shop/ or to this file.
+name: ui-capture-html-shop sample
+
+on:
+  pull_request:
+    paths:
+      - 'ui-capture-html-shop/**'
+      - '.github/workflows/ui-capture-html-shop.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'ui-capture-html-shop/**'
+      - '.github/workflows/ui-capture-html-shop.yml'
+  workflow_dispatch: {}
+
+concurrency:
+  group: ui-capture-html-shop-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: build and smoke test against a fake ingest (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The lowest Node the sample's package.json allows, and the current LTS.
+        node: ['22.22', '24']
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: ui-capture-html-shop
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+          cache-dependency-path: ui-capture-html-shop/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Smoke test (npm test)
+        run: npm test
+
+      - name: Upload the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-capture-html-shop-playwright-report-node${{ matrix.node }}
+          path: |
+            ui-capture-html-shop/playwright-report
+            ui-capture-html-shop/test-results
+          if-no-files-found: ignore

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Products · Demo Shop</title>
+    <link rel="stylesheet" href="/app/style.css" />
+    <!-- The SDK imports rrweb by name; with no bundler, an import map says where it is. -->
+    <script type="importmap">
+      { "imports": { "rrweb": "/vendor/rrweb/rrweb.js" } }
+    </script>
+    <!-- Keploy UI capture, on its own and async, so the page's script never waits for it: see app/keploy.js. -->
+    <script type="module" async src="/app/keploy.js"></script>
+    <!-- Only for the scripted visits (npm run demo:visits, npm test). -->
+    <script type="module" async src="/app/scripted-visits.js"></script>
+    <script type="module" src="/app/products.js"></script>
+  </head>
+  <body>
+    <header class="top">
+      <a href="/" class="brand" data-testid="nav-home">Demo Shop</a>
+      <nav>
+        <a href="/products" data-testid="nav-products">Products</a>
+        <a href="/cart" data-testid="nav-cart">Cart</a>
+        <a href="/about" data-testid="nav-about">About</a>
+      </nav>
+    </header>
+    <main>
+      <h1>Products</h1>
+      <form role="search">
+        <input name="q" type="search" placeholder="Search the catalogue" data-testid="search-input" />
+        <button data-testid="search-button">Search</button>
+      </form>
+      <div id="products"></div>
+      <div id="cart-status"></div>
+    </main>
+  </body>
+</html>
