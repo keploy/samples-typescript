@@ -30,8 +30,11 @@ services:
       PARSE_MOUNT: "${PARSE_MOUNT_PATH:-/parse}"
       PARSE_SERVER_APPLICATION_ID: ${PARSE_APP_ID:-keploy-parse-app}
       PARSE_SERVER_MASTER_KEY: ${PARSE_MASTER_KEY:-keploy-parse-master}
-      # `::/0`, not `::0`: see masterKeyIps in index.js.
-      PARSE_SERVER_MASTER_KEY_IPS: ${PARSE_MASTER_KEY_IPS:-0.0.0.0/0,::/0}
+      # Loopback and this network's subnet, the address a client on the docker
+      # host arrives from through the published port: see masterKeyIps in
+      # index.js. Never `0.0.0.0/0` or `::/0`: the port is published on every
+      # host interface, so that would give the master key to the LAN.
+      PARSE_SERVER_MASTER_KEY_IPS: ${PARSE_MASTER_KEY_IPS:-127.0.0.1,::1,${PARSE_NETWORK_SUBNET:-172.30.0.0/24}}
       PARSE_SERVER_SERVER_URL: ${PARSE_SERVER_URL:-http://localhost:6100/parse}
       PARSE_SERVER_DATABASE_URI: ${PARSE_DATABASE_URI:-mongodb://172.30.0.10:27017/parse}
       PARSE_SERVER_ALLOW_CUSTOM_OBJECT_ID: "${PARSE_ALLOW_CUSTOM_OBJECT_ID:-1}"

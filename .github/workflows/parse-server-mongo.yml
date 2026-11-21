@@ -56,12 +56,14 @@ on:
       - 'parse-server-mongo/**'
       - '.github/workflows/parse-server-mongo.yml'
       - '.github/workflows/scripts/run-and-measure-parse-server.sh'
+      - '.github/workflows/scripts/check-parse-master-key-ips.sh'
   push:
     branches: [main]
     paths:
       - 'parse-server-mongo/**'
       - '.github/workflows/parse-server-mongo.yml'
       - '.github/workflows/scripts/run-and-measure-parse-server.sh'
+      - '.github/workflows/scripts/check-parse-master-key-ips.sh'
   workflow_dispatch: {}
 
 concurrency:
@@ -87,6 +89,13 @@ jobs:
           PARSE_FIRED_ROUTES_FILE: ${{ runner.temp }}/fired-routes-build.log
           PARSE_PHASE: ci-build
         run: ../.github/workflows/scripts/run-and-measure-parse-server.sh
+
+      # The master key works only from the addresses the default
+      # masterKeyIps lists, and a refused master-key call (REST or GraphQL)
+      # gets a 403 and leaves the app up.
+      - name: Master key refused outside its list, app stays up
+        working-directory: parse-server-mongo
+        run: ../.github/workflows/scripts/check-parse-master-key-ips.sh
 
       - name: Upload coverage report
         if: always()

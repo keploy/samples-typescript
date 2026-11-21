@@ -2,14 +2,14 @@
 
 Parse Server 8.2.3 (the `parse-server` npm package, pinned in `package.json`) backed by MongoDB 7. Packaged as a complete keploy compat-lane sample: subcommand-driven traffic, env-driven docker-compose so concurrent matrix cells share a daemon, a noise-filter template that masks the parse-server identifiers that change every run, and a JS line-coverage report for this repo's coverage gate.
 
-The lane consumer is **keploy/enterprise** — its `.ci/scripts/parse-server-linux.sh` clones this repo and orchestrates record / replay against `flow.sh`.
+Two keploy lanes consume it: **keploy/enterprise**'s `.ci/scripts/parse-server-linux.sh` and **keploy/integrations**' `.ci/scripts/parse-server-mongo/parse-server-mongo-linux.sh`. Each clones this repo and orchestrates record / replay against `flow.sh`.
 
 ## Layout
 
 | File | Role |
 |---|---|
 | `index.js` | Parse Server bootstrap, REST at `/parse` and GraphQL at `/parse/graphql`; reads config from env |
-| `package.json` | Pins `parse-server@8.2.3` and `express@4.21.2` |
+| `package.json` | Pins `parse-server@8.2.3` and `express@5.1.0`, parse-server's own express version: on express 4, a master-key GraphQL call from an address `masterKeyIps` does not list ends the app instead of getting a 403 |
 | `Dockerfile` | `node:20-bookworm-slim` + `npm install --omit=dev` (base; uninstrumented) |
 | `Dockerfile.coverage` | extends base, installs c8 + drops a graceful-shutdown shim so `NODE_V8_COVERAGE` flushes on `compose stop` |
 | `docker-compose.yml` | mongo:7 + this sample, env-driven (defaults preserve standalone `docker compose up`) |
@@ -47,7 +47,7 @@ flow.sh coverage              when run against the coverage overlay, render the
                               JS line coverage from V8 dumps under ./coverage and
                               emit `Covered N/M (XX.X%)`. When run against the
                               base compose (uninstrumented), prints an INFO
-                              message and exits 0 so enterprise lanes'
+                              message and exits 0 so the keploy lanes'
                               `flow.sh coverage || true` calls keep working.
 ```
 
@@ -89,12 +89,12 @@ All container names, network name, network subnet, IPs, host:container port and 
 | `PARSE_MONGO_CONTAINER` | `parse-server-mongo-mongo` | mongo container name |
 | `PARSE_APP_CONTAINER` | `parse-server-mongo-app` | parse-server container name |
 | `PARSE_IMAGE` | `parse-server-mongo:local` | built image tag |
-| `PARSE_HOST_PORT` | `6100` | host port published to localhost |
+| `PARSE_HOST_PORT` | `6100` | host port parse-server is published on, on every host interface |
 | `PARSE_CONTAINER_PORT` | `6100` | port parse-server listens on inside the container |
 | `PARSE_MOUNT_PATH` | `/parse` | parse-server mount path |
 | `PARSE_APP_ID` | `keploy-parse-app` | `X-Parse-Application-Id` |
 | `PARSE_MASTER_KEY` | `keploy-parse-master` | `X-Parse-Master-Key` |
-| `PARSE_MASTER_KEY_IPS` | `0.0.0.0/0,::/0` | master-key IP allowlist; the default lets any client that can reach the app use the master key (compose publishes its port on every host interface). Write "any IPv6" as `::/0`: parse-server 8.x reads `::0` as the single address `::`, and clients arrive as IPv6 (`::ffff:a.b.c.d`) |
+| `PARSE_MASTER_KEY_IPS` | `127.0.0.1,::1,${PARSE_NETWORK_SUBNET}` | master-key IP allowlist: loopback, and the compose network's subnet, which a client on the docker host arrives from through the published port. Any other host gets a 403 for a master-key call. Keep it that narrow: the master key is a published default and the port is published on every host interface, so `0.0.0.0/0` or `::/0` would give the master key to anyone who can reach the host. Clients arrive as IPv6 (`::ffff:a.b.c.d`); an IPv4 entry matches its IPv4-mapped address |
 | `PARSE_SERVER_URL` | `http://localhost:6100/parse` | public server URL |
 | `PARSE_DATABASE_URI` | `mongodb://172.30.0.10:27017/parse` | mongo URI |
 | `PARSE_ALLOW_CUSTOM_OBJECT_ID` | `1` | accept caller-supplied `objectId` |
@@ -116,6 +116,7 @@ All container names, network name, network subnet, IPs, host:container port and 
 | `PARSE_FIXED_ACHIEVEMENT_ID` | `keploy-achievement-id` | pinned `Achievement` `objectId` |
 | `PARSE_FIXED_ROLE_ID` | `keploy-role-id` | pinned `_Role` `objectId` |
 | `PARSE_TOKEN_FILE` | `/tmp/parse-token-${PARSE_PHASE}` | persisted session token slot |
+| `PARSE_CURL_MAX_TIME` | `60` | longest one call may take, in seconds; a call past it is listed as one that did not work (curl's `(28)`) |
 
 ## keploy.yml.template
 
@@ -146,7 +147,7 @@ bash flow.sh record-traffic
 docker compose down -v
 ```
 
-This is what the keploy/enterprise compat lane wraps in `keploy record` / `keploy test` — the base compose is uninstrumented and runs unchanged inside that lane.
+This is what the keploy/enterprise and keploy/integrations lanes wrap in `keploy record` / `keploy test` — the base compose is uninstrumented and runs unchanged inside them. flow.sh calls the app on `localhost`, from the docker host, so the master key works with the default `PARSE_MASTER_KEY_IPS`.
 
 ### Without keploy — measuring real JS line coverage
 
@@ -162,7 +163,7 @@ bash flow.sh coverage
 docker compose -f docker-compose.yml -f docker-compose.coverage.yml down -v
 ```
 
-The overlay (`Dockerfile.coverage` + `docker-compose.coverage.yml`) sets `NODE_V8_COVERAGE=/coverage` and replaces the entrypoint with a graceful-shutdown shim so V8 actually flushes coverage data on `compose stop`. `flow.sh coverage` runs the bundled `coverage-report.js` over the V8 dumps. The overlay is consumed ONLY by the standalone GH Actions workflow — keploy/enterprise's compat lane ignores it and runs the base compose, paying zero coverage cost.
+The overlay (`Dockerfile.coverage` + `docker-compose.coverage.yml`) sets `NODE_V8_COVERAGE=/coverage` and replaces the entrypoint with a graceful-shutdown shim so V8 actually flushes coverage data on `compose stop`. `flow.sh coverage` runs the bundled `coverage-report.js` over the V8 dumps. The overlay is consumed ONLY by the standalone GH Actions workflow — the keploy lanes ignore it and run the base compose, paying zero coverage cost.
 
 ### Concurrent matrix cell
 

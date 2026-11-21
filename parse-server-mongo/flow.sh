@@ -51,9 +51,14 @@ PARSE_FIXED_ROLE_ID="${PARSE_FIXED_ROLE_ID:-keploy-role-id}"
 
 PARSE_FIRED_ROUTES_FILE="${PARSE_FIRED_ROUTES_FILE:-}"
 PARSE_TOKEN_FILE="${PARSE_TOKEN_FILE:-/tmp/parse-token-${PARSE_PHASE}}"
+# The longest any one call may take, in seconds. A call whose answer never
+# comes fails with curl's (28) and is listed like any other call that did not
+# work, instead of hanging the flow.
+PARSE_CURL_MAX_TIME="${PARSE_CURL_MAX_TIME:-60}"
 
 base="http://localhost:${APP_PORT}${PARSE_MOUNT_PATH}"
 h_app=(-H "X-Parse-Application-Id: ${PARSE_APP_ID}")
+max_time=(--max-time "${PARSE_CURL_MAX_TIME}")
 h_master=(-H "X-Parse-Master-Key: ${PARSE_MASTER_KEY}")
 h_json=(-H "Content-Type: application/json")
 
@@ -127,7 +132,7 @@ fire() {
   local code why=""
   fire_files
   : > "${FIRE_BODY}"
-  code="$(curl -sS -o "${FIRE_BODY}" -w '%{http_code}' -X "${method}" "${url}" "$@" 2>"${FIRE_ERR}" || true)"
+  code="$(curl -sS "${max_time[@]}" -o "${FIRE_BODY}" -w '%{http_code}' -X "${method}" "${url}" "$@" 2>"${FIRE_ERR}" || true)"
   case "${want}:${code}" in
     2xx:2[0-9][0-9] | "${code}:${code}") ;;
     *) why="HTTP ${code:-none}, want ${want}" ;;
@@ -151,7 +156,7 @@ parse_wait_for_health() {
   local i
   echo "[flow] waiting up to ${timeout}s for parse-server /health..."
   for i in $(seq 1 "${timeout}"); do
-    if curl -fsS "${h_app[@]}" "${base}/health" >/dev/null 2>&1; then
+    if curl -fsS --max-time 5 "${h_app[@]}" "${base}/health" >/dev/null 2>&1; then
       echo "[flow] parse-server reachable after ${i}s"
       return 0
     fi
@@ -180,7 +185,7 @@ parse_bootstrap() {
 
   fire_files
   : > "${FIRE_BODY}"
-  signup_status="$(curl -sS -o "${FIRE_BODY}" -w '%{http_code}' \
+  signup_status="$(curl -sS "${max_time[@]}" -o "${FIRE_BODY}" -w '%{http_code}' \
     -X POST "${base}/users" \
     "${h_app[@]}" "${h_json[@]}" \
     --data "{\"objectId\":\"${PARSE_FIXED_USER_ID}\",\"username\":\"${PARSE_FIXED_USERNAME}\",\"password\":\"${PARSE_FIXED_PASSWORD}\",\"email\":\"${PARSE_FIXED_EMAIL}\"}" \
@@ -204,7 +209,7 @@ parse_bootstrap() {
       ;;
   esac
 
-  login_resp="$(curl -sS "${h_app[@]}" \
+  login_resp="$(curl -sS "${max_time[@]}" "${h_app[@]}" \
     "${base}/login?username=$(urlenc "${PARSE_FIXED_USERNAME}")&password=$(urlenc "${PARSE_FIXED_PASSWORD}")" \
     || true)"
   log_fired GET "${base}/login"
@@ -482,6 +487,7 @@ Environment:
   PARSE_FIXED_PASSWORD     fixed password (default KeployPass123!)
   PARSE_FIXED_USER_ID      pinned _User objectId for replay determinism
   PARSE_FIRED_ROUTES_FILE  if set, every fired curl appends "METHOD /path"
+  PARSE_CURL_MAX_TIME      longest one call may take, in seconds (default 60)
 EOF
 }
 

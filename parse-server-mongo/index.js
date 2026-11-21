@@ -3,6 +3,11 @@
 // own boot eager-index sweep is what the recording captures, and
 // flow.sh's POST /classes/GameScore is what mutates _SCHEMA mid-stream.
 const { ParseServer, ParseGraphQLServer } = require('parse-server');
+// express 5, parse-server 8.2.3's own. The GraphQL mount below runs
+// parse-server's async header middleware on this app, and that middleware
+// refuses a master key from an address masterKeyIps does not list by
+// rejecting. express 5 hands the rejection to parse-server's error handler, a
+// 403; express 4 drops it, and node exits on the unhandled rejection.
 const express = require('express');
 
 const app = express();
@@ -13,13 +18,14 @@ const parseServer = new ParseServer({
   databaseURI: process.env.PARSE_SERVER_DATABASE_URI || 'mongodb://mongo:27017/parse',
   appId: process.env.PARSE_SERVER_APPLICATION_ID || 'keploy-parse-app',
   masterKey: process.env.PARSE_SERVER_MASTER_KEY || 'keploy-parse-master',
-  // Any client may use the master key: flow.sh sends it on almost every call.
-  // `::/0`, not the `::0` parse-server's docs suggest: parse-server 8.x reads
-  // `::/0` and `::` as "any IPv6 address" but `::0` as the one address `::`.
-  // And every client is IPv6 here. app.listen() binds the dual-stack `::`, so
-  // an IPv4 client arrives as `::ffff:a.b.c.d`, which `0.0.0.0/0` does not
-  // cover; with `::0` all master-key calls were refused with a 403.
-  masterKeyIps: (process.env.PARSE_SERVER_MASTER_KEY_IPS || '0.0.0.0/0,::/0').split(','),
+  // Only loopback may use the master key by default, parse-server's own
+  // default: the master key is a published default here, and a client with it
+  // can read and change everything, hooks included. docker-compose.yml adds
+  // the compose network's subnet, the address a client on the docker host
+  // arrives from through the published port. Clients arrive as IPv6 here
+  // (app.listen() binds the dual-stack `::`, so an IPv4 client is
+  // `::ffff:a.b.c.d`), and an IPv4 entry matches its IPv4-mapped address.
+  masterKeyIps: (process.env.PARSE_SERVER_MASTER_KEY_IPS || '127.0.0.1,::1').split(','),
   serverURL: process.env.PARSE_SERVER_SERVER_URL || `http://localhost:${port}${mountPath}`,
   allowCustomObjectId: process.env.PARSE_SERVER_ALLOW_CUSTOM_OBJECT_ID === '1',
   // A file keeps the name it was uploaded as, instead of getting a random
