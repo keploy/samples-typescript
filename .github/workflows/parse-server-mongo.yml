@@ -93,9 +93,9 @@ jobs:
         run: ../.github/workflows/scripts/run-and-measure-parse-server.sh
 
       # Only the docker host gets the master key: the port is published on
-      # loopback only, so another host's call (IPv4 or IPv6) is refused or
-      # gets a 403, and a refused master-key call (REST or GraphQL) leaves
-      # the app up.
+      # 127.0.0.1 only, so a call at the addresses another host reaches this
+      # one at (IPv4 or IPv6) is refused, and a refused master-key call (REST
+      # or GraphQL) leaves the app up.
       - name: Master key for the docker host only, app stays up
         working-directory: parse-server-mongo
         run: ../.github/workflows/scripts/check-parse-master-key-ips.sh

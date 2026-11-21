@@ -89,13 +89,13 @@ All container names, network name, network subnet, IPs, host:container port and 
 | `PARSE_MONGO_CONTAINER` | `parse-server-mongo-mongo` | mongo container name |
 | `PARSE_APP_CONTAINER` | `parse-server-mongo-app` | parse-server container name |
 | `PARSE_IMAGE` | `parse-server-mongo:local` | built image tag |
-| `PARSE_HOST_PORT` | `6100` | host port parse-server is published on, on the host's loopback only (`127.0.0.1` and `[::1]`): no other host can reach it |
+| `PARSE_HOST_PORT` | `6100` | host port parse-server is published on, on the host's `127.0.0.1` only: no other host can reach it, and `docker compose up` works on a host with IPv6 off. Call the app at `127.0.0.1`, not `localhost`: nothing listens on `[::1]` |
 | `PARSE_CONTAINER_PORT` | `6100` | port parse-server listens on inside the container |
 | `PARSE_MOUNT_PATH` | `/parse` | parse-server mount path |
 | `PARSE_APP_ID` | `keploy-parse-app` | `X-Parse-Application-Id` |
 | `PARSE_MASTER_KEY` | `keploy-parse-master` | `X-Parse-Master-Key` |
-| `PARSE_MASTER_KEY_IPS` | `127.0.0.1,::1,${PARSE_NETWORK_SUBNET}` | master-key IP allowlist: loopback, and the compose network's subnet. Docker relays a client on the docker host from the network's gateway, an address in the subnet, so the subnet admits the host's own calls through the loopback-published port; the loopback publish is what keeps other hosts out, since docker relays their calls from the same gateway wherever it relays a published port, as it does for IPv6 on this IPv4-only network. Keep the list that narrow all the same: the master key is a published default, and `0.0.0.0/0` or `::/0` would give it to every host that can reach the port if it were ever published wider. Clients arrive as IPv6 (`::ffff:a.b.c.d`); an IPv4 entry matches its IPv4-mapped address |
-| `PARSE_SERVER_URL` | `http://localhost:6100/parse` | public server URL |
+| `PARSE_MASTER_KEY_IPS` | `127.0.0.1,::1,${PARSE_NETWORK_SUBNET}` | master-key IP allowlist: loopback, and the compose network's subnet. Docker relays a client on the docker host from the network's gateway, an address in the subnet, so the subnet admits the host's own calls through the `127.0.0.1`-published port; publishing on `127.0.0.1` only is what keeps other hosts out, since docker relays their calls from the same gateway wherever it relays a published port, as it does for IPv6 on this IPv4-only network. Keep the list that narrow all the same: the master key is a published default, and `0.0.0.0/0` or `::/0` would give it to every host that can reach the port if it were ever published wider. Clients arrive as IPv6 (`::ffff:a.b.c.d`); an IPv4 entry matches its IPv4-mapped address |
+| `PARSE_SERVER_URL` | `http://localhost:6100/parse` | parse-server's `serverURL`, read inside the app's container: `localhost` there is the container itself, not the host's published port |
 | `PARSE_DATABASE_URI` | `mongodb://172.30.0.10:27017/parse` | mongo URI |
 | `PARSE_ALLOW_CUSTOM_OBJECT_ID` | `1` | accept caller-supplied `objectId` |
 
@@ -147,7 +147,7 @@ bash flow.sh record-traffic
 docker compose down -v
 ```
 
-This is what the keploy/enterprise and keploy/integrations lanes wrap in `keploy record` / `keploy test` — the base compose is uninstrumented and runs unchanged inside them. flow.sh calls the app on `localhost`, from the docker host, so the master key works with the default `PARSE_MASTER_KEY_IPS`. The port is published on the host's loopback only, so call the app from the docker host itself; another host cannot reach it.
+This is what the keploy/enterprise and keploy/integrations lanes wrap in `keploy record` / `keploy test` — the base compose is uninstrumented and runs unchanged inside them. flow.sh calls the app on `127.0.0.1`, from the docker host, so the master key works with the default `PARSE_MASTER_KEY_IPS`. The port is published on the host's `127.0.0.1` only, so call the app from the docker host itself, at `127.0.0.1`; another host cannot reach it.
 
 ### Without keploy — measuring real JS line coverage
 

@@ -21,7 +21,7 @@ const parseServer = new ParseServer({
   // Only loopback may use the master key by default, parse-server's own
   // default: the master key is a published default here, and a client with it
   // can read and change everything, hooks included. docker-compose.yml
-  // publishes the port on the host's loopback only and adds the compose
+  // publishes the port on the host's 127.0.0.1 only and adds the compose
   // network's subnet: docker relays a client on the docker host from the
   // network's gateway, so the subnet admits only the host's own calls while
   // no other host can reach the port. Clients arrive as IPv6 here

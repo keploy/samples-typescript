@@ -56,7 +56,9 @@ PARSE_TOKEN_FILE="${PARSE_TOKEN_FILE:-/tmp/parse-token-${PARSE_PHASE}}"
 # work, instead of hanging the flow.
 PARSE_CURL_MAX_TIME="${PARSE_CURL_MAX_TIME:-60}"
 
-base="http://localhost:${APP_PORT}${PARSE_MOUNT_PATH}"
+# 127.0.0.1, not localhost: docker-compose.yml publishes the app on the host's
+# 127.0.0.1 only, and nothing listens on [::1].
+base="http://127.0.0.1:${APP_PORT}${PARSE_MOUNT_PATH}"
 h_app=(-H "X-Parse-Application-Id: ${PARSE_APP_ID}")
 max_time=(--max-time "${PARSE_CURL_MAX_TIME}")
 h_master=(-H "X-Parse-Master-Key: ${PARSE_MASTER_KEY}")

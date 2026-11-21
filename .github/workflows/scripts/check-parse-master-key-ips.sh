@@ -7,15 +7,17 @@
 #    unset, is loopback only: 127.0.0.1,::1.
 # The sample's base compose with its defaults (PARSE_MASTER_KEY_IPS unset):
 #   1. its master-key list is loopback and the compose network's subnet, and
-#      docker publishes the app's port on the host's loopback only;
-#   2. a master-key call through 127.0.0.1, and through [::1] when this host has
-#      it, gets 200: flow.sh and the keploy lanes call from there;
+#      docker publishes the app's port on the host's 127.0.0.1 only (not on
+#      [::1] either: that fails `docker compose up` on a host with IPv6 off);
+#   2. a master-key call through 127.0.0.1 gets 200: flow.sh and the keploy
+#      lanes call from there;
 #   3. each address another host reaches this host at, its IPv4 address and its
 #      IPv6 link-local and global addresses (those on the default route's
-#      interface), refuses the connection or answers 403 to master-key calls to
-#      /serverInfo, /graphql and /schemas. Each address is first shown to take
-#      connections from here, on a listener of this script's own, so a refusal
-#      is the app's port refusing, not a dead address;
+#      interface), refuses the connection to master-key calls to /serverInfo,
+#      /graphql and /schemas: the port is closed there, and even a 403 is a
+#      failure. Each address is first shown to take connections from here, on
+#      a listener of this script's own, so a refusal is the app's port being
+#      closed, not a dead address;
 #   4. the app exits 1 when its port is taken, instead of saying it listens.
 # Then the app again with PARSE_MASTER_KEY_IPS=127.0.0.1,::1: docker relays the
 # docker host's own calls from the compose network's gateway, so without the
@@ -59,7 +61,9 @@ export PARSE_DATABASE_URI="${PARSE_DATABASE_URI:-mongodb://${PARSE_MONGO_IP}:270
 export PARSE_HOST_PORT="${PARSE_HOST_PORT:-6101}"
 export PARSE_CONTAINER_PORT="${PARSE_CONTAINER_PORT:-${PARSE_HOST_PORT}}"
 export PARSE_MOUNT_PATH="${PARSE_MOUNT_PATH:-/parse}"
-export PARSE_SERVER_URL="${PARSE_SERVER_URL:-http://localhost:${PARSE_HOST_PORT}${PARSE_MOUNT_PATH}}"
+# parse-server's serverURL, read inside the app's container: localhost there is
+# the container itself. Every call this script makes goes to 127.0.0.1.
+export PARSE_SERVER_URL="${PARSE_SERVER_URL:-http://localhost:${PARSE_CONTAINER_PORT}${PARSE_MOUNT_PATH}}"
 export PARSE_APP_ID="${PARSE_APP_ID:-keploy-parse-app}"
 export PARSE_MASTER_KEY="${PARSE_MASTER_KEY:-keploy-parse-master}"
 export PARSE_IMAGE="${PARSE_IMAGE:-parse-server-mongo:local}"
@@ -142,19 +146,18 @@ expect() {
   fi
 }
 
-# kept_out NAME URL [curl args...]: the call must be refused at the connection
-# (curl exit 7) or answered 403.
-kept_out() {
+# closed NAME URL [curl args...]: the call must be refused at the connection
+# (curl exit 7): the port is closed there. An answer of any kind, a 403
+# included, means the app is published beyond 127.0.0.1.
+closed() {
   local name="$1" code rc
   shift
   code="$(call "$@")"
   rc="$(cat "${tmp}/rc")"
   if [ "${rc}" = 7 ]; then
     echo "ok   ${name}: connection refused"
-  elif [ "${code}" = 403 ]; then
-    echo "ok   ${name}: HTTP 403"
   else
-    fail "${name}: HTTP ${code} (curl exit ${rc}), want a refused connection or 403: $(why)"
+    fail "${name}: HTTP ${code} (curl exit ${rc}), want a refused connection: $(why)"
   fi
 }
 
@@ -245,26 +248,21 @@ wait_health || finish
 
 published="$(docker port "${PARSE_APP_CONTAINER}" 2>&1)"
 echo "published: $(tr '\n' ' ' <<<"${published}")"
-open="$(grep -v -E -e '-> (127\.0\.0\.1|\[::1\]):[0-9]+$' <<<"${published}")"
+open="$(grep -v -E -e "-> 127\.0\.0\.1:${PARSE_HOST_PORT}\$" <<<"${published}")"
 if [ -n "${published}" ] && [ -z "${open}" ]; then
-  echo "ok   the port is published on loopback only"
+  echo "ok   the port is published on 127.0.0.1 only"
 else
-  fail "the port is published beyond loopback: $(tr '\n' ' ' <<<"${open:-nothing published}")"
+  fail "the port is published beyond 127.0.0.1: $(tr '\n' ' ' <<<"${open:-nothing published}")"
 fi
 
 expect "master key through 127.0.0.1" 200 "$(call "$(url 127.0.0.1)/serverInfo" "${app[@]}" "${master[@]}")"
-if ip -6 -o addr show dev lo 2>/dev/null | grep -q ' ::1/128 '; then
-  expect "master key through [::1]" 200 "$(call "$(url ::1)/serverInfo" "${app[@]}" "${master[@]}")"
-else
-  echo "note this host has no ::1: the call through [::1] is not made"
-fi
 
 [ "${#host_ip6[@]}" -gt 0 ] || echo "note no IPv6 address on the default route's interface: the IPv6 calls of check 3 are not made"
 for h in "${host_ip}" "${host_ip6[@]}"; do
   reachable "${h}" || continue
-  kept_out "master key REST /serverInfo at ${h}" "$(url "${h}")/serverInfo" "${app[@]}" "${master[@]}"
-  kept_out "master key GraphQL at ${h}" "$(url "${h}")/graphql" "${app[@]}" "${master[@]}" "${gql[@]}"
-  kept_out "master key REST /schemas at ${h}" "$(url "${h}")/schemas" "${app[@]}" "${master[@]}"
+  closed "master key REST /serverInfo at ${h}" "$(url "${h}")/serverInfo" "${app[@]}" "${master[@]}"
+  closed "master key GraphQL at ${h}" "$(url "${h}")/graphql" "${app[@]}" "${master[@]}" "${gql[@]}"
+  closed "master key REST /schemas at ${h}" "$(url "${h}")/schemas" "${app[@]}" "${master[@]}"
 done
 
 # The app's image, the compose network and its mongo, with the port already

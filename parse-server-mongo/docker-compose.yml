@@ -23,21 +23,23 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
-    # Published on the host's loopback only, IPv4 and IPv6, never on another
-    # host interface: no other host can reach the app at all. An allowlist
-    # alone cannot keep them out: where docker relays a published port's
-    # connections, as it does for IPv6 on this IPv4-only network, they arrive
-    # from this network's gateway, an address in the subnet below.
+    # Published on the host's 127.0.0.1 only, never on another host interface:
+    # no other host can reach the app at all. An allowlist alone cannot keep
+    # them out: where docker relays a published port's connections, as it
+    # does for IPv6 on this IPv4-only network, they arrive from this network's
+    # gateway, an address in the subnet below. 127.0.0.1 alone, and not [::1]
+    # too: publishing on [::1] fails `docker compose up` on a host with IPv6
+    # off. So call the app at 127.0.0.1: nothing listens on [::1], where a
+    # client may try `localhost` first.
     ports:
       - "127.0.0.1:${PARSE_HOST_PORT:-6100}:${PARSE_CONTAINER_PORT:-6100}"
-      - "[::1]:${PARSE_HOST_PORT:-6100}:${PARSE_CONTAINER_PORT:-6100}"
     environment:
       PORT: "${PARSE_CONTAINER_PORT:-6100}"
       PARSE_MOUNT: "${PARSE_MOUNT_PATH:-/parse}"
       PARSE_SERVER_APPLICATION_ID: ${PARSE_APP_ID:-keploy-parse-app}
       PARSE_SERVER_MASTER_KEY: ${PARSE_MASTER_KEY:-keploy-parse-master}
       # Loopback and this network's subnet: a client on the docker host calls
-      # through the loopback-published port above and arrives from this
+      # through the 127.0.0.1-published port above and arrives from this
       # network's gateway. See masterKeyIps in index.js. Never `0.0.0.0/0` or
       # `::/0`: that admits every address, not only the ones the host's own
       # calls arrive from.
