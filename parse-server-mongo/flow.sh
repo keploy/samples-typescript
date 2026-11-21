@@ -151,13 +151,16 @@ urlenc() {
   jq -rn --arg v "$1" '$v|@uri'
 }
 
+# A wall-clock bound: each try waits at most 5 s and never past the deadline,
+# so a server that takes connections and never answers ends the wait on time.
+# A try with no time left never runs: curl's --max-time 0 waits forever.
 parse_wait_for_health() {
   local timeout="${1:-180}"
-  local i
+  local start="${SECONDS}" left
   echo "[flow] waiting up to ${timeout}s for parse-server /health..."
-  for i in $(seq 1 "${timeout}"); do
-    if curl -fsS --max-time 5 "${h_app[@]}" "${base}/health" >/dev/null 2>&1; then
-      echo "[flow] parse-server reachable after ${i}s"
+  while left=$((start + timeout - SECONDS)); [ "${left}" -gt 0 ]; do
+    if curl -fsS --max-time "$((left < 5 ? left : 5))" "${h_app[@]}" "${base}/health" >/dev/null 2>&1; then
+      echo "[flow] parse-server reachable after $((SECONDS - start))s"
       return 0
     fi
     sleep 1

@@ -57,6 +57,7 @@ on:
       - '.github/workflows/parse-server-mongo.yml'
       - '.github/workflows/scripts/run-and-measure-parse-server.sh'
       - '.github/workflows/scripts/check-parse-master-key-ips.sh'
+      - '.github/workflows/scripts/check-parse-flow-health-wait.sh'
   push:
     branches: [main]
     paths:
@@ -64,6 +65,7 @@ on:
       - '.github/workflows/parse-server-mongo.yml'
       - '.github/workflows/scripts/run-and-measure-parse-server.sh'
       - '.github/workflows/scripts/check-parse-master-key-ips.sh'
+      - '.github/workflows/scripts/check-parse-flow-health-wait.sh'
   workflow_dispatch: {}
 
 concurrency:
@@ -90,12 +92,17 @@ jobs:
           PARSE_PHASE: ci-build
         run: ../.github/workflows/scripts/run-and-measure-parse-server.sh
 
-      # The master key works only from the addresses the default
-      # masterKeyIps lists, and a refused master-key call (REST or GraphQL)
-      # gets a 403 and leaves the app up.
-      - name: Master key refused outside its list, app stays up
+      # Only the docker host gets the master key: the port is published on
+      # loopback only, so another host's call (IPv4 or IPv6) is refused or
+      # gets a 403, and a refused master-key call (REST or GraphQL) leaves
+      # the app up.
+      - name: Master key for the docker host only, app stays up
         working-directory: parse-server-mongo
         run: ../.github/workflows/scripts/check-parse-master-key-ips.sh
+
+      - name: flow.sh's health wait ends on its deadline
+        working-directory: parse-server-mongo
+        run: ../.github/workflows/scripts/check-parse-flow-health-wait.sh
 
       - name: Upload coverage report
         if: always()

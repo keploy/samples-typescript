@@ -20,9 +20,11 @@ const parseServer = new ParseServer({
   masterKey: process.env.PARSE_SERVER_MASTER_KEY || 'keploy-parse-master',
   // Only loopback may use the master key by default, parse-server's own
   // default: the master key is a published default here, and a client with it
-  // can read and change everything, hooks included. docker-compose.yml adds
-  // the compose network's subnet, the address a client on the docker host
-  // arrives from through the published port. Clients arrive as IPv6 here
+  // can read and change everything, hooks included. docker-compose.yml
+  // publishes the port on the host's loopback only and adds the compose
+  // network's subnet: docker relays a client on the docker host from the
+  // network's gateway, so the subnet admits only the host's own calls while
+  // no other host can reach the port. Clients arrive as IPv6 here
   // (app.listen() binds the dual-stack `::`, so an IPv4 client is
   // `::ffff:a.b.c.d`), and an IPv4 entry matches its IPv4-mapped address.
   masterKeyIps: (process.env.PARSE_SERVER_MASTER_KEY_IPS || '127.0.0.1,::1').split(','),
@@ -44,7 +46,14 @@ const parseServer = new ParseServer({
   // CORS preflight answer) never comes first.
   new ParseGraphQLServer(parseServer, { graphQLPath: `${mountPath}/graphql` }).applyGraphQL(app);
   app.use(mountPath, parseServer.app);
-  app.listen(port, () => {
+  // express 5 hands a listen error (EADDRINUSE, EACCES) to this callback
+  // instead of throwing it: exit on it, or the app would say it listens and
+  // stay up serving nothing.
+  app.listen(port, (err) => {
+    if (err) {
+      console.error(`parse-server-mongo cannot listen on :${port}:`, err);
+      process.exit(1);
+    }
     console.log(`parse-server-mongo listening on :${port}${mountPath}`);
   });
 })();
