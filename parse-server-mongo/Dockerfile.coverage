@@ -17,18 +17,24 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates curl dumb-init && \
     rm -rf /var/lib/apt/lists/*
 
+# The same npm upgrade and locked install as the base Dockerfile, line for
+# line, so this image's node_modules are the base image's. The reasons are
+# written there.
+RUN npm install -g npm@11.21.0 && rm -rf /root/.npm
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-RUN npm install --omit=dev
+RUN npm ci --omit=dev && rm -rf /root/.npm
 
 COPY index.js ./
 
 # c8 is the report generator (we use NODE_V8_COVERAGE for raw data
 # collection at runtime, then `c8 report` post-hoc to produce
 # json-summary / lcov). Installing globally keeps the app's own
-# node_modules byte-identical to the base image.
-RUN npm install -g c8@10.1.2
+# node_modules byte-identical to the base image. Its download cache goes in
+# the same layer, as in the two installs above.
+RUN npm install -g c8@10.1.2 && rm -rf /root/.npm
 
 # Graceful-shutdown shim: parse-server's app.listen() pins the
 # event loop, so a `compose stop` (SIGTERM) would kill node by

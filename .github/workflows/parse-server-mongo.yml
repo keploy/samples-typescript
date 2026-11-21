@@ -18,6 +18,13 @@
 #     `release`. Default threshold is 1.0pp; override via repo
 #     variable `PARSE_COVERAGE_THRESHOLD` for a tighter or
 #     looser bar.
+#   * `locked-install` — builds the base image and the coverage
+#     image and checks how both install their dependencies: from
+#     package-lock.json through `npm ci`, run by an npm that has the
+#     fix for npm/cli#7308, and with no npm cache left in any layer.
+#     The base image is what keploy/enterprise's lane and anyone
+#     running `docker compose up` build; the coverage jobs above
+#     only build the overlay.
 #
 # On push to main, only `build-coverage` runs (no baseline to
 # compare against — main IS the baseline).
@@ -56,12 +63,14 @@ on:
       - 'parse-server-mongo/**'
       - '.github/workflows/parse-server-mongo.yml'
       - '.github/workflows/scripts/run-and-measure-parse-server.sh'
+      - '.github/workflows/scripts/check-parse-server-install.sh'
   push:
     branches: [main]
     paths:
       - 'parse-server-mongo/**'
       - '.github/workflows/parse-server-mongo.yml'
       - '.github/workflows/scripts/run-and-measure-parse-server.sh'
+      - '.github/workflows/scripts/check-parse-server-install.sh'
   workflow_dispatch: {}
 
 concurrency:
@@ -72,6 +81,16 @@ env:
   COVERAGE_THRESHOLD: ${{ vars.PARSE_COVERAGE_THRESHOLD || '1.0' }}
 
 jobs:
+  locked-install:
+    name: image install is locked
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build both images and check how they install
+        working-directory: parse-server-mongo
+        run: ../.github/workflows/scripts/check-parse-server-install.sh
+
   build-coverage:
     name: build (current ref) coverage
     runs-on: ubuntu-latest

@@ -10,7 +10,8 @@ The lane consumer is **keploy/enterprise** — its `.ci/scripts/parse-server-lin
 |---|---|
 | `index.js` | 25-line Parse Server bootstrap; reads config from env |
 | `package.json` | Pins `parse-server@8.2.3` and `express@4.21.2` |
-| `Dockerfile` | `node:20-bookworm-slim` + `npm install --omit=dev` (base; uninstrumented) |
+| `package-lock.json` | Every version in the tree, with its checksum. The image is built from it; write it again after a change to `package.json` (`npx npm@11.21.0 install --package-lock-only`) |
+| `Dockerfile` | `node:20-bookworm-slim` + npm 11.21.0 + `npm ci --omit=dev` (base; uninstrumented) |
 | `Dockerfile.coverage` | extends base, installs c8 + drops a graceful-shutdown shim so `NODE_V8_COVERAGE` flushes on `compose stop` |
 | `docker-compose.yml` | mongo:7 + this sample, env-driven (defaults preserve standalone `docker compose up`) |
 | `docker-compose.coverage.yml` | overlay; arms `NODE_V8_COVERAGE=/coverage` and bind-mounts the dump dir |
