@@ -14,7 +14,6 @@ RUN npm install
 COPY . .
 
 RUN npm run generate
-RUN npm run migrate init
 
 RUN npm run clean-build
 
@@ -22,4 +21,4 @@ RUN npm run clean-build
 EXPOSE 3000
 
 # Command to start the app
-CMD ["npm", "run", "start"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run start"]
