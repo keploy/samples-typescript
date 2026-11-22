@@ -112,7 +112,15 @@ services:
       - redpanda.auto_create_topics_enabled=true
 
   localstack:
-    image: localstack/localstack:3.3
+    # 4.14.0, not 3.3: 3.3 is Debian 12 (glibc 2.36), whose setenv frees the
+    # environ array it outgrows while another thread's getenv may still read
+    # it. 3.3 sets AWS credentials in its environment around each init hook
+    # (the ready hook below) while its other threads run, so a start can die
+    # of SIGSEGV (exit 245), as 3.0 does in Keploy's CI. 4.14.0 is Debian 13
+    # (glibc 2.41, which keeps the old array) and starts without an auth
+    # token. k8s/deploy-kind.sh and k8s/manifests/00-localstack.yaml use the
+    # same tag.
+    image: localstack/localstack:4.14.0
     environment:
       SERVICES: sqs
       AWS_DEFAULT_REGION: us-east-1

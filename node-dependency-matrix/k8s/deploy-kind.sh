@@ -22,7 +22,7 @@ DEPENDENCY_IMAGES=(
   "mongo:7"
   "redis:7-alpine"
   "docker.redpanda.com/redpandadata/redpanda:v25.1.2"
-  "localstack/localstack:3.3"
+  "localstack/localstack:4.14.0"
 )
 
 if ! kind get clusters | grep -qx "${CLUSTER_NAME}"; then
