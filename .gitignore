@@ -102,3 +102,26 @@ dist
 # TernJS port file
 .tern-port
 bun-prisma/
+
+# Keploy
+.keploy/
+keploy-logs.txt
+
+# Docker
+docker-compose.override.yml
+
+# Editor settings
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Frontend
+frontend/.next/
+frontend/out/
+frontend/node_modules/
+
+# Backend
+backend/node_modules/
+backend/dist/
+backend/keploy-logs.txt

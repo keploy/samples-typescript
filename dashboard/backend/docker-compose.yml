@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  backend:
+    container_name: keploy-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ../.keploy:/app/.keploy
+    working_dir: /app
+    environment:
+      - KEPLOY_TESTS_PATH=.keploy/tests
+    command: node index.js
+
+  keploy:
+    image: ghcr.io/keploy/keploy:latest
+    container_name: keploy
+    depends_on:
+      - backend
+    command: record -c "node index.js" --cmd-type docker
+    volumes:
+      - .:/app
+      - ../.keploy:/app/.keploy
+    working_dir: /app
+    ports:
+      - "16789:16789"
+      - "26789:26789"
