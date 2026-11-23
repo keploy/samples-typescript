@@ -101,4 +101,4 @@ dist
 
 # TernJS port file
 .tern-port
-bun-prisma/
+.env
