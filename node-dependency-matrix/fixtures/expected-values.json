@@ -125,7 +125,7 @@
     },
     "httpTrafficScript": {
       "path": "scripts/record_traffic.sh",
-      "expectedTestcasesExact": 19,
+      "expectedTestcasesExact": 21,
       "requests": [
         {
           "method": "GET",
@@ -402,14 +402,50 @@
         {
           "method": "GET",
           "path": "/dedup/catalog",
-          "duplicateCount": 4
+          "duplicateCount": 3
         },
         {
           "method": "POST",
           "path": "/dedup/order",
-          "duplicateCount": 3
+          "duplicateCount": 2
         }
       ]
+    },
+    "byDedupKeep": {
+      "1": {
+        "expectedTestcasesExact": 19,
+        "dedup": {
+          "expectedEntries": [
+            {
+              "method": "GET",
+              "path": "/dedup/catalog",
+              "duplicateCount": 4
+            },
+            {
+              "method": "POST",
+              "path": "/dedup/order",
+              "duplicateCount": 3
+            }
+          ]
+        }
+      },
+      "3": {
+        "expectedTestcasesExact": 21,
+        "dedup": {
+          "expectedEntries": [
+            {
+              "method": "GET",
+              "path": "/dedup/catalog",
+              "duplicateCount": 3
+            },
+            {
+              "method": "POST",
+              "path": "/dedup/order",
+              "duplicateCount": 2
+            }
+          ]
+        }
+      }
     }
   },
   "replay": {
