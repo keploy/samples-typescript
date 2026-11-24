@@ -125,7 +125,7 @@
     },
     "httpTrafficScript": {
       "path": "scripts/record_traffic.sh",
-      "expectedTestcasesExact": 19,
+      "expectedTestcasesExact": 21,
       "requests": [
         {
           "method": "GET",
@@ -402,12 +402,12 @@
         {
           "method": "GET",
           "path": "/dedup/catalog",
-          "duplicateCount": 4
+          "duplicateCount": 3
         },
         {
           "method": "POST",
           "path": "/dedup/order",
-          "duplicateCount": 3
+          "duplicateCount": 2
         }
       ]
     }
