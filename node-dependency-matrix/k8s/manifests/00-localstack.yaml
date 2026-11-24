@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: localstack-init-scripts
+data:
+  01-create-queue.sh: |
+    #!/bin/sh
+    set -eu
+    awslocal sqs create-queue --queue-name dependency-matrix >/dev/null 2>&1 || true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: localstack
+spec:
+  selector:
+    app: localstack
+  ports:
+    - name: edge
+      port: 4566
+      targetPort: 4566
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: localstack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: localstack
+  template:
+    metadata:
+      labels:
+        app: localstack
+    spec:
+      containers:
+        - name: localstack
+          # compose.yaml's LocalStack (see the reason there).
+          image: localstack/localstack:4.14.0
+          env:
+            - name: SERVICES
+              value: sqs
+            - name: AWS_DEFAULT_REGION
+              value: us-east-1
+          ports:
+            - containerPort: 4566
+          volumeMounts:
+            # The hook alone (subPath), not the whole ConfigMap volume:
+            # LocalStack 4.x runs every script under ready.d, its
+            # subdirectories too, so it would also run the copy in the
+            # volume's hidden timestamped directory, and run the hook twice.
+            - name: init-scripts
+              mountPath: /etc/localstack/init/ready.d/01-create-queue.sh
+              subPath: 01-create-queue.sh
+      volumes:
+        - name: init-scripts
+          configMap:
+            name: localstack-init-scripts
+            defaultMode: 0755

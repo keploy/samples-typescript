@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fixture-service
+spec:
+  selector:
+    app: fixture-service
+  ports:
+    - name: https
+      port: 8443
+      targetPort: 8443
+    - name: http2
+      port: 9443
+      targetPort: 9443
+    - name: grpc
+      port: 50051
+      targetPort: 50051
+    - name: generic
+      port: 9445
+      targetPort: 9445
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fixture-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fixture-service
+  template:
+    metadata:
+      labels:
+        app: fixture-service
+    spec:
+      containers:
+        - name: fixture-service
+          image: node-dependency-matrix:latest
+          imagePullPolicy: IfNotPresent
+          command: ["node", "dist/bin/dependencyFixture.js"]
+          env:
+            - name: TLS_CERT_PATH
+              value: /etc/sample-certs/proxy.crt
+            - name: TLS_KEY_PATH
+              value: /etc/sample-certs/proxy.key
+          ports:
+            - containerPort: 8443
+            - containerPort: 9443
+            - containerPort: 50051
+            - containerPort: 9445
+          volumeMounts:
+            - name: sample-tls
+              mountPath: /etc/sample-certs
+              readOnly: true
+      volumes:
+        - name: sample-tls
+          secret:
+            secretName: node-dependency-matrix-tls
